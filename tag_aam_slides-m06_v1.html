@@ -208,6 +208,8 @@
   /* ===== chờ Vincent ===== */
   .todo-box{background:#FFFBEB;border:3px dashed #F59E0B;border-radius:18px;padding:22px 28px;font-size:24px;line-height:1.45;color:#92400E;font-weight:600;}
   .todo-box b{color:#92400E;}
+  .todo-box.nhap{color:#3B2A06;font-weight:500;}
+  .todo-box .nl{display:block;font-size:17px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#B45309;margin-bottom:6px;}
 
   /* ===== hiệu ứng vào slide ===== */
   section[data-deck-active] .rise{animation:rise .55s cubic-bezier(.2,0,0,1) both;}
@@ -420,18 +422,33 @@
 </section>
 <section data-foot="AI Agents Mastery · Module 06" data-label="Hộp tạo Project">
   <div class="slide">
-    <div class="eyebrow">Hộp tạo Project · ảnh chụp thật (bản tiếng Anh)</div>
-    <h2 class="stitle">Ba ô cần điền: <span class="grad">tên, hướng dẫn, tài liệu</span></h2>
+    <div class="eyebrow">Hộp tạo Project · ảnh chụp thật</div>
+    <h2 class="stitle">Ba ô cần điền: <span class="grad">tên, mục tiêu, ngữ cảnh</span></h2>
     <div class="annlay">
-      <div class="annimg"><img class="shot" style="height:660px;max-height:660px" src="media/m06/M06-B1-S03.jpg" alt="Hộp Start a new project: Name, Instructions, Add files, Choose location"></div>
+      <div class="annimg"><img class="shot" style="max-height:640px" src="media/m06/M06-B1-C03_bai.jpg" alt="Hộp Tạo dự án: Bạn đang làm việc gì, Bạn đang muốn đạt được điều gì, Ngữ cảnh có 3 tệp"><p class="cap">Ảnh chụp app Claude Desktop ngày 21/11/2026: Dự án → Tạo dự án.</p></div>
       <div>
         <ol class="anote">
-          <li><b>Name:</b> đặt theo vai trò, ví dụ "Spa · Trả lời đánh giá".</li>
-          <li><b>Instructions:</b> dán hướng dẫn 5 phần.</li>
-          <li><b>Choose location:</b> chỗ lưu Project trên máy (app Desktop).</li>
+          <li><b>Bạn đang làm việc gì?</b> Tên Project, đặt theo vai trò, ví dụ "demo-Spa · Trả lời đánh giá".</li>
+          <li><b>Bạn đang muốn đạt được điều gì?</b> Một câu mục tiêu. Câu này hiện dưới tên Project.</li>
+          <li><b>Ngữ cảnh:</b> thêm tài liệu dùng lại vào kho. Ô này không bắt buộc.</li>
         </ol>
-        <div class="act">Vùng <b>Add files</b> giữa ô 2 và ô 3: kéo tài liệu dùng lại vào kho. Ảnh chụp app Claude Desktop bản tiếng Anh, app tiếng Việt gọi là Dự án.</div>
+        <div class="act">Hướng dẫn 5 phần dán ở trang Project, sau khi tạo (slide tiếp theo).</div>
       </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Trang Project">
+  <div class="slide">
+    <div class="eyebrow">Trang Project · ảnh chụp thật</div>
+    <h2 class="stitle">Dán hướng dẫn ở <span class="grad">Hướng dẫn → Chỉnh sửa</span></h2>
+    <div class="shotwide">
+      <img class="shot" src="media/m06/M06-B1-C04_bai.jpg" alt="Trang Project demo-Spa · Trả lời đánh giá: ô chat bên trái, cột phải có Hướng dẫn, Ngữ cảnh 3 tệp, Bộ nhớ">
+      <ol class="anote row" style="--k:2">
+        <li><b>Hướng dẫn:</b> bấm Chỉnh sửa, dán hướng dẫn 5 phần.</li>
+        <li><b>Ngữ cảnh:</b> kho tài liệu của Project. Bấm Thêm để thêm file.</li>
+      </ol>
+      <p class="cap">Ảnh chụp app Claude Desktop ngày 21/11/2026, Project demo của khoá học.</p>
     </div>
   </div>
   
@@ -522,23 +539,26 @@ Sau đó liệt kê các tài liệu nên đưa vào kho kiến thức, mỗi t�
       <svg class="ann-svg" viewBox="0 0 818 124" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m06/pad/skills.png" x="0" y="0" width="818" height="124"/><path d="M0,0h818v124h-818zM18,7h784v108h-784z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="18" y="7" width="784" height="108" rx="4" fill="none" stroke="#EF004B" stroke-width="2.8"/><circle cx="18" cy="15" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="18" y="21" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text></svg>
       <div class="below">
         <ol class="anote red row" style="--k:1"><li><b>Mọi gói,</b> từ Free tới Enterprise. Tính năng này cần bật chạy mã.</li></ol>
-        <div class="act" style="margin-top:0">Free, Pro, Max, Ultra: bật Skill mẫu và tải Skill của bạn ở Customize → Skills (app tiếng Việt: Tùy chỉnh → Skills).</div>
+        <div class="act" style="margin-top:0">Free, Pro, Max, Ultra: bật Skill mẫu và tải Skill của bạn ở Customize → Skills (app tiếng Việt 21/11/2026: thanh bên Plugin → tab Skills).</div>
       </div>
       <p class="cap">Ảnh chụp trang trợ giúp Anthropic "Use skills in Claude", ngày 20/11/2026. Khung số do The AI Growth vẽ thêm.</p>
     </div>
   </div>
   
 </section>
-<section data-foot="AI Agents Mastery · Module 06" data-label="Bật Chạy mã trên đám mây">
+<section data-foot="AI Agents Mastery · Module 06" data-label="Bật Tạo và chỉnh sửa tệp">
   <div class="slide">
     <div class="eyebrow">Ảnh chụp thật · Cài đặt → Khả năng</div>
-    <h2 class="stitle">Bật <span class="grad">"Chạy mã trên đám mây"</span> để dùng Skill</h2>
-    <div class="shotwide">
-      <img class="shot" src="media/m06/M06-B2-S01_kha-nang.jpg" alt="Cài đặt, tab Khả năng, công tắc Chạy mã trên đám mây đang bật">
-      <ol class="anote row" style="--k:2">
-        <li><b>Khả năng:</b> tab trong Cài đặt, nhóm Tùy chọn.</li>
-        <li><b>Chạy mã trên đám mây:</b> dòng mô tả ghi "Bắt buộc để dùng Skills".</li>
-      </ol>
+    <h2 class="stitle">Bật <span class="grad">"Tạo và chỉnh sửa tệp"</span> để dùng Skill</h2>
+    <div class="annlay">
+      <div class="annimg"><img class="shot" style="max-height:640px" src="media/m06/M06-B2-C01_bai.jpg" alt="Cài đặt, tab Khả năng, công tắc Tạo và chỉnh sửa tệp đang bật"><p class="cap">Ảnh chụp app Claude Desktop ngày 21/11/2026.</p></div>
+      <div>
+        <ol class="anote">
+          <li><b>Khả năng:</b> tab trong Cài đặt.</li>
+          <li><b>Tạo và chỉnh sửa tệp:</b> dòng mô tả ghi "Cần bật cài đặt này để dùng Skills".</li>
+        </ol>
+        <div class="act">Bản app cũ gọi công tắc này là "Chạy mã trên đám mây". Trang hãng gọi chung là bật chạy mã.</div>
+      </div>
     </div>
   </div>
   
@@ -631,16 +651,16 @@ Sau đó liệt kê các tài liệu nên đưa vào kho kiến thức, mỗi t�
 <section data-foot="AI Agents Mastery · Module 06" data-label="Chỗ cài Skill và plugin">
   <div class="slide">
     <div class="eyebrow">Chỗ cài · ảnh chụp thật</div>
-    <h2 class="stitle">Trong chat: <span class="grad">nút dấu cộng</span></h2>
-    <div class="annlay narrow">
-      <div class="annimg"><img class="shot" style="max-height:660px" src="media/m06/M06-B3-S05.jpg" alt="Menu dấu cộng có Ghi lại Skill, Skills, Trình kết nối, Thêm plugin"><p class="cap">Ảnh chụp app Claude Desktop ngày 11/11/2026: menu dấu cộng.</p></div>
-      <div>
-        <ol class="anote">
-          <li><b>Ghi lại Skill:</b> cách dựng Skill bằng cách ghi màn hình (bài 6.3).</li>
-          <li><b>Skills:</b> bật, tắt Skill cho chat này.</li>
-        </ol>
-        <div class="act">Cùng menu có <b>Thêm plugin</b>. Trong Cài đặt, mục "Tùy chỉnh" (tiếng Anh: Customize, đang đổi thành Plugins).</div>
-      </div>
+    <h2 class="stitle">Thanh bên → <span class="grad">Plugin</span></h2>
+    <div class="shotwide">
+      <img class="shot" style="max-height:450px" src="media/m06/M06-B2-C02_bai.jpg" alt="Trang Plugin, tab Skills, ô tìm kiếm gõ demo ra Skill Demo tra loi danh gia spa, do bạn tạo">
+      <ol class="anote row" style="--k:3">
+        <li><b>Skills:</b> tab chứa Skill bạn tạo và Skill đã cài.</li>
+        <li><b>Do bạn tạo:</b> nhãn của Skill bạn tự dựng.</li>
+        <li><b>Thêm:</b> tải lên plugin, thêm trình kết nối tùy chỉnh.</li>
+      </ol>
+      <div class="act">Trong chat: dấu cộng → <b>Plugin</b> để bật, tắt từng plugin cho chat này (bài 6.4).</div>
+      <p class="cap">Ảnh chụp app Claude Desktop ngày 21/11/2026. Bản app trước gọi mục này là Tùy chỉnh (Customize).</p>
     </div>
   </div>
   
@@ -742,9 +762,25 @@ Với mỗi bước, ghi: tên Skill gợi ý (chữ thường, gạch ngang) ·
         <li class="rise" style="font-size:30px"><span class="d">1</span>Điền phiếu mô tả cách làm, dán 2–3 kết quả đã duyệt. Che thông tin riêng trước.</li>
         <li class="rise" style="font-size:30px"><span class="d">2</span>Mở chat mới, nhờ Claude dựng Skill từ phiếu. Trả lời các câu Claude hỏi lại.</li>
         <li class="rise" style="font-size:30px"><span class="d">3</span>Đọc SKILL.md trước khi lưu.</li>
-        <li class="rise" style="font-size:30px"><span class="d">4</span>Lưu Skill, kiểm ở Tùy chỉnh → Skills rằng Skill đã bật.</li>
+        <li class="rise" style="font-size:30px"><span class="d">4</span>Bấm Lưu trên thẻ Lưu plugin. Kiểm ở Plugin → Skills rằng Skill đã thêm.</li>
         <li class="rise" style="font-size:30px"><span class="d">5</span>Mở chat mới, giao việc bằng lời bình thường trên 3 dữ liệu thật. So với bản đã duyệt. Ghi số phút.</li>
       </ul>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Bước 2 Claude hỏi lại">
+  <div class="slide">
+    <div class="eyebrow">Bước 2 · ảnh chụp thật</div>
+    <h2 class="stitle">Claude <span class="grad">hỏi lại</span> trước khi viết</h2>
+    <div class="shotwide">
+      <img class="shot" src="media/m06/M06-B3-C00_bai.jpg" alt="Claude hỏi 4 câu còn thiếu trong phiếu, câu 1 trên 4 có 2 đáp án gợi ý và ô câu trả lời khác">
+      <ol class="anote row" style="--k:3">
+        <li><b>1 trên 4:</b> Claude hỏi từng câu, tối đa số câu bạn cho.</li>
+        <li><b>Đáp án gợi ý:</b> bấm chọn nếu đúng ý.</li>
+        <li><b>Câu trả lời khác:</b> tự gõ khi không đáp án nào khớp.</li>
+      </ol>
+      <p class="cap">Ảnh chụp app Claude Desktop ngày 21/11/2026, chat dựng Skill demo cho spa.</p>
     </div>
   </div>
   
@@ -759,24 +795,59 @@ Với mỗi bước, ghi: tên Skill gợi ý (chữ thường, gạch ngang) ·
         <div class="card stop rise"><div class="n">2</div><h3>Có mục "Không được làm"</h3><p>Điều cấm của việc này.</p></div>
         <div class="card stop rise"><div class="n">3</div><h3>Bước gửi ra ngoài dừng ở bản nháp</h3><p>Người duyệt rồi mới gửi, đăng.</p></div>
       </div>
-      <div class="band light">Claude viết SKILL.md ở khung bên cạnh chat. <b>Bạn đọc mô tả trước khi lưu.</b></div>
+      <div class="band light">Claude đưa Skill vào thẻ <b>Lưu plugin</b> trong chat. <b>Bạn mở "Nội dung", đọc rồi mới bấm Lưu.</b></div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Thẻ Lưu plugin">
+  <div class="slide">
+    <div class="eyebrow">Bước 3 · ảnh chụp thật</div>
+    <h2 class="stitle">Đọc ở thẻ <span class="grad">Lưu plugin</span>, rồi mới bấm Lưu</h2>
+    <div class="annlay">
+      <div class="annimg"><img class="shot" style="max-height:640px" src="media/m06/M06-B3-C01_bai.jpg" alt="Thẻ Lưu plugin: tên demo-tra-loi-danh-gia-spa, mô tả, mục Nội dung đang mở, nút Bỏ qua và Lưu"><p class="cap">Ảnh chụp app Claude Desktop ngày 21/11/2026.</p></div>
+      <div>
+        <ol class="anote">
+          <li><b>Nội dung:</b> mở để đọc SKILL.md ngay trong chat.</li>
+          <li><b>Xem nguồn:</b> xem bản chữ gốc của file.</li>
+          <li><b>Lưu:</b> bấm sau khi đủ 3 thứ ở slide trước.</li>
+        </ol>
+        <div class="act">Dòng đầu thẻ là tên Skill. Dòng dưới là mô tả: Claude đọc dòng này để biết khi nào dùng.</div>
+      </div>
     </div>
   </div>
   
 </section>
 <section data-foot="AI Agents Mastery · Module 06" data-label="Bước 4 kiểm Skill đã bật">
   <div class="slide">
-    <div class="eyebrow">Bước 4 · ảnh chụp trang hãng</div>
+    <div class="eyebrow">Bước 4 · ảnh chụp thật</div>
     <h2 class="stitle">Skill đã lưu thì <span class="grad">phải đang bật</span></h2>
     <div class="shotwide">
-      <svg class="ann-svg" viewBox="0 0 850 312" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m06/pad/skills2.png" x="0" y="0" width="850" height="312"/><path d="M0,0h850v312h-850zM36,11h804v30h-804zM23,198h817v48h-817zM23,255h577v54h-577z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="36" y="11" width="804" height="30" rx="4" fill="none" stroke="#EF004B" stroke-width="3.0"/><rect x="23" y="198" width="817" height="48" rx="4" fill="none" stroke="#EF004B" stroke-width="3.0"/><rect x="23" y="255" width="577" height="54" rx="4" fill="none" stroke="#EF004B" stroke-width="3.0"/><circle cx="19" cy="26" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.2"/><text x="19" y="32" text-anchor="middle" font-size="17" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text><circle cx="23" cy="198" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.2"/><text x="23" y="204" text-anchor="middle" font-size="17" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">2</text><circle cx="23" cy="255" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.2"/><text x="23" y="261" text-anchor="middle" font-size="17" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">3</text></svg>
-      <div class="below">
-        <ol class="anote red row" style="--k:3"><li><b>Free, Pro, Max, Ultra:</b> tải Skill của bạn ở Customize → Skills.</li>
-          <li><b>Cài đặt → Khả năng:</b> bật chạy mã (bản mới ghi "Create and edit files").</li>
-          <li><b>Customize → Skills:</b> bật tắt từng Skill. App tiếng Việt: Tùy chỉnh → Skills.</li></ol>
-        <div class="act" style="margin-top:0">Claude không dùng Skill? Kiểm công tắc, rồi kiểm mô tả có nói rõ khi nào dùng.</div>
+      <img class="shot" style="max-height:450px" src="media/m06/M06-B3-C02_bai.jpg" alt="Trang Skill Demo tra loi danh gia spa: nút Đã thêm, Thử trong đoạn chat, file skills/demo-tra-loi-danh-gia-spa/SKILL.md">
+      <ol class="anote row" style="--k:3">
+        <li><b>Đã thêm:</b> Skill đang bật. Menu ··· có nút Tắt.</li>
+        <li><b>SKILL.md:</b> file Claude vừa viết, bấm để đọc lại.</li>
+        <li><b>Thử trong đoạn chat:</b> mở chat mới để chạy thử.</li>
+      </ol>
+      <div class="act">Claude không dùng Skill? Kiểm công tắc "Tạo và chỉnh sửa tệp" (Cài đặt → Khả năng), rồi kiểm mô tả có nói rõ khi nào dùng.</div>
+      <p class="cap">Ảnh chụp app Claude Desktop ngày 21/11/2026: Plugin → Skills → Skill demo của khoá học.</p>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Bước 5 chạy thử">
+  <div class="slide">
+    <div class="eyebrow">Bước 5 · ảnh chụp thật</div>
+    <h2 class="stitle">Giao việc bằng lời thường, <span class="grad">Claude tự mở Skill</span></h2>
+    <div class="annlay">
+      <div class="annimg"><img class="shot" style="max-height:640px" src="media/m06/M06-B3-C03_bai.jpg" alt="Chat mới: dán 3 đánh giá, dòng Đã tải kỹ năng demo-tra-loi-danh-gia-spa, bảng 4 cột câu trả lời nháp"><p class="cap">Ảnh chụp app Claude Desktop ngày 21/11/2026, 3 đánh giá mẫu.</p></div>
+      <div>
+        <ol class="anote">
+          <li><b>Đã tải kỹ năng:</b> Claude tự mở Skill vì câu giao việc khớp mô tả.</li>
+          <li><b>Bảng 4 cột:</b> đúng mẫu đầu ra trong Skill. Cột cuối đánh dấu chỗ cần chủ spa xem.</li>
+        </ol>
+        <div class="act">Bạn không cần gõ tên Skill. Câu "Soạn trả lời cho 3 đánh giá tuần này" khớp mô tả nên Claude tự dùng.</div>
       </div>
-      <p class="cap">Ảnh chụp trang trợ giúp Anthropic "Use skills in Claude", ngày 20/11/2026. Khung số do The AI Growth vẽ thêm.</p>
     </div>
   </div>
   
@@ -802,12 +873,13 @@ Với mỗi bước, ghi: tên Skill gợi ý (chữ thường, gạch ngang) ·
     <div class="eyebrow">Hai cách khác để dựng Skill · ảnh chụp thật</div>
     <h2 class="stitle">Ghi màn hình, <span class="grad">hoặc tự viết từ mẫu trống</span></h2>
     <div class="annlay narrow">
-      <div class="annimg"><img class="shot" style="max-height:660px" src="media/m06/M06-B3-S05.jpg" alt="Menu dấu cộng có Ghi lại Skill và Skills"><p class="cap">Ảnh chụp app Claude Desktop ngày 11/11/2026: menu dấu cộng.</p></div>
+      <div class="annimg"><img class="shot" style="max-height:600px" src="media/m06/M06-B2-C04_bai.jpg" alt="Menu dấu cộng có Ghi lại Skill và Plugin"><p class="cap">Ảnh chụp app Claude Desktop ngày 21/11/2026: menu dấu cộng.</p></div>
       <div>
         <ol class="anote">
           <li><b>Ghi lại Skill:</b> bạn làm mẫu, Claude ghi màn hình rồi viết Skill. Có ở Pro trở lên, Claude cho Mac.</li>
-          <li><b>Skills:</b> chỗ tải lên Skill bạn tự viết. Viết SKILL.md từ mẫu trống, nén thư mục thành .zip.</li>
+          <li><b>Plugin:</b> bật, tắt plugin và Skill cho chat này.</li>
         </ol>
+        <div class="act">Tự viết: viết SKILL.md từ mẫu trống, nén thư mục thành .zip, rồi tải lên ở thanh bên Plugin → Thêm → Tải lên plugin.</div>
       </div>
     </div>
   </div>
@@ -871,11 +943,12 @@ Với mỗi bước, ghi: tên Skill gợi ý (chữ thường, gạch ngang) ·
     <div class="lr">
       <div class="lt">
         <div class="eyebrow">Ảnh chụp thật</div>
-        <h2 class="stitle">Cài đặt → <span class="grad">Trình kết nối</span></h2>
-        <p class="body">Kho có sẵn Google Drive, Gmail, Google Calendar, Notion và nhiều app khác.</p>
-        <p class="body">Bấm dấu cộng cạnh app, đăng nhập tài khoản của app đó để cấp quyền.</p>
+        <h2 class="stitle">Plugin → <span class="grad">Trình kết nối</span></h2>
+        <p class="body">Thanh bên → Plugin → tab <b>Trình kết nối</b> (1).</p>
+        <p class="body">Bấm vào app, ví dụ Gmail (2), rồi bấm Kết nối và đăng nhập tài khoản của app đó.</p>
+        <p class="body"><b>Hiển thị tất cả</b> (3) mở cả kho: Google Drive, Notion và nhiều app khác.</p>
       </div>
-      <div class="rt"><img class="shot" style="width:100%" src="media/m06/M06-B4-S02_ketnoi.jpg" alt="Trang Trình kết nối trong Cài đặt, có Google Drive, Gmail, Google Calendar, Microsoft 365"><p class="cap">Ảnh chụp app Claude Desktop: Cài đặt → Trình kết nối (khung video 08/11/2026).</p></div>
+      <div class="rt"><img class="shot" style="width:100%" src="media/m06/M06-B4-C01_bai.jpg" alt="Trang Plugin, tab Trình kết nối: mục Được dùng nhiều nhất có Gmail, Google Calendar, Microsoft 365, Canva, Slack, Google Sheets"><p class="cap">Ảnh chụp app Claude Desktop ngày 21/11/2026. Khối tối che plugin riêng của tài khoản.</p></div>
     </div>
   </div>
   
@@ -902,11 +975,12 @@ Với mỗi bước, ghi: tên Skill gợi ý (chữ thường, gạch ngang) ·
     <div class="eyebrow">Ảnh chụp thật · trong chat</div>
     <h2 class="stitle">Bật đúng connector <span class="grad">cho đúng chat</span></h2>
     <div class="annlay">
-      <div class="annimg"><img class="shot" src="media/m06/M06-B4-S01_menu.jpg" alt="Menu dấu cộng, Trình kết nối mở ra danh sách Google Docs, Google Drive, Notion có công tắc"><p class="cap">Ảnh chụp app Claude Desktop: dấu cộng → Trình kết nối, mỗi app một công tắc.</p></div>
+      <div class="annimg"><img class="shot" src="media/m06/M06-B4-C03_bai.jpg" alt="Menu dấu cộng, mục Plugin mở danh sách Google Drive, Claude in Chrome có công tắc"><p class="cap">Ảnh chụp app Claude Desktop ngày 21/11/2026. Khối tối che plugin riêng của tài khoản.</p></div>
       <div>
         <ol class="anote">
-          <li><b>Dấu cộng → Trình kết nối:</b> bật tắt từng app cho chat này.</li>
-          <li><b>Connector tốn token.</b> Tắt cái không dùng.</li>
+          <li><b>Dấu cộng → Plugin:</b> mở danh sách connector và plugin của bạn.</li>
+          <li><b>Công tắc:</b> bật tắt từng app cho chat này. Connector tốn token, tắt cái không dùng.</li>
+          <li><b>Quản lý plugin:</b> mở trang Plugin.</li>
         </ol>
         <div class="act">Dữ liệu lấy qua connector Gmail, Drive, Calendar không dùng để huấn luyện. Phần bạn tự chép vào chat theo công tắc ở bài 5.1.</div>
       </div>
@@ -1064,10 +1138,28 @@ Với mỗi bước, ghi: tên Skill gợi ý (chữ thường, gạch ngang) ·
       <svg class="ann-svg" viewBox="0 0 818 238" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m06/pad/customconn.png" x="0" y="0" width="818" height="238"/><path d="M0,0h818v238h-818zM18,9h784v84h-784zM20,147h332v88h-332z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="18" y="9" width="784" height="84" rx="4" fill="none" stroke="#EF004B" stroke-width="2.8"/><rect x="20" y="147" width="332" height="88" rx="4" fill="none" stroke="#EF004B" stroke-width="2.8"/><circle cx="18" cy="15" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="18" y="21" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text><circle cx="20" cy="147" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="20" y="153" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">2</text></svg>
       <div class="below">
         <ol class="anote red row" style="--k:2"><li><b>Mọi gói,</b> từ Free tới Enterprise. Gói Free giới hạn 1 custom connector.</li>
-          <li><b>Đường đi:</b> Customize → Connectors → Add → Custom → Web, rồi dán URL của hãng.</li></ol>
+          <li><b>Đường đi:</b> Customize → Connectors → Add → Custom → Web. App tiếng Việt 21/11/2026: Plugin → Thêm → Thêm trình kết nối tùy chỉnh.</li></ol>
         <div class="act" style="margin-top:0">Chỉ nối server của tổ chức tin cậy. MCP cho Claude quyền dùng app. Skill dạy Claude dùng app đó theo cách của bạn.</div>
       </div>
       <p class="cap">Ảnh chụp trang trợ giúp Anthropic "Use connectors to extend Claude's capabilities", mục "Custom connectors", ngày 20/11/2026. Khung số do The AI Growth vẽ thêm.</p>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Hộp custom connector">
+  <div class="slide">
+    <div class="eyebrow">Bậc 2 · ảnh chụp thật</div>
+    <h2 class="stitle">Hộp <span class="grad">Thêm trình kết nối tùy chỉnh</span></h2>
+    <div class="annlay">
+      <div class="annimg"><img class="shot" style="max-height:640px" src="media/m06/M06-B5-C01_bai.jpg" alt="Hộp Thêm trình kết nối tùy chỉnh: ô tên demo-mcp, ô URL máy chủ MCP để trống, nút Hủy và Tiếp tục"><p class="cap">Ảnh chụp app Claude Desktop ngày 21/11/2026, tên demo-mcp, chưa bấm Tiếp tục.</p></div>
+      <div>
+        <ol class="anote">
+          <li><b>Tên:</b> hiện trong danh sách trình kết nối.</li>
+          <li><b>URL máy chủ MCP:</b> địa chỉ hãng đưa, dạng https://…/mcp.</li>
+          <li><b>Tiếp tục:</b> chỉ bấm khi URL là của hãng bạn tin.</li>
+        </ol>
+        <div class="act">Hộp ghi rõ: Anthropic không kiểm công cụ của nhà phát triển bên ngoài.</div>
+      </div>
     </div>
   </div>
   
@@ -1136,6 +1228,22 @@ Trình bày thành bảng 3 cột: App · Bậc · Nguồn.</div>
         <tr><td>Connector</td><td>Mỗi người tự nối tài khoản của mình</td><td class="hi">Chủ tổ chức bật cho tổ chức, mỗi người vẫn tự đăng nhập</td></tr>
       </table>
       <div class="band light">Chia sẻ chat là <b>link chỉ xem</b> (bài 5.1). ChatGPT chia sẻ Project được ở mọi gói, kể cả Free.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Tải Skill xuống">
+  <div class="slide">
+    <div class="eyebrow">Gói cá nhân · ảnh chụp thật</div>
+    <h2 class="stitle">Tải Skill xuống <span class="grad">để gửi đồng đội</span></h2>
+    <div class="shotwide">
+      <img class="shot" style="max-height:450px" src="media/m06/M06-B6-C01_bai.jpg" alt="Trang Skill Demo tra loi danh gia spa, menu ba chấm mở: Chỉnh sửa với Claude, Đổi tên, Nhân bản, Tải xuống, Tải lên phiên bản mới, Tắt, Xóa">
+      <ol class="anote row" style="--k:2">
+        <li><b>Menu ···</b> trên trang Skill.</li>
+        <li><b>Tải xuống:</b> lưu Skill về máy để gửi.</li>
+      </ol>
+      <div class="act">Đồng đội nhận file, rồi tải lên ở Plugin → Thêm → Tải lên plugin trên tài khoản của mình.</div>
+      <p class="cap">Ảnh chụp app Claude Desktop ngày 21/11/2026: Plugin → Skills → Skill demo của khoá học.</p>
     </div>
   </div>
   
@@ -1221,7 +1329,7 @@ Trình bày thành bảng 3 cột: App · Bậc · Nguồn.</div>
   </div>
 </section>
 </deck-stage>
-<script type="application/json" id="deck-notes">["Chào bạn, đây là Module 06. Từ module này trở đi là thực hành. Đầu vào là bản vẽ quy trình một trang bạn làm ở bài tập Module 04.\nVí dụ chạy suốt module vẫn là spa ở Cần Thơ, quy trình trả lời đánh giá Google. Hết module, spa có Project, Skill và connector cho quy trình đó.", "Mỗi tuần bạn dán lại giọng, luật và tài liệu cho Claude. Có tuần quên, có tuần dán thiếu. Project giữ sẵn những thứ đó cho một vai trò, bạn chỉ cần mở chat mới và giao việc.", "Bản vẽ quy trình của Module 04 đi vào một Project tên \"Spa · Trả lời đánh giá\". Hai ô tím là phần dùng lại mỗi tuần. Ô xám là phần thay đổi: mỗi tuần một chat, dán đánh giá mới.", "Một câu về tên bài. Bản cũ có chữ GPT và Gem. Nhưng GPT tuỳ chỉnh của ChatGPT ngừng ngày 11/12/2026, Gem của Gemini chỉ đọc từ 17/11 và bị gỡ ngày 17/12/2026.\nNên bài này dạy Project của Claude. ChatGPT vẫn có Project, cách nghĩ giống nhau.", "So sánh đời thường: phòng của nhân viên mới có sẵn sổ tay và tủ hồ sơ. Mỗi ngày họ chỉ nhận việc mới.\nBa điều cần nhớ. Hướng dẫn và kho áp cho mọi chat. Chat tuần 1 không thấy chat tuần 2. Và tên, mô tả Project chỉ để bạn đọc, Claude không đọc.", "Đây là trang hỗ trợ của Anthropic, đọc ngày 20/11/2026. Gói Free cũng có Project, tối đa 5 cái. Dòng số 2 là chỗ nhiều người viết hết luật vào ô mô tả rồi thắc mắc vì sao Claude không làm theo.", "App tiếng Việt gọi Project là \"Dự án\". Bạn bấm Dự án ở thanh bên để tạo. Khi mở chat mới, chọn Project ở ô \"Dự án hoặc thư mục\" dưới ô nhập.\nTrong video cũ mình có nói: hướng dẫn riêng của dự án là chỗ đặt giọng, định dạng và nguyên tắc. Video đó quay trước khi Claude gộp Cowork vào chat.", "Nếu đội bạn dùng ChatGPT, Project nằm ở thanh bên, mục Projects. Phần còn lại của bài áp được y như vậy.", "Bạn nhớ Thẻ chuẩn bị ở bài 4.3: bản giao việc, dữ liệu, mẫu đầu ra. Ba dòng đó nay có chỗ ở. Dòng Skill học ở bài 6.2, dòng kết nối ở bài 6.4.\nTài liệu nào của bạn nên nằm trong kho? Thứ bạn dán lại từ hai tuần trở lên.", "RAG nghĩa là Claude không đọc hết kho mỗi lần, mà tìm đúng đoạn cần cho câu hỏi. Bạn không phải bật gì, Claude tự chuyển khi kho gần đầy. Gói Free thì không có chế độ này.", "Năm phần này bạn đã học ở Module 03. Nội dung thì lấy từ bản vẽ quy trình của bài tập Module 04: sáu câu bản vẽ và Thẻ chuẩn bị.\nHướng dẫn dài bao nhiêu là vừa? Theo mình, dưới 300 chữ. Thứ dài hơn thì đưa vào kho.", "Đây là bản rút gọn của hướng dẫn mẫu có sẵn trong bài. Bạn so độ dài với bản của mình. Phần màu vàng là phần quan trọng nhất: giới hạn và điểm dừng.", "Trước hộp này, app hỏi cách tạo: bạn chọn \"Start from scratch\" để tạo Project trống. Rồi điền tên, dán hướng dẫn, và kéo file vào vùng Add files.\nẢnh này là bản tiếng Anh, giao diện tiếng Việt có cùng các ô.", "Bạn dán bản vẽ quy trình đã làm ở Module 04. Đọc lại phần giới hạn và điểm dừng thật kỹ trước khi dán vào Project.", "", "Bạn dán cùng một đoạn hướng dẫn mỗi tuần, và có tuần quên. Skill ghi cách làm một lần. Claude tự mở Skill khi việc khớp.", "Bên trái: tuần 1 dán hướng dẫn báo giá, tuần 2 dán lại nhưng quên mục giảm giá, tuần 3 lại sửa. Bên phải: bạn chỉ nói \"làm báo giá cho văn phòng 450 mét vuông\", Claude thấy khớp mô tả và tự mở Skill.", "Mình hay nói trong video: thay vì dạy lại nhân viên mới mỗi lần, bạn đưa họ sổ tay quy trình và danh sách kiểm. Skill là cuốn sổ tay đó cho Claude.\nVí dụ: Skill soạn báo giá vệ sinh văn phòng ghi bảng giá, mẫu báo giá, và luật hỏi lại khi thiếu diện tích.", "Đây là bảng mình mong bạn nhớ. Project gắn với một vai trò. Skill gắn với một việc, và đi theo bạn sang mọi chat. Connector cho Claude tay chân vào app, bài 6.4 nói kỹ.\nViệc nào đáng thành Skill? Việc bạn làm mỗi tuần, có cách làm cố định và có mẫu đầu ra.", "Skill không cần gói đắt. Gói Free cũng dùng được, miễn là bạn bật chạy mã. Trang này ghi tên menu tiếng Anh là Customize, app tiếng Việt ghi \"Tùy chỉnh\".", "Bạn mở Cài đặt, tab Khả năng, kéo xuống nhóm \"Thực thi mã và tạo tệp\". Công tắc \"Chạy mã trên đám mây\" phải bật. Dòng mô tả ngay dưới ghi rõ: bắt buộc để dùng Skills.", "Tin vui là bạn học một lần, dùng được ở nhiều app. Gemini gọi là kỹ năng, nằm ở trang Customize, Skills. ChatGPT bỏ GPT tuỳ chỉnh và chuyển sang plugin.", "Đây là Skill báo giá vệ sinh có sẵn trong bài. Thư mục tên bao-gia-ve-sinh. Trong đó có SKILL.md ghi tên, mô tả, các bước. Hai file đi kèm là bảng giá và mẫu báo giá.", "Claude quyết định mở Skill nào bằng cách đọc dòng description. Nên mô tả phải nói hai thứ: Skill làm gì, và khi nào dùng. File mẫu trong bài có cặp mô tả \"chưa tốt\" và \"tốt\" để bạn so.", "Token là đơn vị đo lượng chữ Claude đọc, tính vào giới hạn dùng. Claude luôn đọc tên và mô tả của mọi Skill đang bật, khoảng 100 token mỗi Skill. Thấy khớp việc mới mở phần còn lại. File đi kèm chỉ mở khi cần.", "Skill có thể kèm script, tức là đoạn mã Claude sẽ chạy. Skill lạ có thể làm việc bạn không muốn. Nên bạn đọc SKILL.md trước khi bật, kể cả khi đồng nghiệp gửi.", "Sub-agent là agent phụ mà Claude giao một phần việc. Plugin gom cả bộ cho một vai trò. Khi nào dùng plugin thay vì cài từng Skill? Khi bạn muốn cài cả bộ cho một vai trò một lần. Skill thì có từ gói Free.", "Trong chat, bạn bấm dấu cộng ở ô nhập: có Skills, Trình kết nối và Thêm plugin. Ngoài chat, chỗ quản lý là mục Tùy chỉnh. Anthropic đang đổi tên menu tiếng Anh từ Customize thành Plugins, nên bạn có thể thấy một trong hai tên.", "Danh sách 3 bước này là đầu vào của bài 6.3. Bạn giữ lại, bài sau mình dựng Skill đầu tiên từ bước đứng đầu.", "", "Bài tập này biến một bước trong bản vẽ quy trình thành Skill chạy được. Bạn mô tả cách làm, Claude viết SKILL.md, bạn đọc lại, chạy thử và sửa tới khi đạt.", "Ví dụ của spa: bước \"Soạn nháp trả lời\" là bước tốn giờ nhất. Claude dựng Skill qua hội thoại, bạn đọc rồi lưu, rồi chạy thử trên 3 dữ liệu thật của tuần đó.", "Trong video cũ mình có nói: thay vì dạy lại nhân viên bằng 10 bài mẫu, bạn đúc kết thành một kỹ năng. Video đó quay trước khi Claude gộp Cowork vào chat.\n\"Đạt\" phải định nghĩa trước. Không có chuẩn thì bạn sẽ sửa Skill mãi mà không biết khi nào dừng.", "Skill của spa gộp 3 bước liền nhau vì chúng dùng chung một dữ liệu: các đánh giá của tuần. Gộp cả quy trình thì khi kết quả sai, bạn không biết sai ở bước nào.", "Đây là phiếu bạn điền trước. Dòng 5 quan trọng nhất: ví dụ đã duyệt cho Claude thấy \"đạt\" trông thế nào. Nhớ che thông tin riêng của khách trước khi dán, như Module 05.", "Năm bước này là toàn bộ bài tập. Ở bước 5, lỗi nào lặp lại thì nhờ Claude sửa Skill, đừng sửa tay kết quả. Ghi số phút làm để Module 13 so lại.", "Claude viết Skill rất nhanh, nhưng bạn là người chịu trách nhiệm. Ba thứ này mất một phút để kiểm. Thiếu mục nào thì nhờ Claude thêm trước khi lưu.", "Lỗi hay gặp nhất là lưu xong mà Skill chưa bật, hoặc chạy mã chưa bật. Bạn kiểm hai công tắc này trước khi nghĩ Skill viết sai.", "Đây là bản rút gọn của file mẫu có sẵn trong bài. Bạn để ý mục \"Không được làm\": dòng cuối giữ nút đăng trong tay chủ spa. File đầy đủ còn có mục Giọng và 2 ví dụ đã duyệt.", "Cách trong bài là nhờ Claude viết qua hội thoại, dễ nhất cho người mới. Nếu bạn dùng Mac và gói Pro trở lên, có thể thử Ghi lại Skill. Ai quen file thì tự viết SKILL.md rồi nén lại tải lên.", "", "Bạn đang chép dữ liệu từ Drive vào Claude, rồi chép kết quả sang Gmail. Connector nối thẳng hai đầu. Và nút gửi vẫn do bạn bấm.", "Spa nối Drive để Claude đọc file đánh giá tuần, không phải dán lại. Claude soạn tóm tắt thành bản nháp trong Gmail. Chủ spa đọc rồi tự bấm gửi.", "Connector, app tiếng Việt gọi là trình kết nối, cho Claude vào app bạn đang dùng để đọc dữ liệu và làm việc trong đó. Claude chỉ thấy những gì tài khoản của bạn thấy.\nTrong video Bonus mình có nói: nối Gmail thì Claude vào được Gmail để đọc, tóm tắt, viết email.", "Đây là kho trình kết nối. Bạn bấm dấu cộng cạnh Google Drive, Google hiện màn hình xin quyền, bạn đăng nhập và đồng ý. Xong là Claude đọc được Drive của bạn.", "App nào của bạn nên nối trước? App chứa dữ liệu đầu vào của quy trình đầu tiên. Với spa là Drive, nơi để file đánh giá tuần.\nCột lưu ý quan trọng: Gmail gửi được email thật. Phần sau của bài nói cách giữ nút gửi.", "Mỗi connector đang bật làm Claude đọc thêm một phần mô tả, tức là tốn token. Chat viết bài thì không cần Gmail. Bạn bật đúng cái cần cho việc đó.", "Đây là chỗ mình muốn bạn cẩn thận nhất trong cả module. Connector Gmail có công cụ tạo nháp và có công cụ gửi. Bạn không để Claude tự quyết dùng cái nào.", "Lớp 1: prompt ghi rõ \"chỉ tạo bản nháp, không gửi\". Lớp 2: chat có bước gửi thì để chế độ quyền Thủ công. Hai lớp cùng dẫn tới Gmail Thư nháp, và bạn là người bấm gửi.", "Ở chế độ Tự động, Claude tự quyết khi dùng công cụ ghi, kể cả gửi. Nên chat nào có Gmail và có bước gửi, bạn đổi sang Thủ công trước khi giao việc. Mặc định Tự động theo trang hỗ trợ Anthropic, kiểm 20/11/2026.", "Ở gói Team và Enterprise, chủ tổ chức đặt \"Blocked\" cho công cụ gửi. Thành viên không ghi đè được. Đây là một trong các lý do lên gói Team, bài 6.6 nói thêm.\nVí dụ của spa: tóm tắt tuần nằm trong Gmail Thư nháp, chủ spa đọc rồi tự bấm gửi.", "", "Tài liệu của nhiều phần mềm ghi \"hỗ trợ MCP\". Bài này giúp bạn hiểu câu đó nghĩa là gì với mình, không cần viết code.", "Claude ở bên trái, chuẩn MCP ở giữa, các app ở bên phải. Ba app trên cùng có sẵn trong kho. Ô cuối là app của bạn: cần URL từ hãng.", "Trước USB-C, mỗi máy một kiểu sạc. MCP làm cho app AI điều tương tự: một cách nối chung. Bạn đã dùng MCP ở bài 6.4, vì connector Drive và Gmail đi qua đường này.", "Mình hay ví thế này trong video: mỗi máy trong nhà một cái remote. MCP cho một trợ lý điều khiển nhiều máy bằng cùng một cách.\nMCP server có thể chạy trên máy hoặc chạy từ xa. Dựng server là việc của đội kỹ thuật, khoá này không dạy.", "Khi thấy chữ \"hỗ trợ MCP\", bạn hiểu là app đó mở cửa cho AI. Nếu app có sẵn trong kho trình kết nối thì nối như bài 6.4. Nếu chưa, hỏi hãng URL và thêm custom connector.", "Ba bậc theo thứ tự rẻ nhất trước. App dùng một lần mỗi tháng thì dán tay vẫn hợp lý, vì connector tốn token.\nApp nào của đội bạn thuộc bậc nào? Phần Thử ngay sẽ nhờ Claude chia giúp.", "Custom connector là cách nối app chưa có trong kho. Bạn chỉ cần tên và URL do hãng đưa. Nhưng server lạ có thể đọc dữ liệu của bạn, nên chỉ nối server của tổ chức bạn tin.", "Bạn mở từng link Claude đưa để kiểm. Ô nào Claude ghi \"không thấy\" thì hỏi thẳng hãng.", "", "Bạn đã có Project, Skill và connector. Đồng đội dùng lại được tới đâu thì tuỳ gói của đội.", "So sánh đời thường: phát bản photo sổ tay cho từng người, hay đặt một cuốn ở phòng chung để ai cũng đọc bản mới nhất. Gói cá nhân là bản photo. Gói Team là cuốn ở phòng chung.", "Đội đang ở gói cá nhân thì chia sẻ bằng cách nào? Bằng file và văn bản. Spa gửi file tra-loi-danh-gia-spa.zip và văn bản hướng dẫn Project cho chị quản lý, chị tự dựng lại trên tài khoản của mình.", "Ở gói Team, bạn mở Project, bấm Share project, thêm đồng đội và chọn quyền. Mình khuyên để đa số ở quyền chỉ xem, một người giữ quyền sửa để hướng dẫn không bị sửa lung tung.", "Bốn dấu hiệu này là lời khuyên của mình, không phải của hãng. Cần sửa một chỗ mà cả đội nhận bản mới. Cần chặn công cụ gửi cho cả đội. Làm với dữ liệu khách nên cần mặc định không huấn luyện. Và hơn 2 người cùng làm một quy trình mỗi tuần.\nĐội bạn có mấy dấu hiệu trong bốn?", "Đây là giá trên trang hỗ trợ của Anthropic, đọc ngày 20/11/2026, chưa gồm thuế. Giá đổi nhanh, bạn kiểm lại trước khi mua.", "Spa có 6 người, nhưng chỉ 2 người dùng AI. Chưa có dấu hiệu nào trong bốn dấu hiệu, nên 2 tài khoản Pro là đủ. Khi cả 6 người cùng làm quy trình mỗi tuần, lúc đó mới tính gói Team.", "", ""]</script>
+<script type="application/json" id="deck-notes">["Chào bạn, đây là Module 06. Từ module này trở đi là thực hành. Đầu vào là bản vẽ quy trình một trang bạn làm ở bài tập Module 04.\nVí dụ chạy suốt module vẫn là spa ở Cần Thơ, quy trình trả lời đánh giá Google. Hết module, spa có Project, Skill và connector cho quy trình đó.", "Mỗi tuần bạn dán lại giọng, luật và tài liệu cho Claude. Có tuần quên, có tuần dán thiếu. Project giữ sẵn những thứ đó cho một vai trò, bạn chỉ cần mở chat mới và giao việc.", "Bản vẽ quy trình của Module 04 đi vào một Project tên \"Spa · Trả lời đánh giá\". Hai ô tím là phần dùng lại mỗi tuần. Ô xám là phần thay đổi: mỗi tuần một chat, dán đánh giá mới.", "Một câu về tên bài. Bản cũ có chữ GPT và Gem. Nhưng GPT tuỳ chỉnh của ChatGPT ngừng ngày 11/12/2026, Gem của Gemini chỉ đọc từ 17/11 và bị gỡ ngày 17/12/2026.\nNên bài này dạy Project của Claude. ChatGPT vẫn có Project, cách nghĩ giống nhau.", "So sánh đời thường: phòng của nhân viên mới có sẵn sổ tay và tủ hồ sơ. Mỗi ngày họ chỉ nhận việc mới.\nBa điều cần nhớ. Hướng dẫn và kho áp cho mọi chat. Chat tuần 1 không thấy chat tuần 2. Và tên, mô tả Project chỉ để bạn đọc, Claude không đọc.", "Đây là trang hỗ trợ của Anthropic, đọc ngày 20/11/2026. Gói Free cũng có Project, tối đa 5 cái. Dòng số 2 là chỗ nhiều người viết hết luật vào ô mô tả rồi thắc mắc vì sao Claude không làm theo.", "App tiếng Việt gọi Project là \"Dự án\". Bạn bấm Dự án ở thanh bên để tạo. Khi mở chat mới, chọn Project ở ô \"Dự án hoặc thư mục\" dưới ô nhập.\nTrong video cũ mình có nói: hướng dẫn riêng của dự án là chỗ đặt giọng, định dạng và nguyên tắc. Video đó quay trước khi Claude gộp Cowork vào chat.", "Nếu đội bạn dùng ChatGPT, Project nằm ở thanh bên, mục Projects. Phần còn lại của bài áp được y như vậy.", "Bạn nhớ Thẻ chuẩn bị ở bài 4.3: bản giao việc, dữ liệu, mẫu đầu ra. Ba dòng đó nay có chỗ ở. Dòng Skill học ở bài 6.2, dòng kết nối ở bài 6.4.\nTài liệu nào của bạn nên nằm trong kho? Thứ bạn dán lại từ hai tuần trở lên.", "RAG nghĩa là Claude không đọc hết kho mỗi lần, mà tìm đúng đoạn cần cho câu hỏi. Bạn không phải bật gì, Claude tự chuyển khi kho gần đầy. Gói Free thì không có chế độ này.", "Năm phần này bạn đã học ở Module 03. Nội dung thì lấy từ bản vẽ quy trình của bài tập Module 04: sáu câu bản vẽ và Thẻ chuẩn bị.\nHướng dẫn dài bao nhiêu là vừa? Theo mình, dưới 300 chữ. Thứ dài hơn thì đưa vào kho.", "Đây là bản rút gọn của hướng dẫn mẫu có sẵn trong bài. Bạn so độ dài với bản của mình. Phần màu vàng là phần quan trọng nhất: giới hạn và điểm dừng.", "Bạn bấm Dự án trên thanh bên, rồi tạo dự án mới. Hộp này có 3 ô. Ô đầu là tên, đặt theo vai trò. Ô thứ hai là một câu mục tiêu. Ô Ngữ cảnh là chỗ thêm tài liệu dùng lại, ví dụ file giọng và bảng dịch vụ. Hộp này chưa có ô hướng dẫn: bạn dán hướng dẫn ở bước sau.", "Tạo xong, app mở trang Project. Cột phải có Hướng dẫn và Ngữ cảnh. Bạn bấm Chỉnh sửa ở dòng Hướng dẫn rồi dán hướng dẫn 5 phần. Ngữ cảnh là kho kiến thức: file ở đây áp cho mọi chat trong Project. Chat bạn mở từ ô nhập trên trang này nằm trong Project.", "Bạn dán bản vẽ quy trình đã làm ở Module 04. Đọc lại phần giới hạn và điểm dừng thật kỹ trước khi dán vào Project.", "", "Bạn dán cùng một đoạn hướng dẫn mỗi tuần, và có tuần quên. Skill ghi cách làm một lần. Claude tự mở Skill khi việc khớp.", "Bên trái: tuần 1 dán hướng dẫn báo giá, tuần 2 dán lại nhưng quên mục giảm giá, tuần 3 lại sửa. Bên phải: bạn chỉ nói \"làm báo giá cho văn phòng 450 mét vuông\", Claude thấy khớp mô tả và tự mở Skill.", "Mình hay nói trong video: thay vì dạy lại nhân viên mới mỗi lần, bạn đưa họ sổ tay quy trình và danh sách kiểm. Skill là cuốn sổ tay đó cho Claude.\nVí dụ: Skill soạn báo giá vệ sinh văn phòng ghi bảng giá, mẫu báo giá, và luật hỏi lại khi thiếu diện tích.", "Đây là bảng mình mong bạn nhớ. Project gắn với một vai trò. Skill gắn với một việc, và đi theo bạn sang mọi chat. Connector cho Claude tay chân vào app, bài 6.4 nói kỹ.\nViệc nào đáng thành Skill? Việc bạn làm mỗi tuần, có cách làm cố định và có mẫu đầu ra.", "Skill không cần gói đắt. Gói Free cũng dùng được, miễn là bạn bật chạy mã. Trang hãng ghi menu Customize. App tiếng Việt bản 21/11/2026 ghi \"Plugin\" trên thanh bên.", "Bạn mở Cài đặt, tab Khả năng. Công tắc \"Tạo và chỉnh sửa tệp\" phải bật. Dòng mô tả ghi rõ: cần bật cài đặt này để dùng Skills. Nếu app của bạn là bản cũ, công tắc có tên \"Chạy mã trên đám mây\".", "Tin vui là bạn học một lần, dùng được ở nhiều app. Gemini gọi là kỹ năng, nằm ở trang Customize, Skills. ChatGPT bỏ GPT tuỳ chỉnh và chuyển sang plugin.", "Đây là Skill báo giá vệ sinh có sẵn trong bài. Thư mục tên bao-gia-ve-sinh. Trong đó có SKILL.md ghi tên, mô tả, các bước. Hai file đi kèm là bảng giá và mẫu báo giá.", "Claude quyết định mở Skill nào bằng cách đọc dòng description. Nên mô tả phải nói hai thứ: Skill làm gì, và khi nào dùng. File mẫu trong bài có cặp mô tả \"chưa tốt\" và \"tốt\" để bạn so.", "Token là đơn vị đo lượng chữ Claude đọc, tính vào giới hạn dùng. Claude luôn đọc tên và mô tả của mọi Skill đang bật, khoảng 100 token mỗi Skill. Thấy khớp việc mới mở phần còn lại. File đi kèm chỉ mở khi cần.", "Skill có thể kèm script, tức là đoạn mã Claude sẽ chạy. Skill lạ có thể làm việc bạn không muốn. Nên bạn đọc SKILL.md trước khi bật, kể cả khi đồng nghiệp gửi.", "Sub-agent là agent phụ mà Claude giao một phần việc. Plugin gom cả bộ cho một vai trò. Khi nào dùng plugin thay vì cài từng Skill? Khi bạn muốn cài cả bộ cho một vai trò một lần. Skill thì có từ gói Free.", "Ngoài chat, chỗ quản lý Skill, connector và plugin là mục Plugin trên thanh bên. Trang này có 3 tab: Tất cả, Trình kết nối, Skills. Nút Thêm mở menu tải lên plugin và thêm trình kết nối tùy chỉnh. Trong chat, bạn bấm dấu cộng rồi chọn Plugin để bật tắt cho chat đó. App bản trước gọi mục này là Tùy chỉnh, nên bạn có thể gặp một trong hai tên.", "Danh sách 3 bước này là đầu vào của bài 6.3. Bạn giữ lại, bài sau mình dựng Skill đầu tiên từ bước đứng đầu.", "", "Bài tập này biến một bước trong bản vẽ quy trình thành Skill chạy được. Bạn mô tả cách làm, Claude viết SKILL.md, bạn đọc lại, chạy thử và sửa tới khi đạt.", "Ví dụ của spa: bước \"Soạn nháp trả lời\" là bước tốn giờ nhất. Claude dựng Skill qua hội thoại, bạn đọc rồi lưu, rồi chạy thử trên 3 dữ liệu thật của tuần đó.", "Trong video cũ mình có nói: thay vì dạy lại nhân viên bằng 10 bài mẫu, bạn đúc kết thành một kỹ năng. Video đó quay trước khi Claude gộp Cowork vào chat.\n\"Đạt\" phải định nghĩa trước. Không có chuẩn thì bạn sẽ sửa Skill mãi mà không biết khi nào dừng.", "Skill của spa gộp 3 bước liền nhau vì chúng dùng chung một dữ liệu: các đánh giá của tuần. Gộp cả quy trình thì khi kết quả sai, bạn không biết sai ở bước nào.", "Đây là phiếu bạn điền trước. Dòng 5 quan trọng nhất: ví dụ đã duyệt cho Claude thấy \"đạt\" trông thế nào. Nhớ che thông tin riêng của khách trước khi dán, như Module 05.", "Năm bước này là toàn bộ bài tập. Ở bước 5, lỗi nào lặp lại thì nhờ Claude sửa Skill, đừng sửa tay kết quả. Ghi số phút làm để Module 13 so lại.", "Prompt dựng Skill có câu \"hỏi mình tối đa 5 câu\". Claude đọc phiếu, thấy 4 chỗ còn thiếu, rồi hỏi từng câu. Ví dụ: hai ví dụ đã duyệt chưa ghi số sao, đánh giá chỉ có số sao thì xử lý sao. Bạn trả lời xong câu cuối, Claude mới viết Skill.", "Claude viết Skill rất nhanh, nhưng bạn là người chịu trách nhiệm. Ba thứ này mất một phút để kiểm. Thiếu mục nào thì nhờ Claude thêm trước khi lưu.", "Claude viết xong thì hiện thẻ Lưu plugin ngay trong chat. Thẻ có tên, mô tả và mục Nội dung. Bạn mở Nội dung để đọc các bước và mục Không được làm. Thiếu gì thì nhắn Claude sửa trước, đừng bấm Lưu vội.", "Lưu xong, bạn mở Plugin trên thanh bên, tab Skills, bấm vào Skill vừa lưu. Nút \"Đã thêm\" nghĩa là Skill đang bật. Lỗi hay gặp nhất là Skill chưa bật, hoặc công tắc Tạo và chỉnh sửa tệp chưa bật. Bạn kiểm hai chỗ này trước khi nghĩ Skill viết sai.", "Mình mở chat mới, dán 3 đánh giá và gõ câu giao việc quen thuộc. Claude ghi \"Đã tải kỹ năng\" rồi trả bảng đúng mẫu. Đánh giá 2 sao nói về da được đánh dấu cần chủ spa xem, và câu nháp chừa chỗ để chủ spa tự điền cách liên hệ. Bạn chạy như vậy trên 3 dữ liệu thật của mình.", "Đây là bản rút gọn của file mẫu có sẵn trong bài. Bạn để ý mục \"Không được làm\": dòng cuối giữ nút đăng trong tay chủ spa. File đầy đủ còn có mục Giọng và 2 ví dụ đã duyệt.", "Cách trong bài là nhờ Claude viết qua hội thoại, dễ nhất cho người mới. Nếu bạn dùng Mac và gói Pro trở lên, có thể thử Ghi lại Skill trong menu dấu cộng. Ai quen file thì tự viết SKILL.md, nén lại, rồi tải lên ở mục Plugin.", "", "Bạn đang chép dữ liệu từ Drive vào Claude, rồi chép kết quả sang Gmail. Connector nối thẳng hai đầu. Và nút gửi vẫn do bạn bấm.", "Spa nối Drive để Claude đọc file đánh giá tuần, không phải dán lại. Claude soạn tóm tắt thành bản nháp trong Gmail. Chủ spa đọc rồi tự bấm gửi.", "Connector, app tiếng Việt gọi là trình kết nối, cho Claude vào app bạn đang dùng để đọc dữ liệu và làm việc trong đó. Claude chỉ thấy những gì tài khoản của bạn thấy.\nTrong video Bonus mình có nói: nối Gmail thì Claude vào được Gmail để đọc, tóm tắt, viết email.", "Kho trình kết nối nằm ở mục Plugin trên thanh bên, tab Trình kết nối. Bạn bấm Gmail, bấm Kết nối, Google hiện màn hình xin quyền, bạn đăng nhập và đồng ý. Xong là Claude đọc được Gmail của bạn. App bản trước để kho này ở Cài đặt → Trình kết nối.", "App nào của bạn nên nối trước? App chứa dữ liệu đầu vào của quy trình đầu tiên. Với spa là Drive, nơi để file đánh giá tuần.\nCột lưu ý quan trọng: Gmail gửi được email thật. Phần sau của bài nói cách giữ nút gửi.", "Trong chat, bạn bấm dấu cộng, chọn Plugin. Mỗi connector có một công tắc. Mỗi connector đang bật làm Claude đọc thêm một phần mô tả, tức là tốn token. Chat viết bài thì không cần Gmail. Bạn bật đúng cái cần cho việc đó.", "Đây là chỗ mình muốn bạn cẩn thận nhất trong cả module. Connector Gmail có công cụ tạo nháp và có công cụ gửi. Bạn không để Claude tự quyết dùng cái nào.", "Lớp 1: prompt ghi rõ \"chỉ tạo bản nháp, không gửi\". Lớp 2: chat có bước gửi thì để chế độ quyền Thủ công. Hai lớp cùng dẫn tới Gmail Thư nháp, và bạn là người bấm gửi.", "Ở chế độ Tự động, Claude tự quyết khi dùng công cụ ghi, kể cả gửi. Nên chat nào có Gmail và có bước gửi, bạn đổi sang Thủ công trước khi giao việc. Mặc định Tự động theo trang hỗ trợ Anthropic, kiểm 20/11/2026.", "Ở gói Team và Enterprise, chủ tổ chức đặt \"Blocked\" cho công cụ gửi. Thành viên không ghi đè được. Đây là một trong các lý do lên gói Team, bài 6.6 nói thêm.\nVí dụ của spa: tóm tắt tuần nằm trong Gmail Thư nháp, chủ spa đọc rồi tự bấm gửi.", "", "Tài liệu của nhiều phần mềm ghi \"hỗ trợ MCP\". Bài này giúp bạn hiểu câu đó nghĩa là gì với mình, không cần viết code.", "Claude ở bên trái, chuẩn MCP ở giữa, các app ở bên phải. Ba app trên cùng có sẵn trong kho. Ô cuối là app của bạn: cần URL từ hãng.", "Trước USB-C, mỗi máy một kiểu sạc. MCP làm cho app AI điều tương tự: một cách nối chung. Bạn đã dùng MCP ở bài 6.4, vì connector Drive và Gmail đi qua đường này.", "Mình hay ví thế này trong video: mỗi máy trong nhà một cái remote. MCP cho một trợ lý điều khiển nhiều máy bằng cùng một cách.\nMCP server có thể chạy trên máy hoặc chạy từ xa. Dựng server là việc của đội kỹ thuật, khoá này không dạy.", "Khi thấy chữ \"hỗ trợ MCP\", bạn hiểu là app đó mở cửa cho AI. Nếu app có sẵn trong kho trình kết nối thì nối như bài 6.4. Nếu chưa, hỏi hãng URL và thêm custom connector.", "Ba bậc theo thứ tự rẻ nhất trước. App dùng một lần mỗi tháng thì dán tay vẫn hợp lý, vì connector tốn token.\nApp nào của đội bạn thuộc bậc nào? Phần Thử ngay sẽ nhờ Claude chia giúp.", "Custom connector là cách nối app chưa có trong kho. Bạn chỉ cần tên và URL do hãng đưa. Nhưng server lạ có thể đọc dữ liệu của bạn, nên chỉ nối server của tổ chức bạn tin.", "Bạn mở Plugin, bấm Thêm, chọn Thêm trình kết nối tùy chỉnh. Hộp chỉ có hai ô: tên và URL. URL do hãng đưa, thường nằm trong trang tài liệu của hãng ở mục MCP. Dòng chữ trong hộp nhắc bạn chỉ dùng trình kết nối của nhà phát triển bạn tin tưởng.", "Bạn mở từng link Claude đưa để kiểm. Ô nào Claude ghi \"không thấy\" thì hỏi thẳng hãng.", "", "Bạn đã có Project, Skill và connector. Đồng đội dùng lại được tới đâu thì tuỳ gói của đội.", "So sánh đời thường: phát bản photo sổ tay cho từng người, hay đặt một cuốn ở phòng chung để ai cũng đọc bản mới nhất. Gói cá nhân là bản photo. Gói Team là cuốn ở phòng chung.", "Đội đang ở gói cá nhân thì chia sẻ bằng cách nào? Bằng file và văn bản. Spa gửi file tra-loi-danh-gia-spa.zip và văn bản hướng dẫn Project cho chị quản lý, chị tự dựng lại trên tài khoản của mình.", "Ở gói cá nhân, bạn mở trang Skill, bấm ba chấm, chọn Tải xuống. Bạn gửi file đó cho đồng đội qua Zalo hoặc email. Đồng đội tải lên tài khoản của họ. Khi bạn sửa Skill, bạn phải gửi lại file mới: gói cá nhân không tự cập nhật cho người khác.", "Ở gói Team, bạn mở Project, bấm Share project, thêm đồng đội và chọn quyền. Mình khuyên để đa số ở quyền chỉ xem, một người giữ quyền sửa để hướng dẫn không bị sửa lung tung.", "Bốn dấu hiệu này là lời khuyên của mình, không phải của hãng. Cần sửa một chỗ mà cả đội nhận bản mới. Cần chặn công cụ gửi cho cả đội. Làm với dữ liệu khách nên cần mặc định không huấn luyện. Và hơn 2 người cùng làm một quy trình mỗi tuần.\nĐội bạn có mấy dấu hiệu trong bốn?", "Đây là giá trên trang hỗ trợ của Anthropic, đọc ngày 20/11/2026, chưa gồm thuế. Giá đổi nhanh, bạn kiểm lại trước khi mua.", "Spa có 6 người, nhưng chỉ 2 người dùng AI. Chưa có dấu hiệu nào trong bốn dấu hiệu, nên 2 tài khoản Pro là đủ. Khi cả 6 người cùng làm quy trình mỗi tuần, lúc đó mới tính gói Team.", "", ""]</script>
 <script>
 // @ds-adherence-ignore -- omelette starter scaffold (raw elements/hex/px by design)
 /* BEGIN USAGE */
