@@ -1,0 +1,3083 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module 06 · Dựng nhân viên AI: Project, Skill và connector · AI Agents Mastery · The AI Growth</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Bricolage+Grotesque:wght@700;800&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* AI Agents Mastery · slide bài học · canvas 1920×1080 · skin TAG (xanh #0693E3 → tím #9900EF) */
+  :root{
+    --bg:#FFFFFF; --bg-2:#F8FAFC; --bg-3:#F1F5F9;
+    --ink:#030815; --muted:#475569; --faint:#94A3B8;
+    --blue:#0693E3; --purple:#9900EF; --red:#E11D48; --green:#059669; --amber:#D97706;
+    --brand-grad:linear-gradient(90deg,#0693E3 0%,#9900EF 100%);
+    --grad-v:linear-gradient(150deg,#0693E3 0%,#9900EF 100%);
+    --line:#E2E8F0; --line-2:#CBD5E1; --card:#F8FAFC;
+    --t-hero:112px; --t-title:58px; --t-sub:32px; --t-body:28px; --t-small:24px; --t-tiny:20px;
+    --pad-x:110px; --pad-y:60px;
+    --font:"Be Vietnam Pro",system-ui,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+    --disp:"Bricolage Grotesque","Be Vietnam Pro",sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#0b0f1a;}
+  deck-stage:not(:defined){visibility:hidden;}
+  h1,h2,h3,p,ol,ul{margin:0;}
+  section{background:#fff;color:#334155;font-family:var(--font);overflow:hidden;}
+  b{color:var(--ink);}
+  .slide{position:relative;height:100%;width:100%;padding:var(--pad-y) var(--pad-x) 100px;display:flex;flex-direction:column;}
+  .brandmark{position:absolute;top:42px;right:var(--pad-x);height:54px;width:auto;pointer-events:none;z-index:4;}
+  .slide::after{content:"theaigrowth.io";position:absolute;left:var(--pad-x);bottom:34px;font-size:var(--t-tiny);letter-spacing:.03em;color:var(--faint);font-weight:600;}
+  section::after{content:attr(data-foot);position:absolute;right:var(--pad-x);bottom:34px;font-size:var(--t-tiny);letter-spacing:.03em;color:var(--faint);font-weight:500;}
+  aside.notes{display:none!important;}
+
+  /* ===== chữ ===== */
+  .eyebrow{font-family:var(--mono);font-size:var(--t-small);letter-spacing:.16em;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:20px;padding-right:300px;}
+  .eyebrow.warn{color:var(--red);}
+  .stitle{font-family:var(--disp);font-size:var(--t-title);font-weight:800;line-height:1.08;letter-spacing:-.02em;text-wrap:balance;color:var(--ink);padding-right:200px;}
+  .sub{font-size:var(--t-sub);font-weight:500;color:var(--muted);line-height:1.4;margin-top:18px;}
+  .grad{background:var(--brand-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;}
+  .body{font-size:var(--t-body);color:var(--muted);line-height:1.5;}
+  .src-note{font-size:var(--t-tiny);color:var(--faint);font-weight:500;line-height:1.45;margin-top:14px;}
+  .src-note b{color:var(--muted);}
+  .mega{font-family:var(--disp);font-size:84px;font-weight:800;line-height:1.1;letter-spacing:-.025em;text-wrap:balance;color:var(--ink);}
+  .mega.md{font-size:68px;}
+  .red{color:var(--red);} .green{color:var(--green);} .blue{color:var(--blue);} .purple{color:var(--purple);}
+
+  /* ===== bố cục ===== */
+  .mid{flex:1;display:flex;flex-direction:column;justify-content:center;gap:34px;min-height:0;}
+  .center{align-items:center;text-align:center;}
+  .lr{flex:1;min-height:0;display:grid;grid-template-columns:620px 1fr;gap:64px;align-items:center;}
+  .lr.wide{grid-template-columns:520px 1fr;}
+  .lr.half{grid-template-columns:1fr 1fr;}
+  .lr .lt{display:flex;flex-direction:column;justify-content:center;gap:22px;min-width:0;}
+  .lr .lt .stitle{padding-right:0;}
+  .rt{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;min-width:0;min-height:0;}
+  .row{display:grid;gap:26px;align-items:stretch;}
+  .c2{grid-template-columns:repeat(2,1fr);} .c3{grid-template-columns:repeat(3,1fr);} .c4{grid-template-columns:repeat(4,1fr);} .c5{grid-template-columns:repeat(5,1fr);}
+
+  /* ===== ảnh ===== */
+  img.shot{border:1px solid var(--line);border-radius:14px;box-shadow:0 14px 36px rgba(3,8,21,.12);max-width:100%;max-height:720px;height:auto;width:auto;background:#fff;display:block;}
+  img.shot.tall{max-height:800px;}
+  img.shot.full{max-height:760px;}
+  img.svg{max-width:100%;max-height:760px;width:100%;height:auto;display:block;}
+  .cap{font-size:var(--t-tiny);color:var(--muted);font-weight:500;text-align:center;line-height:1.4;max-width:1100px;}
+  .cap b{color:var(--ink);}
+  .ann-svg{width:100%;height:auto;max-height:640px;display:block;border-radius:14px;border:1px solid var(--line);box-shadow:0 14px 36px rgba(3,8,21,.12);background:#fff;}
+
+  /* ảnh + ghi chú đánh số (số trùng số in trên ảnh) */
+  .annlay{flex:1;min-height:0;display:grid;grid-template-columns:1fr 600px;gap:52px;align-items:center;}
+  .annlay.narrow{grid-template-columns:1fr 700px;}
+  .annlay.big{grid-template-columns:1fr 500px;}
+  .annlay.big .ann-svg,.annlay.big img.shot{max-height:690px;}
+  .matrix{display:grid;grid-template-columns:150px 1fr 1fr;grid-template-rows:auto 1fr 1fr;gap:18px;flex:1;min-height:0;}
+  .matrix .card{justify-content:center;}
+  .matrix .card p{font-size:30px;}
+  .matrix .ax{font-family:var(--mono);font-size:var(--t-tiny);font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;text-align:center;}
+  .annimg{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;min-width:0;min-height:0;}
+  .annlay img.shot{max-height:640px;}
+  .anote{list-style:none;padding:0;display:flex;flex-direction:column;gap:24px;counter-reset:n;}
+  .anote li{position:relative;padding-left:62px;font-size:26px;line-height:1.45;color:var(--muted);counter-increment:n;}
+  .anote li::before{content:counter(n);position:absolute;left:0;top:-2px;width:44px;height:44px;border-radius:50%;background:#5B4FE0;color:#fff;font-weight:800;font-size:23px;display:flex;align-items:center;justify-content:center;}
+  .anote.red li::before{background:var(--red);}
+  .anote li b{color:var(--ink);}
+  .act{margin-top:26px;background:var(--bg-2);border-left:6px solid var(--purple);border-radius:12px;padding:20px 24px;font-size:25px;line-height:1.45;color:var(--ink);font-weight:500;}
+
+  /* ảnh rộng full ngang, ghi chú đánh số xếp hàng bên dưới */
+  .shotwide{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;}
+  .shotwide img.shot,.shotwide .ann-svg{max-width:1700px;max-height:600px;width:auto;}
+  .anote.row{display:grid;grid-template-columns:repeat(var(--k,3),1fr);gap:30px;width:100%;}
+  /* nhiều ảnh cắt vùng: cột trái xếp chồng, cột phải ảnh + ghi chú */
+  .duo{flex:1;min-height:0;display:grid;grid-template-columns:1.35fr 1fr;gap:44px;align-items:center;}
+  .stack{display:flex;flex-direction:column;gap:22px;align-items:flex-start;min-width:0;}
+  .stack img.shot{max-height:300px;}
+  .stack .cap{text-align:left;}
+
+  /* ===== thẻ ===== */
+  .card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:34px 34px;display:flex;flex-direction:column;gap:12px;}
+  .card .n{font-family:var(--disp);font-size:50px;font-weight:800;line-height:1;color:var(--blue);}
+  .card .ic{font-size:46px;line-height:1;}
+  .card .k{font-family:var(--mono);font-size:var(--t-tiny);letter-spacing:.12em;text-transform:uppercase;color:var(--purple);font-weight:700;}
+  .card h3{font-size:34px;font-weight:700;line-height:1.2;color:var(--ink);}
+  .card p{font-size:27px;color:var(--muted);line-height:1.45;}
+  .card.on{background:var(--grad-v);border-color:transparent;box-shadow:0 14px 32px rgba(153,0,239,.25);}
+  .card.on .n,.card.on h3,.card.on b,.card.on .k{color:#fff;}
+  .card.on p{color:rgba(255,255,255,.92);}
+  .card.stop{background:#FFF1F2;border-color:#FECDD3;}
+  .card.stop .n,.card.stop .k{color:var(--red);}
+  .card.ok{background:#ECFDF5;border-color:#A7F3D0;}
+  .card.ok .n,.card.ok .k{color:var(--green);}
+  .card.todo{background:#FFFBEB;border:3px dashed #F59E0B;}
+  .card.todo .k{color:var(--amber);}
+
+  /* hai cột so sánh */
+  .vs{display:grid;grid-template-columns:1fr 90px 1fr;align-items:stretch;gap:0;}
+  .vs .mid-x{display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-size:44px;font-weight:800;color:var(--faint);}
+
+  /* dải nhấn */
+  .band{background:var(--grad-v);border-radius:20px;padding:28px 44px;color:#fff;font-size:31px;font-weight:700;text-align:center;box-shadow:0 16px 36px rgba(153,0,239,.24);line-height:1.38;}
+  .band b{color:#fff;}
+  .band.light{background:var(--bg-2);color:var(--ink);border:1px solid var(--line);box-shadow:none;font-weight:600;}
+  .band.light b{color:var(--purple);}
+  .band.warn{background:#FFF1F2;color:#9F1239;border:1px solid #FECDD3;box-shadow:none;}
+  .band.warn b{color:#9F1239;}
+  .chips{display:flex;flex-wrap:wrap;gap:16px;}
+  .chip{background:var(--bg-2);border:1px solid var(--line);border-radius:999px;padding:12px 26px;font-size:25px;font-weight:600;color:var(--ink);}
+  .chip.r{background:#FFF1F2;border-color:#FECDD3;color:#9F1239;}
+
+  /* ===== luồng bước + hai làn (AI / người) ===== */
+  .lanes{display:grid;grid-template-columns:170px repeat(var(--n,8),1fr);grid-template-rows:auto auto;gap:14px 12px;align-items:stretch;}
+  .lanes .lh{font-family:var(--mono);font-size:var(--t-tiny);letter-spacing:.1em;text-transform:uppercase;font-weight:700;display:flex;align-items:center;}
+  .lanes .lh.ai{color:var(--blue);} .lanes .lh.ng{color:var(--red);}
+  .lanes .st{border-radius:16px;padding:22px 16px;min-height:190px;font-size:25px;line-height:1.3;font-weight:600;color:var(--ink);background:var(--bg-2);border:1px solid var(--line);display:flex;flex-direction:column;gap:8px;}
+  .lanes .st .sn{font-family:var(--disp);font-size:30px;font-weight:800;color:var(--blue);line-height:1;}
+  .lanes .st.h{background:#FFF1F2;border-color:#FDA4AF;}
+  .lanes .st.h .sn{color:var(--red);}
+  .lanes .gap{border:2px dashed var(--line);border-radius:16px;background:transparent;}
+  .lanes .gap.ai{border-color:rgba(6,147,227,.18);}
+  .legend{display:flex;gap:34px;font-size:var(--t-tiny);color:var(--muted);font-weight:600;}
+  .legend i{display:inline-block;width:22px;height:22px;border-radius:6px;vertical-align:-4px;margin-right:10px;}
+
+  .flow{display:flex;align-items:center;gap:20px;justify-content:center;}
+  .flow .fs{flex:1;max-width:380px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:34px 22px;text-align:center;font-size:31px;font-weight:700;color:var(--ink);}
+  .flow .fs small{display:block;font-size:var(--t-tiny);color:var(--muted);font-weight:500;margin-top:10px;line-height:1.35;}
+  .flow .fs.hot{background:var(--grad-v);color:#fff;border-color:transparent;box-shadow:0 14px 32px rgba(153,0,239,.28);}
+  .flow .fs.hot small{color:rgba(255,255,255,.9);}
+  .flow .fa{font-size:44px;color:var(--faint);}
+
+  /* ===== bậc thang 4 cấp ===== */
+  .ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;align-items:end;}
+  .ladder .lv{border-radius:20px 20px 14px 14px;padding:28px 26px;background:var(--bg-2);border:1px solid var(--line);display:flex;flex-direction:column;gap:12px;}
+  .ladder .lv:nth-child(1){min-height:300px;} .ladder .lv:nth-child(2){min-height:390px;} .ladder .lv:nth-child(3){min-height:480px;} .ladder .lv:nth-child(4){min-height:570px;}
+  .ladder .lv .k{font-family:var(--mono);font-size:var(--t-tiny);letter-spacing:.12em;text-transform:uppercase;color:var(--purple);font-weight:700;}
+  .ladder .lv h3{font-size:34px;color:var(--ink);font-weight:800;line-height:1.15;}
+  .ladder .lv p{font-size:23px;color:var(--muted);line-height:1.42;}
+  .ladder .lv .tool{margin-top:auto;font-size:var(--t-tiny);font-weight:700;color:var(--blue);}
+  .ladder .lv.on{background:var(--grad-v);border-color:transparent;}
+  .ladder .lv.on h3,.ladder .lv.on p,.ladder .lv.on .k,.ladder .lv.on .tool{color:#fff;}
+
+  /* ===== bảng 3 cột ===== */
+  table.tb{width:100%;border-collapse:separate;border-spacing:0 12px;}
+  table.tb th{font-family:var(--mono);font-size:var(--t-tiny);letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--purple);text-align:left;padding:0 26px 2px;}
+  table.tb td{background:var(--card);padding:22px 26px;font-size:26px;color:var(--muted);line-height:1.4;font-weight:500;vertical-align:middle;}
+  table.tb td:first-child{border-radius:16px 0 0 16px;color:var(--ink);font-weight:700;}
+  table.tb td:last-child{border-radius:0 16px 16px 0;}
+  table.tb td.hi{color:var(--blue);font-weight:700;}
+  table.tb tr.on td{background:#F3E8FF;}
+
+  /* ===== prompt chép được ===== */
+  .prompt{position:relative;background:#0B1020;border-radius:20px;padding:40px 46px 40px;color:#E2E8F0;font-family:var(--font);font-size:27px;line-height:1.55;white-space:pre-wrap;box-shadow:0 18px 40px rgba(3,8,21,.25);}
+  .prompt .ph{color:#FBBF24;font-weight:700;}
+  .prompt .lbl{position:absolute;top:-18px;left:36px;background:var(--brand-grad);color:#fff;font-family:var(--mono);font-size:var(--t-tiny);font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 18px;border-radius:999px;}
+  .copybtn{position:absolute;top:-18px;right:28px;background:#334155;color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:10px;padding:8px 18px;font-size:20px;font-weight:600;cursor:pointer;font-family:var(--font);}
+
+  /* ===== tóm lại ===== */
+  .recap{list-style:none;padding:0;display:flex;flex-direction:column;gap:22px;}
+  .recap li{display:flex;gap:26px;align-items:center;font-size:36px;line-height:1.4;color:var(--ink);font-weight:600;background:var(--bg-2);border:1px solid var(--line);border-radius:20px;padding:30px 36px;}
+  .recap li .d{flex:none;width:60px;height:60px;border-radius:16px;background:var(--grad-v);color:#fff;font-family:var(--disp);font-weight:800;font-size:32px;display:flex;align-items:center;justify-content:center;}
+  .next{display:flex;align-items:center;gap:20px;font-size:30px;color:var(--muted);font-weight:600;padding-top:10px;}
+  .next b{color:var(--purple);}
+
+  /* ===== bìa module (nền gradient) ===== */
+  section.cover{background:var(--grad-v);}
+  section.cover .slide,section.cover b{color:#fff;}
+  section.cover .slide::after,section.cover::after{color:rgba(255,255,255,.75);}
+  section.cover .eyebrow{color:rgba(255,255,255,.9);}
+  .cover-glow{position:absolute;width:1000px;height:1000px;border-radius:50%;right:-260px;top:-320px;background:radial-gradient(circle,rgba(255,255,255,.22),transparent 64%);pointer-events:none;}
+  .hero{font-family:var(--disp);font-size:var(--t-hero);font-weight:800;letter-spacing:-.03em;line-height:1.02;color:#fff;text-wrap:balance;max-width:1500px;}
+  .hero-sub{font-size:38px;font-weight:500;color:rgba(255,255,255,.92);margin-top:28px;max-width:1450px;line-height:1.35;}
+  .toc{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 40px;margin-top:54px;max-width:1600px;}
+  .toc div{font-size:26px;color:#fff;font-weight:600;line-height:1.35;display:flex;gap:16px;}
+  .toc div span{font-family:var(--mono);opacity:.75;flex:none;}
+
+  /* ===== mở bài học (nền sáng có dải màu) ===== */
+  section.lesson .slide{background:linear-gradient(180deg,#F5F3FF 0%,#FFFFFF 62%);}
+  section.lesson .slide::before{content:"";position:absolute;left:0;top:0;bottom:0;width:18px;background:var(--grad-v);}
+  .lnum{font-family:var(--disp);font-size:150px;font-weight:800;line-height:.9;letter-spacing:-.04em;}
+  .ltitle{font-family:var(--disp);font-size:66px;font-weight:800;line-height:1.1;letter-spacing:-.02em;color:var(--ink);text-wrap:balance;max-width:1600px;}
+  .after{font-size:31px;color:var(--muted);line-height:1.45;font-weight:500;max-width:1500px;}
+  .after b{color:var(--purple);}
+  .keys{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .keys div{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px 28px;font-size:25px;line-height:1.4;color:var(--ink);font-weight:600;box-shadow:0 8px 22px rgba(3,8,21,.05);}
+  .keys div i{display:block;font-style:normal;font-family:var(--mono);font-size:var(--t-tiny);color:var(--blue);font-weight:700;margin-bottom:8px;letter-spacing:.1em;}
+
+  /* ===== chờ Vincent ===== */
+  .todo-box{background:#FFFBEB;border:3px dashed #F59E0B;border-radius:18px;padding:22px 28px;font-size:24px;line-height:1.45;color:#92400E;font-weight:600;}
+  .todo-box b{color:#92400E;}
+
+  /* ===== hiệu ứng vào slide ===== */
+  section[data-deck-active] .rise{animation:rise .55s cubic-bezier(.2,0,0,1) both;}
+  section[data-deck-active] .rise:nth-child(2){animation-delay:.08s;} section[data-deck-active] .rise:nth-child(3){animation-delay:.16s;} section[data-deck-active] .rise:nth-child(4){animation-delay:.24s;}
+  @keyframes rise{from{opacity:0;transform:translateY(18px);}}
+  @media print{section .rise{animation:none!important;}}
+
+  /* ===== thanh điều khiển + ghi chú diễn giả ===== */
+  .deck-ctrl{position:fixed;left:18px;bottom:16px;z-index:50;display:flex;gap:8px;font-family:var(--font);}
+  .deck-ctrl button{background:rgba(15,23,42,.82);color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:8px 14px;font-size:14px;font-weight:600;cursor:pointer;}
+  .deck-ctrl button.on{background:#7C3AED;}
+  .notes-panel{position:fixed;right:18px;bottom:60px;z-index:50;width:min(560px,44vw);max-height:46vh;overflow:auto;background:rgba(15,23,42,.94);color:#E2E8F0;border-radius:14px;padding:18px 22px;font:15px/1.6 var(--font);display:none;box-shadow:0 12px 30px rgba(0,0,0,.4);}
+  .notes-panel.show{display:block;}
+  .notes-panel h4{margin:0 0 8px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#A78BFA;}
+  .notes-panel p{margin:0 0 8px;}
+  deck-stage section[contenteditable="true"]{outline:3px dashed rgba(6,147,227,.55);outline-offset:-3px;cursor:text;}
+
+  /* ===== riêng m06 ===== */
+  .shotwide img.shot{max-width:1700px;max-height:600px;width:auto;}
+  /* khối hiển thị nội dung file (không có nút Chép) */
+  .codebox{position:relative;background:#0B1020;border-radius:20px;padding:40px 46px;color:#E2E8F0;font-family:var(--font);font-size:26px;line-height:1.55;white-space:pre-wrap;box-shadow:0 18px 40px rgba(3,8,21,.25);}
+  .codebox .ph{color:#FBBF24;font-weight:700;}
+  .codebox b{color:#fff;}
+  .codebox .lbl{position:absolute;top:-18px;left:36px;background:var(--brand-grad);color:#fff;font-family:var(--mono);font-size:var(--t-tiny);font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 18px;border-radius:999px;}
+  .shotwide .ann-svg{height:500px;width:auto;max-width:100%;max-height:none;}
+  .shotwide .below{display:grid;grid-template-columns:1fr 520px;gap:34px;width:100%;align-items:start;}
+  .shotwide .below.solo{grid-template-columns:1fr;}
+  .shotwide .below .anote li{font-size:25px;}
+  .shotwide.xw .ann-svg{width:100%;height:auto;max-width:1700px;}
+
+</style>
+</head>
+<body>
+<deck-stage width="1920" height="1080">
+<section data-foot="AI Agents Mastery · Module 06" data-label="Bìa Module 06" class="cover">
+  <div class="cover-glow"></div>
+  <div class="slide">
+    <div class="mid">
+      <div class="eyebrow">AI Agents Mastery · Module 06</div>
+      <h1 class="hero">Dựng nhân viên AI: Project, Skill và connector</h1>
+      <p class="hero-sub">Biến bản vẽ quy trình của Module 04 thành một nhân viên AI có phòng làm việc, sổ tay và quyền vào app của đội.</p>
+      <div class="toc">
+        <div><span>6.1</span>Dựng Project cho từng vai trò</div>
+        <div><span>6.2</span>Skill là gì? Dạy AI một lần, cả đội dùng lại</div>
+        <div><span>6.3</span>Bài tập: dựng Skill đầu tiên cho việc thật</div>
+        <div><span>6.4</span>Nối AI với Gmail, Drive, Calendar, Notion</div>
+        <div><span>6.5</span>MCP là gì mà ai cũng nhắc?</div>
+        <div><span>6.6</span>Chia sẻ Skill và Project cho cả đội</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Bài 6.1 · Mở bài" class="lesson">
+  <div class="slide">
+    <div class="mid">
+      <div class="eyebrow">Bài 6.1</div>
+      <h2 class="ltitle">Biến AI thành chuyên gia riêng: dựng Project cho từng vai trò</h2>
+      <p class="after">Sau bài này, vai trò làm quy trình đầu tiên của bạn có <b>một Project riêng, có hướng dẫn và tài liệu dùng lại mỗi tuần</b>.</p>
+      <div class="keys">
+        <div class="rise"><i>01</i>Project là phòng làm việc của một vai trò</div>
+        <div class="rise"><i>02</i>Cái gì vào Project, cái gì để ở chat</div>
+        <div class="rise"><i>03</i>Viết hướng dẫn Project từ bản vẽ quy trình</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Một vai trò một Project">
+  <div class="slide">
+    <div class="eyebrow">Bài 6.1 · Ý chính</div>
+    <h2 class="stitle">Một vai trò, <span class="grad">một Project</span></h2>
+    <div class="mid center">
+      <img class="svg" style="max-width:1500px" src="media/m06/b1-hero-desktop.svg" alt="Bản vẽ quy trình Module 04 đi vào Project Spa · Trả lời đánh giá gồm hướng dẫn, kho kiến thức và các chat">
+      <div class="band light" style="max-width:1500px">Project giữ <b>phần dùng lại</b>: hướng dẫn và kho kiến thức. Mỗi chat là <b>một lần làm việc</b>.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="GPT và Gem đang đổi">
+  <div class="slide">
+    <div class="eyebrow">Vì sao tên bài bỏ chữ "GPT, Gem" · ảnh chụp trang hãng</div>
+    <h2 class="stitle">GPT tuỳ chỉnh và Gem <span class="grad">đang được thay</span></h2>
+    <div class="shotwide xw">
+      <svg class="ann-svg" viewBox="0 0 694 175" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m06/pad/gem.png" x="0" y="0" width="694" height="175"/><path d="M0,0h694v175h-694zM16,98h654v66h-654z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="16" y="98" width="654" height="66" rx="4" fill="none" stroke="#EF004B" stroke-width="2.4"/><circle cx="16" cy="98" r="11" fill="#EF004B" stroke="#fff" stroke-width="1.8"/><text x="16" y="103" text-anchor="middle" font-size="14" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text></svg>
+      <div class="below">
+        <ol class="anote red row" style="--k:1"><li><b>Gemini:</b> Gem chuyển thành kỹ năng. Gem chỉ đọc từ 17/11/2026, bị gỡ ngày 17/12/2026 (tài khoản cá nhân).</li></ol>
+        <div class="act" style="margin-top:0"><b>ChatGPT:</b> GPT tuỳ chỉnh ngừng ngày 11/12/2026. ChatGPT vẫn có Project.<br><b>Đang dùng Gem?</b> Chép sang Skill của Gemini trước 17/12/2026.</div>
+      </div>
+      <p class="cap">Ảnh chụp trang trợ giúp Google "Giới thiệu về quá trình chuyển đổi từ Gem sang kỹ năng", ngày 20/11/2026. Khung số do The AI Growth vẽ thêm.</p>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Project là gì">
+  <div class="slide">
+    <div class="eyebrow">Bài 6.1 · Project là gì</div>
+    <h2 class="stitle">Phòng làm việc riêng <span class="grad">cho một vai trò</span></h2>
+    <div class="mid center">
+      <img class="svg" style="max-width:1150px" src="media/m06/b1-ba-thu-trong-project.svg" alt="Hướng dẫn Project và kho kiến thức áp cho mọi chat; các chat không thấy nhau">
+      <div class="row c3" style="text-align:left;width:100%">
+        <div class="card"><div class="k">Áp cho mọi chat</div><p>Hướng dẫn và kho kiến thức đi theo mọi chat trong Project.</p></div>
+        <div class="card stop"><div class="k">Các chat không thấy nhau</div><p>Tài liệu dùng chung phải nằm trong kho kiến thức.</p></div>
+        <div class="card"><div class="k">Claude không đọc tên, mô tả</div><p>Điều muốn Claude làm theo phải nằm trong hướng dẫn.</p></div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Mọi gói có Project">
+  <div class="slide">
+    <div class="eyebrow">Ảnh chụp trang hãng</div>
+    <h2 class="stitle">Mọi gói dùng được Project, <span class="grad">gói Free tối đa 5</span></h2>
+    <div class="shotwide">
+      <svg class="ann-svg" viewBox="0 0 818 272" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m06/pad/projects.png" x="0" y="0" width="818" height="272"/><path d="M0,0h818v272h-818zM18,8h784v84h-784zM52,237h694v28h-694z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="18" y="8" width="784" height="84" rx="4" fill="none" stroke="#EF004B" stroke-width="2.8"/><rect x="52" y="237" width="694" height="28" rx="4" fill="none" stroke="#EF004B" stroke-width="2.8"/><circle cx="18" cy="15" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="18" y="21" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text><circle cx="36" cy="251" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="36" y="257" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">2</text></svg>
+      <div class="below">
+        <ol class="anote red row" style="--k:2"><li><b>Mọi gói,</b> kể cả Free. Gói Free tạo tối đa 5 Project.</li>
+          <li><b>Tên và mô tả:</b> Claude không đọc hai ô này.</li></ol>
+        <div class="act" style="margin-top:0">Chia sẻ Project cho đội: học ở bài 6.6.</div>
+      </div>
+      <p class="cap">Ảnh chụp trang trợ giúp Anthropic "How can I create and manage projects?", ngày 20/11/2026. Khung số do The AI Growth vẽ thêm.</p>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Mục Dự án trong app">
+  <div class="slide">
+    <div class="eyebrow">Ảnh chụp thật · Claude Desktop</div>
+    <h2 class="stitle">Project nằm ở mục <span class="grad">Dự án</span> trên thanh bên</h2>
+    <div class="shotwide">
+      <img class="shot" style="max-height:660px" src="media/m06/M06-B1-S01.jpg" alt="Thanh bên Claude có mục Dự án, dưới ô nhập có Dự án hoặc thư mục">
+      <ol class="anote row" style="--k:2">
+        <li><b>Dự án:</b> mở danh sách Project, tạo Project mới.</li>
+        <li><b>Dự án hoặc thư mục:</b> chọn Project cho chat bạn sắp mở.</li>
+      </ol>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Project trên ChatGPT">
+  <div class="slide">
+    <div class="lr">
+      <div class="lt">
+        <div class="eyebrow">Trên ChatGPT</div>
+        <h2 class="stitle">ChatGPT cũng có Project, <span class="grad">cùng cách nghĩ</span></h2>
+        <p class="body">Thanh bên → <b>Projects</b> → hộp "Create project".</p>
+        <p class="body">Bạn dùng app nào thì dựng Project ở app đó. Cách chia hướng dẫn, kho và chat giữ nguyên.</p>
+      </div>
+      <div class="rt"><img class="shot" style="width:100%" src="media/m06/yt-chatgpt-projects_cat.jpg" alt="ChatGPT: thanh bên có mục Projects và hộp Create project"><p class="cap">Khung hình video YouTube về Project trên ChatGPT, đăng ngày 08/11/2026.</p></div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Cái gì để ở đâu">
+  <div class="slide">
+    <div class="eyebrow">Bài 6.1 · Cái gì vào Project, cái gì để ở chat</div>
+    <h2 class="stitle">Thứ dùng lại để ở Project. <span class="grad">Dữ liệu từng tuần dán vào chat</span></h2>
+    <div class="mid">
+      <table class="tb">
+        <tr><th>Thứ</th><th>Để ở đâu</th><th>Vì sao</th></tr>
+        <tr><td>Giọng và luật trả lời</td><td class="hi">Hướng dẫn Project</td><td>Áp cho mọi chat</td></tr>
+        <tr><td>Danh sách chủ đề, mẫu đã duyệt</td><td class="hi">Kho kiến thức</td><td>Dùng lại mỗi tuần</td></tr>
+        <tr><td>Đánh giá của tuần này</td><td class="hi">Chat mới trong Project</td><td>Mỗi tuần một lần</td></tr>
+      </table>
+      <div class="band light">Spa: giọng trả lời trong hướng dẫn, <b>8 chủ đề hay gặp</b> trong kho, dán <b>15 đánh giá mới</b> vào chat mỗi thứ Hai.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Kho gần đầy">
+  <div class="slide">
+    <div class="mid center">
+      <div class="eyebrow">Kho kiến thức gần đầy thì sao</div>
+      <p class="mega md">Claude tự chuyển sang <span class="grad">tìm đoạn liên quan</span> (RAG).</p>
+      <p class="sub">Có ở gói trả phí: Pro, Max, Ultra, Team, Enterprise. Sức chứa tăng tới 10 lần (trang hỗ trợ Anthropic, kiểm 20/11/2026).</p>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Năm phần của hướng dẫn">
+  <div class="slide">
+    <div class="eyebrow">Bài 6.1 · Viết hướng dẫn Project</div>
+    <h2 class="stitle">Viết theo <span class="grad">5 phần của Module 03</span>, lấy nội dung từ bản vẽ quy trình</h2>
+    <div class="mid">
+      <div class="row c5">
+        <div class="card rise"><div class="n">1</div><h3>Bối cảnh</h3><p>Bạn là ai, làm cho ai.</p></div>
+        <div class="card rise"><div class="n">2</div><h3>Việc cần làm</h3><p>Các việc hay giao.</p></div>
+        <div class="card rise"><div class="n">3</div><h3>Dữ liệu đầu vào</h3><p>File nào trong kho, dùng lúc nào.</p></div>
+        <div class="card rise"><div class="n">4</div><h3>Mẫu đầu ra</h3><p>Bảng, cột, độ dài.</p></div>
+        <div class="card stop rise"><div class="n">5</div><h3>Giới hạn, điểm dừng</h3><p>Điều cấm, chỗ chờ người duyệt.</p></div>
+      </div>
+      <div class="band light">Giữ hướng dẫn ngắn. <b>Tài liệu dài để ở kho kiến thức.</b></div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Hướng dẫn mẫu của spa">
+  <div class="slide">
+    <div class="eyebrow">Hướng dẫn Project mẫu của spa · ví dụ minh hoạ</div>
+    <h2 class="stitle">Khoảng 230 chữ, <span class="grad">đủ 5 phần</span></h2>
+    <div class="mid">
+      <div class="codebox"><span class="lbl">Hướng dẫn Project</span><b>Bạn là ai và làm cho ai:</b> giúp chủ một spa ở Cần Thơ đọc và trả lời đánh giá Google mỗi tuần.
+<b>Việc thường giao:</b> phân loại đánh giá · đánh dấu "cần chủ spa xem" · soạn nháp câu trả lời · viết tóm tắt tuần.
+<b>Tài liệu trong kho:</b> giong-spa.md · chu-de-co-dinh.md · khung-tom-tat-tuan.md.
+<b>Mẫu đầu ra:</b> bảng 4 cột: Số sao · Chủ đề · Cần chủ spa xem · Câu trả lời nháp.
+<b style="color:#FBBF24">Không được làm và điểm dừng:</b> không hứa giảm giá. Đánh giá nhắc da bị kích ứng thì đánh dấu cho chủ spa đọc. Chỉ soạn bản nháp, chủ spa tự bấm đăng.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Hộp tạo Project">
+  <div class="slide">
+    <div class="eyebrow">Hộp tạo Project · ảnh chụp thật (bản tiếng Anh)</div>
+    <h2 class="stitle">Ba ô cần điền: <span class="grad">tên, hướng dẫn, tài liệu</span></h2>
+    <div class="annlay">
+      <div class="annimg"><img class="shot" style="height:660px;max-height:660px" src="media/m06/M06-B1-S03.jpg" alt="Hộp Start a new project: Name, Instructions, Add files, Choose location"></div>
+      <div>
+        <ol class="anote">
+          <li><b>Name:</b> đặt theo vai trò, ví dụ "Spa · Trả lời đánh giá".</li>
+          <li><b>Instructions:</b> dán hướng dẫn 5 phần.</li>
+          <li><b>Choose location:</b> chỗ lưu Project trên máy (app Desktop).</li>
+        </ol>
+        <div class="act">Vùng <b>Add files</b> giữa ô 2 và ô 3: kéo tài liệu dùng lại vào kho. Ảnh chụp app Claude Desktop bản tiếng Anh, app tiếng Việt gọi là Dự án.</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Thử ngay 6.1">
+  <div class="slide">
+    <div class="eyebrow">Thử ngay · khoảng 5 phút</div>
+    <h2 class="stitle">Nhờ Claude viết hướng dẫn Project <span class="grad">từ bản vẽ quy trình</span></h2>
+    <div class="mid">
+      <div class="prompt"><span class="lbl">Prompt</span>Đây là bản vẽ quy trình một trang của mình:
+<span class="ph">[dán bản vẽ quy trình từ bài tập Module 04]</span>
+Viết hướng dẫn Project cho vai trò làm quy trình này, theo 5 phần: bối cảnh · việc cần làm · dữ liệu đầu vào · mẫu đầu ra · giới hạn và điểm dừng. Viết dưới 300 chữ.
+Sau đó liệt kê các tài liệu nên đưa vào kho kiến thức, mỗi tài liệu ghi 1 câu: dùng lúc nào.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Tóm lại 6.1">
+  <div class="slide">
+    <div class="eyebrow">Tóm lại · Bài 6.1</div>
+    <div class="mid">
+      <ul class="recap">
+        <li class="rise"><span class="d">1</span>Project là phòng làm việc của một vai trò: hướng dẫn và kho áp cho mọi chat.</li>
+        <li class="rise"><span class="d">2</span>Thứ dùng lại để ở Project. Dữ liệu từng tuần dán vào chat.</li>
+        <li class="rise"><span class="d">3</span>Hướng dẫn Project lấy từ bản vẽ quy trình, viết ngắn theo 5 phần.</li>
+      </ul>
+      <div class="next">Bài tiếp theo: <b>6.2 · Skill là gì</b></div>
+    </div>
+  </div>
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Bài 6.2 · Mở bài" class="lesson">
+  <div class="slide">
+    <div class="mid">
+      <div class="eyebrow">Bài 6.2</div>
+      <h2 class="ltitle">Skill là gì? Dạy AI một lần, cả đội dùng lại mỗi ngày</h2>
+      <p class="after">Sau bài này, bạn hiểu <b>Skill, Project, connector, plugin khác nhau ở đâu</b> và đọc được một file SKILL.md.</p>
+      <div class="keys">
+        <div class="rise"><i>01</i>Skill: sổ tay quy trình Claude tự mở khi cần</div>
+        <div class="rise"><i>02</i>Bên trong một Skill có gì</div>
+        <div class="rise"><i>03</i>Plugin và chỗ cài Skill</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Không có Skill và có Skill">
+  <div class="slide">
+    <div class="eyebrow">Bài 6.2 · Ý chính</div>
+    <h2 class="stitle">Dạy một lần, <span class="grad">Claude tự mở khi việc khớp</span></h2>
+    <div class="mid center">
+      <img class="svg" style="max-width:1500px" src="media/m06/b2-s2-hero-desktop.svg" alt="Không có Skill: dán hướng dẫn mỗi tuần. Có Skill: Claude đọc mô tả rồi mở cách làm">
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Skill là gì">
+  <div class="slide">
+    <div class="mid center">
+      <div class="eyebrow">Skill là gì</div>
+      <p class="mega md">Skill là <span class="grad">một thư mục</span> ghi cách làm một việc.</p>
+      <p class="sub">File SKILL.md có tên, mô tả, các bước. Kèm file mẫu khi cần.</p>
+      <div class="band light" style="max-width:1400px">Thay vì dạy lại nhân viên mới mỗi lần, bạn đưa <b>sổ tay quy trình và danh sách kiểm</b>.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Bốn thứ đưa cho Claude">
+  <div class="slide">
+    <div class="eyebrow">Đặt cạnh nhau</div>
+    <h2 class="stitle">Prompt, Project, Skill, connector: <span class="grad">Claude đọc khi nào?</span></h2>
+    <div class="mid">
+      <table class="tb">
+        <tr><th>Thứ</th><th>Đưa cho Claude gì</th><th>Claude đọc khi nào</th></tr>
+        <tr><td>Prompt</td><td>Việc của lần này</td><td>Mỗi lần bạn gửi</td></tr>
+        <tr><td>Project</td><td>Hướng dẫn và tài liệu của một vai trò</td><td>Mọi chat trong Project</td></tr>
+        <tr class="on"><td>Skill</td><td>Cách làm một việc, kèm file mẫu</td><td>Khi việc khớp mô tả, ở bất kỳ chat nào</td></tr>
+        <tr><td>Connector</td><td>Quyền vào app: Gmail, Drive, Notion</td><td>Khi việc cần dữ liệu trong app đó</td></tr>
+      </table>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Skill có ở mọi gói">
+  <div class="slide">
+    <div class="eyebrow">Ảnh chụp trang hãng</div>
+    <h2 class="stitle">Skill có ở mọi gói, <span class="grad">cần bật chạy mã</span></h2>
+    <div class="shotwide xw">
+      <svg class="ann-svg" viewBox="0 0 818 124" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m06/pad/skills.png" x="0" y="0" width="818" height="124"/><path d="M0,0h818v124h-818zM18,7h784v108h-784z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="18" y="7" width="784" height="108" rx="4" fill="none" stroke="#EF004B" stroke-width="2.8"/><circle cx="18" cy="15" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="18" y="21" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text></svg>
+      <div class="below">
+        <ol class="anote red row" style="--k:1"><li><b>Mọi gói,</b> từ Free tới Enterprise. Tính năng này cần bật chạy mã.</li></ol>
+        <div class="act" style="margin-top:0">Free, Pro, Max, Ultra: bật Skill mẫu và tải Skill của bạn ở Customize → Skills (app tiếng Việt: Tùy chỉnh → Skills).</div>
+      </div>
+      <p class="cap">Ảnh chụp trang trợ giúp Anthropic "Use skills in Claude", ngày 20/11/2026. Khung số do The AI Growth vẽ thêm.</p>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Bật Chạy mã trên đám mây">
+  <div class="slide">
+    <div class="eyebrow">Ảnh chụp thật · Cài đặt → Khả năng</div>
+    <h2 class="stitle">Bật <span class="grad">"Chạy mã trên đám mây"</span> để dùng Skill</h2>
+    <div class="shotwide">
+      <img class="shot" src="media/m06/M06-B2-S01_kha-nang.jpg" alt="Cài đặt, tab Khả năng, công tắc Chạy mã trên đám mây đang bật">
+      <ol class="anote row" style="--k:2">
+        <li><b>Khả năng:</b> tab trong Cài đặt, nhóm Tùy chọn.</li>
+        <li><b>Chạy mã trên đám mây:</b> dòng mô tả ghi "Bắt buộc để dùng Skills".</li>
+      </ol>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Skill trên Gemini">
+  <div class="slide">
+    <div class="lr">
+      <div class="lt">
+        <div class="eyebrow">Trên Gemini và ChatGPT</div>
+        <h2 class="stitle">Cả ba app <span class="grad">đang đi về Skill</span></h2>
+        <p class="body"><b>Gemini</b> đang thay Gem bằng Skill: trang Customize → Skills.</p>
+        <p class="body"><b>ChatGPT</b> ngừng GPT tuỳ chỉnh ngày 11/12/2026 và chuyển sang plugin.</p>
+        <p class="body">Cách làm của bài này dùng được cho cả ba app.</p>
+      </div>
+      <div class="rt"><img class="shot" style="width:100%" src="media/m06/yt-gemini-skills_cat.jpg" alt="Trang Skills của Gemini với danh sách Installed và nút Create"><p class="cap">Khung hình video YouTube về Skill trên Gemini, đăng ngày 12/11/2026.</p></div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Bên trong một Skill">
+  <div class="slide">
+    <div class="lr half">
+      <div class="lt">
+        <div class="eyebrow">Bài 6.2 · Bên trong một Skill</div>
+        <h2 class="stitle">Một thư mục, <span class="grad">một file chính</span></h2>
+        <p class="body">Tên thư mục trùng tên Skill. File chính là <b>SKILL.md</b>. File mẫu đi kèm khi cần.</p>
+      </div>
+      <div class="rt"><img class="svg" src="media/m06/b2-s2-cay-thu-muc.svg" alt="Thư mục bao-gia-ve-sinh có SKILL.md, bang-gia.md, mau-bao-gia.md"></div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Hai dòng đầu">
+  <div class="slide">
+    <div class="eyebrow">Hai dòng quyết định Skill có được dùng</div>
+    <h2 class="stitle"><span class="grad">name</span> và <span class="grad">description</span></h2>
+    <div class="mid">
+      <div class="codebox"><span class="lbl">SKILL.md · bao-gia-ve-sinh</span>---
+<b>name:</b> bao-gia-ve-sinh
+<b>description:</b> Soạn báo giá dịch vụ vệ sinh toà nhà theo mẫu của công ty. Dùng khi người dùng nhờ làm báo giá, hỏi giá vệ sinh, hoặc gửi diện tích và số buổi vệ sinh mỗi tuần.
+---
+## Các bước
+1. Nếu thiếu diện tích hoặc số buổi vệ sinh mỗi tuần, hỏi lại trước khi tính.
+2. Tính giá theo bang-gia.md. Không tự đặt giá ngoài bảng.</div>
+      <div class="row c2">
+        <div class="card"><div class="k">name</div><p>Chữ thường, số, gạch ngang.</p></div>
+        <div class="card"><div class="k">description</div><p>Skill làm gì, <b>khi nào dùng</b>. Mình khuyên dưới 200 ký tự.</p></div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Ba tầng nạp">
+  <div class="slide">
+    <div class="eyebrow">Vì sao cài nhiều Skill không làm Claude chậm</div>
+    <h2 class="stitle">Claude chỉ đọc <span class="grad">mô tả</span>, tới khi việc khớp</h2>
+    <div class="mid center">
+      <img class="svg" style="max-width:1500px" src="media/m06/b2-s2-ba-tang-nap.svg" alt="Ba tầng nạp Skill: tên và mô tả, nội dung SKILL.md, file đi kèm">
+      <div class="band light" style="max-width:1500px">Mỗi Skill chưa dùng chỉ tốn khoảng <b>100 token</b> (tài liệu Anthropic, kiểm 11/11/2026).</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Chỉ cài Skill tin cậy">
+  <div class="slide">
+    <div class="mid center">
+      <div class="eyebrow warn">Một điều phải nhớ</div>
+      <p class="mega md">Chỉ cài Skill <span class="red">từ nguồn tin cậy</span>.</p>
+      <p class="sub">Kể cả Skill đồng nghiệp gửi: mở SKILL.md đọc trước khi bật.</p>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Plugin">
+  <div class="slide">
+    <div class="eyebrow">Bài 6.2 · Plugin · ảnh chụp trang hãng</div>
+    <h2 class="stitle">Plugin gói <span class="grad">Skill, connector và sub-agent</span> cho một vai trò</h2>
+    <div class="shotwide xw">
+      <svg class="ann-svg" viewBox="0 265 840 160" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m06/support-plugins-dau-trang-le.png" x="0" y="0" width="840" height="500"/><path d="M0,265h840v160h-840zM23,273h807v60h-807zM23,350h807v70h-807z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="23" y="273" width="807" height="60" rx="4" fill="none" stroke="#EF004B" stroke-width="2.9"/><rect x="23" y="350" width="807" height="70" rx="4" fill="none" stroke="#EF004B" stroke-width="2.9"/><circle cx="23" cy="280" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.2"/><text x="23" y="286" text-anchor="middle" font-size="17" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text><circle cx="23" cy="350" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.2"/><text x="23" y="356" text-anchor="middle" font-size="17" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">2</text></svg>
+      <div class="below">
+        <ol class="anote red row" style="--k:2"><li><b>Gói trả phí:</b> Pro, Max, Ultra, Team, Enterprise. Gói Free không có.</li>
+          <li><b>Một gói cho một vai trò:</b> cài một lần, có đủ Skill và connector.</li></ol>
+        <div class="act" style="margin-top:0">Ví dụ: plugin cho người làm marketing gói sẵn Skill viết bài, connector Drive và Skill kiểm chính tả.</div>
+      </div>
+      <p class="cap">Ảnh chụp trang trợ giúp Anthropic "Use plugins in Claude", ngày 20/11/2026. Khung số do The AI Growth vẽ thêm.</p>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Chỗ cài Skill và plugin">
+  <div class="slide">
+    <div class="eyebrow">Chỗ cài · ảnh chụp thật</div>
+    <h2 class="stitle">Trong chat: <span class="grad">nút dấu cộng</span></h2>
+    <div class="annlay narrow">
+      <div class="annimg"><img class="shot" style="max-height:660px" src="media/m06/M06-B3-S05.jpg" alt="Menu dấu cộng có Ghi lại Skill, Skills, Trình kết nối, Thêm plugin"><p class="cap">Ảnh chụp app Claude Desktop ngày 11/11/2026: menu dấu cộng.</p></div>
+      <div>
+        <ol class="anote">
+          <li><b>Ghi lại Skill:</b> cách dựng Skill bằng cách ghi màn hình (bài 6.3).</li>
+          <li><b>Skills:</b> bật, tắt Skill cho chat này.</li>
+        </ol>
+        <div class="act">Cùng menu có <b>Thêm plugin</b>. Trong Cài đặt, mục "Tùy chỉnh" (tiếng Anh: Customize, đang đổi thành Plugins).</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Thử ngay 6.2">
+  <div class="slide">
+    <div class="eyebrow">Thử ngay · khoảng 3 phút</div>
+    <h2 class="stitle">Chọn 3 bước <span class="grad">nên viết thành Skill</span></h2>
+    <div class="mid">
+      <div class="prompt"><span class="lbl">Prompt</span>Đây là bản vẽ quy trình một trang của mình:
+<span class="ph">[dán bản vẽ quy trình]</span>
+Chọn 3 bước nên viết thành Skill. Một bước đáng thành Skill khi: lặp lại mỗi tuần, có cách làm cố định, có mẫu đầu ra.
+Với mỗi bước, ghi: tên Skill gợi ý (chữ thường, gạch ngang) · lý do chọn (1 câu) · dữ liệu đầu vào cần có.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Tóm lại 6.2">
+  <div class="slide">
+    <div class="eyebrow">Tóm lại · Bài 6.2</div>
+    <div class="mid">
+      <ul class="recap">
+        <li class="rise"><span class="d">1</span>Skill ghi cách làm một việc. Claude tự mở khi việc khớp mô tả.</li>
+        <li class="rise"><span class="d">2</span>Mô tả ngắn, nói rõ khi nào dùng, là phần quan trọng nhất.</li>
+        <li class="rise"><span class="d">3</span>Plugin gói nhiều Skill và connector cho một vai trò, có ở gói trả phí.</li>
+      </ul>
+      <div class="next">Bài tiếp theo: <b>6.3 · Bài tập: dựng Skill đầu tiên</b></div>
+    </div>
+  </div>
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Bài 6.3 · Mở bài" class="lesson">
+  <div class="slide">
+    <div class="mid">
+      <div class="eyebrow">Bài 6.3 · Bài tập</div>
+      <h2 class="ltitle">Bài tập: dựng Skill đầu tiên từ số 0 cho việc thật của bạn</h2>
+      <p class="after">Sau bài này, bạn có <b>một Skill của chính mình, đã chạy đạt trên 3 dữ liệu thật</b>.</p>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Từ một bước tới Skill">
+  <div class="slide">
+    <div class="eyebrow">Bài 6.3 · Đường đi</div>
+    <h2 class="stitle">Từ một bước trong bản vẽ <span class="grad">tới Skill chạy được</span></h2>
+    <div class="mid center">
+      <img class="svg" style="max-width:1500px" src="media/m06/b3-hero-desktop.svg" alt="Một bước trong bản vẽ, Skill của bạn, chạy thử 3 dữ liệu thật">
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Chọn việc và định nghĩa đạt">
+  <div class="slide">
+    <div class="eyebrow">Bài 6.3 · Chọn một việc</div>
+    <h2 class="stitle">Định nghĩa <span class="grad">"đạt"</span> trước khi dựng</h2>
+    <div class="mid">
+      <div class="row c3">
+        <div class="card rise"><div class="k">Chọn việc</div><h3>Việc đầu trong danh sách 3 việc của bài 6.2</h3><p>Đủ 3 dòng đầu của Thẻ chuẩn bị (bài 4.3), có 3 kết quả đã duyệt.</p></div>
+        <div class="card on rise"><div class="k">"Đạt" là gì</div><h3>Kết quả khớp 3 bản đã duyệt</h3><p>Không cần bạn sửa tay.</p></div>
+        <div class="card rise"><div class="k">Trước khi mở Claude</div><h3>Điền phiếu mô tả cách làm 6 dòng</h3><p>File mẫu có sẵn trong bài.</p></div>
+      </div>
+      <div class="band light">Thay vì dạy lại nhân viên bằng 10 bài mẫu, <b>đúc kết thành một kỹ năng</b>.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Một Skill làm mấy bước">
+  <div class="slide">
+    <div class="eyebrow">Một Skill làm bao nhiêu bước</div>
+    <h2 class="stitle">Một việc, hoặc <span class="grad">2–3 bước liền nhau</span> dùng chung dữ liệu</h2>
+    <div class="mid">
+      <table class="tb">
+        <tr><th>Nên</th><th>Không nên</th><th>Vì sao</th></tr>
+        <tr><td class="green">Gộp 2–3 bước liền nhau: phân loại, đánh dấu, soạn nháp</td><td>Gộp cả quy trình 8 bước vào một Skill</td><td>Skill to thì khó kiểm chỗ sai, khó sửa từng bước</td></tr>
+      </table>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Phiếu mô tả cách làm">
+  <div class="slide">
+    <div class="eyebrow">File mẫu · điền trước khi mở Claude</div>
+    <h2 class="stitle">Phiếu mô tả cách làm: <span class="grad">6 dòng</span></h2>
+    <div class="mid">
+      <div class="prompt"><span class="lbl">Phiếu mô tả cách làm</span>1. Việc và lúc dùng: <span class="ph">[Skill làm việc gì; bạn thường nói câu gì khi giao việc này]</span>
+2. Dữ liệu đầu vào trông thế nào: <span class="ph">[ví dụ: 10–20 đánh giá dán dạng chữ, mỗi đánh giá có số sao]</span>
+3. Các bước: <span class="ph">[liệt kê từng bước bạn đang làm tay]</span>
+4. Mẫu đầu ra: <span class="ph">[bảng, email, đoạn văn; các cột hoặc các mục]</span>
+5. Ví dụ đã duyệt: <span class="ph">[dán 2–3 kết quả đã được duyệt]</span>
+6. Không được làm và điểm dừng: <span class="ph">[điều cấm; bước nào phải chờ người duyệt]</span></div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Làm trong 5 bước">
+  <div class="slide">
+    <div class="eyebrow">Bài 6.3 · Làm trong 5 bước</div>
+    <div class="mid">
+      <ul class="recap" style="gap:22px">
+        <li class="rise" style="font-size:30px"><span class="d">1</span>Điền phiếu mô tả cách làm, dán 2–3 kết quả đã duyệt. Che thông tin riêng trước.</li>
+        <li class="rise" style="font-size:30px"><span class="d">2</span>Mở chat mới, nhờ Claude dựng Skill từ phiếu. Trả lời các câu Claude hỏi lại.</li>
+        <li class="rise" style="font-size:30px"><span class="d">3</span>Đọc SKILL.md trước khi lưu.</li>
+        <li class="rise" style="font-size:30px"><span class="d">4</span>Lưu Skill, kiểm ở Tùy chỉnh → Skills rằng Skill đã bật.</li>
+        <li class="rise" style="font-size:30px"><span class="d">5</span>Mở chat mới, giao việc bằng lời bình thường trên 3 dữ liệu thật. So với bản đã duyệt. Ghi số phút.</li>
+      </ul>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Bước 3 đọc SKILL.md">
+  <div class="slide">
+    <div class="eyebrow warn">Bước 3 · đọc trước khi lưu</div>
+    <h2 class="stitle">Ba thứ kiểm <span class="grad">trong SKILL.md</span></h2>
+    <div class="mid">
+      <div class="row c3">
+        <div class="card rise"><div class="n">1</div><h3>Mô tả nói khi nào dùng</h3><p>Dưới 200 ký tự.</p></div>
+        <div class="card stop rise"><div class="n">2</div><h3>Có mục "Không được làm"</h3><p>Điều cấm của việc này.</p></div>
+        <div class="card stop rise"><div class="n">3</div><h3>Bước gửi ra ngoài dừng ở bản nháp</h3><p>Người duyệt rồi mới gửi, đăng.</p></div>
+      </div>
+      <div class="band light">Claude viết SKILL.md ở khung bên cạnh chat. <b>Bạn đọc mô tả trước khi lưu.</b></div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Bước 4 kiểm Skill đã bật">
+  <div class="slide">
+    <div class="eyebrow">Bước 4 · ảnh chụp trang hãng</div>
+    <h2 class="stitle">Skill đã lưu thì <span class="grad">phải đang bật</span></h2>
+    <div class="shotwide">
+      <svg class="ann-svg" viewBox="0 0 850 312" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m06/pad/skills2.png" x="0" y="0" width="850" height="312"/><path d="M0,0h850v312h-850zM36,11h804v30h-804zM23,198h817v48h-817zM23,255h577v54h-577z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="36" y="11" width="804" height="30" rx="4" fill="none" stroke="#EF004B" stroke-width="3.0"/><rect x="23" y="198" width="817" height="48" rx="4" fill="none" stroke="#EF004B" stroke-width="3.0"/><rect x="23" y="255" width="577" height="54" rx="4" fill="none" stroke="#EF004B" stroke-width="3.0"/><circle cx="19" cy="26" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.2"/><text x="19" y="32" text-anchor="middle" font-size="17" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text><circle cx="23" cy="198" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.2"/><text x="23" y="204" text-anchor="middle" font-size="17" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">2</text><circle cx="23" cy="255" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.2"/><text x="23" y="261" text-anchor="middle" font-size="17" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">3</text></svg>
+      <div class="below">
+        <ol class="anote red row" style="--k:3"><li><b>Free, Pro, Max, Ultra:</b> tải Skill của bạn ở Customize → Skills.</li>
+          <li><b>Cài đặt → Khả năng:</b> bật chạy mã (bản mới ghi "Create and edit files").</li>
+          <li><b>Customize → Skills:</b> bật tắt từng Skill. App tiếng Việt: Tùy chỉnh → Skills.</li></ol>
+        <div class="act" style="margin-top:0">Claude không dùng Skill? Kiểm công tắc, rồi kiểm mô tả có nói rõ khi nào dùng.</div>
+      </div>
+      <p class="cap">Ảnh chụp trang trợ giúp Anthropic "Use skills in Claude", ngày 20/11/2026. Khung số do The AI Growth vẽ thêm.</p>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Mẫu bài nộp của spa">
+  <div class="slide">
+    <div class="eyebrow">Mẫu bài nộp · ví dụ spa</div>
+    <h2 class="stitle">Skill <span class="grad">tra-loi-danh-gia-spa</span> gộp 3 bước liền nhau</h2>
+    <div class="mid">
+      <div class="codebox"><span class="lbl">SKILL.md · rút gọn</span><b>description:</b> Soạn nháp câu trả lời đánh giá Google của spa theo giọng của spa. Dùng khi người dùng dán đánh giá của khách và nhờ soạn câu trả lời.
+## Các bước
+1. Đọc từng đánh giá: số sao và chi tiết khách nêu.  2. Soạn câu trả lời 2–4 câu theo mục Giọng.
+3. Đánh giá 1–3 sao, nhắc tên nhân viên, hoặc nói về phản ứng da: ghi "Cần chủ spa xem".
+## Không được làm
+- Không đưa khuyến mãi, giảm giá vào câu trả lời. Không tự điền số điện thoại.
+- Không đăng lên Google. Chỉ soạn bản nháp; chủ spa duyệt từng câu rồi tự bấm đăng.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Hai cách khác">
+  <div class="slide">
+    <div class="eyebrow">Hai cách khác để dựng Skill · ảnh chụp thật</div>
+    <h2 class="stitle">Ghi màn hình, <span class="grad">hoặc tự viết từ mẫu trống</span></h2>
+    <div class="annlay narrow">
+      <div class="annimg"><img class="shot" style="max-height:660px" src="media/m06/M06-B3-S05.jpg" alt="Menu dấu cộng có Ghi lại Skill và Skills"><p class="cap">Ảnh chụp app Claude Desktop ngày 11/11/2026: menu dấu cộng.</p></div>
+      <div>
+        <ol class="anote">
+          <li><b>Ghi lại Skill:</b> bạn làm mẫu, Claude ghi màn hình rồi viết Skill. Có ở Pro trở lên, Claude cho Mac.</li>
+          <li><b>Skills:</b> chỗ tải lên Skill bạn tự viết. Viết SKILL.md từ mẫu trống, nén thư mục thành .zip.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Tóm lại 6.3">
+  <div class="slide">
+    <div class="eyebrow">Tóm lại · Bài 6.3</div>
+    <div class="mid">
+      <ul class="recap">
+        <li class="rise"><span class="d">1</span>Một Skill, một việc, có định nghĩa "đạt" trước khi dựng.</li>
+        <li class="rise"><span class="d">2</span>Đọc SKILL.md trước khi lưu, chạy trên 3 dữ liệu thật rồi sửa.</li>
+      </ul>
+      <div class="next">Bài tiếp theo: <b>6.4 · Nối Claude với Gmail, Drive</b></div>
+    </div>
+  </div>
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Bài 6.4 · Mở bài" class="lesson">
+  <div class="slide">
+    <div class="mid">
+      <div class="eyebrow">Bài 6.4</div>
+      <h2 class="ltitle">Nối AI với Gmail, Drive, Calendar, Notion</h2>
+      <p class="after">Sau bài này, bạn hiểu <b>connector làm được gì, nối app nào trước</b>, và giữ nút gửi trong tay mình.</p>
+      <div class="keys">
+        <div class="rise"><i>01</i>Connector: tay chân của Claude trong app của bạn</div>
+        <div class="rise"><i>02</i>Bật đúng connector cho đúng chat</div>
+        <div class="rise"><i>03</i>Máy làm, người duyệt: giữ nút gửi</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Drive vào, Gmail nháp ra">
+  <div class="slide">
+    <div class="eyebrow">Bài 6.4 · Ý chính</div>
+    <h2 class="stitle">Dữ liệu vào từ Drive, <span class="grad">kết quả ra thành bản nháp Gmail</span></h2>
+    <div class="mid center">
+      <img class="svg" style="max-width:1500px" src="media/m06/b4-hero-desktop.svg" alt="Google Drive, Claude Project và Skill, Gmail Thư nháp, bạn đọc rồi bấm gửi">
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Connector là gì">
+  <div class="slide">
+    <div class="eyebrow">Bài 6.4 · Connector là gì · ảnh chụp trang hãng</div>
+    <h2 class="stitle">Claude vào app của bạn, <span class="grad">với đúng quyền của bạn</span></h2>
+    <div class="shotwide">
+      <svg class="ann-svg" viewBox="0 0 820 346" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m06/pad/connectors.png" x="0" y="0" width="820" height="346"/><path d="M0,0h820v346h-820zM20,7h784v85h-784zM18,293h792v48h-792z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="20" y="7" width="784" height="85" rx="4" fill="none" stroke="#EF004B" stroke-width="2.9"/><rect x="18" y="293" width="792" height="48" rx="4" fill="none" stroke="#EF004B" stroke-width="2.9"/><circle cx="20" cy="15" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="20" y="21" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text><circle cx="18" cy="293" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="18" y="299" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">2</text></svg>
+      <div class="below">
+        <ol class="anote red row" style="--k:2"><li><b>Mọi người dùng,</b> kể cả gói Free, trên web, Desktop và điện thoại.</li>
+          <li><b>Đúng quyền của bạn:</b> file bạn không mở được thì Claude cũng không mở được.</li></ol>
+        <div class="act" style="margin-top:0">Gói Free thêm được tối đa 1 custom connector (bài 6.5).</div>
+      </div>
+      <p class="cap">Ảnh chụp trang trợ giúp Anthropic "Use connectors to extend Claude's capabilities", ngày 20/11/2026. Khung số do The AI Growth vẽ thêm.</p>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Trang Trình kết nối">
+  <div class="slide">
+    <div class="lr">
+      <div class="lt">
+        <div class="eyebrow">Ảnh chụp thật</div>
+        <h2 class="stitle">Cài đặt → <span class="grad">Trình kết nối</span></h2>
+        <p class="body">Kho có sẵn Google Drive, Gmail, Google Calendar, Notion và nhiều app khác.</p>
+        <p class="body">Bấm dấu cộng cạnh app, đăng nhập tài khoản của app đó để cấp quyền.</p>
+      </div>
+      <div class="rt"><img class="shot" style="width:100%" src="media/m06/M06-B4-S02_ketnoi.jpg" alt="Trang Trình kết nối trong Cài đặt, có Google Drive, Gmail, Google Calendar, Microsoft 365"><p class="cap">Ảnh chụp app Claude Desktop: Cài đặt → Trình kết nối (khung video 08/11/2026).</p></div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Bốn app hay nối">
+  <div class="slide">
+    <div class="eyebrow">Bốn app hay nối trước</div>
+    <h2 class="stitle">Mỗi connector <span class="grad">làm được gì</span></h2>
+    <div class="mid">
+      <table class="tb">
+        <tr><th>App</th><th>Claude làm được</th><th>Lưu ý</th></tr>
+        <tr><td>Gmail</td><td>Tìm, đọc, soạn nháp, gửi, trả lời, chuyển tiếp</td><td class="red">Gửi được email: giữ nút gửi (phần sau)</td></tr>
+        <tr><td>Google Calendar</td><td>Xem, tạo, sửa, xoá sự kiện, tìm giờ trống chung</td><td>Tạo lịch là hành động ra ngoài</td></tr>
+        <tr><td>Google Drive</td><td>Tìm, đọc Sheets, Slides, PDF, file Office, lưu file</td><td>Chia sẻ, đưa vào thùng rác: mặc định hỏi trước</td></tr>
+        <tr><td>Notion</td><td>Tìm, tạo và cập nhật trang, hỏi database</td><td>Do Notion làm, cần đăng nhập</td></tr>
+      </table>
+      <div class="src-note">Theo trang hỗ trợ và kho connector của Anthropic, kiểm 11/11/2026.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Bật đúng connector">
+  <div class="slide">
+    <div class="eyebrow">Ảnh chụp thật · trong chat</div>
+    <h2 class="stitle">Bật đúng connector <span class="grad">cho đúng chat</span></h2>
+    <div class="annlay">
+      <div class="annimg"><img class="shot" src="media/m06/M06-B4-S01_menu.jpg" alt="Menu dấu cộng, Trình kết nối mở ra danh sách Google Docs, Google Drive, Notion có công tắc"><p class="cap">Ảnh chụp app Claude Desktop: dấu cộng → Trình kết nối, mỗi app một công tắc.</p></div>
+      <div>
+        <ol class="anote">
+          <li><b>Dấu cộng → Trình kết nối:</b> bật tắt từng app cho chat này.</li>
+          <li><b>Connector tốn token.</b> Tắt cái không dùng.</li>
+        </ol>
+        <div class="act">Dữ liệu lấy qua connector Gmail, Drive, Calendar không dùng để huấn luyện. Phần bạn tự chép vào chat theo công tắc ở bài 5.1.</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Nối Gmail không phải cho gửi">
+  <div class="slide">
+    <div class="mid center">
+      <div class="eyebrow warn">Bài 6.4 · Máy làm, người duyệt</div>
+      <p class="mega md">Nối Gmail <span class="red">không có nghĩa là</span> cho Claude gửi thay bạn.</p>
+      <p class="sub">Connector Gmail gửi được email. Bạn giữ nút gửi bằng hai lớp.</p>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Hai lớp giữ nút gửi">
+  <div class="slide">
+    <div class="eyebrow">Hai lớp giữ nút gửi</div>
+    <h2 class="stitle">Prompt chỉ cho nháp, <span class="grad">và chế độ Thủ công</span></h2>
+    <div class="mid center">
+      <img class="svg" style="max-width:1400px" src="media/m06/b4-hai-lop-duyet.svg" alt="Lớp 1 prompt chỉ cho tạo bản nháp, Lớp 2 chế độ quyền Thủ công, Gmail Thư nháp, bạn đọc rồi tự bấm gửi">
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Lớp 2 chế độ Thủ công">
+  <div class="slide">
+    <div class="eyebrow">Lớp 2 · ảnh chụp thật</div>
+    <h2 class="stitle">Chat có bước gửi <span class="grad">thì để Thủ công</span></h2>
+    <div class="annlay">
+      <div class="annimg"><img class="shot" src="media/m06/M06-B4-S06.jpg" alt="Menu Chế độ quyền: Thủ công và Tự động"><p class="cap">Ảnh chụp app Claude Desktop: menu Chế độ quyền dưới ô nhập.</p></div>
+      <div>
+        <ol class="anote">
+          <li><b>Thủ công:</b> Claude hỏi bạn trước khi dùng công cụ.</li>
+          <li><b>Tự động:</b> mặc định ở Pro, Max, Ultra, Team. Claude tự quyết với công cụ ghi như gửi email.</li>
+        </ol>
+        <div class="act">Lớp 1 trong prompt: <b>"Chỉ tạo bản nháp trong Gmail, không gửi."</b></div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Gói Team chặn công cụ gửi">
+  <div class="slide">
+    <div class="eyebrow">Gói Team, Enterprise · ảnh chụp trang hãng</div>
+    <h2 class="stitle">Chủ tổ chức <span class="grad">chặn công cụ gửi cho cả đội</span></h2>
+    <div class="shotwide">
+      <svg class="ann-svg" viewBox="0 190 800 290" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m06/support-connectors-chan-gui.png" x="0" y="0" width="800" height="480"/><path d="M0,190h800v290h-800zM34,198h610v28h-610zM34,455h746v26h-746z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="34" y="198" width="610" height="28" rx="4" fill="none" stroke="#EF004B" stroke-width="2.8"/><rect x="34" y="455" width="746" height="26" rx="4" fill="none" stroke="#EF004B" stroke-width="2.8"/><circle cx="18" cy="212" r="13" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="18" y="218" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text><circle cx="18" cy="465" r="13" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="18" y="471" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">2</text></svg>
+      <div class="below">
+        <ol class="anote red row" style="--k:2"><li><b>Ví dụ:</b> cho Claude tìm và tóm tắt email, nhưng chặn gửi.</li>
+          <li><b>Ba mức</b> cho mỗi công cụ: Always allow, Needs approval, Blocked. Áp cho cả tổ chức.</li></ol>
+        <div class="act" style="margin-top:0">Việc theo lịch dùng công cụ đặt "Always ask" có thể dừng chờ bạn, hoặc bỏ qua công cụ đó.</div>
+      </div>
+      <p class="cap">Ảnh chụp trang trợ giúp Anthropic "Use connectors to extend Claude's capabilities", mục "Restrict actions within connected services", ngày 20/11/2026. Khung số do The AI Growth vẽ thêm.</p>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Tóm lại 6.4">
+  <div class="slide">
+    <div class="eyebrow">Tóm lại · Bài 6.4</div>
+    <div class="mid">
+      <ul class="recap">
+        <li class="rise"><span class="d">1</span>Connector cho Claude đọc và làm việc trong app bạn dùng, có từ gói Free.</li>
+        <li class="rise"><span class="d">2</span>Bật đúng connector cho đúng chat. Connector tốn token.</li>
+        <li class="rise"><span class="d">3</span>Giữ nút gửi bằng hai lớp: prompt chỉ nháp và chế độ Thủ công.</li>
+      </ul>
+      <div class="next">Bài tiếp theo: <b>6.5 · MCP là gì</b></div>
+    </div>
+  </div>
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Bài 6.5 · Mở bài" class="lesson">
+  <div class="slide">
+    <div class="mid">
+      <div class="eyebrow">Bài 6.5</div>
+      <h2 class="ltitle">MCP là gì mà ai cũng nhắc? Hiểu đủ dùng</h2>
+      <p class="after">Sau bài này, bạn biết <b>app nào của đội nối được ngay, app nào phải hỏi hãng, app nào cứ dán tay</b>.</p>
+      <div class="keys">
+        <div class="rise"><i>01</i>MCP: một ổ cắm chung cho mọi app</div>
+        <div class="rise"><i>02</i>Bạn đã dùng MCP qua connector</div>
+        <div class="rise"><i>03</i>Ba bậc: kho có sẵn, custom connector, dán tay</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Một chuẩn chung nhiều app">
+  <div class="slide">
+    <div class="eyebrow">Bài 6.5 · Ý chính</div>
+    <h2 class="stitle">Một chuẩn chung, <span class="grad">nhiều app</span></h2>
+    <div class="mid center">
+      <img class="svg" style="max-width:1450px" src="media/m06/b5-hero-desktop.svg" alt="Claude nối qua chuẩn MCP tới Google Drive, Gmail, Notion và app của bạn">
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="MCP như cổng USB-C">
+  <div class="slide">
+    <div class="eyebrow">Bài 6.5 · MCP là gì · ảnh chụp trang hãng</div>
+    <h2 class="stitle">MCP giống <span class="grad">cổng USB-C cho app AI</span></h2>
+    <div class="shotwide">
+      <svg class="ann-svg" viewBox="0 0 820 414" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m06/pad/mcp.png" x="0" y="0" width="820" height="414"/><path d="M0,0h820v414h-820zM18,6h788v78h-788zM317,213h188v94h-188z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="18" y="6" width="788" height="78" rx="4" fill="none" stroke="#EF004B" stroke-width="2.9"/><rect x="317" y="213" width="188" height="94" rx="4" fill="none" stroke="#EF004B" stroke-width="2.9"/><circle cx="18" cy="15" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="18" y="21" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text><circle cx="317" cy="213" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="317" y="219" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">2</text></svg>
+      <div class="below">
+        <ol class="anote red row" style="--k:2"><li><b>Như USB-C:</b> một kiểu cắm chung để app AI nối với hệ thống bên ngoài.</li>
+          <li><b>MCP ở giữa:</b> bên trái là app AI, bên phải là dữ liệu và công cụ.</li></ol>
+        <div class="act" style="margin-top:0">MCP (Model Context Protocol) là chuẩn mở. Connector trong kho của Claude dùng MCP.</div>
+      </div>
+      <p class="cap">Ảnh chụp trang Model Context Protocol "What is the Model Context Protocol (MCP)?", ngày 20/11/2026. Khung số do The AI Growth vẽ thêm.</p>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Ví dụ cái remote">
+  <div class="slide">
+    <div class="eyebrow">So sánh của mình</div>
+    <h2 class="stitle">Mỗi máy một remote, <span class="grad">hay một trợ lý điều khiển tất cả</span></h2>
+    <div class="mid center">
+      <img class="svg" style="max-width:1400px" src="media/m06/b5-remote.svg" alt="Mỗi máy một remote, so với một trợ lý dùng cùng một cách nối">
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Hỗ trợ MCP nghĩa là gì">
+  <div class="slide">
+    <div class="mid center">
+      <div class="eyebrow">"App này hỗ trợ MCP" nghĩa là gì với bạn?</div>
+      <p class="mega md">App đó <span class="grad">có thể nối với Claude</span>, kể cả khi chưa có trong kho.</p>
+      <p class="sub">Bạn xin hãng URL của MCP server chính thức, rồi thêm custom connector.</p>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Ba bậc">
+  <div class="slide">
+    <div class="eyebrow">Bài 6.5 · Ba bậc</div>
+    <h2 class="stitle">Thử bậc <span class="grad">rẻ nhất trước</span></h2>
+    <div class="mid center">
+      <img class="svg" style="max-width:1080px" src="media/m06/b5-ba-bac.svg" alt="Cây quyết định ba bậc: kho có sẵn, custom connector, dán tay">
+      <div class="row c3" style="text-align:left;width:100%">
+        <div class="card ok"><div class="k">Bậc 1 · Spa dùng Drive</div><p>Có trong kho: nối như bài 6.4.</p></div>
+        <div class="card"><div class="k">Bậc 2 · Phần mềm đặt lịch</div><p>Hãng có MCP server: hỏi hãng.</p></div>
+        <div class="card"><div class="k">Bậc 3 · Sổ thu chi Excel</div><p>Dán tay hoặc xuất file rồi tải lên.</p></div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Custom connector">
+  <div class="slide">
+    <div class="eyebrow">Bậc 2 · ảnh chụp trang hãng</div>
+    <h2 class="stitle">Custom connector: <span class="grad">gói Free thêm được 1</span></h2>
+    <div class="shotwide">
+      <svg class="ann-svg" viewBox="0 0 818 238" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m06/pad/customconn.png" x="0" y="0" width="818" height="238"/><path d="M0,0h818v238h-818zM18,9h784v84h-784zM20,147h332v88h-332z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="18" y="9" width="784" height="84" rx="4" fill="none" stroke="#EF004B" stroke-width="2.8"/><rect x="20" y="147" width="332" height="88" rx="4" fill="none" stroke="#EF004B" stroke-width="2.8"/><circle cx="18" cy="15" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="18" y="21" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text><circle cx="20" cy="147" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="20" y="153" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">2</text></svg>
+      <div class="below">
+        <ol class="anote red row" style="--k:2"><li><b>Mọi gói,</b> từ Free tới Enterprise. Gói Free giới hạn 1 custom connector.</li>
+          <li><b>Đường đi:</b> Customize → Connectors → Add → Custom → Web, rồi dán URL của hãng.</li></ol>
+        <div class="act" style="margin-top:0">Chỉ nối server của tổ chức tin cậy. MCP cho Claude quyền dùng app. Skill dạy Claude dùng app đó theo cách của bạn.</div>
+      </div>
+      <p class="cap">Ảnh chụp trang trợ giúp Anthropic "Use connectors to extend Claude's capabilities", mục "Custom connectors", ngày 20/11/2026. Khung số do The AI Growth vẽ thêm.</p>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Thử ngay 6.5">
+  <div class="slide">
+    <div class="eyebrow">Thử ngay · khoảng 5 phút</div>
+    <h2 class="stitle">Chia app của đội <span class="grad">vào 3 bậc</span></h2>
+    <div class="mid">
+      <div class="prompt"><span class="lbl">Prompt</span>Đây là các app đội mình dùng trong quy trình <span class="ph">[tên quy trình]</span>:
+<span class="ph">[liệt kê app, mỗi app một dòng]</span>
+Tìm trên web xem mỗi app có connector trong kho của Claude, hoặc có MCP server chính thức của hãng không. Ghi link nguồn.
+Chia app thành 3 bậc: bậc 1 có trong kho · bậc 2 có MCP server chính thức · bậc 3 dán tay hoặc xuất file.
+Trình bày thành bảng 3 cột: App · Bậc · Nguồn.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Tóm lại 6.5">
+  <div class="slide">
+    <div class="eyebrow">Tóm lại · Bài 6.5</div>
+    <div class="mid">
+      <ul class="recap">
+        <li class="rise"><span class="d">1</span>MCP là chuẩn chung để Claude nối với app khác.</li>
+        <li class="rise"><span class="d">2</span>Thử kho có sẵn trước, rồi custom connector, rồi dán tay.</li>
+        <li class="rise"><span class="d">3</span>Chỉ nối server tin cậy. Gói Free có 1 custom connector.</li>
+      </ul>
+      <div class="next">Bài tiếp theo: <b>6.6 · Chia sẻ Skill và Project cho đội</b></div>
+    </div>
+  </div>
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Bài 6.6 · Mở bài" class="lesson">
+  <div class="slide">
+    <div class="mid">
+      <div class="eyebrow">Bài 6.6</div>
+      <h2 class="ltitle">Chia sẻ Skill và Project cho cả đội: gói nào làm được</h2>
+      <p class="after">Sau bài này, đồng đội <b>dùng được Skill và hướng dẫn Project của bạn</b>, và bạn biết khi nào đáng lên gói Team.</p>
+      <div class="keys">
+        <div class="rise"><i>01</i>Ba thứ muốn đưa cho đội</div>
+        <div class="rise"><i>02</i>Gói cá nhân và gói Team chia sẻ khác nhau</div>
+        <div class="rise"><i>03</i>Khi nào đáng lên gói Team</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Hai đường chia sẻ">
+  <div class="slide">
+    <div class="eyebrow">Bài 6.6 · Ý chính</div>
+    <h2 class="stitle">Hai đường chia sẻ, <span class="grad">theo gói đang dùng</span></h2>
+    <div class="mid center">
+      <img class="svg" style="max-width:1450px" src="media/m06/b6-hero-desktop.svg" alt="Gói cá nhân gửi file Skill zip; gói Team bấm Share, đồng đội nhận bản mới">
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Ba thứ và gói nào">
+  <div class="slide">
+    <div class="eyebrow">Bài 6.6 · Ba thứ muốn đưa cho đội</div>
+    <h2 class="stitle">Gói nào <span class="grad">đưa được gì</span></h2>
+    <div class="mid">
+      <table class="tb">
+        <tr><th>Thứ</th><th>Gói cá nhân: Free, Pro, Max, Ultra</th><th>Gói Team, Enterprise</th></tr>
+        <tr><td>Project</td><td>Không chia sẻ được. Gửi hướng dẫn và file để đồng đội dựng lại</td><td class="hi">"Share project", quyền chỉ xem hoặc được sửa</td></tr>
+        <tr><td>Skill</td><td>Mỗi người tự tải file .zip lên tài khoản của mình</td><td class="hi">Chia sẻ cho người cụ thể, tự nhận bản mới</td></tr>
+        <tr><td>Connector</td><td>Mỗi người tự nối tài khoản của mình</td><td class="hi">Chủ tổ chức bật cho tổ chức, mỗi người vẫn tự đăng nhập</td></tr>
+      </table>
+      <div class="band light">Chia sẻ chat là <b>link chỉ xem</b> (bài 5.1). ChatGPT chia sẻ Project được ở mọi gói, kể cả Free.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Share project">
+  <div class="slide">
+    <div class="eyebrow">Gói Team · ảnh chụp trang hãng</div>
+    <h2 class="stitle">Chia sẻ Project <span class="grad">chỉ có ở Team và Enterprise</span></h2>
+    <div class="shotwide">
+      <svg class="ann-svg" viewBox="0 0 820 362" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m06/pad/shareproj.png" x="0" y="0" width="820" height="362"/><path d="M0,0h820v362h-820zM18,8h782v46h-782zM54,147h470v26h-470zM56,256h750v100h-750z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="18" y="8" width="782" height="46" rx="4" fill="none" stroke="#EF004B" stroke-width="2.9"/><rect x="54" y="147" width="470" height="26" rx="4" fill="none" stroke="#EF004B" stroke-width="2.9"/><rect x="56" y="256" width="750" height="100" rx="4" fill="none" stroke="#EF004B" stroke-width="2.9"/><circle cx="18" cy="15" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="18" y="21" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text><circle cx="38" cy="160" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="38" y="166" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">2</text><circle cx="56" cy="256" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="56" y="262" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">3</text></svg>
+      <div class="below solo">
+        <ol class="anote red row" style="--k:3"><li><b>Team, Enterprise:</b> chia sẻ trong tổ chức, trừ khi admin tắt.</li>
+          <li><b>Nút "Share project"</b> nằm bên phải tên Project.</li>
+          <li><b>Can view</b> chỉ xem và chat. <b>Can edit</b> sửa được hướng dẫn và kho.</li></ol>
+      </div>
+      <p class="cap">Ảnh chụp trang trợ giúp Anthropic "How can I create and manage projects?", mục "Share projects", ngày 20/11/2026. Khung số do The AI Growth vẽ thêm.</p>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Bốn dấu hiệu lên Team">
+  <div class="slide">
+    <div class="eyebrow">Bài 6.6 · Khi nào đáng lên gói Team</div>
+    <h2 class="stitle">Bốn dấu hiệu <span class="grad">(theo mình)</span></h2>
+    <div class="mid center">
+      <img class="svg" style="max-width:1400px" src="media/m06/b6-dau-hieu-len-team.svg" alt="Bốn dấu hiệu nên cân nhắc gói Team">
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Giá gói Team">
+  <div class="slide">
+    <div class="eyebrow">Giá gói Team · ảnh chụp trang hãng</div>
+    <h2 class="stitle">Ghế Standard và Premium, <span class="grad">từ 2 người</span></h2>
+    <div class="shotwide">
+      <svg class="ann-svg" viewBox="0 0 820 300" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m06/pad/teamgia.png" x="0" y="0" width="820" height="300"/><path d="M0,0h820v300h-820zM34,44h664v24h-664zM38,129h336v54h-336zM38,239h346v54h-346z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="34" y="44" width="664" height="24" rx="4" fill="none" stroke="#EF004B" stroke-width="2.9"/><rect x="38" y="129" width="336" height="54" rx="4" fill="none" stroke="#EF004B" stroke-width="2.9"/><rect x="38" y="239" width="346" height="54" rx="4" fill="none" stroke="#EF004B" stroke-width="2.9"/><circle cx="18" cy="56" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="18" y="62" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">3</text><circle cx="38" cy="129" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="38" y="135" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text><circle cx="38" cy="239" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="38" y="245" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">2</text></svg>
+      <div class="below solo">
+        <ol class="anote red row" style="--k:3"><li><b>Standard:</b> 25 USD mỗi người mỗi tháng, 20 USD nếu trả năm.</li>
+          <li><b>Premium:</b> 125 USD, 100 USD nếu trả năm.</li>
+          <li><b>Tối thiểu 2 người.</b></li></ol>
+      </div>
+      <p class="cap">Ảnh chụp trang trợ giúp Anthropic "What is the Team plan?", mục "How much does the Team plan cost?", ngày 20/11/2026. Giá chưa gồm thuế. Khung số do The AI Growth vẽ thêm.</p>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Ví dụ có số">
+  <div class="slide">
+    <div class="eyebrow">Ví dụ có số · spa 6 người</div>
+    <h2 class="stitle">Con số để bạn so, <span class="grad">không phải lời khuyên mua</span></h2>
+    <div class="mid">
+      <div class="row c3">
+        <div class="card rise"><div class="k">6 ghế Standard, trả tháng</div><h3>150 USD mỗi tháng</h3></div>
+        <div class="card rise"><div class="k">6 ghế Standard, trả năm</div><h3>120 USD mỗi tháng</h3></div>
+        <div class="card ok rise"><div class="k">1 ghế Pro, trả tháng</div><h3>20 USD mỗi tháng</h3></div>
+      </div>
+      <div class="band light">Spa chỉ có chủ spa và chị quản lý dùng AI, nên <b>giữ 2 tài khoản Pro</b>.</div>
+      <div class="src-note">Giá theo trang Anthropic, kiểm 20/11/2026, chưa gồm thuế.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Tóm lại 6.6">
+  <div class="slide">
+    <div class="eyebrow">Tóm lại · Bài 6.6</div>
+    <div class="mid">
+      <ul class="recap">
+        <li class="rise"><span class="d">1</span>Gói cá nhân chia sẻ bằng file và văn bản. Gói Team chia sẻ bằng nút Share.</li>
+        <li class="rise"><span class="d">2</span>Lên Team khi đội cần sửa một chỗ cho cả đội, chặn công cụ gửi, hoặc giữ dữ liệu khách.</li>
+      </ul>
+      <div class="next">Bài tiếp theo: <b>Module 07 · Nhân viên AI marketing</b></div>
+    </div>
+  </div>
+</section>
+<section data-foot="AI Agents Mastery · Module 06" data-label="Hết Module 06" class="cover">
+  <div class="cover-glow"></div>
+  <div class="slide">
+    <div class="mid">
+      <div class="eyebrow">Hết Module 06</div>
+      <h1 class="hero">Tiếp theo: Module 07</h1>
+      <p class="hero-sub">Nhân viên AI marketing: giọng thương hiệu, bài cho 5 kênh, ảnh, landing page, bài dài và motion video.</p>
+    </div>
+  </div>
+</section>
+</deck-stage>
+<script type="application/json" id="deck-notes">["Chào bạn, đây là Module 06. Từ module này trở đi là thực hành. Đầu vào là bản vẽ quy trình một trang bạn làm ở bài tập Module 04.\nVí dụ chạy suốt module vẫn là spa ở Cần Thơ, quy trình trả lời đánh giá Google. Hết module, spa có Project, Skill và connector cho quy trình đó.", "Mỗi tuần bạn dán lại giọng, luật và tài liệu cho Claude. Có tuần quên, có tuần dán thiếu. Project giữ sẵn những thứ đó cho một vai trò, bạn chỉ cần mở chat mới và giao việc.", "Bản vẽ quy trình của Module 04 đi vào một Project tên \"Spa · Trả lời đánh giá\". Hai ô tím là phần dùng lại mỗi tuần. Ô xám là phần thay đổi: mỗi tuần một chat, dán đánh giá mới.", "Một câu về tên bài. Bản cũ có chữ GPT và Gem. Nhưng GPT tuỳ chỉnh của ChatGPT ngừng ngày 11/12/2026, Gem của Gemini chỉ đọc từ 17/11 và bị gỡ ngày 17/12/2026.\nNên bài này dạy Project của Claude. ChatGPT vẫn có Project, cách nghĩ giống nhau.", "So sánh đời thường: phòng của nhân viên mới có sẵn sổ tay và tủ hồ sơ. Mỗi ngày họ chỉ nhận việc mới.\nBa điều cần nhớ. Hướng dẫn và kho áp cho mọi chat. Chat tuần 1 không thấy chat tuần 2. Và tên, mô tả Project chỉ để bạn đọc, Claude không đọc.", "Đây là trang hỗ trợ của Anthropic, đọc ngày 20/11/2026. Gói Free cũng có Project, tối đa 5 cái. Dòng số 2 là chỗ nhiều người viết hết luật vào ô mô tả rồi thắc mắc vì sao Claude không làm theo.", "App tiếng Việt gọi Project là \"Dự án\". Bạn bấm Dự án ở thanh bên để tạo. Khi mở chat mới, chọn Project ở ô \"Dự án hoặc thư mục\" dưới ô nhập.\nTrong video cũ mình có nói: hướng dẫn riêng của dự án là chỗ đặt giọng, định dạng và nguyên tắc. Video đó quay trước khi Claude gộp Cowork vào chat.", "Nếu đội bạn dùng ChatGPT, Project nằm ở thanh bên, mục Projects. Phần còn lại của bài áp được y như vậy.", "Bạn nhớ Thẻ chuẩn bị ở bài 4.3: bản giao việc, dữ liệu, mẫu đầu ra. Ba dòng đó nay có chỗ ở. Dòng Skill học ở bài 6.2, dòng kết nối ở bài 6.4.\nTài liệu nào của bạn nên nằm trong kho? Thứ bạn dán lại từ hai tuần trở lên.", "RAG nghĩa là Claude không đọc hết kho mỗi lần, mà tìm đúng đoạn cần cho câu hỏi. Bạn không phải bật gì, Claude tự chuyển khi kho gần đầy. Gói Free thì không có chế độ này.", "Năm phần này bạn đã học ở Module 03. Nội dung thì lấy từ bản vẽ quy trình của bài tập Module 04: sáu câu bản vẽ và Thẻ chuẩn bị.\nHướng dẫn dài bao nhiêu là vừa? Theo mình, dưới 300 chữ. Thứ dài hơn thì đưa vào kho.", "Đây là bản rút gọn của hướng dẫn mẫu có sẵn trong bài. Bạn so độ dài với bản của mình. Phần màu vàng là phần quan trọng nhất: giới hạn và điểm dừng.", "Trước hộp này, app hỏi cách tạo: bạn chọn \"Start from scratch\" để tạo Project trống. Rồi điền tên, dán hướng dẫn, và kéo file vào vùng Add files.\nẢnh này là bản tiếng Anh, giao diện tiếng Việt có cùng các ô.", "Bạn dán bản vẽ quy trình đã làm ở Module 04. Đọc lại phần giới hạn và điểm dừng thật kỹ trước khi dán vào Project.", "", "Bạn dán cùng một đoạn hướng dẫn mỗi tuần, và có tuần quên. Skill ghi cách làm một lần. Claude tự mở Skill khi việc khớp.", "Bên trái: tuần 1 dán hướng dẫn báo giá, tuần 2 dán lại nhưng quên mục giảm giá, tuần 3 lại sửa. Bên phải: bạn chỉ nói \"làm báo giá cho văn phòng 450 mét vuông\", Claude thấy khớp mô tả và tự mở Skill.", "Mình hay nói trong video: thay vì dạy lại nhân viên mới mỗi lần, bạn đưa họ sổ tay quy trình và danh sách kiểm. Skill là cuốn sổ tay đó cho Claude.\nVí dụ: Skill soạn báo giá vệ sinh văn phòng ghi bảng giá, mẫu báo giá, và luật hỏi lại khi thiếu diện tích.", "Đây là bảng mình mong bạn nhớ. Project gắn với một vai trò. Skill gắn với một việc, và đi theo bạn sang mọi chat. Connector cho Claude tay chân vào app, bài 6.4 nói kỹ.\nViệc nào đáng thành Skill? Việc bạn làm mỗi tuần, có cách làm cố định và có mẫu đầu ra.", "Skill không cần gói đắt. Gói Free cũng dùng được, miễn là bạn bật chạy mã. Trang này ghi tên menu tiếng Anh là Customize, app tiếng Việt ghi \"Tùy chỉnh\".", "Bạn mở Cài đặt, tab Khả năng, kéo xuống nhóm \"Thực thi mã và tạo tệp\". Công tắc \"Chạy mã trên đám mây\" phải bật. Dòng mô tả ngay dưới ghi rõ: bắt buộc để dùng Skills.", "Tin vui là bạn học một lần, dùng được ở nhiều app. Gemini gọi là kỹ năng, nằm ở trang Customize, Skills. ChatGPT bỏ GPT tuỳ chỉnh và chuyển sang plugin.", "Đây là Skill báo giá vệ sinh có sẵn trong bài. Thư mục tên bao-gia-ve-sinh. Trong đó có SKILL.md ghi tên, mô tả, các bước. Hai file đi kèm là bảng giá và mẫu báo giá.", "Claude quyết định mở Skill nào bằng cách đọc dòng description. Nên mô tả phải nói hai thứ: Skill làm gì, và khi nào dùng. File mẫu trong bài có cặp mô tả \"chưa tốt\" và \"tốt\" để bạn so.", "Token là đơn vị đo lượng chữ Claude đọc, tính vào giới hạn dùng. Claude luôn đọc tên và mô tả của mọi Skill đang bật, khoảng 100 token mỗi Skill. Thấy khớp việc mới mở phần còn lại. File đi kèm chỉ mở khi cần.", "Skill có thể kèm script, tức là đoạn mã Claude sẽ chạy. Skill lạ có thể làm việc bạn không muốn. Nên bạn đọc SKILL.md trước khi bật, kể cả khi đồng nghiệp gửi.", "Sub-agent là agent phụ mà Claude giao một phần việc. Plugin gom cả bộ cho một vai trò. Khi nào dùng plugin thay vì cài từng Skill? Khi bạn muốn cài cả bộ cho một vai trò một lần. Skill thì có từ gói Free.", "Trong chat, bạn bấm dấu cộng ở ô nhập: có Skills, Trình kết nối và Thêm plugin. Ngoài chat, chỗ quản lý là mục Tùy chỉnh. Anthropic đang đổi tên menu tiếng Anh từ Customize thành Plugins, nên bạn có thể thấy một trong hai tên.", "Danh sách 3 bước này là đầu vào của bài 6.3. Bạn giữ lại, bài sau mình dựng Skill đầu tiên từ bước đứng đầu.", "", "Bài tập này biến một bước trong bản vẽ quy trình thành Skill chạy được. Bạn mô tả cách làm, Claude viết SKILL.md, bạn đọc lại, chạy thử và sửa tới khi đạt.", "Ví dụ của spa: bước \"Soạn nháp trả lời\" là bước tốn giờ nhất. Claude dựng Skill qua hội thoại, bạn đọc rồi lưu, rồi chạy thử trên 3 dữ liệu thật của tuần đó.", "Trong video cũ mình có nói: thay vì dạy lại nhân viên bằng 10 bài mẫu, bạn đúc kết thành một kỹ năng. Video đó quay trước khi Claude gộp Cowork vào chat.\n\"Đạt\" phải định nghĩa trước. Không có chuẩn thì bạn sẽ sửa Skill mãi mà không biết khi nào dừng.", "Skill của spa gộp 3 bước liền nhau vì chúng dùng chung một dữ liệu: các đánh giá của tuần. Gộp cả quy trình thì khi kết quả sai, bạn không biết sai ở bước nào.", "Đây là phiếu bạn điền trước. Dòng 5 quan trọng nhất: ví dụ đã duyệt cho Claude thấy \"đạt\" trông thế nào. Nhớ che thông tin riêng của khách trước khi dán, như Module 05.", "Năm bước này là toàn bộ bài tập. Ở bước 5, lỗi nào lặp lại thì nhờ Claude sửa Skill, đừng sửa tay kết quả. Ghi số phút làm để Module 13 so lại.", "Claude viết Skill rất nhanh, nhưng bạn là người chịu trách nhiệm. Ba thứ này mất một phút để kiểm. Thiếu mục nào thì nhờ Claude thêm trước khi lưu.", "Lỗi hay gặp nhất là lưu xong mà Skill chưa bật, hoặc chạy mã chưa bật. Bạn kiểm hai công tắc này trước khi nghĩ Skill viết sai.", "Đây là bản rút gọn của file mẫu có sẵn trong bài. Bạn để ý mục \"Không được làm\": dòng cuối giữ nút đăng trong tay chủ spa. File đầy đủ còn có mục Giọng và 2 ví dụ đã duyệt.", "Cách trong bài là nhờ Claude viết qua hội thoại, dễ nhất cho người mới. Nếu bạn dùng Mac và gói Pro trở lên, có thể thử Ghi lại Skill. Ai quen file thì tự viết SKILL.md rồi nén lại tải lên.", "", "Bạn đang chép dữ liệu từ Drive vào Claude, rồi chép kết quả sang Gmail. Connector nối thẳng hai đầu. Và nút gửi vẫn do bạn bấm.", "Spa nối Drive để Claude đọc file đánh giá tuần, không phải dán lại. Claude soạn tóm tắt thành bản nháp trong Gmail. Chủ spa đọc rồi tự bấm gửi.", "Connector, app tiếng Việt gọi là trình kết nối, cho Claude vào app bạn đang dùng để đọc dữ liệu và làm việc trong đó. Claude chỉ thấy những gì tài khoản của bạn thấy.\nTrong video Bonus mình có nói: nối Gmail thì Claude vào được Gmail để đọc, tóm tắt, viết email.", "Đây là kho trình kết nối. Bạn bấm dấu cộng cạnh Google Drive, Google hiện màn hình xin quyền, bạn đăng nhập và đồng ý. Xong là Claude đọc được Drive của bạn.", "App nào của bạn nên nối trước? App chứa dữ liệu đầu vào của quy trình đầu tiên. Với spa là Drive, nơi để file đánh giá tuần.\nCột lưu ý quan trọng: Gmail gửi được email thật. Phần sau của bài nói cách giữ nút gửi.", "Mỗi connector đang bật làm Claude đọc thêm một phần mô tả, tức là tốn token. Chat viết bài thì không cần Gmail. Bạn bật đúng cái cần cho việc đó.", "Đây là chỗ mình muốn bạn cẩn thận nhất trong cả module. Connector Gmail có công cụ tạo nháp và có công cụ gửi. Bạn không để Claude tự quyết dùng cái nào.", "Lớp 1: prompt ghi rõ \"chỉ tạo bản nháp, không gửi\". Lớp 2: chat có bước gửi thì để chế độ quyền Thủ công. Hai lớp cùng dẫn tới Gmail Thư nháp, và bạn là người bấm gửi.", "Ở chế độ Tự động, Claude tự quyết khi dùng công cụ ghi, kể cả gửi. Nên chat nào có Gmail và có bước gửi, bạn đổi sang Thủ công trước khi giao việc. Mặc định Tự động theo trang hỗ trợ Anthropic, kiểm 20/11/2026.", "Ở gói Team và Enterprise, chủ tổ chức đặt \"Blocked\" cho công cụ gửi. Thành viên không ghi đè được. Đây là một trong các lý do lên gói Team, bài 6.6 nói thêm.\nVí dụ của spa: tóm tắt tuần nằm trong Gmail Thư nháp, chủ spa đọc rồi tự bấm gửi.", "", "Tài liệu của nhiều phần mềm ghi \"hỗ trợ MCP\". Bài này giúp bạn hiểu câu đó nghĩa là gì với mình, không cần viết code.", "Claude ở bên trái, chuẩn MCP ở giữa, các app ở bên phải. Ba app trên cùng có sẵn trong kho. Ô cuối là app của bạn: cần URL từ hãng.", "Trước USB-C, mỗi máy một kiểu sạc. MCP làm cho app AI điều tương tự: một cách nối chung. Bạn đã dùng MCP ở bài 6.4, vì connector Drive và Gmail đi qua đường này.", "Mình hay ví thế này trong video: mỗi máy trong nhà một cái remote. MCP cho một trợ lý điều khiển nhiều máy bằng cùng một cách.\nMCP server có thể chạy trên máy hoặc chạy từ xa. Dựng server là việc của đội kỹ thuật, khoá này không dạy.", "Khi thấy chữ \"hỗ trợ MCP\", bạn hiểu là app đó mở cửa cho AI. Nếu app có sẵn trong kho trình kết nối thì nối như bài 6.4. Nếu chưa, hỏi hãng URL và thêm custom connector.", "Ba bậc theo thứ tự rẻ nhất trước. App dùng một lần mỗi tháng thì dán tay vẫn hợp lý, vì connector tốn token.\nApp nào của đội bạn thuộc bậc nào? Phần Thử ngay sẽ nhờ Claude chia giúp.", "Custom connector là cách nối app chưa có trong kho. Bạn chỉ cần tên và URL do hãng đưa. Nhưng server lạ có thể đọc dữ liệu của bạn, nên chỉ nối server của tổ chức bạn tin.", "Bạn mở từng link Claude đưa để kiểm. Ô nào Claude ghi \"không thấy\" thì hỏi thẳng hãng.", "", "Bạn đã có Project, Skill và connector. Đồng đội dùng lại được tới đâu thì tuỳ gói của đội.", "So sánh đời thường: phát bản photo sổ tay cho từng người, hay đặt một cuốn ở phòng chung để ai cũng đọc bản mới nhất. Gói cá nhân là bản photo. Gói Team là cuốn ở phòng chung.", "Đội đang ở gói cá nhân thì chia sẻ bằng cách nào? Bằng file và văn bản. Spa gửi file tra-loi-danh-gia-spa.zip và văn bản hướng dẫn Project cho chị quản lý, chị tự dựng lại trên tài khoản của mình.", "Ở gói Team, bạn mở Project, bấm Share project, thêm đồng đội và chọn quyền. Mình khuyên để đa số ở quyền chỉ xem, một người giữ quyền sửa để hướng dẫn không bị sửa lung tung.", "Bốn dấu hiệu này là lời khuyên của mình, không phải của hãng. Cần sửa một chỗ mà cả đội nhận bản mới. Cần chặn công cụ gửi cho cả đội. Làm với dữ liệu khách nên cần mặc định không huấn luyện. Và hơn 2 người cùng làm một quy trình mỗi tuần.\nĐội bạn có mấy dấu hiệu trong bốn?", "Đây là giá trên trang hỗ trợ của Anthropic, đọc ngày 20/11/2026, chưa gồm thuế. Giá đổi nhanh, bạn kiểm lại trước khi mua.", "Spa có 6 người, nhưng chỉ 2 người dùng AI. Chưa có dấu hiệu nào trong bốn dấu hiệu, nên 2 tài khoản Pro là đủ. Khi cả 6 người cùng làm quy trình mỗi tuần, lúc đó mới tính gói Team.", "", ""]</script>
+<script>
+// @ds-adherence-ignore -- omelette starter scaffold (raw elements/hex/px by design)
+/* BEGIN USAGE */
+/**
+ * <deck-stage> — reusable web component for HTML decks.
+ *
+ * Handles:
+ *  (a) speaker notes — reads <script type="application/json" id="speaker-notes">
+ *      and posts {slideIndexChanged: N} to the parent window on nav.
+ *  (b) keyboard navigation — ←/→, PgUp/PgDn, Space, Home/End, number keys.
+ *      On touch devices, tapping the left/right half of the stage goes
+ *      prev/next — taps on links, buttons and other interactive slide
+ *      content are left alone.
+ *  (c) press R to reset to slide 0 (with a tasteful keyboard hint).
+ *  (d) bottom-center overlay showing slide count + hints, fades out on idle.
+ *  (e) auto-scaling — inner canvas is a fixed design size (default 1920×1080)
+ *      scaled with `transform: scale()` to fit the viewport, letterboxed.
+ *      Set the `noscale` attribute to render at authored size (1:1) — the
+ *      PPTX exporter sets this so its DOM capture sees unscaled geometry.
+ *  (f) print — `@media print` lays every slide out as its own page at the
+ *      design size, so the browser's Print → Save as PDF produces a clean
+ *      one-page-per-slide PDF with no extra setup.
+ *  (g) thumbnail rail — resizable left-hand column of per-slide thumbnails
+ *      (static clones). Click to navigate; ↑/↓ with a thumbnail focused to
+ *      step between slides; drag to reorder; right-click for
+ *      Skip / Move up / Move down / Delete (opens a Cancel/Delete confirm
+ *      dialog). Drag the rail's right edge to resize; width persists to
+ *      localStorage. Skipped slides carry `data-deck-skip`, are dimmed in
+ *      the rail, omitted from prev/next navigation, and hidden at print.
+ *      The rail is suppressed in presenting mode, in the host's Preview
+ *      mode (ViewerMode='none'), on `noscale`, on narrow viewports
+ *      (≤640px), and via the `no-rail` attribute. Rail mutations dispatch
+ *      a `deckchange`
+ *      CustomEvent on the element: detail = {action, from, to, slide}.
+ *
+ * Slides are HIDDEN, not unmounted. Non-active slides stay in the DOM with
+ * `visibility: hidden` + `opacity: 0`, so their state (videos, iframes,
+ * form inputs, React trees) is preserved across navigation.
+ *
+ * Lifecycle event — the component dispatches a `slidechange` CustomEvent on
+ * itself whenever the active slide changes (including the initial mount).
+ * The event bubbles and composes out of shadow DOM, so you can listen on
+ * the <deck-stage> element or on document:
+ *
+ *   document.querySelector('deck-stage').addEventListener('slidechange', (e) => {
+ *     e.detail.index         // new 0-based index
+ *     e.detail.previousIndex // previous index, or -1 on init
+ *     e.detail.total         // total slide count
+ *     e.detail.slide         // the new active slide element
+ *     e.detail.previousSlide // the prior slide element, or null on init
+ *     e.detail.reason        // 'init' | 'keyboard' | 'click' | 'tap' | 'api'
+ *   });
+ *
+ * Persistence: none at the deck level. The host app keeps the current slide
+ * in its own URL (?slide=) and re-delivers it via location.hash on load, so a
+ * bare load with no hash always starts at slide 1.
+ *
+ * Usage:
+ *   <style>deck-stage:not(:defined){visibility:hidden}</style>
+ *   <deck-stage width="1920" height="1080">
+ *     <section data-label="Title">...</section>
+ *     <section data-label="Agenda">...</section>
+ *   </deck-stage>
+ *   <script src="deck-stage.js"><\/script>
+ *
+ * The :not(:defined) rule prevents a flash of the first slide at its
+ * authored styles before this script runs and attaches the shadow root.
+ *
+ * Slides are the direct element children of <deck-stage>. Each slide is
+ * automatically tagged with:
+ *   - data-screen-label="NN Label"   (1-indexed, for comment flow)
+ *   - data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text"
+ *
+ * Speaker notes stay in sync because the component posts {slideIndexChanged: N}
+ * to the parent — just include the #speaker-notes script tag if asked for notes.
+ *
+ * Authoring guidance:
+ *   - Write slide bodies as static HTML inside <deck-stage>, with sizing via
+ *     CSS custom properties in a <style> block rather than JS constants.
+ *     Static slide markup is what lets the user click a heading in edit mode
+ *     and retype it directly; a slide rendered through <script type="text/babel">,
+ *     React, or a loop over a JS array has to round-trip every tweak through a
+ *     chat message instead. Reach for script-generated slides only when the
+ *     content genuinely needs interactive behaviour static HTML can't express.
+ *   - Do NOT set position/inset/width/height on the slide <section> elements —
+ *     the component absolutely positions every slotted child for you.
+ *   - Entrance animations: make the visible end-state the base style and
+ *     animate *from* hidden, so print and reduced-motion show content.
+ *     Gate the animation on [data-deck-active] and the motion query, e.g.
+ *     `@media (prefers-reduced-motion:no-preference){ [data-deck-active] .x{animation:fade-in .5s both} }`.
+ *     Avoid infinite decorative loops on slide content.
+ */
+/* END USAGE */
+
+(() => {
+  const DESIGN_W_DEFAULT = 1920;
+  const DESIGN_H_DEFAULT = 1080;
+  const OVERLAY_HIDE_MS = 1800;
+  const VALIDATE_ATTR = 'no_overflowing_text,no_overlapping_text,slide_sized_text';
+  const FINE_POINTER_MQ = matchMedia('(hover: hover) and (pointer: fine)');
+  const NARROW_MQ = matchMedia('(max-width: 640px)');
+  // Slide-authored controls that should keep a tap instead of it navigating.
+  const INTERACTIVE_SEL = 'a[href], button, input, select, textarea, summary, label, video[controls], audio[controls], [role="button"], [onclick], [tabindex]:not([tabindex^="-"]), [contenteditable]:not([contenteditable="false" i])';
+
+  const pad2 = (n) => String(n).padStart(2, '0');
+
+  // Label precedence: data-label → data-screen-label (number stripped) → first heading → "Slide".
+  const getSlideLabel = (el) => {
+    const explicit = el.getAttribute('data-label');
+    if (explicit) return explicit;
+
+    const existing = el.getAttribute('data-screen-label');
+    if (existing) return existing.replace(/^\s*\d+\s*/, '').trim() || existing;
+
+    const h = el.querySelector('h1, h2, h3, [data-title]');
+    const t = h && (h.textContent || '').trim().slice(0, 40);
+    if (t) return t;
+
+    return 'Slide';
+  };
+
+  const stylesheet = `
+    :host {
+      position: fixed;
+      inset: 0;
+      display: block;
+      background: #000;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      overflow: hidden;
+      -webkit-tap-highlight-color: transparent;
+    }
+    /* connectedCallback holds this until document.fonts.ready (capped 2s) so
+     * the first visible paint has the deck's real typography + final rail
+     * layout. opacity (not visibility) so the active slide can't un-hide
+     * itself via the ::slotted([data-deck-active]) visibility:visible rule.
+     * Only the stage/rail hide — the black :host background stays, so the
+     * iframe doesn't flash the page's default white. */
+    :host([data-fonts-pending]) .stage,
+    :host([data-fonts-pending]) .rail { opacity: 0; pointer-events: none; }
+
+    .stage {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .canvas {
+      position: relative;
+      transform-origin: center center;
+      flex-shrink: 0;
+      background: #fff;
+      will-change: transform;
+    }
+
+    /* Slides live in light DOM (via <slot>) so authored CSS still applies.
+       We absolutely position each slotted child to stack them. */
+    ::slotted(*) {
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      box-sizing: border-box !important;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+      visibility: hidden;
+    }
+    ::slotted([data-deck-active]) {
+      opacity: 1;
+      pointer-events: auto;
+      visibility: visible;
+    }
+
+    .overlay {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      transform: translate(-50%, 6px) scale(0.92);
+      filter: blur(6px);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px;
+      background: #000;
+      color: #fff;
+      border-radius: 999px;
+      font-size: 12px;
+      font-feature-settings: "tnum" 1;
+      letter-spacing: 0.01em;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 260ms ease, transform 260ms cubic-bezier(.2,.8,.2,1), filter 260ms ease;
+      transform-origin: center bottom;
+      z-index: 2147483000;
+      user-select: none;
+    }
+    .overlay[data-visible] {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate(-50%, 0) scale(1);
+      filter: blur(0);
+    }
+
+    .btn {
+      appearance: none;
+      -webkit-appearance: none;
+      background: transparent;
+      border: 0;
+      margin: 0;
+      padding: 0;
+      color: inherit;
+      font: inherit;
+      cursor: default;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 28px;
+      min-width: 28px;
+      border-radius: 999px;
+      color: rgba(255,255,255,0.72);
+      transition: background 140ms ease, color 140ms ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
+    .btn:active { background: rgba(255,255,255,0.18); }
+    .btn:focus { outline: none; }
+    .btn:focus-visible { outline: none; }
+    .btn::-moz-focus-inner { border: 0; }
+    .btn svg { width: 14px; height: 14px; display: block; }
+    .btn.reset {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      padding: 0 10px 0 12px;
+      gap: 6px;
+      color: rgba(255,255,255,0.72);
+    }
+    .btn.reset .kbd {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 16px;
+      height: 16px;
+      padding: 0 4px;
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 10px;
+      line-height: 1;
+      color: rgba(255,255,255,0.88);
+      background: rgba(255,255,255,0.12);
+      border-radius: 4px;
+    }
+
+    .count {
+      font-variant-numeric: tabular-nums;
+      color: #fff;
+      font-weight: 500;
+      padding: 0 8px;
+      min-width: 42px;
+      text-align: center;
+      font-size: 12px;
+    }
+    .count .sep { color: rgba(255,255,255,0.45); margin: 0 3px; font-weight: 400; }
+    .count .total { color: rgba(255,255,255,0.55); }
+
+    .divider {
+      width: 1px;
+      height: 14px;
+      background: rgba(255,255,255,0.18);
+      margin: 0 2px;
+    }
+
+    /* ── Thumbnail rail ──────────────────────────────────────────────────
+       Fixed column on the left; each thumbnail is a static deep-clone of
+       the light-DOM slide scaled into a 16:9 (or design-aspect) frame. The
+       stage re-fits around it (see _fit); hidden during present / noscale
+       / print so capture geometry and fullscreen output are unchanged. */
+    .rail {
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: var(--deck-rail-w, 188px);
+      background: #141414;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 12px 10px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 2147482500;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,0.18) transparent;
+    }
+    .rail::-webkit-scrollbar { width: 8px; }
+    .rail::-webkit-scrollbar-track { background: transparent; margin: 2px; }
+    .rail::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.18);
+      border-radius: 4px;
+      border: 2px solid transparent;
+      background-clip: content-box;
+    }
+    .rail::-webkit-scrollbar-thumb:hover {
+      background: rgba(255,255,255,0.28);
+      border: 2px solid transparent;
+      background-clip: content-box;
+    }
+    :host([no-rail]) .rail,
+    :host([noscale]) .rail { display: none; }
+    .rail[data-presenting] { display: none; }
+    @media (max-width: 640px) {
+      .rail, .rail-resize { display: none; }
+    }
+    /* User-driven show/hide (the TweaksPanel toggle) slides instead of
+       popping. Transitions are gated on :host([data-rail-anim]) — set only
+       for the 200ms around the toggle — so window-resize and rail-width
+       drag (which also call _fit) don't lag behind the cursor. */
+    .rail[data-user-hidden] { transform: translateX(-100%); }
+    :host([data-rail-anim]) .rail { transition: transform 200ms cubic-bezier(.3,.7,.4,1); }
+    :host([data-rail-anim]) .stage { transition: left 200ms cubic-bezier(.3,.7,.4,1); }
+    :host([data-rail-anim]) .canvas { transition: transform 200ms cubic-bezier(.3,.7,.4,1); }
+    /* transition shorthand replaces rather than merges — repeat the base
+       .overlay opacity/transform/filter transitions so visibility changes
+       during the 200ms toggle window still fade instead of popping. */
+    :host([data-rail-anim]) .overlay {
+      transition: margin-left 200ms cubic-bezier(.3,.7,.4,1),
+                  opacity 260ms ease,
+                  transform 260ms cubic-bezier(.2,.8,.2,1),
+                  filter 260ms ease;
+    }
+
+    .thumb {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .thumb .num {
+      width: 16px;
+      flex-shrink: 0;
+      font-size: 11px;
+      font-weight: 500;
+      text-align: right;
+      color: rgba(255,255,255,0.55);
+      padding-top: 2px;
+      font-variant-numeric: tabular-nums;
+    }
+    .thumb .frame {
+      position: relative;
+      flex: 1;
+      min-width: 0;
+      aspect-ratio: var(--deck-aspect);
+      background: #fff;
+      border-radius: 4px;
+      outline: 2px solid transparent;
+      outline-offset: 0;
+      overflow: hidden;
+      transition: outline-color 120ms ease;
+    }
+    .thumb:hover .frame { outline-color: rgba(255,255,255,0.25); }
+    .thumb { outline: none; }
+    .thumb:focus-visible .frame { outline-color: rgba(255,255,255,0.5); }
+    .thumb[data-current] .num { color: #fff; }
+    .thumb[data-current] .frame { outline-color: #D97757; }
+    .thumb[data-dragging] { opacity: 0.35; }
+    .thumb::before {
+      content: '';
+      position: absolute;
+      left: 24px;
+      right: 0;
+      height: 3px;
+      border-radius: 2px;
+      background: #D97757;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .thumb[data-drop="before"]::before { top: -8px; opacity: 1; }
+    .thumb[data-drop="after"]::before { bottom: -8px; opacity: 1; }
+    .thumb[data-skip] .frame { opacity: 0.35; }
+    .thumb[data-skip] .frame::after {
+      content: 'Skipped';
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.45);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+
+    .ctxmenu {
+      position: fixed;
+      min-width: 150px;
+      padding: 4px;
+      background: #242424;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 7px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+      z-index: 2147483100;
+      display: none;
+      font-size: 12px;
+    }
+    .ctxmenu[data-open] { display: block; }
+    .ctxmenu button {
+      display: block;
+      width: 100%;
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: #e8e8e8;
+      font: inherit;
+      text-align: left;
+      padding: 6px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .ctxmenu button:hover:not(:disabled) { background: rgba(255,255,255,0.08); }
+    .ctxmenu button:disabled { opacity: 0.35; cursor: default; }
+    .ctxmenu hr {
+      border: 0;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin: 4px 2px;
+    }
+
+    .rail-resize {
+      position: fixed;
+      left: calc(var(--deck-rail-w, 188px) - 3px);
+      top: 0;
+      bottom: 0;
+      width: 6px;
+      cursor: col-resize;
+      z-index: 2147482600;
+      touch-action: none;
+    }
+    .rail-resize:hover,
+    .rail-resize[data-dragging] { background: rgba(255,255,255,0.12); }
+    :host([no-rail]) .rail-resize,
+    :host([noscale]) .rail-resize,
+    .rail[data-presenting] + .rail-resize,
+    .rail[data-user-hidden] + .rail-resize { display: none; }
+
+    /* Delete-confirm popup — matches the SPA's ConfirmDialog layout
+       (title + message body, depressed footer with Cancel / Delete). */
+    .confirm-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 2147483200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .confirm-backdrop[data-open] { display: flex; }
+    .confirm {
+      width: 320px;
+      max-width: calc(100vw - 32px);
+      background: #2a2a2a;
+      color: #e8e8e8;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.5);
+      overflow: hidden;
+      font-family: inherit;
+      animation: deck-confirm-in 0.18s ease;
+    }
+    @keyframes deck-confirm-in {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .confirm .body { padding: 20px 20px 16px; }
+    .confirm .title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .confirm .msg { font-size: 13px; line-height: 1.5; color: rgba(255,255,255,0.65); }
+    .confirm .footer {
+      padding: 14px 20px;
+      background: #1f1f1f;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+    .confirm button {
+      appearance: none;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .confirm .cancel {
+      background: transparent;
+      border: 0;
+      color: rgba(255,255,255,0.8);
+    }
+    .confirm .cancel:hover { background: rgba(255,255,255,0.08); }
+    .confirm .danger {
+      background: #c96442;
+      border: 1px solid rgba(0,0,0,0.15);
+      color: #fff;
+      box-shadow: 0 1px 3px rgba(166,50,68,0.3), 0 2px 6px rgba(166,50,68,0.18);
+    }
+    .confirm .danger:hover { background: #b5563a; }
+
+    /* ── Print: one page per slide, no chrome ────────────────────────────
+       The screen layout stacks every slide at inset:0 inside a scaled
+       canvas; for print we want them in document flow at the authored
+       design size so the browser paginates one slide per sheet. The
+       @page size is set from the width/height attributes via the inline
+       <style id="deck-stage-print-page"> that connectedCallback injects
+       into <head> (the @page at-rule has no effect inside shadow DOM). */
+    @media print {
+      :host {
+        position: static;
+        inset: auto;
+        background: none;
+        overflow: visible;
+        color: inherit;
+      }
+      .stage { position: static; display: block; }
+      .canvas {
+        transform: none !important;
+        width: auto !important;
+        height: auto !important;
+        background: none;
+        will-change: auto;
+      }
+      ::slotted(*) {
+        position: relative !important;
+        inset: auto !important;
+        width: var(--deck-design-w) !important;
+        height: var(--deck-design-h) !important;
+        box-sizing: border-box !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto;
+        break-after: page;
+        page-break-after: always;
+        break-inside: avoid;
+        overflow: hidden;
+      }
+      /* :last-child alone isn't enough once data-deck-skip hides the
+         trailing slide(s) — the last *visible* slide still carries
+         break-after:page and prints a blank sheet. _markLastVisible()
+         maintains data-deck-last-visible on the last non-skipped slide. */
+      ::slotted(*:last-child),
+      ::slotted([data-deck-last-visible]) {
+        break-after: auto;
+        page-break-after: auto;
+      }
+      ::slotted([data-deck-skip]) { display: none !important; }
+      .overlay, .rail, .rail-resize, .ctxmenu, .confirm-backdrop { display: none !important; }
+    }
+  `;
+
+  class DeckStage extends HTMLElement {
+    static get observedAttributes() { return ['width', 'height', 'noscale', 'no-rail']; }
+
+    constructor() {
+      super();
+      this._root = this.attachShadow({ mode: 'open' });
+      this._index = 0;
+      this._slides = [];
+      this._notes = [];
+      this._hideTimer = null;
+      this._mouseIdleTimer = null;
+      this._menuIndex = -1;
+
+      this._onKey = this._onKey.bind(this);
+      this._onResize = this._onResize.bind(this);
+      this._onSlotChange = this._onSlotChange.bind(this);
+      this._onMouseMove = this._onMouseMove.bind(this);
+      this._onTap = this._onTap.bind(this);
+      this._onMessage = this._onMessage.bind(this);
+      // Capture-phase close so a click anywhere dismisses the menu, but
+      // ignore clicks that land inside the menu itself — otherwise the
+      // capture handler runs before the menu's own (bubble) handler and
+      // clears _menuIndex out from under it.
+      this._onDocClick = (e) => {
+        if (this._menu && e.composedPath && e.composedPath().includes(this._menu)) return;
+        this._closeMenu();
+      };
+    }
+
+    get designWidth() {
+      return parseInt(this.getAttribute('width'), 10) || DESIGN_W_DEFAULT;
+    }
+    get designHeight() {
+      return parseInt(this.getAttribute('height'), 10) || DESIGN_H_DEFAULT;
+    }
+
+    connectedCallback() {
+      // Presenter-view popup loads deckUrl?_snthumb=...#N for its prev/cur/
+      // next thumbnails — the rail has no business rendering inside those
+      // (wrong scale, and it offsets the stage so the thumb shows a gutter).
+      if (/[?&]_snthumb=/.test(location.search)) this.setAttribute('no-rail', '');
+      this._render();
+      this._loadNotes();
+      this._syncPrintPageRule();
+      window.addEventListener('keydown', this._onKey);
+      window.addEventListener('resize', this._onResize);
+      window.addEventListener('mousemove', this._onMouseMove, { passive: true });
+      window.addEventListener('message', this._onMessage);
+      window.addEventListener('click', this._onDocClick, true);
+      this.addEventListener('click', this._onTap);
+      // Print lays every slide out as its own page, so [data-deck-active]-
+      // gated entrance styles need the attribute on every slide (not just
+      // the current one) or their content prints at the hidden base style.
+      // The transient freeze style lands BEFORE the attributes so any
+      // attribute-keyed transition fires at 0s (changing transition-
+      // duration after a transition has started doesn't affect it).
+      this._onBeforePrint = () => {
+        if (this._freezeStyle) this._freezeStyle.remove();
+        this._freezeStyle = document.createElement('style');
+        this._freezeStyle.textContent = '*,*::before,*::after{transition-duration:0s !important}';
+        document.head.appendChild(this._freezeStyle);
+        this._slides.forEach((s) => s.setAttribute('data-deck-active', ''));
+      };
+      this._onAfterPrint = () => {
+        this._applyIndex({ showOverlay: false, broadcast: false });
+        if (this._freezeStyle) { this._freezeStyle.remove(); this._freezeStyle = null; }
+      };
+      window.addEventListener('beforeprint', this._onBeforePrint);
+      window.addEventListener('afterprint', this._onAfterPrint);
+      // Initial collection + layout happens via slotchange, which fires on mount.
+      this._enableRail();
+      // Hold the stage hidden until webfonts are ready so the first visible
+      // paint has the deck's real typography — the :not(:defined) guard in
+      // the page HTML only covers custom-element upgrade, not font load.
+      // Capped so a 404'd font URL can't blank the deck indefinitely.
+      this.setAttribute('data-fonts-pending', '');
+      const reveal = () => this.removeAttribute('data-fonts-pending');
+      // rAF first: fonts.ready is a pre-resolved promise until layout has
+      // resolved the slotted text's font-family and pushed a FontFace into
+      // 'loading'. Reading it here in connectedCallback (parse-time) would
+      // settle the race in a microtask before any font fetch starts.
+      requestAnimationFrame(() => {
+        Promise.race([
+          document.fonts ? document.fonts.ready : Promise.resolve(),
+          new Promise((r) => setTimeout(r, 2000)),
+        ]).then(reveal, reveal);
+      });
+    }
+
+    _enableRail() {
+      // Idempotent — older host builds still post __omelette_rail_enabled.
+      // no-rail guard keeps the observers/stylesheet walk off the cheap path
+      // for presenter-popup thumbnail iframes (up to 9 per view).
+      if (this._railEnabled || this.hasAttribute('no-rail')) return;
+      this._railEnabled = true;
+      // Per-viewer preference — restored alongside rail width. Default on;
+      // only a stored '0' (from the TweaksPanel toggle) hides it.
+      this._railVisible = true;
+      try {
+        if (localStorage.getItem('deck-stage.railVisible') === '0') this._railVisible = false;
+      } catch (e) {}
+      // Live thumbnail updates: watch the light-DOM slides for content
+      // edits and re-clone just the affected thumb(s), debounced. Ignore
+      // the data-deck-* / data-screen-label / data-om-validate attributes
+      // this component itself writes so nav and skip don't trigger
+      // spurious refreshes.
+      const OWN_ATTRS = /^data-(deck-|screen-label$|om-validate$)/;
+      this._liveDirty = new Set();
+      this._liveObserver = new MutationObserver((records) => {
+        for (const r of records) {
+          if (r.type === 'attributes' && OWN_ATTRS.test(r.attributeName || '')) continue;
+          let n = r.target;
+          while (n && n.parentElement !== this) n = n.parentElement;
+          if (n && this._slideSet && this._slideSet.has(n)) this._liveDirty.add(n);
+        }
+        if (this._liveDirty.size && !this._liveTimer) {
+          this._liveTimer = setTimeout(() => {
+            this._liveTimer = null;
+            this._liveDirty.forEach((s) => this._refreshThumb(s));
+            this._liveDirty.clear();
+          }, 200);
+        }
+      });
+      this._liveObserver.observe(this, {
+        subtree: true, childList: true, characterData: true, attributes: true,
+      });
+      // Lazy thumbnail materialization — clone the slide only when its
+      // frame scrolls into (or near) the rail viewport. rootMargin gives
+      // ~4 thumbs of pre-load so fast scrolling doesn't flash blanks.
+      this._railObserver = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting && e.target.__deckThumb) {
+            this._materialize(e.target.__deckThumb);
+          }
+        });
+      }, { root: this._rail, rootMargin: '400px 0px' });
+      // Tweaks typically change CSS vars / attrs OUTSIDE <deck-stage>
+      // (on <html>, <body>, a wrapper div, or a <style> tag), which
+      // _liveObserver can't see. Re-snapshot author CSS (constructable
+      // sheet is shared by reference, so one replaceSync updates every
+      // thumb shadow root) and re-sync each thumb host's attrs + custom
+      // properties. In-slide DOM mutations are _liveObserver's job.
+      // Debounced so slider drags don't thrash.
+      this._onTweakChange = () => {
+        clearTimeout(this._tweakTimer);
+        this._tweakTimer = setTimeout(() => {
+          this._snapshotAuthorCss();
+          // One getComputedStyle for the whole batch — each
+          // getPropertyValue read below reuses the same computed style
+          // as long as nothing invalidates layout between thumbs.
+          const cs = getComputedStyle(this);
+          (this._thumbs || []).forEach((t) => {
+            if (t.host) this._syncThumbHostAttrs(t.host, cs);
+          });
+        }, 120);
+      };
+      window.addEventListener('tweakchange', this._onTweakChange);
+      this._snapshotAuthorCss();
+      // Build the rail now that it's enabled — slotchange already fired,
+      // so _renderRail's early-return skipped the initial build.
+      this._syncRailHidden();
+      this._renderRail();
+      this._fit();
+    }
+
+    /** Snapshot document stylesheets into a constructable sheet that each
+     *  thumbnail's nested shadow root adopts — so author CSS styles the
+     *  cloned slide content without touching this component's chrome.
+     *  Cross-origin sheets throw on .cssRules — skip them. Re-callable:
+     *  the existing constructable sheet is reused via replaceSync so every
+     *  already-adopted shadow root picks up the fresh CSS without re-adopt. */
+    _snapshotAuthorCss() {
+      // :root in an adopted sheet inside a shadow root matches nothing
+      // (only the document root qualifies), so author rules like
+      // `:root[data-voice="modern"] .serif` never reach the clones.
+      // Rewrite :root → :host and mirror <html>'s data-*/class/lang onto
+      // each thumb host (see _syncThumbHostAttrs) so the same selectors
+      // match inside the thumbnail's shadow tree.
+      const authorCss = Array.from(document.styleSheets).map((sh) => {
+        try {
+          return Array.from(sh.cssRules).map((r) => r.cssText).join('\n');
+        } catch (e) { return ''; }
+      }).join('\n')
+        // The shadow host is featureless outside the functional :host(...)
+        // form, so any compound on :root — [attr], .class, #id, :pseudo —
+        // must become :host(<compound>) not :host<compound>. Same for the
+        // html type selector (Tailwind class-strategy dark mode emits
+        // html.dark; Pico uses html[data-theme]), which has nothing to
+        // match inside the thumb's shadow tree.
+        .replace(/:root((?:\[[^\]]*\]|[.#][-\w]+|:[-\w]+(?:\([^)]*\))?)+)/g, ':host($1)')
+        .replace(/:root\b/g, ':host')
+        .replace(/(^|[\s,>~+(}])html((?:\[[^\]]*\]|[.#][-\w]+|:[-\w]+(?:\([^)]*\))?)+)(?![-\w])/g, '$1:host($2)')
+        .replace(/(^|[\s,>~+(}])html(?![-\w])/g, '$1:host');
+      // Every custom property the author references. _syncThumbHostAttrs
+      // mirrors each one's *computed* value at <deck-stage> onto the
+      // thumb host so the live value wins over the :host default above
+      // regardless of which ancestor the tweak wrote to (<html>, <body>,
+      // a wrapper div, or the deck-stage element itself all inherit
+      // down to getComputedStyle(this)).
+      this._authorVars = new Set(authorCss.match(/--[\w-]+/g) || []);
+      try {
+        if (!this._adoptedSheet) this._adoptedSheet = new CSSStyleSheet();
+        this._adoptedSheet.replaceSync(authorCss);
+      } catch (e) {
+        this._adoptedSheet = null;
+        this._authorCss = authorCss;
+      }
+    }
+
+    _syncThumbHostAttrs(host, cs) {
+      const de = document.documentElement;
+      // setAttribute overwrites but can't delete — an attr removed from
+      // <html> (toggleAttribute off, classList emptied) would linger on
+      // the host and :host([data-*]) / :host(.foo) rules would keep
+      // matching. Remove stale mirrored attrs first; iterate backward
+      // because removeAttribute mutates the live NamedNodeMap.
+      for (let i = host.attributes.length - 1; i >= 0; i--) {
+        const n = host.attributes[i].name;
+        if ((n.startsWith('data-') || n === 'class' || n === 'lang')
+            && !de.hasAttribute(n)) {
+          host.removeAttribute(n);
+        }
+      }
+      for (const a of de.attributes) {
+        if (a.name.startsWith('data-') || a.name === 'class' || a.name === 'lang') {
+          host.setAttribute(a.name, a.value);
+        }
+      }
+      // The :root→:host rewrite in _snapshotAuthorCss pins each custom
+      // property to its stylesheet default on the thumb host, shadowing
+      // the live value that would otherwise inherit. Tweaks can write the
+      // live value on any ancestor — <html>, <body>, a wrapper div, the
+      // deck-stage element — so read it as the *computed* value at
+      // <deck-stage> (which sees the whole inheritance chain) rather than
+      // trying to guess which element the author wrote to. Inline on the
+      // host beats the :host{} rule. remove-stale covers vars dropped
+      // from the stylesheet between snapshots.
+      const vars = this._authorVars || new Set();
+      for (let i = host.style.length - 1; i >= 0; i--) {
+        const p = host.style[i];
+        if (p.startsWith('--') && !vars.has(p)) host.style.removeProperty(p);
+      }
+      const live = cs || getComputedStyle(this);
+      vars.forEach((p) => {
+        const v = live.getPropertyValue(p);
+        if (v) host.style.setProperty(p, v.trim());
+        else host.style.removeProperty(p);
+      });
+    }
+
+    disconnectedCallback() {
+      window.removeEventListener('keydown', this._onKey);
+      window.removeEventListener('resize', this._onResize);
+      window.removeEventListener('mousemove', this._onMouseMove);
+      window.removeEventListener('message', this._onMessage);
+      window.removeEventListener('click', this._onDocClick, true);
+      window.removeEventListener('beforeprint', this._onBeforePrint);
+      window.removeEventListener('afterprint', this._onAfterPrint);
+      if (this._freezeStyle) { this._freezeStyle.remove(); this._freezeStyle = null; }
+      this.removeEventListener('click', this._onTap);
+      if (this._hideTimer) clearTimeout(this._hideTimer);
+      if (this._mouseIdleTimer) clearTimeout(this._mouseIdleTimer);
+      if (this._liveTimer) clearTimeout(this._liveTimer);
+      if (this._tweakTimer) clearTimeout(this._tweakTimer);
+      if (this._railAnimTimer) clearTimeout(this._railAnimTimer);
+      if (this._scaleRaf) cancelAnimationFrame(this._scaleRaf);
+      if (this._liveObserver) this._liveObserver.disconnect();
+      if (this._railObserver) this._railObserver.disconnect();
+      if (this._onTweakChange) window.removeEventListener('tweakchange', this._onTweakChange);
+    }
+
+    attributeChangedCallback() {
+      if (this._canvas) {
+        this._canvas.style.width = this.designWidth + 'px';
+        this._canvas.style.height = this.designHeight + 'px';
+        this._canvas.style.setProperty('--deck-design-w', this.designWidth + 'px');
+        this._canvas.style.setProperty('--deck-design-h', this.designHeight + 'px');
+        if (this._rail) {
+          this._rail.style.setProperty('--deck-aspect', this.designWidth + '/' + this.designHeight);
+        }
+        this._fit();
+        this._scaleThumbs();
+        this._syncPrintPageRule();
+      }
+    }
+
+    _render() {
+      const style = document.createElement('style');
+      style.textContent = stylesheet;
+
+      const stage = document.createElement('div');
+      stage.className = 'stage';
+
+      const canvas = document.createElement('div');
+      canvas.className = 'canvas';
+      canvas.style.width = this.designWidth + 'px';
+      canvas.style.height = this.designHeight + 'px';
+      canvas.style.setProperty('--deck-design-w', this.designWidth + 'px');
+      canvas.style.setProperty('--deck-design-h', this.designHeight + 'px');
+
+      const slot = document.createElement('slot');
+      slot.addEventListener('slotchange', this._onSlotChange);
+      canvas.appendChild(slot);
+      stage.appendChild(canvas);
+
+      // Overlay: compact, solid black, with clickable controls.
+      const overlay = document.createElement('div');
+      overlay.className = 'overlay export-hidden';
+      overlay.setAttribute('role', 'toolbar');
+      overlay.setAttribute('aria-label', 'Deck controls');
+      overlay.setAttribute('data-omelette-chrome', '');
+      overlay.innerHTML = `
+        <button class="btn prev" type="button" aria-label="Previous slide" title="Previous (←)">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg>
+        </button>
+        <span class="count" aria-live="polite"><span class="current">1</span><span class="sep">/</span><span class="total">1</span></span>
+        <button class="btn next" type="button" aria-label="Next slide" title="Next (→)">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg>
+        </button>
+        <span class="divider"></span>
+        <button class="btn reset" type="button" aria-label="Reset to first slide" title="Reset (R)">Reset<span class="kbd">R</span></button>
+      `;
+
+      overlay.querySelector('.prev').addEventListener('click', () => this._advance(-1, 'click'));
+      overlay.querySelector('.next').addEventListener('click', () => this._advance(1, 'click'));
+      overlay.querySelector('.reset').addEventListener('click', () => this._go(0, 'click'));
+
+      // Thumbnail rail + context menu. Thumbnails are populated in
+      // _renderRail() after _collectSlides().
+      const rail = document.createElement('div');
+      rail.className = 'rail export-hidden';
+      rail.setAttribute('data-omelette-chrome', '');
+      rail.style.setProperty('--deck-aspect', this.designWidth + '/' + this.designHeight);
+      // Edge auto-scroll while dragging a thumb near the rail's top/bottom
+      // so off-screen drop targets are reachable. Native dragover fires
+      // continuously while the pointer is stationary, so a per-event nudge
+      // (ramped by edge proximity) is enough — no rAF loop needed.
+      rail.addEventListener('dragover', (e) => {
+        if (this._dragFrom == null) return;
+        const r = rail.getBoundingClientRect();
+        const EDGE = 40;
+        const dt = e.clientY - r.top;
+        const db = r.bottom - e.clientY;
+        if (dt < EDGE) rail.scrollTop -= Math.ceil((EDGE - dt) / 3);
+        else if (db < EDGE) rail.scrollTop += Math.ceil((EDGE - db) / 3);
+      });
+
+      const menu = document.createElement('div');
+      menu.className = 'ctxmenu export-hidden';
+      menu.setAttribute('data-omelette-chrome', '');
+      menu.innerHTML = `
+        <button type="button" data-act="skip">Skip slide</button>
+        <button type="button" data-act="up">Move up</button>
+        <button type="button" data-act="down">Move down</button>
+        <hr>
+        <button type="button" data-act="delete">Delete slide</button>
+      `;
+      menu.addEventListener('click', (e) => {
+        const act = e.target && e.target.getAttribute && e.target.getAttribute('data-act');
+        if (!act) return;
+        const i = this._menuIndex;
+        this._closeMenu();
+        if (act === 'skip') this._toggleSkip(i);
+        else if (act === 'up') this._moveSlide(i, i - 1);
+        else if (act === 'down') this._moveSlide(i, i + 1);
+        else if (act === 'delete') this._openConfirm(i);
+      });
+      menu.addEventListener('contextmenu', (e) => e.preventDefault());
+
+      // Rail resize handle — drag to set --deck-rail-w, persisted to
+      // localStorage so the width survives reloads.
+      const resize = document.createElement('div');
+      resize.className = 'rail-resize export-hidden';
+      resize.setAttribute('data-omelette-chrome', '');
+      resize.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        resize.setPointerCapture(e.pointerId);
+        resize.setAttribute('data-dragging', '');
+        const move = (ev) => this._setRailWidth(ev.clientX);
+        const up = () => {
+          resize.removeEventListener('pointermove', move);
+          resize.removeEventListener('pointerup', up);
+          resize.removeEventListener('pointercancel', up);
+          resize.removeAttribute('data-dragging');
+          try { localStorage.setItem('deck-stage.railWidth', String(this._railPx)); } catch (err) {}
+        };
+        resize.addEventListener('pointermove', move);
+        resize.addEventListener('pointerup', up);
+        resize.addEventListener('pointercancel', up);
+      });
+
+      // Delete-confirm dialog — mirrors the SPA's ConfirmDialog layout.
+      const confirm = document.createElement('div');
+      confirm.className = 'confirm-backdrop export-hidden';
+      confirm.setAttribute('data-omelette-chrome', '');
+      confirm.innerHTML = `
+        <div class="confirm" role="dialog" aria-modal="true">
+          <div class="body">
+            <div class="title">Delete slide?</div>
+            <div class="msg">This slide will be removed from the deck.</div>
+          </div>
+          <div class="footer">
+            <button type="button" class="cancel">Cancel</button>
+            <button type="button" class="danger">Delete</button>
+          </div>
+        </div>
+      `;
+      confirm.addEventListener('click', (e) => {
+        if (e.target === confirm) this._closeConfirm();
+      });
+      confirm.querySelector('.cancel').addEventListener('click', () => this._closeConfirm());
+      confirm.querySelector('.danger').addEventListener('click', () => {
+        const i = this._confirmIndex;
+        this._closeConfirm();
+        this._deleteSlide(i);
+      });
+
+      this._root.append(style, rail, resize, stage, overlay, menu, confirm);
+      this._canvas = canvas;
+      this._stage = stage;
+      this._slot = slot;
+      this._overlay = overlay;
+      this._rail = rail;
+      this._resize = resize;
+      this._menu = menu;
+      this._confirm = confirm;
+      this._countEl = overlay.querySelector('.current');
+      this._totalEl = overlay.querySelector('.total');
+
+      // Restore persisted rail width.
+      let rw = 188;
+      try {
+        const s = localStorage.getItem('deck-stage.railWidth');
+        if (s) rw = parseInt(s, 10) || rw;
+      } catch (err) {}
+      this._setRailWidth(rw);
+      this._syncRailHidden();
+    }
+
+    _setRailWidth(px) {
+      const w = Math.max(120, Math.min(360, Math.round(px)));
+      this._railPx = w;
+      this.style.setProperty('--deck-rail-w', w + 'px');
+      this._fit();
+      // _scaleThumbs forces a sync layout (frame.offsetWidth) then writes
+      // N transforms. During a resize drag this runs per-pointermove;
+      // coalesce to one per frame.
+      if (!this._scaleRaf) {
+        this._scaleRaf = requestAnimationFrame(() => {
+          this._scaleRaf = null;
+          this._scaleThumbs();
+        });
+      }
+    }
+
+    /** @page must live in the document stylesheet — it's a no-op inside
+     *  shadow DOM. Inject/update a single <head> style tag so the print
+     *  sheet matches the design size and Save-as-PDF yields one slide per
+     *  page with no margins. */
+    _syncPrintPageRule() {
+      const id = 'deck-stage-print-page';
+      let tag = document.getElementById(id);
+      if (!tag) {
+        tag = document.createElement('style');
+        tag.id = id;
+        document.head.appendChild(tag);
+      }
+      tag.textContent =
+        '@page { size: ' + this.designWidth + 'px ' + this.designHeight + 'px; margin: 0; } ' +
+        '@media print { html, body { margin: 0 !important; padding: 0 !important; background: none !important; overflow: visible !important; height: auto !important; } ' +
+        '* { -webkit-print-color-adjust: exact; print-color-adjust: exact; } ' +
+        // Jump authored animations/transitions to their end state so print
+        // never captures mid-entrance — pairs with the beforeprint handler
+        // in connectedCallback that sets data-deck-active on every slide.
+        '*, *::before, *::after { animation-delay: -99s !important; animation-duration: .001s !important; ' +
+        'animation-iteration-count: 1 !important; animation-fill-mode: both !important; ' +
+        'animation-play-state: running !important; transition-duration: 0s !important; } }';
+    }
+
+    _onSlotChange() {
+      // Rail mutations (delete/move) already reconcile synchronously and
+      // emit slidechange with reason 'api'; skip the async slotchange that
+      // would otherwise re-broadcast with reason 'init'.
+      if (this._squelchSlotChange) { this._squelchSlotChange = false; return; }
+      this._collectSlides();
+      this._restoreIndex();
+      this._applyIndex({ showOverlay: false, broadcast: true, reason: 'init' });
+      this._fit();
+    }
+
+    _collectSlides() {
+      const assigned = this._slot.assignedElements({ flatten: true });
+      this._slides = assigned.filter((el) => {
+        // Skip template/style/script nodes even if someone slots them.
+        const tag = el.tagName;
+        return tag !== 'TEMPLATE' && tag !== 'SCRIPT' && tag !== 'STYLE';
+      });
+      this._slideSet = new Set(this._slides);
+
+      this._slides.forEach((slide, i) => {
+        const n = i + 1;
+        slide.setAttribute('data-screen-label', `${pad2(n)} ${getSlideLabel(slide)}`);
+
+        // Validation attribute for comment flow / auto-checks.
+        if (!slide.hasAttribute('data-om-validate')) {
+          slide.setAttribute('data-om-validate', VALIDATE_ATTR);
+        }
+
+        slide.setAttribute('data-deck-slide', String(i));
+      });
+
+      if (this._totalEl) this._totalEl.textContent = String(this._slides.length || 1);
+      if (this._index >= this._slides.length) this._index = Math.max(0, this._slides.length - 1);
+      this._markLastVisible();
+      this._renderRail();
+    }
+
+    /** Tag the last non-skipped slide so print CSS can drop its
+     *  break-after (see the @media print comment above — :last-child
+     *  alone matches a hidden skipped slide). */
+    _markLastVisible() {
+      let last = null;
+      this._slides.forEach((s) => {
+        s.removeAttribute('data-deck-last-visible');
+        if (!s.hasAttribute('data-deck-skip')) last = s;
+      });
+      if (last) last.setAttribute('data-deck-last-visible', '');
+    }
+
+    _loadNotes() {
+      const tag = document.getElementById('speaker-notes');
+      if (!tag) { this._notes = []; return; }
+      try {
+        const parsed = JSON.parse(tag.textContent || '[]');
+        if (Array.isArray(parsed)) this._notes = parsed;
+      } catch (e) {
+        console.warn('[deck-stage] Failed to parse #speaker-notes JSON:', e);
+        this._notes = [];
+      }
+    }
+
+    _restoreIndex() {
+      // The host's ?slide= param is delivered as a #<int> hash (1-indexed) on
+      // the iframe src. No hash → slide 1; the deck itself keeps no position
+      // state across loads.
+      const h = (location.hash || '').match(/^#(\d+)$/);
+      if (h) {
+        const n = parseInt(h[1], 10) - 1;
+        if (n >= 0 && n < this._slides.length) this._index = n;
+      }
+    }
+
+    _applyIndex({ showOverlay = true, broadcast = true, reason = 'init' } = {}) {
+      if (!this._slides.length) return;
+      const prev = this._prevIndex == null ? -1 : this._prevIndex;
+      const curr = this._index;
+      // Keep the iframe's own hash in sync so an in-iframe location.reload()
+      // (reload banner path in viewer-handle.ts) lands on the current slide,
+      // not the stale deep-link hash from initial load.
+      try { history.replaceState(null, '', '#' + (curr + 1)); } catch (e) {}
+      this._slides.forEach((s, i) => {
+        if (i === curr) s.setAttribute('data-deck-active', '');
+        else s.removeAttribute('data-deck-active');
+      });
+      if (this._countEl) this._countEl.textContent = String(curr + 1);
+      // Follow-scroll on every navigation (init deep-link, keyboard, click,
+      // tap, external goTo) — the only time we *don't* want the rail to
+      // track current is after a rail-internal mutation, where _renderRail
+      // has already restored the user's scroll position and yanking back to
+      // current would undo it.
+      this._syncRail(reason !== 'mutation');
+
+      if (broadcast) {
+        // (1) Legacy: host-window postMessage for speaker-notes renderers.
+        try { window.postMessage({ slideIndexChanged: curr, deckTotal: this._slides.length, deckSkipped: this._skippedIndices() }, '*'); } catch (e) {}
+
+        // (2) In-page CustomEvent on the <deck-stage> element itself.
+        //     Bubbles and composes out of shadow DOM so slide code can listen:
+        //       document.querySelector('deck-stage').addEventListener('slidechange', e => {
+        //         e.detail.index, e.detail.previousIndex, e.detail.total, e.detail.slide, e.detail.reason
+        //       });
+        const detail = {
+          index: curr,
+          previousIndex: prev,
+          total: this._slides.length,
+          slide: this._slides[curr] || null,
+          previousSlide: prev >= 0 ? (this._slides[prev] || null) : null,
+          reason: reason, // 'init' | 'keyboard' | 'click' | 'tap' | 'api'
+        };
+        this.dispatchEvent(new CustomEvent('slidechange', {
+          detail,
+          bubbles: true,
+          composed: true,
+        }));
+      }
+
+      this._prevIndex = curr;
+      if (showOverlay) this._flashOverlay();
+    }
+
+    _flashOverlay() {
+      // Host posts __omelette_presenting while in fullscreen/tab presentation
+      // mode — suppress the nav footer entirely (both hover and slide-change
+      // flash) so the audience sees clean slides.
+      if (!this._overlay || this._presenting) return;
+      this._overlay.setAttribute('data-visible', '');
+      if (this._hideTimer) clearTimeout(this._hideTimer);
+      this._hideTimer = setTimeout(() => {
+        this._overlay.removeAttribute('data-visible');
+      }, OVERLAY_HIDE_MS);
+    }
+
+    _railWidth() {
+      // State-based, no offsetWidth: the first _fit() can run before the
+      // rail has had layout on some load paths, and a 0 there paints the
+      // slide full-width for one frame before the post-slotchange _fit()
+      // corrects it.
+      if (!this._railEnabled || !this._railVisible || this.hasAttribute('no-rail')
+          || this.hasAttribute('noscale') || this._presenting || this._previewMode
+          || NARROW_MQ.matches) return 0;
+      return this._railPx || 0;
+    }
+
+    _fit() {
+      if (!this._canvas) return;
+      const stage = this._canvas.parentElement;
+      // PPTX export sets noscale so the DOM capture sees authored-size
+      // geometry — the scaled canvas is in shadow DOM, so the exporter's
+      // resetTransformSelector can't reach .canvas.style.transform directly.
+      if (this.hasAttribute('noscale')) {
+        this._canvas.style.transform = 'none';
+        if (stage) stage.style.left = '0';
+        if (this._overlay) this._overlay.style.marginLeft = '0';
+        return;
+      }
+      const rw = this._railWidth();
+      if (stage) stage.style.left = rw + 'px';
+      // Overlay is centred on the viewport via left:50% + translate(-50%);
+      // marginLeft shifts the centre by rw/2 so it lands in the middle of
+      // the [rw, innerWidth] stage region.
+      if (this._overlay) this._overlay.style.marginLeft = (rw / 2) + 'px';
+      const vw = window.innerWidth - rw;
+      const vh = window.innerHeight;
+      const s = Math.min(vw / this.designWidth, vh / this.designHeight);
+      this._canvas.style.transform = `scale(${s})`;
+    }
+
+    _onResize() {
+      this._fit();
+      // Crossing the narrow-viewport breakpoint reveals the rail — rerun the
+      // thumbnail scale the same way _setRailWidth does.
+      if (!this._scaleRaf) {
+        this._scaleRaf = requestAnimationFrame(() => {
+          this._scaleRaf = null;
+          this._scaleThumbs();
+        });
+      }
+    }
+
+    _onMouseMove() {
+      // Keep overlay visible while mouse moves; hide after idle.
+      this._flashOverlay();
+    }
+
+    _onMessage(e) {
+      const d = e.data;
+      if (d && typeof d.__omelette_presenting === 'boolean') {
+        this._presenting = d.__omelette_presenting;
+        if (this._presenting && this._overlay) {
+          this._overlay.removeAttribute('data-visible');
+          if (this._hideTimer) clearTimeout(this._hideTimer);
+        }
+        this._syncRailHidden();
+        this._closeMenu();
+        this._closeConfirm();
+        this._fit();
+        this._scaleThumbs();
+      }
+      // Host's Preview segment (ViewerMode='none'): the rail's drag-reorder /
+      // right-click skip-delete affordances are editing chrome, so hide it
+      // while the user is just looking at the deck. Same hard-hide path as
+      // presenting; independent of the user's _railVisible preference so
+      // returning to Edit restores whatever they had.
+      if (d && typeof d.__omelette_preview_mode === 'boolean') {
+        if (d.__omelette_preview_mode === this._previewMode) return;
+        this._previewMode = d.__omelette_preview_mode;
+        this._syncRailHidden();
+        this._closeMenu();
+        this._closeConfirm();
+        this._fit();
+        this._scaleThumbs();
+      }
+      // Per-viewer show/hide, driven by the TweaksPanel's auto-injected
+      // "Thumbnail rail" toggle (or any author script). Independent of
+      // whether the Tweaks panel itself is open — closing the panel
+      // doesn't change rail visibility. Persists alongside rail width.
+      if (d && d.type === '__deck_rail_visible' && typeof d.on === 'boolean') {
+        if (d.on === this._railVisible) return;
+        this._railVisible = d.on;
+        try { localStorage.setItem('deck-stage.railVisible', d.on ? '1' : '0'); } catch (e) {}
+        // Arm the transition, commit it, then flip state — otherwise the
+        // browser coalesces both writes and nothing animates on show.
+        this.setAttribute('data-rail-anim', '');
+        void (this._rail && this._rail.offsetHeight);
+        this._syncRailHidden();
+        this._fit();
+        this._scaleThumbs();
+        clearTimeout(this._railAnimTimer);
+        this._railAnimTimer = setTimeout(() => this.removeAttribute('data-rail-anim'), 220);
+      }
+      if (d && d.type === '__omelette_rail_enabled') this._enableRail();
+    }
+
+    _syncRailHidden() {
+      if (!this._rail) return;
+      // data-presenting is the hard hide (display:none) for flag-off,
+      // presentation mode, and the host's Preview segment — instant, no
+      // transition. data-user-hidden is the soft hide (translateX(-100%))
+      // for the viewer's rail toggle, so show/hide slides under
+      // :host([data-rail-anim]).
+      const hard = !this._railEnabled || this._presenting || this._previewMode;
+      if (hard) this._rail.setAttribute('data-presenting', '');
+      else this._rail.removeAttribute('data-presenting');
+      if (!this._railVisible) this._rail.setAttribute('data-user-hidden', '');
+      else this._rail.removeAttribute('data-user-hidden');
+      // translateX hide leaves thumbs (tabIndex=0) in the tab order —
+      // inert keeps them unfocusable while the rail is off-screen.
+      this._rail.inert = hard || !this._railVisible;
+    }
+
+    _onTap(e) {
+      // Touch-only — keyboard + the overlay toolbar cover nav on desktop.
+      if (FINE_POINTER_MQ.matches) return;
+      // Only taps that land on the stage (slide content or letterbox); the
+      // overlay / rail / menus are siblings with their own click handlers.
+      const path = e.composedPath();
+      if (!this._stage || !path.includes(this._stage)) return;
+      // Let interactive slide content keep the tap. composedPath (not
+      // e.target.closest) so we see through open shadow roots — a <button>
+      // inside a slide-authored custom element retargets e.target to the
+      // host but still appears in the composed path.
+      if (e.defaultPrevented) return;
+      for (const n of path) {
+        if (n === this._stage) break;
+        if (n.matches && n.matches(INTERACTIVE_SEL)) return;
+      }
+      e.preventDefault();
+      const rw = this._railWidth();
+      const mid = rw + (window.innerWidth - rw) / 2;
+      this._advance(e.clientX < mid ? -1 : 1, 'tap');
+    }
+
+    _onKey(e) {
+      // Ignore when the user is typing.
+      const t = e.target;
+      if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+      // Confirm dialog swallows nav keys while open; Escape cancels. Enter
+      // is left to the focused button's native activation so Tab→Cancel
+      // →Enter activates Cancel, not the window-level confirm path.
+      if (this._confirm && this._confirm.hasAttribute('data-open')) {
+        if (e.key === 'Escape') { this._closeConfirm(); e.preventDefault(); }
+        return;
+      }
+      if (e.key === 'Escape' && this._menu && this._menu.hasAttribute('data-open')) {
+        this._closeMenu();
+        e.preventDefault();
+        return;
+      }
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+
+      const key = e.key;
+      let handled = true;
+
+      if (key === 'ArrowRight' || key === 'PageDown' || key === ' ' || key === 'Spacebar') {
+        this._advance(1, 'keyboard');
+      } else if (key === 'ArrowLeft' || key === 'PageUp') {
+        this._advance(-1, 'keyboard');
+      } else if (key === 'Home') {
+        this._go(0, 'keyboard');
+      } else if (key === 'End') {
+        this._go(this._slides.length - 1, 'keyboard');
+      } else if (key === 'r' || key === 'R') {
+        this._go(0, 'keyboard');
+      } else if (/^[0-9]$/.test(key)) {
+        // 1..9 jump to that slide; 0 jumps to 10.
+        const n = key === '0' ? 9 : parseInt(key, 10) - 1;
+        if (n < this._slides.length) this._go(n, 'keyboard');
+      } else {
+        handled = false;
+      }
+
+      if (handled) {
+        e.preventDefault();
+        this._flashOverlay();
+      }
+    }
+
+    _go(i, reason = 'api') {
+      if (!this._slides.length) return;
+      const clamped = Math.max(0, Math.min(this._slides.length - 1, i));
+      if (clamped === this._index) {
+        this._flashOverlay();
+        return;
+      }
+      this._index = clamped;
+      this._applyIndex({ showOverlay: true, broadcast: true, reason });
+    }
+
+    /** Step forward/back skipping any slide marked data-deck-skip. Falls
+     *  back to _go's clamp-at-ends behaviour (flash overlay) when there's
+     *  nothing further in that direction. */
+    _advance(dir, reason) {
+      if (!this._slides.length) return;
+      let i = this._index + dir;
+      while (i >= 0 && i < this._slides.length && this._slides[i].hasAttribute('data-deck-skip')) {
+        i += dir;
+      }
+      if (i < 0 || i >= this._slides.length) { this._flashOverlay(); return; }
+      this._go(i, reason);
+    }
+
+    // ── Thumbnail rail ────────────────────────────────────────────────────
+    //
+    // Thumbs are keyed by slide element and reused across _renderRail()
+    // calls, so a reorder/delete is an O(changed) DOM shuffle instead of an
+    // O(N) teardown-and-re-clone. Each thumb starts as a lightweight shell
+    // (num + empty frame); the clone is materialized lazily by an
+    // IntersectionObserver when the frame scrolls into (or near) view, so
+    // only visible-ish slides pay the clone + image-decode cost.
+
+    _renderRail() {
+      if (!this._rail || !this._railEnabled) { this._thumbs = []; return; }
+      // FLIP: record each *materialized* thumb's top before the reconcile.
+      // Off-screen (non-materialized) thumbs don't need the animation and
+      // skipping their getBoundingClientRect saves a forced layout per
+      // off-screen thumb on large decks.
+      const prevTops = new Map();
+      (this._thumbs || []).forEach(({ thumb, slide, host }) => {
+        if (host) prevTops.set(slide, thumb.getBoundingClientRect().top);
+      });
+      const st = this._rail.scrollTop;
+
+      // Reconcile: reuse thumbs that already exist for a slide, create
+      // shells for new slides, drop thumbs for removed slides.
+      const bySlide = new Map();
+      (this._thumbs || []).forEach((t) => bySlide.set(t.slide, t));
+      const next = [];
+      this._slides.forEach((slide) => {
+        let t = bySlide.get(slide);
+        if (t) bySlide.delete(slide);
+        else t = this._makeThumb(slide);
+        next.push(t);
+      });
+      // Orphans — slides removed since last render.
+      bySlide.forEach((t) => {
+        if (this._railObserver) this._railObserver.unobserve(t.frame);
+        t.thumb.remove();
+      });
+      // Put thumbs into document order to match _slides. insertBefore on
+      // an already-correctly-placed node is a no-op, so this is cheap
+      // when nothing moved.
+      next.forEach((t, i) => {
+        const want = t.thumb;
+        const at = this._rail.children[i];
+        if (at !== want) this._rail.insertBefore(want, at || null);
+        t.i = i;
+        t.num.textContent = String(i + 1);
+        if (t.slide.hasAttribute('data-deck-skip')) t.thumb.setAttribute('data-skip', '');
+        else t.thumb.removeAttribute('data-skip');
+      });
+      this._thumbs = next;
+
+      this._rail.scrollTop = st;
+      if (prevTops.size) {
+        const moved = [];
+        this._thumbs.forEach(({ thumb, slide }) => {
+          const old = prevTops.get(slide);
+          if (old == null) return;
+          const dy = old - thumb.getBoundingClientRect().top;
+          if (Math.abs(dy) < 1) return;
+          thumb.style.transition = 'none';
+          thumb.style.transform = `translateY(${dy}px)`;
+          moved.push(thumb);
+        });
+        if (moved.length) {
+          // Commit the inverted positions before flipping the transition
+          // on — otherwise the browser coalesces both style writes and
+          // nothing animates.
+          void this._rail.offsetHeight;
+          moved.forEach((t) => {
+            t.style.transition = 'transform 180ms cubic-bezier(.2,.7,.3,1)';
+            t.style.transform = '';
+          });
+          setTimeout(() => moved.forEach((t) => { t.style.transition = ''; }), 220);
+        }
+      }
+      requestAnimationFrame(() => this._scaleThumbs());
+      this._syncRail(false);
+    }
+
+    /** Create a lightweight thumb shell for one slide. The clone is
+     *  materialized later by the IntersectionObserver. Event handlers
+     *  look up the thumb's *current* index (via _thumbs.indexOf) so the
+     *  same element can be reused across reorders. */
+    _makeThumb(slide) {
+      const thumb = document.createElement('div');
+      thumb.className = 'thumb';
+      thumb.tabIndex = 0;
+      const num = document.createElement('div');
+      num.className = 'num';
+      const frame = document.createElement('div');
+      frame.className = 'frame';
+      thumb.append(num, frame);
+
+      const entry = { thumb, num, frame, slide, clone: null, host: null, i: -1 };
+      // entry.i is refreshed on every _renderRail reconcile pass, so
+      // handlers read the thumb's current position without an O(N) scan.
+      const idx = () => entry.i;
+
+      thumb.addEventListener('click', () => this._go(idx(), 'click'));
+      // ↑/↓ step through the rail when a thumb has focus. _go clamps at the
+      // ends and _applyIndex→_syncRail scrolls the new current thumb into
+      // view; we move focus to it (preventScroll — _syncRail already
+      // scrolled) so a held key walks the whole list. stopPropagation keeps
+      // this out of the window-level _onKey nav handler.
+      thumb.addEventListener('keydown', (e) => {
+        if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown') return;
+        if (e.metaKey || e.ctrlKey || e.altKey) return;
+        e.preventDefault();
+        e.stopPropagation();
+        this._go(idx() + (e.key === 'ArrowDown' ? 1 : -1), 'keyboard');
+        const cur = this._thumbs && this._thumbs[this._index];
+        if (cur) cur.thumb.focus({ preventScroll: true });
+      });
+      thumb.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        this._openMenu(idx(), e.clientX, e.clientY);
+      });
+      thumb.draggable = true;
+      thumb.addEventListener('dragstart', (e) => {
+        this._dragFrom = idx();
+        thumb.setAttribute('data-dragging', '');
+        e.dataTransfer.effectAllowed = 'move';
+        try { e.dataTransfer.setData('text/plain', String(this._dragFrom)); } catch (err) {}
+      });
+      thumb.addEventListener('dragend', () => {
+        thumb.removeAttribute('data-dragging');
+        this._clearDrop();
+        this._dragFrom = null;
+      });
+      thumb.addEventListener('dragover', (e) => {
+        if (this._dragFrom == null) return;
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        const r = thumb.getBoundingClientRect();
+        this._setDrop(idx(), e.clientY < r.top + r.height / 2 ? 'before' : 'after');
+      });
+      thumb.addEventListener('drop', (e) => {
+        if (this._dragFrom == null) return;
+        e.preventDefault();
+        const i = idx();
+        const r = thumb.getBoundingClientRect();
+        let to = e.clientY >= r.top + r.height / 2 ? i + 1 : i;
+        if (this._dragFrom < to) to--;
+        const from = this._dragFrom;
+        this._clearDrop();
+        this._dragFrom = null;
+        if (to !== from) this._moveSlide(from, to);
+      });
+
+      if (this._railObserver) this._railObserver.observe(frame);
+      frame.__deckThumb = entry;
+      return entry;
+    }
+
+    /** Lazily build the clone for a thumb that has scrolled into view. */
+    _materialize(entry) {
+      if (entry.host) return;
+      const dw = this.designWidth, dh = this.designHeight;
+      let clone = entry.slide.cloneNode(true);
+      clone.removeAttribute('id');
+      clone.removeAttribute('data-deck-active');
+      clone.querySelectorAll('[id]').forEach((el) => el.removeAttribute('id'));
+      // Neuter heavy media; replace <video> with its poster so the box
+      // keeps a visual. <iframe>/<audio> become empty placeholders.
+      clone.querySelectorAll('iframe, audio, object, embed').forEach((el) => {
+        el.removeAttribute('src');
+        el.removeAttribute('srcdoc');
+        el.removeAttribute('data');
+        el.innerHTML = '';
+      });
+      clone.querySelectorAll('video').forEach((el) => {
+        if (!el.poster) { el.removeAttribute('src'); el.innerHTML = ''; return; }
+        const img = document.createElement('img');
+        img.src = el.poster;
+        img.alt = '';
+        img.style.cssText = el.style.cssText + ';object-fit:cover;width:100%;height:100%;';
+        img.className = el.className;
+        el.replaceWith(img);
+      });
+      // Images: defer decode and let the browser pick the smallest
+      // srcset candidate for the ~140px thumb. Same-URL clones reuse the
+      // slide's decoded bitmap (URL-keyed cache), so the remaining cost
+      // is paint/composite — lazy+async keeps that off the main thread.
+      clone.querySelectorAll('img').forEach((el) => {
+        el.loading = 'lazy';
+        el.decoding = 'async';
+        if (el.srcset) el.sizes = (this._railPx || 188) + 'px';
+      });
+      // Custom elements inside the slide would have their
+      // connectedCallback fire when the clone is appended. Replace them
+      // with inert boxes so a component-heavy deck doesn't run N copies
+      // of each component's mount logic in the rail. Children are
+      // preserved so layout-wrapper elements (<my-column><h2>…</h2>)
+      // still show their authored content; the querySelectorAll NodeList
+      // is static, so nested custom elements in the moved subtree are
+      // still visited on later iterations.
+      const neuter = (el) => {
+        const box = document.createElement('div');
+        box.style.cssText = (el.getAttribute('style') || '') +
+          ';background:rgba(0,0,0,0.06);border:1px dashed rgba(0,0,0,0.15);';
+        box.className = el.className;
+        // Preserve theming/i18n hooks so [data-*] / :lang() / [dir]
+        // descendant selectors still match the neutered root.
+        for (const a of el.attributes) {
+          const n = a.name;
+          if (n.startsWith('data-') || n.startsWith('aria-') ||
+              n === 'lang' || n === 'dir' || n === 'role' || n === 'title') {
+            box.setAttribute(n, a.value);
+          }
+        }
+        while (el.firstChild) box.appendChild(el.firstChild);
+        return box;
+      };
+      // querySelectorAll('*') returns descendants only — a custom-element
+      // slide root (<my-slide>…</my-slide>) would slip through and upgrade
+      // on append. Swap the root first.
+      if (clone.tagName.includes('-')) clone = neuter(clone);
+      clone.querySelectorAll('*').forEach((el) => {
+        if (el.tagName.includes('-')) el.replaceWith(neuter(el));
+      });
+      clone.style.cssText += ';position:absolute;top:0;left:0;transform-origin:0 0;' +
+        'pointer-events:none;width:' + dw + 'px;height:' + dh + 'px;' +
+        'box-sizing:border-box;overflow:hidden;visibility:visible;opacity:1;';
+      const host = document.createElement('div');
+      host.style.cssText = 'position:absolute;inset:0;';
+      this._syncThumbHostAttrs(host);
+      const sr = host.attachShadow({ mode: 'open' });
+      if (this._adoptedSheet) sr.adoptedStyleSheets = [this._adoptedSheet];
+      else {
+        const st = document.createElement('style');
+        st.textContent = this._authorCss || '';
+        sr.appendChild(st);
+      }
+      sr.appendChild(clone);
+      entry.frame.appendChild(host);
+      entry.host = host;
+      entry.clone = clone;
+      if (this._thumbScale) clone.style.transform = 'scale(' + this._thumbScale + ')';
+      // Once materialized the IO callback is a no-op early-return —
+      // unobserve so scroll doesn't keep firing it.
+      if (this._railObserver) this._railObserver.unobserve(entry.frame);
+    }
+
+    /** Re-clone a single thumb (live-update path). No-op if the thumb
+     *  hasn't been materialized yet — it'll pick up current content when
+     *  it scrolls into view. */
+    _refreshThumb(slide) {
+      const entry = (this._thumbs || []).find((t) => t.slide === slide);
+      if (!entry || !entry.host) return;
+      entry.host.remove();
+      entry.host = entry.clone = null;
+      this._materialize(entry);
+    }
+
+    _scaleThumbs() {
+      if (!this._thumbs || !this._thumbs.length) return;
+      // Every frame is the same width; if it reads 0 the rail is
+      // display:none (noscale / no-rail / presenting / print) — leave the
+      // clones as-is and re-run when the rail is revealed.
+      const fw = this._thumbs[0].frame.offsetWidth;
+      if (!fw) return;
+      this._thumbScale = fw / this.designWidth;
+      this._thumbs.forEach(({ clone }) => {
+        if (clone) clone.style.transform = 'scale(' + this._thumbScale + ')';
+      });
+    }
+
+    _setDrop(i, where) {
+      // dragover fires at pointer-event rate; touch only the previous
+      // and new target rather than sweeping all N thumbs.
+      const t = this._thumbs && this._thumbs[i];
+      if (this._dropOn && this._dropOn !== t) {
+        this._dropOn.thumb.removeAttribute('data-drop');
+      }
+      if (t) t.thumb.setAttribute('data-drop', where);
+      this._dropOn = t || null;
+    }
+
+    _clearDrop() {
+      if (this._dropOn) this._dropOn.thumb.removeAttribute('data-drop');
+      this._dropOn = null;
+    }
+
+    _syncRail(follow) {
+      if (!this._thumbs) return;
+      this._thumbs.forEach(({ thumb }, i) => {
+        if (i === this._index) {
+          thumb.setAttribute('data-current', '');
+          if (follow && typeof thumb.scrollIntoView === 'function') {
+            thumb.scrollIntoView({ block: 'nearest' });
+          }
+        } else {
+          thumb.removeAttribute('data-current');
+        }
+      });
+    }
+
+    _openMenu(i, x, y) {
+      if (!this._menu) return;
+      this._menuIndex = i;
+      const slide = this._slides[i];
+      const skip = slide && slide.hasAttribute('data-deck-skip');
+      this._menu.querySelector('[data-act="skip"]').textContent = skip ? 'Unskip slide' : 'Skip slide';
+      this._menu.querySelector('[data-act="up"]').disabled = i <= 0;
+      this._menu.querySelector('[data-act="down"]').disabled = i >= this._slides.length - 1;
+      this._menu.querySelector('[data-act="delete"]').disabled = this._slides.length <= 1;
+      // Place, then clamp to viewport after it's measurable.
+      this._menu.style.left = x + 'px';
+      this._menu.style.top = y + 'px';
+      this._menu.setAttribute('data-open', '');
+      const r = this._menu.getBoundingClientRect();
+      const nx = Math.min(x, window.innerWidth - r.width - 4);
+      const ny = Math.min(y, window.innerHeight - r.height - 4);
+      this._menu.style.left = Math.max(4, nx) + 'px';
+      this._menu.style.top = Math.max(4, ny) + 'px';
+    }
+
+    _closeMenu() {
+      if (this._menu) this._menu.removeAttribute('data-open');
+      this._menuIndex = -1;
+    }
+
+    _openConfirm(i) {
+      if (!this._confirm) return;
+      this._confirmIndex = i;
+      this._confirm.querySelector('.title').textContent = 'Delete slide ' + (i + 1) + '?';
+      this._confirm.setAttribute('data-open', '');
+      const btn = this._confirm.querySelector('.danger');
+      if (btn && btn.focus) btn.focus();
+    }
+
+    _closeConfirm() {
+      if (this._confirm) this._confirm.removeAttribute('data-open');
+      this._confirmIndex = -1;
+    }
+
+    _emitDeckChange(detail) {
+      this.dispatchEvent(new CustomEvent('deckchange', {
+        detail, bubbles: true, composed: true,
+      }));
+    }
+
+    _deleteSlide(i) {
+      const slide = this._slides[i];
+      if (!slide || this._slides.length <= 1) return;
+      const wasCurrent = i === this._index;
+      if (i < this._index || (wasCurrent && i === this._slides.length - 1)) this._index--;
+      this._squelchSlotChange = true;
+      slide.remove();
+      this._emitDeckChange({ action: 'delete', from: i, slide });
+      this._collectSlides();
+      this._applyIndex({ showOverlay: true, broadcast: true, reason: 'mutation' });
+    }
+
+    _toggleSkip(i) {
+      const slide = this._slides[i];
+      if (!slide) return;
+      const on = !slide.hasAttribute('data-deck-skip');
+      if (on) slide.setAttribute('data-deck-skip', '');
+      else slide.removeAttribute('data-deck-skip');
+      if (this._thumbs && this._thumbs[i]) {
+        if (on) this._thumbs[i].thumb.setAttribute('data-skip', '');
+        else this._thumbs[i].thumb.removeAttribute('data-skip');
+      }
+      this._markLastVisible();
+      this._emitDeckChange({ action: on ? 'skip' : 'unskip', from: i, slide });
+      // Re-broadcast so the presenter popup's prev/next thumbnails re-pick
+      // the nearest non-skipped slide without waiting for a nav event.
+      try { window.postMessage({ slideIndexChanged: this._index, deckTotal: this._slides.length, deckSkipped: this._skippedIndices() }, '*'); } catch (e) {}
+    }
+
+    _skippedIndices() {
+      const out = [];
+      for (let i = 0; i < this._slides.length; i++) {
+        if (this._slides[i].hasAttribute('data-deck-skip')) out.push(i);
+      }
+      return out;
+    }
+
+    _moveSlide(i, j) {
+      if (j < 0 || j >= this._slides.length || j === i) return;
+      const slide = this._slides[i];
+      const ref = j < i ? this._slides[j] : this._slides[j].nextSibling;
+      // Track the active slide across the reorder so the same content
+      // stays on screen.
+      const cur = this._index;
+      if (cur === i) this._index = j;
+      else if (i < cur && j >= cur) this._index = cur - 1;
+      else if (i > cur && j <= cur) this._index = cur + 1;
+      this._squelchSlotChange = true;
+      this.insertBefore(slide, ref);
+      this._emitDeckChange({ action: 'move', from: i, to: j, slide });
+      this._collectSlides();
+      this._applyIndex({ showOverlay: false, broadcast: true, reason: 'mutation' });
+    }
+
+    // Public API ------------------------------------------------------------
+
+    /** Current slide index (0-based). */
+    get index() { return this._index; }
+    /** Total slide count. */
+    get length() { return this._slides.length; }
+    /** Programmatically navigate. */
+    goTo(i) { this._go(i, 'api'); }
+    next() { this._advance(1, 'api'); }
+    prev() { this._advance(-1, 'api'); }
+    reset() { this._go(0, 'api'); }
+  }
+
+  if (!customElements.get('deck-stage')) {
+    customElements.define('deck-stage', DeckStage);
+  }
+})();
+
+</script>
+<div class="deck-ctrl"><button id="btnNotes" title="Phím N">Ghi chú · N</button><button id="btnRail" title="Phím T">Slides · T</button><button id="btnEdit" title="Phím E">Sửa · E</button><button id="btnPresent">Toàn màn hình</button></div>
+<div class="notes-panel" id="notesPanel"><h4 id="notesHd">Ghi chú diễn giả</h4><div id="notesBody"></div></div>
+<script>
+(function(){
+  var stage = document.querySelector('deck-stage');
+  var secs = [].slice.call(stage.querySelectorAll(':scope > section'));
+  secs.forEach(function(sec){
+    var img = document.createElement('img');
+    img.className = 'brandmark'; img.alt = 'The AI Growth';
+    img.src = sec.classList.contains('cover') ? 'media/chung/logo-tag-trang.png' : 'media/chung/logo-tag.webp';
+    sec.appendChild(img);
+  });
+  [].forEach.call(document.querySelectorAll('.prompt'), function(p){
+    var t0 = p.getAttribute('data-copy') || p.innerText.replace(/^\s*Prompt[^\n]*\n/, '').trim();
+    var b = document.createElement('button'); b.className = 'copybtn'; b.textContent = 'Chép';
+    b.addEventListener('click', function(e){
+      e.stopPropagation();
+      var t = t0;
+      var done = function(){ b.textContent = 'Đã chép'; setTimeout(function(){ b.textContent = 'Chép'; }, 1400); };
+      if (navigator.clipboard) navigator.clipboard.writeText(t).then(done, done); else done();
+    });
+    p.appendChild(b);
+  });
+  var NOTES = JSON.parse(document.getElementById('deck-notes').textContent);
+  var panel = document.getElementById('notesPanel'), body = document.getElementById('notesBody'), hd = document.getElementById('notesHd');
+  var cur = 0, notesOn = false;
+  function esc(s){ return s.replace(/[&<>]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]; }); }
+  function renderNotes(){
+    var n = NOTES[cur] || '';
+    hd.textContent = 'Ghi chú diễn giả · slide ' + (cur+1) + '/' + secs.length;
+    body.innerHTML = n ? n.split(/\n+/).map(function(x){ return '<p>' + esc(x) + '</p>'; }).join('') : '<p>(slide này không có ghi chú)</p>';
+  }
+  function setNotes(on){ notesOn = on; panel.classList.toggle('show', on); document.getElementById('btnNotes').classList.toggle('on', on); renderNotes(); }
+  window.addEventListener('message', function(e){ if (e.data && typeof e.data.slideIndexChanged === 'number'){ cur = e.data.slideIndexChanged; if (notesOn) renderNotes(); } });
+  document.getElementById('btnNotes').addEventListener('click', function(){ setNotes(!notesOn); });
+  var railOn = true;
+  try{ railOn = localStorage.getItem('deck-stage.railVisible') !== '0'; }catch(e){}
+  function setRail(on){ railOn = on; window.postMessage({type:'__deck_rail_visible', on:on}, '*'); document.getElementById('btnRail').classList.toggle('on', on); }
+  document.getElementById('btnRail').classList.toggle('on', railOn);
+  document.getElementById('btnRail').addEventListener('click', function(){ setRail(!railOn); });
+  var editing = false;
+  function setEditing(on){ editing = on; document.getElementById('btnEdit').classList.toggle('on', on);
+    secs.forEach(function(s){ if(on) s.setAttribute('contenteditable','true'); else s.removeAttribute('contenteditable'); }); }
+  document.getElementById('btnEdit').addEventListener('click', function(){ setEditing(!editing); });
+  window.addEventListener('keydown', function(e){ if (editing && e.key !== 'Escape') e.stopPropagation(); }, true);
+  window.addEventListener('keydown', function(e){
+    if (/input|textarea/i.test(e.target.tagName||'')) return;
+    if (editing){ if (e.key === 'Escape') setEditing(false); return; }
+    if (e.key === 'n' || e.key === 'N') setNotes(!notesOn);
+    else if (e.key === 't' || e.key === 'T') setRail(!railOn);
+    else if (e.key === 'e' || e.key === 'E') setEditing(true);
+  });
+  document.getElementById('btnPresent').addEventListener('click', function(){
+    var el = document.documentElement;
+    if (!document.fullscreenElement) (el.requestFullscreen||el.webkitRequestFullscreen).call(el); else document.exitFullscreen();
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,3325 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module 02 · Chọn đúng AI, model và gói cho việc của bạn · AI Agents Mastery · The AI Growth</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Bricolage+Grotesque:wght@700;800&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* AI Agents Mastery · slide bài học · canvas 1920×1080 · skin TAG (xanh #0693E3 → tím #9900EF) */
+  :root{
+    --bg:#FFFFFF; --bg-2:#F8FAFC; --bg-3:#F1F5F9;
+    --ink:#030815; --muted:#475569; --faint:#94A3B8;
+    --blue:#0693E3; --purple:#9900EF; --red:#E11D48; --green:#059669; --amber:#D97706;
+    --brand-grad:linear-gradient(90deg,#0693E3 0%,#9900EF 100%);
+    --grad-v:linear-gradient(150deg,#0693E3 0%,#9900EF 100%);
+    --line:#E2E8F0; --line-2:#CBD5E1; --card:#F8FAFC;
+    --t-hero:112px; --t-title:58px; --t-sub:32px; --t-body:28px; --t-small:24px; --t-tiny:20px;
+    --pad-x:110px; --pad-y:60px;
+    --font:"Be Vietnam Pro",system-ui,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+    --disp:"Bricolage Grotesque","Be Vietnam Pro",sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#0b0f1a;}
+  deck-stage:not(:defined){visibility:hidden;}
+  h1,h2,h3,p,ol,ul{margin:0;}
+  section{background:#fff;color:#334155;font-family:var(--font);overflow:hidden;}
+  b{color:var(--ink);}
+  .slide{position:relative;height:100%;width:100%;padding:var(--pad-y) var(--pad-x) 100px;display:flex;flex-direction:column;}
+  .brandmark{position:absolute;top:42px;right:var(--pad-x);height:54px;width:auto;pointer-events:none;z-index:4;}
+  .slide::after{content:"theaigrowth.io";position:absolute;left:var(--pad-x);bottom:34px;font-size:var(--t-tiny);letter-spacing:.03em;color:var(--faint);font-weight:600;}
+  section::after{content:attr(data-foot);position:absolute;right:var(--pad-x);bottom:34px;font-size:var(--t-tiny);letter-spacing:.03em;color:var(--faint);font-weight:500;}
+  aside.notes{display:none!important;}
+
+  /* ===== chữ ===== */
+  .eyebrow{font-family:var(--mono);font-size:var(--t-small);letter-spacing:.16em;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:20px;padding-right:300px;}
+  .eyebrow.warn{color:var(--red);}
+  .stitle{font-family:var(--disp);font-size:var(--t-title);font-weight:800;line-height:1.08;letter-spacing:-.02em;text-wrap:balance;color:var(--ink);padding-right:200px;}
+  .sub{font-size:var(--t-sub);font-weight:500;color:var(--muted);line-height:1.4;margin-top:18px;}
+  .grad{background:var(--brand-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;}
+  .body{font-size:var(--t-body);color:var(--muted);line-height:1.5;}
+  .src-note{font-size:var(--t-tiny);color:var(--faint);font-weight:500;line-height:1.45;margin-top:14px;}
+  .src-note b{color:var(--muted);}
+  .mega{font-family:var(--disp);font-size:84px;font-weight:800;line-height:1.1;letter-spacing:-.025em;text-wrap:balance;color:var(--ink);}
+  .mega.md{font-size:68px;}
+  .red{color:var(--red);} .green{color:var(--green);} .blue{color:var(--blue);} .purple{color:var(--purple);}
+
+  /* ===== bố cục ===== */
+  .mid{flex:1;display:flex;flex-direction:column;justify-content:center;gap:34px;min-height:0;}
+  .center{align-items:center;text-align:center;}
+  .lr{flex:1;min-height:0;display:grid;grid-template-columns:620px 1fr;gap:64px;align-items:center;}
+  .lr.wide{grid-template-columns:520px 1fr;}
+  .lr.half{grid-template-columns:1fr 1fr;}
+  .lr .lt{display:flex;flex-direction:column;justify-content:center;gap:22px;min-width:0;}
+  .lr .lt .stitle{padding-right:0;}
+  .rt{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;min-width:0;min-height:0;}
+  .row{display:grid;gap:26px;align-items:stretch;}
+  .c2{grid-template-columns:repeat(2,1fr);} .c3{grid-template-columns:repeat(3,1fr);} .c4{grid-template-columns:repeat(4,1fr);} .c5{grid-template-columns:repeat(5,1fr);}
+
+  /* ===== ảnh ===== */
+  img.shot{border:1px solid var(--line);border-radius:14px;box-shadow:0 14px 36px rgba(3,8,21,.12);max-width:100%;max-height:720px;height:auto;width:auto;background:#fff;display:block;}
+  img.shot.tall{max-height:800px;}
+  img.shot.full{max-height:760px;}
+  img.svg{max-width:100%;max-height:760px;width:100%;height:auto;display:block;}
+  .cap{font-size:var(--t-tiny);color:var(--muted);font-weight:500;text-align:center;line-height:1.4;max-width:1100px;}
+  .cap b{color:var(--ink);}
+  .ann-svg{width:100%;height:auto;max-height:640px;display:block;border-radius:14px;border:1px solid var(--line);box-shadow:0 14px 36px rgba(3,8,21,.12);background:#fff;}
+
+  /* ảnh + ghi chú đánh số (số trùng số in trên ảnh) */
+  .annlay{flex:1;min-height:0;display:grid;grid-template-columns:1fr 600px;gap:52px;align-items:center;}
+  .annlay.narrow{grid-template-columns:1fr 700px;}
+  .annlay.big{grid-template-columns:1fr 500px;}
+  .annlay.big .ann-svg,.annlay.big img.shot{max-height:690px;}
+  .matrix{display:grid;grid-template-columns:150px 1fr 1fr;grid-template-rows:auto 1fr 1fr;gap:18px;flex:1;min-height:0;}
+  .matrix .card{justify-content:center;}
+  .matrix .card p{font-size:30px;}
+  .matrix .ax{font-family:var(--mono);font-size:var(--t-tiny);font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;text-align:center;}
+  .annimg{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;min-width:0;min-height:0;}
+  .annlay img.shot{max-height:640px;}
+  .anote{list-style:none;padding:0;display:flex;flex-direction:column;gap:24px;counter-reset:n;}
+  .anote li{position:relative;padding-left:62px;font-size:26px;line-height:1.45;color:var(--muted);counter-increment:n;}
+  .anote li::before{content:counter(n);position:absolute;left:0;top:-2px;width:44px;height:44px;border-radius:50%;background:#5B4FE0;color:#fff;font-weight:800;font-size:23px;display:flex;align-items:center;justify-content:center;}
+  .anote.red li::before{background:var(--red);}
+  .anote li b{color:var(--ink);}
+  .act{margin-top:26px;background:var(--bg-2);border-left:6px solid var(--purple);border-radius:12px;padding:20px 24px;font-size:25px;line-height:1.45;color:var(--ink);font-weight:500;}
+
+  /* ảnh rộng full ngang, ghi chú đánh số xếp hàng bên dưới */
+  .shotwide{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;}
+  .shotwide img.shot,.shotwide .ann-svg{max-width:1700px;max-height:600px;width:auto;}
+  .anote.row{display:grid;grid-template-columns:repeat(var(--k,3),1fr);gap:30px;width:100%;}
+  /* nhiều ảnh cắt vùng: cột trái xếp chồng, cột phải ảnh + ghi chú */
+  .duo{flex:1;min-height:0;display:grid;grid-template-columns:1.35fr 1fr;gap:44px;align-items:center;}
+  .stack{display:flex;flex-direction:column;gap:22px;align-items:flex-start;min-width:0;}
+  .stack img.shot{max-height:300px;}
+  .stack .cap{text-align:left;}
+
+  /* ===== thẻ ===== */
+  .card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:34px 34px;display:flex;flex-direction:column;gap:12px;}
+  .card .n{font-family:var(--disp);font-size:50px;font-weight:800;line-height:1;color:var(--blue);}
+  .card .ic{font-size:46px;line-height:1;}
+  .card .k{font-family:var(--mono);font-size:var(--t-tiny);letter-spacing:.12em;text-transform:uppercase;color:var(--purple);font-weight:700;}
+  .card h3{font-size:34px;font-weight:700;line-height:1.2;color:var(--ink);}
+  .card p{font-size:27px;color:var(--muted);line-height:1.45;}
+  .card.on{background:var(--grad-v);border-color:transparent;box-shadow:0 14px 32px rgba(153,0,239,.25);}
+  .card.on .n,.card.on h3,.card.on b,.card.on .k{color:#fff;}
+  .card.on p{color:rgba(255,255,255,.92);}
+  .card.stop{background:#FFF1F2;border-color:#FECDD3;}
+  .card.stop .n,.card.stop .k{color:var(--red);}
+  .card.ok{background:#ECFDF5;border-color:#A7F3D0;}
+  .card.ok .n,.card.ok .k{color:var(--green);}
+  .card.todo{background:#FFFBEB;border:3px dashed #F59E0B;}
+  .card.todo .k{color:var(--amber);}
+
+  /* hai cột so sánh */
+  .vs{display:grid;grid-template-columns:1fr 90px 1fr;align-items:stretch;gap:0;}
+  .vs .mid-x{display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-size:44px;font-weight:800;color:var(--faint);}
+
+  /* dải nhấn */
+  .band{background:var(--grad-v);border-radius:20px;padding:28px 44px;color:#fff;font-size:31px;font-weight:700;text-align:center;box-shadow:0 16px 36px rgba(153,0,239,.24);line-height:1.38;}
+  .band b{color:#fff;}
+  .band.light{background:var(--bg-2);color:var(--ink);border:1px solid var(--line);box-shadow:none;font-weight:600;}
+  .band.light b{color:var(--purple);}
+  .band.warn{background:#FFF1F2;color:#9F1239;border:1px solid #FECDD3;box-shadow:none;}
+  .band.warn b{color:#9F1239;}
+  .chips{display:flex;flex-wrap:wrap;gap:16px;}
+  .chip{background:var(--bg-2);border:1px solid var(--line);border-radius:999px;padding:12px 26px;font-size:25px;font-weight:600;color:var(--ink);}
+  .chip.r{background:#FFF1F2;border-color:#FECDD3;color:#9F1239;}
+
+  /* ===== luồng bước + hai làn (AI / người) ===== */
+  .lanes{display:grid;grid-template-columns:170px repeat(var(--n,8),1fr);grid-template-rows:auto auto;gap:14px 12px;align-items:stretch;}
+  .lanes .lh{font-family:var(--mono);font-size:var(--t-tiny);letter-spacing:.1em;text-transform:uppercase;font-weight:700;display:flex;align-items:center;}
+  .lanes .lh.ai{color:var(--blue);} .lanes .lh.ng{color:var(--red);}
+  .lanes .st{border-radius:16px;padding:22px 16px;min-height:190px;font-size:25px;line-height:1.3;font-weight:600;color:var(--ink);background:var(--bg-2);border:1px solid var(--line);display:flex;flex-direction:column;gap:8px;}
+  .lanes .st .sn{font-family:var(--disp);font-size:30px;font-weight:800;color:var(--blue);line-height:1;}
+  .lanes .st.h{background:#FFF1F2;border-color:#FDA4AF;}
+  .lanes .st.h .sn{color:var(--red);}
+  .lanes .gap{border:2px dashed var(--line);border-radius:16px;background:transparent;}
+  .lanes .gap.ai{border-color:rgba(6,147,227,.18);}
+  .legend{display:flex;gap:34px;font-size:var(--t-tiny);color:var(--muted);font-weight:600;}
+  .legend i{display:inline-block;width:22px;height:22px;border-radius:6px;vertical-align:-4px;margin-right:10px;}
+
+  .flow{display:flex;align-items:center;gap:20px;justify-content:center;}
+  .flow .fs{flex:1;max-width:380px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:34px 22px;text-align:center;font-size:31px;font-weight:700;color:var(--ink);}
+  .flow .fs small{display:block;font-size:var(--t-tiny);color:var(--muted);font-weight:500;margin-top:10px;line-height:1.35;}
+  .flow .fs.hot{background:var(--grad-v);color:#fff;border-color:transparent;box-shadow:0 14px 32px rgba(153,0,239,.28);}
+  .flow .fs.hot small{color:rgba(255,255,255,.9);}
+  .flow .fa{font-size:44px;color:var(--faint);}
+
+  /* ===== bậc thang 4 cấp ===== */
+  .ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;align-items:end;}
+  .ladder .lv{border-radius:20px 20px 14px 14px;padding:28px 26px;background:var(--bg-2);border:1px solid var(--line);display:flex;flex-direction:column;gap:12px;}
+  .ladder .lv:nth-child(1){min-height:300px;} .ladder .lv:nth-child(2){min-height:390px;} .ladder .lv:nth-child(3){min-height:480px;} .ladder .lv:nth-child(4){min-height:570px;}
+  .ladder .lv .k{font-family:var(--mono);font-size:var(--t-tiny);letter-spacing:.12em;text-transform:uppercase;color:var(--purple);font-weight:700;}
+  .ladder .lv h3{font-size:34px;color:var(--ink);font-weight:800;line-height:1.15;}
+  .ladder .lv p{font-size:23px;color:var(--muted);line-height:1.42;}
+  .ladder .lv .tool{margin-top:auto;font-size:var(--t-tiny);font-weight:700;color:var(--blue);}
+  .ladder .lv.on{background:var(--grad-v);border-color:transparent;}
+  .ladder .lv.on h3,.ladder .lv.on p,.ladder .lv.on .k,.ladder .lv.on .tool{color:#fff;}
+
+  /* ===== bảng 3 cột ===== */
+  table.tb{width:100%;border-collapse:separate;border-spacing:0 12px;}
+  table.tb th{font-family:var(--mono);font-size:var(--t-tiny);letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--purple);text-align:left;padding:0 26px 2px;}
+  table.tb td{background:var(--card);padding:22px 26px;font-size:26px;color:var(--muted);line-height:1.4;font-weight:500;vertical-align:middle;}
+  table.tb td:first-child{border-radius:16px 0 0 16px;color:var(--ink);font-weight:700;}
+  table.tb td:last-child{border-radius:0 16px 16px 0;}
+  table.tb td.hi{color:var(--blue);font-weight:700;}
+  table.tb tr.on td{background:#F3E8FF;}
+
+  /* ===== prompt chép được ===== */
+  .prompt{position:relative;background:#0B1020;border-radius:20px;padding:40px 46px 40px;color:#E2E8F0;font-family:var(--font);font-size:27px;line-height:1.55;white-space:pre-wrap;box-shadow:0 18px 40px rgba(3,8,21,.25);}
+  .prompt .ph{color:#FBBF24;font-weight:700;}
+  .prompt .lbl{position:absolute;top:-18px;left:36px;background:var(--brand-grad);color:#fff;font-family:var(--mono);font-size:var(--t-tiny);font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 18px;border-radius:999px;}
+  .copybtn{position:absolute;top:-18px;right:28px;background:#334155;color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:10px;padding:8px 18px;font-size:20px;font-weight:600;cursor:pointer;font-family:var(--font);}
+
+  /* ===== tóm lại ===== */
+  .recap{list-style:none;padding:0;display:flex;flex-direction:column;gap:22px;}
+  .recap li{display:flex;gap:26px;align-items:center;font-size:36px;line-height:1.4;color:var(--ink);font-weight:600;background:var(--bg-2);border:1px solid var(--line);border-radius:20px;padding:30px 36px;}
+  .recap li .d{flex:none;width:60px;height:60px;border-radius:16px;background:var(--grad-v);color:#fff;font-family:var(--disp);font-weight:800;font-size:32px;display:flex;align-items:center;justify-content:center;}
+  .next{display:flex;align-items:center;gap:20px;font-size:30px;color:var(--muted);font-weight:600;padding-top:10px;}
+  .next b{color:var(--purple);}
+
+  /* ===== bìa module (nền gradient) ===== */
+  section.cover{background:var(--grad-v);}
+  section.cover .slide,section.cover b{color:#fff;}
+  section.cover .slide::after,section.cover::after{color:rgba(255,255,255,.75);}
+  section.cover .eyebrow{color:rgba(255,255,255,.9);}
+  .cover-glow{position:absolute;width:1000px;height:1000px;border-radius:50%;right:-260px;top:-320px;background:radial-gradient(circle,rgba(255,255,255,.22),transparent 64%);pointer-events:none;}
+  .hero{font-family:var(--disp);font-size:var(--t-hero);font-weight:800;letter-spacing:-.03em;line-height:1.02;color:#fff;text-wrap:balance;max-width:1500px;}
+  .hero-sub{font-size:38px;font-weight:500;color:rgba(255,255,255,.92);margin-top:28px;max-width:1450px;line-height:1.35;}
+  .toc{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 40px;margin-top:54px;max-width:1600px;}
+  .toc div{font-size:26px;color:#fff;font-weight:600;line-height:1.35;display:flex;gap:16px;}
+  .toc div span{font-family:var(--mono);opacity:.75;flex:none;}
+
+  /* ===== mở bài học (nền sáng có dải màu) ===== */
+  section.lesson .slide{background:linear-gradient(180deg,#F5F3FF 0%,#FFFFFF 62%);}
+  section.lesson .slide::before{content:"";position:absolute;left:0;top:0;bottom:0;width:18px;background:var(--grad-v);}
+  .lnum{font-family:var(--disp);font-size:150px;font-weight:800;line-height:.9;letter-spacing:-.04em;}
+  .ltitle{font-family:var(--disp);font-size:66px;font-weight:800;line-height:1.1;letter-spacing:-.02em;color:var(--ink);text-wrap:balance;max-width:1600px;}
+  .after{font-size:31px;color:var(--muted);line-height:1.45;font-weight:500;max-width:1500px;}
+  .after b{color:var(--purple);}
+  .keys{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .keys div{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px 28px;font-size:25px;line-height:1.4;color:var(--ink);font-weight:600;box-shadow:0 8px 22px rgba(3,8,21,.05);}
+  .keys div i{display:block;font-style:normal;font-family:var(--mono);font-size:var(--t-tiny);color:var(--blue);font-weight:700;margin-bottom:8px;letter-spacing:.1em;}
+
+  /* ===== chờ Vincent ===== */
+  .todo-box{background:#FFFBEB;border:3px dashed #F59E0B;border-radius:18px;padding:22px 28px;font-size:24px;line-height:1.45;color:#92400E;font-weight:600;}
+  .todo-box b{color:#92400E;}
+
+  /* ===== hiệu ứng vào slide ===== */
+  section[data-deck-active] .rise{animation:rise .55s cubic-bezier(.2,0,0,1) both;}
+  section[data-deck-active] .rise:nth-child(2){animation-delay:.08s;} section[data-deck-active] .rise:nth-child(3){animation-delay:.16s;} section[data-deck-active] .rise:nth-child(4){animation-delay:.24s;}
+  @keyframes rise{from{opacity:0;transform:translateY(18px);}}
+  @media print{section .rise{animation:none!important;}}
+
+  /* ===== thanh điều khiển + ghi chú diễn giả ===== */
+  .deck-ctrl{position:fixed;left:18px;bottom:16px;z-index:50;display:flex;gap:8px;font-family:var(--font);}
+  .deck-ctrl button{background:rgba(15,23,42,.82);color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:8px 14px;font-size:14px;font-weight:600;cursor:pointer;}
+  .deck-ctrl button.on{background:#7C3AED;}
+  .notes-panel{position:fixed;right:18px;bottom:60px;z-index:50;width:min(560px,44vw);max-height:46vh;overflow:auto;background:rgba(15,23,42,.94);color:#E2E8F0;border-radius:14px;padding:18px 22px;font:15px/1.6 var(--font);display:none;box-shadow:0 12px 30px rgba(0,0,0,.4);}
+  .notes-panel.show{display:block;}
+  .notes-panel h4{margin:0 0 8px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#A78BFA;}
+  .notes-panel p{margin:0 0 8px;}
+  deck-stage section[contenteditable="true"]{outline:3px dashed rgba(6,147,227,.55);outline-offset:-3px;cursor:text;}
+
+  /* ===== riêng m02 ===== */
+.annbox{width:100%;margin:0 auto;}
+
+</style>
+</head>
+<body>
+<deck-stage width="1920" height="1080">
+<section data-foot="AI Agents Mastery · Module 02" data-label="Bìa Module 02" class="cover">
+  <div class="cover-glow"></div>
+  <div class="slide">
+    <div class="mid">
+      <div class="eyebrow">AI Agents Mastery · Module 02</div>
+      <h1 class="hero">Chọn đúng AI, model và gói cho việc của bạn</h1>
+      <p class="hero-sub">Claude, ChatGPT, Gemini hay Grok. Gói 20 USD, 100 USD hay API. Model nhanh hay model mạnh. Và khi nào bạn mới cần Claude Code.</p>
+      <div class="toc">
+        <div><span>2.1</span>Claude, ChatGPT, Gemini hay Grok: AI nào hợp với việc của bạn?</div>
+        <div><span>2.2</span>Gói 20 USD, 100 USD hay API? Các hãng AI đang trợ giá bạn thế nào</div>
+        <div><span>2.3</span>Mỗi hãng có những model nào, dùng cho việc gì?</div>
+        <div><span>2.4</span>Model nào hợp với bạn? Ví dụ chia model và rule of thumb</div>
+        <div><span>2.5</span>Claude Code, Antigravity, Grok Bot là gì, khi nào bạn mới cần?</div>
+        <div><span>2.6</span>Connector, plugin, việc theo lịch và bot cá nhân</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Bài 2.1 · Mở bài" class="lesson">
+  <div class="slide">
+    <div class="mid">
+      <div class="eyebrow">Bài 2.1</div>
+      <h2 class="ltitle">Claude, ChatGPT, Gemini hay Grok: AI nào hợp với việc của bạn?</h2>
+      <p class="after">Sau bài này, bạn <b>đọc được một bảng xếp hạng AI</b> và chọn một app chính, một app phụ cho đội.</p>
+      <div class="keys">
+        <div class="rise"><i>01</i>Bảng xếp hạng đo gì, đọc thế nào</div>
+        <div class="rise"><i>02</i>Vì sao Claude đang đứng đầu, Google đang chạy nhanh</div>
+        <div class="rise"><i>03</i>Mỗi hãng có nguồn dữ liệu và kênh riêng</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Mỗi hãng mạnh ở một nhóm việc">
+  <div class="slide">
+    <div class="eyebrow">Bốn hãng AI lớn · nhận định của khoá</div>
+    <h2 class="stitle">Mỗi hãng <span class="grad">mạnh ở một nhóm việc</span></h2>
+    <div class="mid">
+      <div class="row c4">
+        <div class="card on rise"><div class="k">Anthropic</div><h3>Claude</h3><p>Việc dài nhiều bước, viết, agent.</p></div>
+        <div class="card rise"><div class="k">OpenAI</div><h3>ChatGPT</h3><p>Người dùng phổ thông, nhiều tính năng quen thuộc.</p></div>
+        <div class="card rise"><div class="k">Google</div><h3>Gemini</h3><p>Đội đang làm việc trên Gmail, Drive, Google Workspace.</p></div>
+        <div class="card rise"><div class="k">xAI</div><h3>Grok</h3><p>Tin nóng trên mạng X.</p></div>
+      </div>
+      <div class="band light">Không có app tốt nhất cho mọi việc. Bạn chọn <b>một app chính</b> và <b>một app phụ</b> để đối chiếu.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Bảng xếp hạng đo gì">
+  <div class="slide">
+    <div class="eyebrow">Bảng xếp hạng AI đo gì</div>
+    <h2 class="stitle">Mỗi bảng xếp hạng <span class="grad">đo một thứ khác nhau</span></h2>
+    <div class="mid">
+      <div class="row c3">
+        <div class="card rise"><div class="k">Artificial Analysis</div><h3>Gộp 9 bài thi</h3><p>Một điểm chung cho trí tuệ của model, gọi là Intelligence Index.</p></div>
+        <div class="card rise"><div class="k">Arena</div><h3>Người dùng bình chọn</h3><p>Hai câu trả lời đặt cạnh nhau, người dùng chọn câu hay hơn.</p></div>
+        <div class="card rise"><div class="k">Vals Index</div><h3>Bộ bài thi riêng</h3><p>Do một bên thứ ba tự soạn và tự chấm.</p></div>
+      </div>
+      <div class="band">Đọc một bảng: xem <b>ngày</b>, xem bảng <b>đo việc gì</b>, rồi so với việc của bạn.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Bảng Artificial Analysis 20/11/2026">
+  <div class="slide">
+    <div class="eyebrow">Ảnh chụp trang hãng · kiểm 20/11/2026</div>
+    <h2 class="stitle">Theo Artificial Analysis ngày 20/11/2026: <span class="grad">Claude đứng đầu</span></h2>
+    <div class="annlay">
+      <div class="annimg"><div class="annbox" style="max-width:1163px"><svg class="ann-svg" viewBox="0 0 622 330" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m02/pad/aa.png" x="0" y="0" width="622" height="330"/><path d="M0,0h622v330h-622zM376,8h220v66h-220zM14,79h600v44h-600zM14,127h600v44h-600zM14,176h600v44h-600z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="376" y="8" width="220" height="66" rx="3" fill="none" stroke="#EF004B" stroke-width="2.2"/><rect x="14" y="79" width="600" height="44" rx="3" fill="none" stroke="#EF004B" stroke-width="2.2"/><rect x="14" y="127" width="600" height="44" rx="3" fill="none" stroke="#EF004B" stroke-width="2.2"/><rect x="14" y="176" width="600" height="44" rx="3" fill="none" stroke="#EF004B" stroke-width="2.2"/><circle cx="376" cy="11" r="10" fill="#EF004B" stroke="#fff" stroke-width="1.6"/><text x="376" y="16" text-anchor="middle" font-size="12" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text><circle cx="14" cy="79" r="10" fill="#EF004B" stroke="#fff" stroke-width="1.6"/><text x="14" y="83" text-anchor="middle" font-size="12" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">2</text><circle cx="14" cy="127" r="10" fill="#EF004B" stroke="#fff" stroke-width="1.6"/><text x="14" y="131" text-anchor="middle" font-size="12" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">3</text><circle cx="14" cy="176" r="10" fill="#EF004B" stroke="#fff" stroke-width="1.6"/><text x="14" y="180" text-anchor="middle" font-size="12" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">4</text></svg></div><p class="cap">Ảnh chụp trang Artificial Analysis "LLM Leaderboard", ngày 20/11/2026. Khung số do The AI Growth vẽ thêm.</p></div>
+      <div>
+        <ol class="anote red">
+          <li><b>Intelligence Index:</b> điểm gộp từ 9 bài thi.</li>
+          <li><b>Claude Fable 5.2:</b> 65 điểm, đứng đầu bảng.</li>
+          <li><b>GPT-6.2 Astra (OpenAI):</b> 62 điểm.</li>
+          <li><b>Gemini 4 Neon (Google):</b> 61 điểm. Ra ngày 18/11/2026 và đã lên hạng 3.</li>
+        </ol>
+        <div class="act">Grok 4.7 của xAI được 35 điểm, thấp nhất trong 4 hãng.</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Theo mình Gemini đứng thứ hai">
+  <div class="slide">
+    <div class="eyebrow">Nhận định của mình</div>
+    <h2 class="stitle">Theo mình, <span class="grad">Gemini đang đứng thứ hai</span></h2>
+    <div class="mid">
+      <div class="vs">
+        <div class="card rise"><div class="k">Trên Artificial Analysis</div><h3>Gemini kém OpenAI 1 điểm</h3><p>61 so với 62, kiểm ngày 20/11/2026.</p></div>
+        <div class="mid-x">·</div>
+        <div class="card on rise"><div class="k">Trên Vals Index</div><h3>Gemini đứng trên OpenAI</h3><p>Bảng của bên thứ ba, cập nhật sau khi Gemini 4 Neon ra.</p></div>
+      </div>
+      <div class="band light">Thứ hạng đổi <b>theo bảng</b> và <b>theo tháng</b>. Gemini 4 Neon ra ngày 18/11/2026 đã nhảy lên hạng 3.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Fable 5.2 ra ngày 09/11/2026">
+  <div class="slide">
+    <div class="eyebrow">Vì sao Claude đang đứng đầu · ảnh chụp trang hãng</div>
+    <h2 class="stitle">Anthropic dồn sức vào <span class="grad">việc dài, coding và việc của doanh nghiệp</span></h2>
+    <div class="annlay">
+      <div class="annimg"><svg class="ann-svg" viewBox="0 0 589 176" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m02/pad/news.png" x="0" y="0" width="589" height="176"/><path d="M0,0h589v176h-589zM13,116h570v54h-570z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="13" y="116" width="570" height="54" rx="3" fill="none" stroke="#EF004B" stroke-width="2.0"/><circle cx="13" cy="116" r="10" fill="#EF004B" stroke="#fff" stroke-width="1.5"/><text x="13" y="120" text-anchor="middle" font-size="12" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text></svg><p class="cap">Ảnh chụp trang Anthropic "Newsroom", ngày 20/11/2026. Khung số do The AI Growth vẽ thêm.</p></div>
+      <div>
+        <ol class="anote red">
+          <li><b>Lời hãng về Fable 5.2:</b> "set a new bar in coding, finance, and the sciences", nghĩa là đặt mốc mới ở coding, tài chính và khoa học.</li>
+        </ol>
+        <div class="act">Fable 5.2 ra ngày 09/11/2026. Bên thứ ba (Menlo Ventures) ước tính Anthropic chiếm phần lớn chi tiêu coding của doanh nghiệp.</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Claude dẫn ở việc nào">
+  <div class="slide">
+    <div class="eyebrow">Vì sao Claude đang đứng đầu</div>
+    <h2 class="stitle">Claude dẫn ở việc nào, <span class="grad">chưa chắc dẫn ở việc nào?</span></h2>
+    <div class="mid">
+      <div class="row c2">
+        <div class="card ok rise"><div class="k">Dẫn rõ nhất</div><h3>Việc dài, nhiều bước</h3><p>Làm báo cáo nhiều bước, đọc nhiều file, coding. Theo trải nghiệm của mình, Claude viết tiếng Việt dài tốt.</p></div>
+        <div class="card rise"><div class="k">Chưa chắc dẫn</div><h3>Việc cần dữ liệu của hãng khác</h3><p>Việc dựa trên Gmail, Drive hay tin nóng trên X. Phần cuối bài nói rõ.</p></div>
+      </div>
+      <div class="todo-box">Chỗ để anh Vincent nói 1–2 câu: vì sao anh chọn Claude làm app chính.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="RSI là gì">
+  <div class="slide">
+    <div class="mid center">
+      <div class="eyebrow">Google và "AI tự cải thiện"</div>
+      <p class="mega md">RSI là khi <span class="grad">AI giúp làm ra</span> phiên bản AI tốt hơn.</p>
+      <div class="row c2" style="text-align:left;max-width:1600px;margin:0 auto">
+        <div class="card on rise"><div class="k">Nhận định của mình</div><h3>Google đã chạm mốc này từ tháng 8/2026</h3><p>Google chưa công bố như vậy.</p></div>
+        <div class="card rise"><div class="k">Sergey Brin, 10/2026</div><h3>Nhà nghiên cứu và model cùng làm ra model kế tiếp</h3><p>Lời đồng sáng lập Google, Business Insider đăng lại.</p></div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Model card Gemini 4 Argon">
+  <div class="slide">
+    <div class="eyebrow">Ảnh chụp trang hãng · kiểm 20/11/2026</div>
+    <h2 class="stitle">Model card của Google: <span class="grad">chưa chạm ngưỡng tự động hoá nghiên cứu AI</span></h2>
+    <div class="shotwide">
+      <svg class="ann-svg" viewBox="80 0 1020 314" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m02/gemini-argon-model-card.png" x="0" y="0" width="1180" height="314"/><path d="M80,0h1020v314h-1020zM202,80h360v86h-360zM202,180h360v106h-360zM974,80h96v46h-96zM974,182h96v46h-96z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="202" y="80" width="360" height="86" rx="5" fill="none" stroke="#EF004B" stroke-width="3.5"/><rect x="202" y="180" width="360" height="106" rx="5" fill="none" stroke="#EF004B" stroke-width="3.5"/><rect x="974" y="80" width="96" height="46" rx="5" fill="none" stroke="#EF004B" stroke-width="3.5"/><rect x="974" y="182" width="96" height="46" rx="5" fill="none" stroke="#EF004B" stroke-width="3.5"/><circle cx="202" cy="80" r="17" fill="#EF004B" stroke="#fff" stroke-width="2.7"/><text x="202" y="87" text-anchor="middle" font-size="20" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text><circle cx="202" cy="180" r="17" fill="#EF004B" stroke="#fff" stroke-width="2.7"/><text x="202" y="187" text-anchor="middle" font-size="20" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">2</text><circle cx="954" cy="103" r="17" fill="#EF004B" stroke="#fff" stroke-width="2.7"/><text x="954" y="110" text-anchor="middle" font-size="20" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">3</text><circle cx="954" cy="205" r="17" fill="#EF004B" stroke="#fff" stroke-width="2.7"/><text x="954" y="212" text-anchor="middle" font-size="20" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">3</text></svg>
+      <ol class="anote row red" style="--k:3">
+        <li><b>Mức 1, tăng tốc:</b> AI giúp nghiên cứu AI nhanh hơn hẳn trước đây.</li>
+        <li><b>Mức 1, tự động:</b> AI làm trọn việc của một nhóm nghiên cứu.</li>
+        <li><b>CCL not reached:</b> Google ghi Argon chưa chạm cả hai ngưỡng.</li>
+      </ol>
+    </div>
+    <p class="cap" style="margin:0 auto">Ảnh chụp model card "Gemini 4 Argon" của Google DeepMind, ngày 20/11/2026. Khung số do The AI Growth vẽ thêm.</p>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Bạn làm gì với tin này">
+  <div class="slide">
+    <div class="mid center">
+      <div class="eyebrow">Người dùng văn phòng cần làm gì?</div>
+      <p class="mega md">4 model Gemini 4 ra trong <span class="grad">7 tuần</span>.</p>
+      <p class="sub">Từ 30/09 đến 18/11/2026: Argon, Carbon, Hydrogen, Neon.</p>
+      <div class="band" style="max-width:1400px;margin:0 auto">Model mới ra nhanh hơn, nên bạn <b>xem lại lựa chọn mỗi tháng</b>.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Dữ liệu và kênh riêng">
+  <div class="slide">
+    <div class="eyebrow">Mỗi hãng có nguồn dữ liệu và kênh riêng · kiểm 20/11/2026</div>
+    <h2 class="stitle">Dữ liệu và kênh riêng <span class="grad">tạo ra thế mạnh riêng</span></h2>
+    <div class="mid">
+      <table class="tb">
+        <tr><th>Hãng</th><th>Dữ liệu và kênh riêng</th><th>Thế mạnh (nhận định của khoá)</th></tr>
+        <tr><td>Google</td><td>Gemini app 1 tỷ người dùng, Search, Android, Chrome, Workspace, YouTube</td><td class="hi">Hợp đội dùng Google Workspace</td></tr>
+        <tr><td>OpenAI</td><td>ChatGPT khoảng 1,2 tỷ người dùng mỗi tuần, hơn 20 thoả thuận với nhà xuất bản</td><td class="hi">Hợp người dùng phổ thông</td></tr>
+        <tr><td>Anthropic</td><td>Tập trung doanh nghiệp, coding, agent</td><td class="hi">Hợp việc dài, viết, agent</td></tr>
+        <tr><td>xAI</td><td>Dữ liệu X thời gian thực qua X Search</td><td class="hi">Hợp tin nóng trên X</td></tr>
+      </table>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Gemini app 1 tỷ người dùng">
+  <div class="slide">
+    <div class="eyebrow">Ảnh chụp trang hãng · kiểm 20/11/2026</div>
+    <h2 class="stitle">Chọn app chính theo <span class="grad">việc và dữ liệu của đội</span></h2>
+    <div class="annlay">
+      <div class="annimg"><svg class="ann-svg" viewBox="0 0 610 220" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m02/pad/alphabet.png" x="0" y="0" width="610" height="220"/><path d="M0,0h610v220h-610zM14,154h564v54h-564z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="14" y="154" width="564" height="54" rx="3" fill="none" stroke="#EF004B" stroke-width="2.1"/><circle cx="14" cy="154" r="10" fill="#EF004B" stroke="#fff" stroke-width="1.6"/><text x="14" y="158" text-anchor="middle" font-size="12" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text></svg><p class="cap">Ảnh chụp trang Google "Q3 2026 earnings call: Remarks from our CEO", ngày 20/11/2026. Khung số do The AI Growth vẽ thêm.</p></div>
+      <div>
+        <ol class="anote red">
+          <li><b>Gemini app đạt 1 tỷ người dùng,</b> theo lời CEO Google trong bài kết quả quý 3/2026.</li>
+        </ol>
+        <div class="act"><b>Ví dụ:</b> đội làm việc trên Gmail và Drive thì thử Gemini làm app phụ.</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Thử ngay 2.1">
+  <div class="slide">
+    <div class="eyebrow">Thử ngay · khoảng 3 phút</div>
+    <h2 class="stitle">Nhờ Claude gợi ý <span class="grad">app chính và app phụ</span></h2>
+    <div class="mid">
+      <div class="prompt"><span class="lbl">Prompt</span>Đây là 2 việc trong bảng 10 việc lặp của đội mình:
+1. <span class="ph">[việc 1, ví dụ: tổng hợp đánh giá khách mỗi tuần]</span>
+2. <span class="ph">[việc 2]</span>
+Đội mình đang lưu dữ liệu ở: <span class="ph">[ví dụ: Gmail và Google Drive]</span>.
+Với mỗi việc, gợi ý một app chính và một app phụ trong 4 app: Claude, ChatGPT, Gemini, Grok. Mỗi gợi ý ghi 1 câu lý do.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Tóm lại 2.1">
+  <div class="slide">
+    <div class="eyebrow">Tóm lại · Bài 2.1</div>
+    <div class="mid">
+      <ul class="recap">
+        <li class="rise"><span class="d">1</span>Mỗi bảng xếp hạng đo một thứ. Luôn xem ngày.</li>
+        <li class="rise"><span class="d">2</span>Ngày 20/11/2026 Claude đứng đầu Artificial Analysis. Theo mình Gemini đứng thứ hai.</li>
+        <li class="rise"><span class="d">3</span>Chọn một app chính theo việc và dữ liệu của đội. Dùng bản Free app khác để đối chiếu.</li>
+      </ul>
+      <div class="next">Bài tiếp theo: <b>2.2 · Gói 20 USD, 100 USD hay API</b></div>
+    </div>
+  </div>
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Bài 2.2 · Mở bài" class="lesson">
+  <div class="slide">
+    <div class="mid">
+      <div class="eyebrow">Bài 2.2</div>
+      <h2 class="ltitle">Gói 20 USD, 100 USD hay API? Các hãng AI đang trợ giá bạn thế nào</h2>
+      <p class="after">Sau bài này, bạn <b>biết mình trả tiền cho cái gì</b> và lúc nào nâng gói là đáng.</p>
+      <div class="keys">
+        <div class="rise"><i>01</i>Subscription và API: hai cách trả tiền</div>
+        <div class="rise"><i>02</i>"Trợ giá" là gì, và rủi ro cho bạn</div>
+        <div class="rise"><i>03</i>Ba dấu hiệu gói 20 USD đã không còn đủ</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Buffet và gọi món lẻ">
+  <div class="slide">
+    <div class="eyebrow">So sánh đời thường</div>
+    <h2 class="stitle">Gói tháng giống thẻ buffet, <span class="grad">API giống gọi món lẻ</span></h2>
+    <div class="mid">
+      <div class="vs">
+        <div class="card on rise"><div class="k">Gói tháng · subscription</div><h3>Pro 20 USD cho cả tháng</h3><p>Trả cố định, dùng trong app tới hạn mức.</p></div>
+        <div class="mid-x">≠</div>
+        <div class="card rise"><div class="k">Trả theo API</div><h3>Khoảng 1,20 USD cho một phiên chat dài</h3><p>Phép tính minh hoạ với Opus 5.5, giá API kiểm 20/11/2026.</p></div>
+      </div>
+      <div class="band light">Người ngoài ước tính: gói tháng cho bạn dùng <b>gấp nhiều lần</b> số tiền bạn trả.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Hai cách trả tiền">
+  <div class="slide">
+    <div class="eyebrow">Subscription và API · token là đơn vị AI đếm chữ đọc vào và viết ra</div>
+    <h2 class="stitle">Hai cách trả tiền, <span class="grad">hợp hai kiểu dùng</span></h2>
+    <div class="mid">
+      <table class="tb">
+        <tr><th>Điểm so</th><th>Subscription (gói tháng)</th><th>API</th></tr>
+        <tr><td>Trả tiền</td><td>Cố định mỗi tháng</td><td class="hi">Theo số token dùng</td></tr>
+        <tr><td>Dùng ở đâu</td><td>Trong app, có sẵn Project, Skill, connector</td><td class="hi">Phần mềm, chatbot website, việc chạy hàng loạt</td></tr>
+        <tr><td>Giới hạn</td><td>Hạn mức mỗi 5 giờ và mỗi tuần</td><td class="hi">Không có trần chi phí nếu bạn không tự đặt</td></tr>
+      </table>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Trang giá Claude">
+  <div class="slide">
+    <div class="eyebrow">Ảnh chụp trang hãng · kiểm 20/11/2026</div>
+    <h2 class="stitle">Bốn gói cá nhân của Claude</h2>
+    <div class="shotwide">
+      <svg class="ann-svg" viewBox="0 0 1184 200" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m02/pad/gia.png" x="0" y="0" width="1184" height="200"/><path d="M0,0h1184v200h-1184zM48,90h120v40h-120zM344,90h222v40h-222zM640,90h120v40h-120zM936,90h120v40h-120z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="48" y="90" width="120" height="40" rx="6" fill="none" stroke="#EF004B" stroke-width="4.1"/><rect x="344" y="90" width="222" height="40" rx="6" fill="none" stroke="#EF004B" stroke-width="4.1"/><rect x="640" y="90" width="120" height="40" rx="6" fill="none" stroke="#EF004B" stroke-width="4.1"/><rect x="936" y="90" width="120" height="40" rx="6" fill="none" stroke="#EF004B" stroke-width="4.1"/><circle cx="24" cy="110" r="20" fill="#EF004B" stroke="#fff" stroke-width="3.1"/><text x="24" y="118" text-anchor="middle" font-size="24" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text><circle cx="320" cy="110" r="20" fill="#EF004B" stroke="#fff" stroke-width="3.1"/><text x="320" y="118" text-anchor="middle" font-size="24" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">2</text><circle cx="616" cy="110" r="20" fill="#EF004B" stroke="#fff" stroke-width="3.1"/><text x="616" y="118" text-anchor="middle" font-size="24" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">3</text><circle cx="912" cy="110" r="20" fill="#EF004B" stroke="#fff" stroke-width="3.1"/><text x="912" y="118" text-anchor="middle" font-size="24" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">4</text></svg>
+      <ol class="anote row red" style="--k:4">
+        <li><b>Free:</b> 0 USD.</li>
+        <li><b>Pro:</b> 20 USD mỗi tháng, hoặc 17 USD nếu trả theo năm.</li>
+        <li><b>Max:</b> 100 USD mỗi tháng.</li>
+        <li><b>Ultra:</b> 200 USD mỗi tháng.</li>
+      </ol>
+    </div>
+    <p class="cap" style="margin:0 auto">Ảnh chụp trang Anthropic "Pricing" (claude.com/pricing), ngày 20/11/2026. Khung số do The AI Growth vẽ thêm.</p>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Gói Max kèm API credit">
+  <div class="slide">
+    <div class="eyebrow">Ảnh chụp trang hãng · kiểm 20/11/2026</div>
+    <h2 class="stitle">Gói Max, Ultra <span class="grad">có kèm API credit hằng tháng</span></h2>
+    <div class="annlay">
+      <div class="annimg"><svg class="ann-svg" viewBox="652 860 572 260" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m02/claude-pricing.png" x="0" y="0" width="1280" height="1500"/><path d="M652,860h572v260h-572zM697,898h201v52h-201zM697,1036h201v72h-201z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="697" y="898" width="201" height="52" rx="3" fill="none" stroke="#EF004B" stroke-width="2.0"/><rect x="697" y="1036" width="201" height="72" rx="3" fill="none" stroke="#EF004B" stroke-width="2.0"/><circle cx="697" cy="898" r="9" fill="#EF004B" stroke="#fff" stroke-width="1.5"/><text x="697" y="902" text-anchor="middle" font-size="11" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text><circle cx="697" cy="1036" r="9" fill="#EF004B" stroke="#fff" stroke-width="1.5"/><text x="697" y="1040" text-anchor="middle" font-size="11" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">2</text></svg><p class="cap">Ảnh chụp trang Anthropic "Pricing", cột gói Max, ngày 20/11/2026. Khung số do The AI Growth vẽ thêm.</p></div>
+      <div>
+        <ol class="anote red">
+          <li><b>Max dùng gấp 5 lần Pro,</b> tính theo mỗi 5 giờ và mỗi tuần.</li>
+          <li><b>Kèm 100 USD API credit</b> mỗi tháng. Gói Ultra kèm 200 USD.</li>
+        </ol>
+        <div class="act">Gói rẻ ở hãng khác: ChatGPT Go 8 USD, Google AI Plus 4,99 USD (kiểm 20/11/2026).</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Khi nào API mới hợp">
+  <div class="slide">
+    <div class="eyebrow">Khi nào API mới hợp?</div>
+    <h2 class="stitle">Bạn làm việc trong app thì <span class="grad">chưa cần API</span></h2>
+    <div class="mid">
+      <div class="row c2">
+        <div class="card ok rise"><div class="k">Chưa cần API</div><h3>Bạn làm việc trong app</h3><p>Chat, viết, đọc file, giao việc nhiều bước trên Claude.</p></div>
+        <div class="card on rise"><div class="k">API hợp khi</div><h3>Phần mềm của bạn gọi AI</h3><p>Chatbot trên website, phần mềm nội bộ, việc chạy hàng loạt.</p></div>
+      </div>
+      <div class="band warn">API không có trần chi phí nếu bạn không tự đặt. Đặt trần trước khi chạy.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Trợ giá là gì">
+  <div class="slide">
+    <div class="mid center">
+      <div class="eyebrow">"Trợ giá" là gì</div>
+      <p class="mega md">Lượng bạn dùng trong gói, tính theo giá API, <span class="grad">cao hơn số tiền bạn trả</span>.</p>
+      <p class="sub">Hãng không dùng chữ "trợ giá". Người ngoài tự đo.</p>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="mypriors.com đo trợ giá">
+  <div class="slide">
+    <div class="eyebrow">Ảnh chụp trang của bên thứ ba · kiểm 20/11/2026</div>
+    <h2 class="stitle">mypriors.com: <span class="grad">giá trị API trên mỗi đô la trả cho gói</span></h2>
+    <div class="shotwide">
+      <svg class="ann-svg" viewBox="0 0 1098 340" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m02/pad/priors.png" x="0" y="0" width="1098" height="340"/><path d="M0,0h1098v340h-1098zM44,54h232v26h-232zM66,204h1024v30h-1024zM66,302h1024v30h-1024z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="44" y="54" width="232" height="26" rx="6" fill="none" stroke="#EF004B" stroke-width="3.8"/><rect x="66" y="204" width="1024" height="30" rx="6" fill="none" stroke="#EF004B" stroke-width="3.8"/><rect x="66" y="302" width="1024" height="30" rx="6" fill="none" stroke="#EF004B" stroke-width="3.8"/><circle cx="22" cy="67" r="18" fill="#EF004B" stroke="#fff" stroke-width="2.9"/><text x="22" y="75" text-anchor="middle" font-size="22" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text><circle cx="44" cy="219" r="18" fill="#EF004B" stroke="#fff" stroke-width="2.9"/><text x="44" y="227" text-anchor="middle" font-size="22" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">2</text><circle cx="44" cy="317" r="18" fill="#EF004B" stroke="#fff" stroke-width="2.9"/><text x="44" y="325" text-anchor="middle" font-size="22" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">3</text></svg>
+      <ol class="anote row red" style="--k:3">
+        <li><b>Đơn vị đo:</b> giá trị API bạn nhận trên mỗi đô la trả cho gói.</li>
+        <li><b>Claude Ultra:</b> trung vị 60 lần. Mở dòng ra thì Claude Pro là 82 lần.</li>
+        <li><b>ChatGPT Pro:</b> trung vị 30 lần. ChatGPT Plus là 15 lần.</li>
+      </ol>
+    </div>
+    <p class="cap" style="margin:0 auto">Ảnh chụp mypriors.com "Plan subsidies", ngày 20/11/2026. Ước tính của tác giả công cụ, hãng không xác nhận. Khung số do The AI Growth vẽ thêm.</p>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Ba nguồn lệch nhau">
+  <div class="slide">
+    <div class="eyebrow">Người ngoài đo được gì · kiểm 20/11/2026</div>
+    <h2 class="stitle">Ba nguồn đo, <span class="grad">lệch nhau gần 2 lần</span></h2>
+    <div class="mid">
+      <table class="tb">
+        <tr><th>Nguồn</th><th>Cách đo</th><th>Kết quả</th></tr>
+        <tr><td>mypriors.com</td><td>Cộng đồng tự đo, tính trung vị theo gói</td><td class="hi">Claude Pro 82 lần, ChatGPT Plus 15 lần</td></tr>
+        <tr><td>SemiAnalysis</td><td>Bài phân tích của bên thứ ba</td><td class="hi">Anthropic cho khoảng 5 lần giá trị so với OpenAI ở model tầm trung</td></tr>
+        <tr><td>AICodeKing</td><td>Bài trên X ngày 19/11/2026, ước tính theo tháng, không nêu gói</td><td class="hi">Chỉ ra chiều, không so được từng gói</td></tr>
+      </table>
+      <div class="band light">Cùng gói Claude Max 100 USD, các nguồn ghi từ khoảng 46 đến 77 lần. <b>Tin chiều, không tin một con số.</b></div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Vì sao hãng trợ giá">
+  <div class="slide">
+    <div class="eyebrow">Vì sao hãng trợ giá</div>
+    <h2 class="stitle">Hãng chịu lỗ ở gói tháng <span class="grad">để giữ bạn lại</span></h2>
+    <div class="mid">
+      <div class="row c2">
+        <div class="card rise"><div class="k">Lý do có nguồn</div><h3>Giành người dùng</h3><p>SemiAnalysis gọi gói tháng là "customer acquisition and marketing tools", nghĩa là công cụ để kéo khách.</p></div>
+        <div class="card rise"><div class="k">Lý do suy luận</div><h3>Khó đổi hãng</h3><p>Project, Skill, memory nằm trong tài khoản của bạn. Càng dùng lâu, càng khó chuyển đi.</p></div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Hãng đổi luật bất kỳ lúc nào">
+  <div class="slide">
+    <div class="eyebrow warn">Rủi ro cho bạn · ảnh chụp trang hãng</div>
+    <h2 class="stitle">Hãng có thể <span class="red">đổi luật bất kỳ lúc nào</span></h2>
+    <div class="annlay">
+      <div class="annimg"><div class="annbox" style="max-width:1295px"><svg class="ann-svg" viewBox="0 0 687 330" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m02/pad/sdk.png" x="0" y="0" width="687" height="330"/><path d="M0,0h687v330h-687zM15,214h662v102h-662zM15,20h662v172h-662z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="15" y="214" width="662" height="102" rx="4" fill="none" stroke="#EF004B" stroke-width="2.4"/><rect x="15" y="20" width="662" height="172" rx="4" fill="none" stroke="#EF004B" stroke-width="2.4"/><circle cx="15" cy="214" r="11" fill="#EF004B" stroke="#fff" stroke-width="1.8"/><text x="15" y="219" text-anchor="middle" font-size="14" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text><circle cx="15" cy="20" r="11" fill="#EF004B" stroke="#fff" stroke-width="1.8"/><text x="15" y="25" text-anchor="middle" font-size="14" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">2</text></svg></div><p class="cap">Ảnh chụp trang hỗ trợ Anthropic "Use the Claude Agent SDK with your Claude plan", ngày 20/11/2026. Khung số do The AI Growth vẽ thêm.</p></div>
+      <div>
+        <ol class="anote red">
+          <li><b>15/06/2026:</b> Anthropic hoãn thay đổi đã công bố về cách tính Agent SDK.</li>
+          <li><b>07/10/2026:</b> gói Max, Ultra, Team có thêm API credit hằng tháng.</li>
+        </ol>
+        <div class="act">OpenAI cũng từng báo cắt hạn mức gói Pro, rồi huỷ thông báo đó.</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Lời khuyên về hạn mức">
+  <div class="slide">
+    <div class="mid center">
+      <div class="eyebrow">Bạn nên làm gì?</div>
+      <p class="mega md">Chọn gói theo việc. <span class="grad">Đừng xây cả quy trình</span> dựa trên một mức hạn mức.</p>
+      <div class="card stop" style="max-width:1300px;margin:0 auto;text-align:left"><div class="k">Ví dụ dễ gặp</div><p>Đội dựa vào hạn mức rộng của một gói. Giữa tháng hãng siết lại, cả quy trình đứng.</p></div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Ba dấu hiệu nâng gói">
+  <div class="slide">
+    <div class="eyebrow">Ba dấu hiệu gói 20 USD đã không còn đủ</div>
+    <h2 class="stitle">Nâng gói khi <span class="grad">cả 3 điều cùng đúng</span></h2>
+    <div class="mid">
+      <div class="row c3">
+        <div class="card rise"><div class="n">1</div><h3>Hết lượt giữa tuần</h3><p>Nhiều lần trong một tháng, không phải một lần.</p></div>
+        <div class="card rise"><div class="n">2</div><h3>Việc AI làm đáng tiền</h3><p>Giá trị tạo ra lớn hơn phần tiền bạn trả thêm.</p></div>
+        <div class="card rise"><div class="n">3</div><h3>Bạn đã dùng đúng cách</h3><p>Chat ngắn, đúng model, đúng mức nỗ lực (Module 03).</p></div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Trang Mức sử dụng">
+  <div class="slide">
+    <div class="eyebrow">Ảnh chụp thật · Cài đặt, Mức sử dụng</div>
+    <h2 class="stitle">Hai thanh cho bạn biết <span class="grad">còn bao nhiêu lượt</span></h2>
+    <div class="shotwide">
+      <img class="shot" style="width:1200px" src="media/m02/M02-B1-S04_thanh.jpg" alt="Trang Mức sử dụng của Claude với thanh phiên hiện tại và thanh giới hạn hàng tuần">
+      <ol class="anote row" style="--k:3">
+        <li><b>Phiên hiện tại:</b> thanh 5 giờ.</li>
+        <li><b>Giới hạn hàng tuần:</b> thanh của cả tuần.</li>
+        <li><b>Đặt lại vào:</b> giờ thanh 5 giờ trở về 0.</li>
+      </ol>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Lộ trình nâng gói">
+  <div class="slide">
+    <div class="eyebrow">Lộ trình nâng gói · theo mình</div>
+    <h2 class="stitle">Đi từng bậc, <span class="grad">không nhảy cóc</span></h2>
+    <div class="mid">
+      <div class="flow">
+        <div class="fs rise">Free<small>làm quen</small></div><div class="fa">→</div>
+        <div class="fs rise">20 USD<small>dùng hằng ngày</small></div><div class="fa">→</div>
+        <div class="fs rise">Gói nhóm<small>cả đội cùng dùng</small></div><div class="fa">→</div>
+        <div class="fs hot rise">100–200 USD<small>khi có việc chạy dài</small></div>
+      </div>
+      <div class="band light">Nâng gói trước hay sửa thói quen trước? <b>Sửa thói quen trước.</b></div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Thử ngay 2.2">
+  <div class="slide">
+    <div class="eyebrow">Thử ngay · khoảng 3 phút</div>
+    <h2 class="stitle">Hỏi Claude: <span class="grad">mình có nên nâng gói không?</span></h2>
+    <div class="mid">
+      <div class="prompt"><span class="lbl">Prompt</span>Mình đang dùng gói <span class="ph">[tên gói, ví dụ: Claude Pro 20 USD]</span>.
+Trong 2 tuần qua, mức dùng của mình là: <span class="ph">[ví dụ: hết lượt 5 giờ 3 lần, thanh tuần đạt 80%]</span>.
+3 việc chính mình làm với AI: <span class="ph">[việc 1]</span>, <span class="ph">[việc 2]</span>, <span class="ph">[việc 3]</span>.
+Xét 3 dấu hiệu: hết lượt nhiều lần, việc AI làm đáng tiền hơn phần trả thêm, mình đã dùng đúng cách chưa. Trả lời: có nên nâng gói không, kèm lý do. Nếu chưa nên, gợi ý 3 thói quen cần sửa trước.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Tóm lại 2.2">
+  <div class="slide">
+    <div class="eyebrow">Tóm lại · Bài 2.2</div>
+    <div class="mid">
+      <ul class="recap">
+        <li class="rise"><span class="d">1</span>Gói tháng trả cố định trong app. API trả theo token.</li>
+        <li class="rise"><span class="d">2</span>Trợ giá là ước tính của người ngoài. Hãng đổi luật được bất kỳ lúc nào.</li>
+        <li class="rise"><span class="d">3</span>Nâng gói khi cả 3 dấu hiệu cùng đúng.</li>
+      </ul>
+      <div class="next">Bài tiếp theo: <b>2.3 · Mỗi hãng có những model nào</b></div>
+    </div>
+  </div>
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Bài 2.3 · Mở bài" class="lesson">
+  <div class="slide">
+    <div class="mid">
+      <div class="eyebrow">Bài 2.3</div>
+      <h2 class="ltitle">Mỗi hãng có những model nào, dùng cho việc gì?</h2>
+      <p class="after">Sau bài này, bạn <b>đọc được bộ chọn model của 4 app</b> và biết mỗi model dùng cho việc gì.</p>
+      <div class="keys">
+        <div class="rise"><i>01</i>Ba tầng model: nhanh, cân bằng, mạnh nhất</div>
+        <div class="rise"><i>02</i>Claude: Haiku, Sonnet, Opus, Fable</div>
+        <div class="rise"><i>03</i>Gemini, ChatGPT và Grok</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Tên model cạnh nút gửi">
+  <div class="slide">
+    <div class="eyebrow">Ảnh chụp thật · ô nhập của Claude</div>
+    <h2 class="stitle">Bạn đang để model nào? <span class="grad">Nhìn cạnh nút gửi</span></h2>
+    <div class="shotwide">
+      <img class="shot" style="width:1600px" src="media/m02/M02-B1-S01.jpg" alt="Ô nhập Claude, tên model Sonnet 5.5 và mức Trung bình ở góc dưới">
+      <ol class="anote row" style="--k:1">
+        <li><b>Tên model và mức nỗ lực:</b> ở đây là Sonnet 5.5, mức Trung bình. Bấm vào để đổi.</li>
+      </ol>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Ba tầng model">
+  <div class="slide">
+    <div class="eyebrow">Mỗi hãng chia model thành 3 tầng</div>
+    <h2 class="stitle">Giống một đội có <span class="grad">nhân viên, chuyên viên và chuyên gia</span></h2>
+    <div class="mid">
+      <div class="row c3">
+        <div class="card rise"><div class="k">Tầng 1</div><h3>Nhanh và nhẹ</h3><p>Như nhân viên nhanh tay: làm việc lặp, số lượng lớn.</p></div>
+        <div class="card rise"><div class="k">Tầng 2</div><h3>Cân bằng</h3><p>Như chuyên viên: việc hằng ngày, đủ nhanh, đủ giỏi.</p></div>
+        <div class="card on rise"><div class="k">Tầng 3</div><h3>Mạnh nhất</h3><p>Như chuyên gia: việc khó, cần nghĩ kỹ.</p></div>
+      </div>
+      <div class="band light">Tầng cao làm kỹ hơn, nhưng <b>chậm hơn và tốn lượt hơn</b>.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Vì sao không để model mạnh nhất">
+  <div class="slide">
+    <div class="eyebrow">Ví dụ · chọn tầng theo việc</div>
+    <h2 class="stitle">Vì sao không để <span class="grad">model mạnh nhất cho mọi việc?</span></h2>
+    <div class="mid">
+      <div class="vs">
+        <div class="card ok rise"><div class="k">Tầng nhanh</div><h3>Dịch 100 dòng mô tả sản phẩm</h3><p>Việc lặp, dễ kiểm. Model nhanh làm xong sớm, ít tốn lượt.</p></div>
+        <div class="mid-x">·</div>
+        <div class="card on rise"><div class="k">Tầng mạnh</div><h3>Lập kế hoạch quý</h3><p>Việc khó, sai thì tốn kém. Đáng để model nghĩ lâu hơn.</p></div>
+      </div>
+      <div class="band light">Để model mạnh nhất cho mọi việc thì bạn <b>chờ lâu hơn và hết lượt sớm hơn</b>.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Menu model của Claude">
+  <div class="slide">
+    <div class="eyebrow">Ảnh chụp thật · menu model của Claude</div>
+    <h2 class="stitle">Menu model: <span class="grad">mỗi model một tầng</span></h2>
+    <div class="annlay">
+      <div class="annimg"><img class="shot" style="width:auto" src="media/m02/M02-B1-S02_menu.jpg" alt="Menu chọn model Claude: Fable 5.2, Opus 5.5, Sonnet 5.5, Haiku 5.5, Mức nỗ lực, Mô hình khác"><p class="cap">Ảnh chụp app Claude ngày 11/11/2026, gói cao hơn Pro. Gói Free không có Fable và Opus.</p></div>
+      <div>
+        <ol class="anote">
+          <li><b>Opus 5.5:</b> "Dành cho công việc phức tạp và tác vụ hằng ngày".</li>
+          <li><b>Sonnet 5.5:</b> "Hiệu quả nhất cho tác vụ đơn giản hơn".</li>
+          <li><b>Haiku 5.5:</b> "Nhanh nhất cho câu trả lời tức thì".</li>
+          <li><b>Mô hình khác:</b> các model đời cũ.</li>
+        </ol>
+        <div class="act">Fable 5.2 nằm trên cùng: "Dành cho thử thách khó nhất của bạn".</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Bốn model của Claude">
+  <div class="slide">
+    <div class="eyebrow">Ảnh chụp trang hãng · kiểm 20/11/2026</div>
+    <h2 class="stitle">Claude: <span class="grad">Haiku, Sonnet, Opus, Fable</span></h2>
+    <div class="shotwide">
+      <svg class="ann-svg" viewBox="0 0 990 385" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m02/pad/models.png" x="0" y="0" width="990" height="385"/><path d="M0,0h990v385h-990zM790,151h188v98h-188zM608,151h188v64h-188zM426,151h188v64h-188zM40,7h440v22h-440zM244,151h188v84h-188z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="790" y="151" width="188" height="98" rx="5" fill="none" stroke="#EF004B" stroke-width="3.4"/><rect x="608" y="151" width="188" height="64" rx="5" fill="none" stroke="#EF004B" stroke-width="3.4"/><rect x="426" y="151" width="188" height="64" rx="5" fill="none" stroke="#EF004B" stroke-width="3.4"/><rect x="40" y="7" width="440" height="22" rx="5" fill="none" stroke="#EF004B" stroke-width="3.4"/><rect x="244" y="151" width="188" height="84" rx="5" fill="none" stroke="#EF004B" stroke-width="3.4"/><circle cx="790" cy="151" r="16" fill="#EF004B" stroke="#fff" stroke-width="2.6"/><text x="790" y="158" text-anchor="middle" font-size="20" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text><circle cx="608" cy="151" r="16" fill="#EF004B" stroke="#fff" stroke-width="2.6"/><text x="608" y="158" text-anchor="middle" font-size="20" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">2</text><circle cx="426" cy="151" r="16" fill="#EF004B" stroke="#fff" stroke-width="2.6"/><text x="426" y="158" text-anchor="middle" font-size="20" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">3</text><circle cx="20" cy="18" r="16" fill="#EF004B" stroke="#fff" stroke-width="2.6"/><text x="20" y="25" text-anchor="middle" font-size="20" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">3</text><circle cx="244" cy="151" r="16" fill="#EF004B" stroke="#fff" stroke-width="2.6"/><text x="244" y="158" text-anchor="middle" font-size="20" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">4</text></svg>
+      <ol class="anote row red" style="--k:4">
+        <li><b>Haiku 5.5:</b> việc số lượng lớn, cần nhanh: phân loại, trích thông tin.</li>
+        <li><b>Sonnet 5.5:</b> cân bằng giữa tốc độ và trí tuệ.</li>
+        <li><b>Opus 5.5:</b> agent chạy dài, việc tri thức. Hãng khuyên bắt đầu ở đây.</li>
+        <li><b>Fable 5.2:</b> suy luận khó, agent chạy rất dài.</li>
+      </ol>
+    </div>
+    <p class="cap" style="margin:0 auto">Ảnh chụp trang Anthropic "Models overview", ngày 20/11/2026. Khung số do The AI Growth vẽ thêm.</p>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Gói nào có model nào">
+  <div class="slide">
+    <div class="eyebrow">Gói nào có model nào · trang giá Claude, kiểm 20/11/2026</div>
+    <h2 class="stitle">Gói Free dùng model nào <span class="grad">là đủ?</span></h2>
+    <div class="mid">
+      <table class="tb">
+        <tr><th>Gói</th><th>Model có trong gói</th><th>Ghi chú</th></tr>
+        <tr><td>Free</td><td>Sonnet, Haiku</td><td class="hi">Sonnet cho việc hằng ngày, Haiku cho câu hỏi nhanh</td></tr>
+        <tr><td>Pro</td><td>Thêm Opus</td><td class="hi">Fable trả bằng usage credits, ngoài hạn mức gói</td></tr>
+        <tr><td>Max, Ultra</td><td>Như Pro, thêm Fable</td><td class="hi">Fable dùng tới một nửa hạn mức tuần</td></tr>
+      </table>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Gemini: Hydrogen, Neon, Carbon">
+  <div class="slide">
+    <div class="eyebrow">Gemini · kiểm 20/11/2026</div>
+    <h2 class="stitle">Gemini: <span class="grad">Hydrogen, Neon, Carbon</span></h2>
+    <div class="mid">
+      <table class="tb">
+        <tr><th>Model</th><th>Dùng cho</th><th>Gói có</th></tr>
+        <tr><td>Gemini 4 Hydrogen</td><td>Nhanh, cho việc hằng ngày</td><td class="hi">Mọi người dùng</td></tr>
+        <tr><td>Gemini 4 Neon</td><td>Nằm giữa Hydrogen và Carbon, ra 18/11/2026</td><td class="hi">AI Pro, AI Ultra</td></tr>
+        <tr><td>Gemini 4 Carbon</td><td>Suy luận mạnh nhất</td><td class="hi">AI Ultra</td></tr>
+      </table>
+      <div class="todo-box">Chỗ để anh Vincent gửi một video YouTube 10–11/2026 có cảnh ô chọn model trong app Gemini, để cắt khung hình cho slide này.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="ChatGPT: chọn model và mức suy nghĩ">
+  <div class="slide">
+    <div class="eyebrow">ChatGPT · ảnh chụp trang hãng, kiểm 20/11/2026</div>
+    <h2 class="stitle">ChatGPT: chọn model và <span class="grad">mức suy nghĩ ngay dưới ô nhập</span></h2>
+    <div class="annlay">
+      <div class="annimg"><svg class="ann-svg" viewBox="0 0 799 266" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m02/pad/gpt-chon.png" x="0" y="0" width="799" height="266"/><path d="M0,0h799v266h-799zM551,6h242v132h-242zM17,158h522v102h-522z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="551" y="6" width="242" height="132" rx="4" fill="none" stroke="#EF004B" stroke-width="2.8"/><rect x="17" y="158" width="522" height="102" rx="4" fill="none" stroke="#EF004B" stroke-width="2.8"/><circle cx="551" cy="15" r="13" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="551" y="20" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text><circle cx="17" cy="158" r="13" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="17" y="164" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">2</text></svg><p class="cap">Ảnh chụp trang OpenAI "Models" (ChatGPT Work và Codex), ngày 20/11/2026. Khung số do The AI Growth vẽ thêm.</p></div>
+      <div>
+        <ol class="anote red">
+          <li><b>Thanh chọn:</b> tên model và mức suy nghĩ, ở đây là 6.2 Sol, mức Light.</li>
+          <li><b>Mức suy nghĩ cao hơn:</b> làm việc khó tốt hơn, nhưng lâu hơn và tốn token hơn.</li>
+        </ol>
+        <div class="act">Mức suy nghĩ nói kỹ ở bài 3.4.</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="ChatGPT: bốn model">
+  <div class="slide">
+    <div class="eyebrow">ChatGPT · ảnh chụp trang hãng, kiểm 20/11/2026</div>
+    <h2 class="stitle">ChatGPT: <span class="grad">Astra, Sol, Terra, Luna</span></h2>
+    <div class="annlay">
+      <div class="annimg"><svg class="ann-svg" viewBox="0 0 799 205" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m02/pad/gpt-goiy.png" x="0" y="0" width="799" height="205"/><path d="M0,0h799v205h-799zM33,56h762v32h-762zM33,125h762v30h-762zM17,152h778v50h-778z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="33" y="56" width="762" height="32" rx="4" fill="none" stroke="#EF004B" stroke-width="2.8"/><rect x="33" y="125" width="762" height="30" rx="4" fill="none" stroke="#EF004B" stroke-width="2.8"/><rect x="17" y="152" width="778" height="50" rx="4" fill="none" stroke="#EF004B" stroke-width="2.8"/><circle cx="17" cy="72" r="13" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="17" y="78" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text><circle cx="17" cy="140" r="13" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="17" y="146" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">2</text><circle cx="17" cy="152" r="13" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="17" y="158" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">3</text></svg><p class="cap">Ảnh chụp trang OpenAI "Models", mục Recommended models, ngày 20/11/2026. Khung số do The AI Growth vẽ thêm.</p></div>
+      <div>
+        <ol class="anote red">
+          <li><b>Astra:</b> dự án khó.</li>
+          <li><b>Sol:</b> việc hằng ngày. Hãng khuyên bắt đầu ở Sol.</li>
+          <li><b>Terra:</b> nhanh, viết rõ, hiểu hình. <b>Luna:</b> việc lặp số lượng lớn, có ở gói Free.</li>
+        </ol>
+        <div class="act"><b>Ví dụ:</b> viết lại báo cáo tuần bằng Sol, phân tích một dự án khó bằng Astra.</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Grok">
+  <div class="slide">
+    <div class="eyebrow">Grok · kiểm 20/11/2026</div>
+    <h2 class="stitle">Grok hợp việc gì nhất?</h2>
+    <div class="mid">
+      <div class="row c2">
+        <div class="card rise"><div class="k">Model mạnh nhất của xAI</div><h3>Grok 4.7</h3><p>Ra ngày 21/09/2026. Trên Artificial Analysis được 35 điểm.</p></div>
+        <div class="card on rise"><div class="k">Theo mình</div><h3>Tin nóng trên X</h3><p>Grok đọc được dữ liệu X theo thời gian thực. Đây là thứ ba app kia không có.</p></div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Thử ngay 2.3">
+  <div class="slide">
+    <div class="eyebrow">Thử ngay · khoảng 5 phút</div>
+    <h2 class="stitle">Chạy một việc trên 2 model, <span class="grad">rồi nhờ Claude so</span></h2>
+    <div class="mid">
+      <div class="prompt"><span class="lbl">Prompt</span>Mình chạy cùng một việc trên 2 model. Việc là: <span class="ph">[mô tả việc, ví dụ: viết email trả lời khách phàn nàn giao trễ]</span>.
+Kết quả của <span class="ph">[model 1, ví dụ: Sonnet 5.5]</span>:
+<span class="ph">[dán kết quả 1]</span>
+Kết quả của <span class="ph">[model 2, ví dụ: Opus 5.5]</span>:
+<span class="ph">[dán kết quả 2]</span>
+So hai kết quả theo 3 tiêu chí: đúng ý việc, giọng văn, độ dài. Chấm 1 tới 5 cho từng tiêu chí, rồi nói model nào hợp với việc này hơn.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Tóm lại 2.3">
+  <div class="slide">
+    <div class="eyebrow">Tóm lại · Bài 2.3</div>
+    <div class="mid">
+      <ul class="recap">
+        <li class="rise"><span class="d">1</span>Mỗi hãng chia model thành 3 tầng: nhanh, cân bằng, mạnh nhất.</li>
+        <li class="rise"><span class="d">2</span>Tầng cao kỹ hơn, nhưng chậm hơn và tốn lượt hơn.</li>
+        <li class="rise"><span class="d">3</span>Tên model đổi theo tháng. Luôn xem ngày.</li>
+      </ul>
+      <div class="next">Bài tiếp theo: <b>2.4 · Model nào hợp với bạn</b></div>
+    </div>
+  </div>
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Bài 2.4 · Mở bài" class="lesson">
+  <div class="slide">
+    <div class="mid">
+      <div class="eyebrow">Bài 2.4</div>
+      <h2 class="ltitle">Model nào hợp với bạn? Ví dụ chia model ở một agency và rule of thumb</h2>
+      <p class="after">Sau bài này, bạn <b>điền được bảng chọn app, model và gói</b> cho đội mình.</p>
+      <div class="keys">
+        <div class="rise"><i>01</i>Bốn câu hỏi để chọn</div>
+        <div class="rise"><i>02</i>Ví dụ chia model ở agency SEO của mình</div>
+        <div class="rise"><i>03</i>Năm luật chọn model</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Ba người, ba bộ chọn">
+  <div class="slide">
+    <div class="eyebrow">Ba người, ba bộ chọn khác nhau</div>
+    <h2 class="stitle">Cùng hỏi "dùng AI nào", <span class="grad">ba người chọn khác nhau</span></h2>
+    <div class="mid">
+      <div class="row c3">
+        <div class="card rise"><div class="k">Người 1</div><h3>Chủ shop online</h3><p>Làm một mình, ngân sách nhỏ, việc chính là viết và trả lời khách.</p></div>
+        <div class="card rise"><div class="k">Người 2</div><h3>Trưởng phòng marketing 5 người</h3><p>Cả đội cần dùng chung tài liệu và cách làm.</p></div>
+        <div class="card rise"><div class="k">Người 3</div><h3>CEO công ty dịch vụ 30 người</h3><p>Nhiều phòng ban, có việc cần agent chạy dài.</p></div>
+      </div>
+      <div class="band light">Bộ chọn gồm 3 thứ: <b>app chính, model mặc định, gói</b>.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Bốn câu hỏi để chọn">
+  <div class="slide">
+    <div class="eyebrow">Bốn câu hỏi để chọn</div>
+    <h2 class="stitle">Trả lời 4 câu, <span class="grad">ra app, model và gói</span></h2>
+    <div class="mid">
+      <div class="row c4">
+        <div class="card on rise"><div class="n">1</div><h3>Dữ liệu của đội nằm ở đâu?</h3><p>Gmail, Drive, Microsoft 365, hay file trên máy.</p></div>
+        <div class="card rise"><div class="n">2</div><h3>Việc chính là gì?</h3><p>Viết, làm báo cáo, trả lời khách, coding.</p></div>
+        <div class="card rise"><div class="n">3</div><h3>Ngân sách mỗi người bao nhiêu?</h3><p>0 USD, 20 USD, hay hơn.</p></div>
+        <div class="card rise"><div class="n">4</div><h3>Có việc cần agent chạy dài không?</h3><p>Việc trên nhiều file, chạy cả buổi.</p></div>
+      </div>
+      <div class="band light">Câu quyết định app chính: <b>câu 1, dữ liệu của đội nằm ở đâu</b>.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Áp 4 câu vào một đội">
+  <div class="slide">
+    <div class="eyebrow">Ví dụ · áp 4 câu vào một đội giả định</div>
+    <h2 class="stitle">Đội dùng Google Workspace, <span class="grad">việc chính là viết, 20 USD mỗi người</span></h2>
+    <div class="mid">
+      <table class="tb">
+        <tr><th>Câu hỏi</th><th>Đội trả lời</th><th>Ra gì</th></tr>
+        <tr><td>1 · Dữ liệu</td><td>Gmail và Google Drive</td><td class="hi">Thử Gemini làm app phụ, hoặc nối Drive vào app chính</td></tr>
+        <tr><td>2 · Việc chính</td><td>Viết bài, viết email</td><td class="hi">Model cân bằng làm mặc định</td></tr>
+        <tr><td>3 · Ngân sách</td><td>20 USD mỗi người</td><td class="hi">Gói 20 USD</td></tr>
+        <tr><td>4 · Chạy dài</td><td>Chưa có việc nào</td><td class="hi">Chưa cần Claude Code</td></tr>
+      </table>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Agency SEO của mình chia model">
+  <div class="slide">
+    <div class="eyebrow">Ví dụ thật · agency SEO của mình</div>
+    <h2 class="stitle">Ở agency SEO của mình, <span class="grad">mỗi loại việc một model</span></h2>
+    <div class="mid">
+      <div class="row c3">
+        <div class="card rise"><div class="k">Chi phí</div><h3>Việc lặp không cần model đắt</h3><p>Soát hàng loạt theo tiêu chí dùng model nhanh.</p></div>
+        <div class="card rise"><div class="k">Tốc độ</div><h3>Việc gấp cần trả lời nhanh</h3><p>Model nhanh trả lời trong vài giây.</p></div>
+        <div class="card on rise"><div class="k">Chất lượng</div><h3>Việc cần đúng dùng model mạnh</h3><p>Theo mình, Opus 4.6 viết bài dài tiếng Việt tốt nhất (ghi ngày 24/10/2026).</p></div>
+      </div>
+      <div class="band light">Vì sao không dùng một model cho tất cả? Vì <b>chi phí, tốc độ, chất lượng</b> mỗi việc cần khác nhau.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Bảng chia model ở agency">
+  <div class="slide">
+    <div class="eyebrow">Ví dụ thật · bảng chia model</div>
+    <h2 class="stitle">Bảng chia model <span class="grad">theo loại việc</span></h2>
+    <div class="mid">
+      <table class="tb">
+        <tr><th>Loại việc</th><th>Model và mức nỗ lực</th><th>Vì sao</th></tr>
+        <tr><td>Soát hàng loạt theo tiêu chí</td><td>Model nhanh</td><td class="hi">Việc lặp, số lượng lớn</td></tr>
+        <tr><td>Viết bài dài tiếng Việt</td><td>Opus 4.6</td><td class="hi">Theo mình viết tiếng Việt dài tốt nhất</td></tr>
+      </table>
+      <div class="todo-box">Chỗ để anh Vincent điền 5–8 loại việc ở agency và model anh dùng cho từng việc, ví dụ: nghiên cứu, lập dàn ý, viết bài dài tiếng Việt, kiểm số, soát hàng loạt, làm báo cáo. Không nêu tên công ty, tên khách, số kết quả.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Năm luật chọn model">
+  <div class="slide">
+    <div class="eyebrow">Rule of thumb · mình khuyên</div>
+    <h2 class="stitle">Năm luật chọn model</h2>
+    <div class="mid">
+      <ul class="recap" style="gap:22px">
+        <li class="rise" style="font-size:31px"><span class="d">1</span>Mặc định dùng model cân bằng.</li>
+        <li class="rise" style="font-size:31px"><span class="d">2</span>Việc khó, cần đúng: dùng model mạnh.</li>
+        <li class="rise" style="font-size:31px"><span class="d">3</span>Việc lặp, đơn giản, số lượng lớn: dùng model nhanh.</li>
+        <li class="rise" style="font-size:31px"><span class="d">4</span>Kết quả chưa đạt: tăng mức nỗ lực trước, đổi model sau.</li>
+        <li class="rise" style="font-size:31px"><span class="d">5</span>Thử 2 model trên việc thật trước khi chốt. Xem lại mỗi tháng.</li>
+      </ul>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Tăng mức nỗ lực trước">
+  <div class="slide">
+    <div class="eyebrow">Luật 4 · ảnh chụp thật</div>
+    <h2 class="stitle">Chưa đạt thì <span class="grad">tăng mức nỗ lực trước</span>, đổi model sau</h2>
+    <div class="annlay">
+      <div class="annimg"><img class="shot" src="media/m02/M02-B1-S03a_sonnet.jpg" alt="Menu Mức nỗ lực của Sonnet 5.5: Thấp, Trung bình, Cao, Cao hơn, Tối đa"><p class="cap">Ảnh chụp app Claude ngày 11/11/2026, gói cao hơn Pro. Gói Pro có thể khác một chút.</p></div>
+      <div>
+        <ol class="anote">
+          <li><b>Mức nỗ lực:</b> nằm ngay trong menu model.</li>
+          <li><b>Trung bình:</b> mức app ghi "Được đề xuất".</li>
+          <li><b>Cao hơn:</b> thử mức này trước khi đổi sang model khác.</li>
+        </ol>
+        <div class="act">Dòng Tối đa ghi "Mức sử dụng gấp 5× trở lên".</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Thử 2 model trên việc thật">
+  <div class="slide">
+    <div class="eyebrow">Luật 5 · ảnh chụp thật</div>
+    <h2 class="stitle">Thử cùng một việc <span class="grad">trên 2 model trước khi chốt</span></h2>
+    <div class="duo">
+      <div class="stack">
+        <p class="cap">Lần chạy 1: email trả lời khách trên <b>Sonnet 5.5</b>.</p>
+        <img class="shot" style="width:100%" src="media/m02/M02-B1-S07_trai.jpg" alt="Thanh dưới cuộc trò chuyện thứ nhất: Sonnet 5.5, mức Cao">
+        <p class="cap">Lần chạy 2: cùng prompt trên <b>Opus 5.5</b>.</p>
+        <img class="shot" style="width:100%" src="media/m02/M02-B1-S07_phai.jpg" alt="Thanh dưới cuộc trò chuyện thứ hai: Opus 5.5, mức Trung bình">
+      </div>
+      <div class="stack">
+        <ol class="anote">
+          <li><b>Sonnet 5.5, mức Cao.</b></li>
+          <li><b>Opus 5.5, mức Trung bình.</b></li>
+        </ol>
+        <div class="act" style="margin-top:0">Giữ prompt giống nhau, chỉ đổi model. Nhìn ô 1 và ô 2 để chắc mỗi lần chạy đúng model.</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Đổi model mặc định">
+  <div class="slide">
+    <div class="eyebrow">Khi nào nên đổi model mặc định?</div>
+    <h2 class="stitle">Đổi khi <span class="grad">thử trên việc thật thấy khác rõ</span></h2>
+    <div class="lr">
+      <div class="lt">
+        <div class="card ok"><div class="k">Nên đổi</div><p>Bạn thử 2 model trên việc thật, model mới tốt hơn rõ ở cùng mức lượt dùng.</p></div>
+        <div class="card"><div class="k">Xem lại</div><p>Hãng ra model mới. Mỗi tháng mở menu model một lần.</p></div>
+      </div>
+      <div class="rt"><img class="shot" style="max-height:640px" src="media/m02/M02-B1-S02.jpg" alt="Menu model Claude để đổi model mặc định"><p class="cap">Menu model của Claude, ảnh chụp app ngày 11/11/2026.</p></div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Thử ngay 2.4">
+  <div class="slide">
+    <div class="eyebrow">Thử ngay · khoảng 5 phút</div>
+    <h2 class="stitle">Nhờ Claude dựng <span class="grad">bảng chọn cho đội bạn</span></h2>
+    <div class="mid">
+      <div class="prompt"><span class="lbl">Prompt</span>Đội mình trả lời 4 câu hỏi chọn AI như sau:
+1. Dữ liệu của đội nằm ở: <span class="ph">[ví dụ: Gmail, Google Drive]</span>
+2. Việc chính: <span class="ph">[ví dụ: viết bài, trả lời khách]</span>
+3. Ngân sách mỗi người: <span class="ph">[ví dụ: 20 USD mỗi tháng]</span>
+4. Việc cần agent chạy dài: <span class="ph">[có hoặc chưa, kể tên nếu có]</span>
+Gợi ý cho đội: app chính, model mặc định, model cho việc khó, model cho việc lặp, và gói. Trình bày thành bảng 3 cột: mục · gợi ý · lý do (1 câu).</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Tóm lại 2.4">
+  <div class="slide">
+    <div class="eyebrow">Tóm lại · Bài 2.4</div>
+    <div class="mid">
+      <ul class="recap">
+        <li class="rise"><span class="d">1</span>Chọn theo dữ liệu, việc chính, ngân sách và nhu cầu chạy dài.</li>
+        <li class="rise"><span class="d">2</span>Mặc định model cân bằng. Việc khó dùng model mạnh. Việc lặp dùng model nhanh.</li>
+        <li class="rise"><span class="d">3</span>Tăng mức nỗ lực trước, đổi model sau.</li>
+      </ul>
+      <div class="next">Bài tiếp theo: <b>2.5 · Claude Code, Antigravity, Grok Bot</b></div>
+    </div>
+  </div>
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Bài 2.5 · Mở bài" class="lesson">
+  <div class="slide">
+    <div class="mid">
+      <div class="eyebrow">Bài 2.5</div>
+      <h2 class="ltitle">Claude Code, Antigravity, Grok Bot là gì, và khi nào bạn mới thật sự cần?</h2>
+      <p class="after">Sau bài này, bạn <b>biết đội mình đã cần một công cụ agent harness hay chưa</b>.</p>
+      <div class="keys">
+        <div class="rise"><i>01</i>Model là bộ não, harness là tay chân</div>
+        <div class="rise"><i>02</i>Claude Code, Codex, Antigravity, Grok Bot</div>
+        <div class="rise"><i>03</i>Dấu hiệu bạn đã cần, dấu hiệu bạn chưa cần</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Cùng bộ não, ba mức tay chân">
+  <div class="slide">
+    <div class="lr wide">
+      <div class="lt">
+        <div class="eyebrow">Một model, nhiều cách dùng</div>
+        <h2 class="stitle">Cùng một model, <span class="grad">khác phần khung bọc quanh</span></h2>
+        <p class="body">Chat, giao việc trong app và Claude Code dùng chung bộ não. Khác nhau ở chỗ Claude được làm gì, và làm ở đâu.</p>
+      </div>
+      <div class="rt"><img class="svg" src="media/m02/b5-hero-desktop.svg" alt="Cùng bộ não Claude, ba mức tay chân: Chat, Giao việc trong app, Claude Code"></div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Harness là gì">
+  <div class="slide">
+    <div class="eyebrow">Model là bộ não, harness là tay chân</div>
+    <h2 class="stitle">Harness là <span class="grad">phần khung bọc quanh model</span></h2>
+    <div class="mid">
+      <div class="band">Model · bộ não: đọc việc, nghĩ, quyết bước tiếp theo</div>
+      <div class="row c4">
+        <div class="card rise"><div class="k">Phần 1</div><h3>Công cụ</h3><p>Mở file, chạy lệnh, mở trình duyệt.</p></div>
+        <div class="card stop rise"><div class="k">Phần 2</div><h3>Quyền</h3><p>Được làm gì, phải hỏi bạn trước việc gì.</p></div>
+        <div class="card rise"><div class="k">Phần 3</div><h3>Bộ nhớ</h3><p>Nhớ những gì đã làm, đọc lại tài liệu.</p></div>
+        <div class="card rise"><div class="k">Phần 4</div><h3>Luật làm việc</h3><p>Quy định phải theo, như nội quy công ty.</p></div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Cùng việc, hai harness">
+  <div class="slide">
+    <div class="eyebrow">Ví dụ · gom 50 file thành một báo cáo</div>
+    <h2 class="stitle">Cùng model Opus 5.5, <span class="grad">hai cách làm khác nhau</span></h2>
+    <div class="mid">
+      <div class="vs">
+        <div class="card rise"><div class="k">Trong chat</div><h3>Bạn tải file lên</h3><p>Claude đọc những file bạn gửi trong khung chat, rồi viết báo cáo.</p></div>
+        <div class="mid-x">≠</div>
+        <div class="card on rise"><div class="k">Trong Claude Code</div><h3>Claude mở thẳng thư mục</h3><p>Claude tự đọc đủ 50 file trên máy, chạy lâu, lưu báo cáo vào thư mục.</p></div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Chế độ quyền là một phần harness">
+  <div class="slide">
+    <div class="eyebrow">Ảnh chụp thật · phần harness bạn tự chỉnh</div>
+    <h2 class="stitle">Chế độ quyền: <span class="grad">bạn giữ nút gửi trong tay</span></h2>
+    <div class="annlay">
+      <div class="annimg"><img class="shot" src="media/m02/M02-B3-S00_che-do-quyen.jpg" alt="Menu Chế độ quyền của Claude: Thủ công và Tự động"><p class="cap">Ảnh chụp app Claude ngày 11/11/2026, gói cao hơn Pro. Gói Pro có thể khác một chút.</p></div>
+      <div>
+        <ol class="anote">
+          <li><b>Chế độ quyền:</b> nút cạnh tên model.</li>
+          <li><b>Thủ công:</b> Claude hỏi bạn trước khi dùng công cụ mới hoặc mở trang web mới.</li>
+          <li><b>Tự động:</b> Claude tự chạy, tạm dừng hỏi khi có gì có vẻ không an toàn.</li>
+        </ol>
+        <div class="act">Mình khuyên người mới để Thủ công.</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Một quỹ lượt">
+  <div class="slide">
+    <div class="eyebrow">Một gói, một quỹ lượt</div>
+    <h2 class="stitle">Chat, Claude Code và app trên máy <span class="grad">dùng chung một quỹ lượt</span></h2>
+    <div class="mid center">
+      <img class="svg" style="max-width:1400px" src="media/m02/mot-quy.svg" alt="Chat trên claude.ai, app Claude trên máy tính và Claude Code cùng trừ vào một quỹ lượt">
+      <p class="cap">Trang Mức sử dụng không có thanh riêng cho Claude Code. Phần tô màu là số giả định.</p>
+    </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Claude Code và Codex">
+  <div class="slide">
+    <div class="lr">
+      <div class="lt">
+        <div class="eyebrow">Claude Code và Codex · kiểm 20/11/2026</div>
+        <h2 class="stitle">Claude Code: <span class="grad">agent làm trên thư mục</span></h2>
+        <p class="body">Claude Code làm việc trên thư mục máy bạn hoặc máy đám mây, chạy được việc dài.</p>
+        <p class="body"><b>Gói có:</b> Pro, Max, Ultra, Team, Enterprise. Gói Free không có.</p>
+        <p class="body"><b>Codex</b> là công cụ tương tự của OpenAI, có từ gói ChatGPT Plus.</p>
+      </div>
+      <div class="rt"><img class="shot" src="media/m02/M02-B3-S01.jpg" alt="Thanh bên app Claude trên máy tính, hai nút icon ở đầu"><p class="cap">App Claude trên máy tính: nút Code ở đầu thanh bên (1). Ảnh chụp ngày 11/11/2026.</p></div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Claude Code khác Claude chat">
+  <div class="slide">
+    <div class="eyebrow">Claude Code khác Claude chat đã gộp Cowork ở đâu?</div>
+    <h2 class="stitle">Chat giao việc trong app, <span class="grad">Claude Code làm trên cả thư mục</span></h2>
+    <div class="mid">
+      <div class="vs">
+        <div class="card rise"><div class="k">Claude chat, đã gộp Cowork</div><h3>Giao việc nhiều bước</h3><p>Đọc file bạn gửi, dùng connector, tạo file báo cáo, bảng tính, slide.</p></div>
+        <div class="mid-x">≠</div>
+        <div class="card on rise"><div class="k">Claude Code</div><h3>Làm trên cả thư mục</h3><p>Đọc và sửa hàng trăm file, viết script, chạy lâu.</p></div>
+      </div>
+      <div class="band light"><b>Ví dụ:</b> đổi tên và sắp lại 300 file ảnh sản phẩm theo một quy tắc. Việc này hợp Claude Code.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Grok Bot">
+  <div class="slide">
+    <div class="eyebrow">Grok Bot của xAI · ảnh chụp trang hãng</div>
+    <h2 class="stitle">Grok Bot: <span class="grad">bot có máy tính đám mây riêng</span></h2>
+    <div class="annlay">
+      <div class="annimg"><div class="annbox" style="max-width:1206px"><svg class="ann-svg" viewBox="0 0 1005 520" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m02/pad/grokbot.png" x="0" y="0" width="1005" height="520"/><path d="M0,0h1005v520h-1005zM157,150h696v60h-696zM21,408h278v110h-278z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="157" y="150" width="696" height="60" rx="5" fill="none" stroke="#EF004B" stroke-width="3.5"/><rect x="21" y="408" width="278" height="110" rx="5" fill="none" stroke="#EF004B" stroke-width="3.5"/><circle cx="157" cy="150" r="17" fill="#EF004B" stroke="#fff" stroke-width="2.6"/><text x="157" y="157" text-anchor="middle" font-size="20" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text><circle cx="21" cy="408" r="17" fill="#EF004B" stroke="#fff" stroke-width="2.6"/><text x="21" y="415" text-anchor="middle" font-size="20" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">2</text></svg></div><p class="cap">Ảnh chụp trang xAI "Meet Grok Bot", ngày 20/11/2026. Khung số do The AI Growth vẽ thêm.</p></div>
+      <div>
+        <ol class="anote red">
+          <li><b>Lời hãng:</b> bot nhận việc như một đồng nghiệp, tự đăng nhập công cụ và mang kết quả về.</li>
+          <li><b>Mỗi bot một vai:</b> chạy nền và chạy theo lịch.</li>
+        </ol>
+        <div class="act">Có từ gói Premium 30 USD mỗi tháng (kiểm 20/11/2026).</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Antigravity và Grok Bot">
+  <div class="slide">
+    <div class="eyebrow">Antigravity và Grok Bot · kiểm 20/11/2026</div>
+    <h2 class="stitle">Người dùng ở Việt Nam <span class="grad">thử được công cụ nào ngay?</span></h2>
+    <div class="mid">
+      <div class="row c2">
+        <div class="card ok rise"><div class="k">Google</div><h3>Antigravity</h3><p>Nền tảng agent có app trên máy, agent chạy song song, việc theo lịch. Gói cá nhân 0 USD có hạn mức cơ bản.</p></div>
+        <div class="card rise"><div class="k">xAI</div><h3>Grok Bot</h3><p>Bot có máy tính đám mây riêng, chạy nền và theo lịch. Từ gói Premium 30 USD.</p></div>
+      </div>
+      <div class="band light">Theo mình, Antigravity dễ thử nhất vì có <b>gói 0 USD</b>.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Khi nào bạn mới thật sự cần">
+  <div class="slide">
+    <div class="eyebrow">Khi nào bạn mới thật sự cần</div>
+    <h2 class="stitle">Dấu hiệu <span class="grad">đã cần</span> và dấu hiệu <span class="grad">chưa cần</span></h2>
+    <div class="mid">
+      <div class="row c2">
+        <div class="card on rise"><div class="k">Đã cần</div><h3>Việc trên nhiều file, chạy lâu</h3><p>Việc trên nhiều file trong thư mục, viết script, dựng web, chạy lâu.</p></div>
+        <div class="card ok rise"><div class="k">Chưa cần</div><h3>Việc làm được trong chat</h3><p>Việc làm được trong Claude chat đã gộp Cowork.</p></div>
+      </div>
+      <div class="band light">Mình khuyên người mới <b>dùng chắc Claude chat trước</b>.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Lộ trình từ chat tới Claude Code">
+  <div class="slide">
+    <div class="eyebrow">Lộ trình</div>
+    <h2 class="stitle">Đi từ chat, qua giao việc, <span class="grad">tới Claude Code khi việc cần</span></h2>
+    <div class="mid center">
+      <img class="svg" style="max-width:1600px" src="media/m02/duong.svg" alt="Lộ trình 5 bước: Chat, Project, Kết nối, Nhiều bước, Claude Code">
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Tóm lại 2.5">
+  <div class="slide">
+    <div class="eyebrow">Tóm lại · Bài 2.5</div>
+    <div class="mid">
+      <ul class="recap">
+        <li class="rise"><span class="d">1</span>Harness là phần khung bọc quanh model: công cụ, quyền, bộ nhớ, luật.</li>
+        <li class="rise"><span class="d">2</span>Claude Code, Codex, Antigravity, Grok Bot cho agent làm trên thư mục và chạy lâu.</li>
+        <li class="rise"><span class="d">3</span>Người mới dùng chắc Claude chat trước.</li>
+      </ul>
+      <div class="next">Bài tiếp theo: <b>2.6 · Connector, plugin, việc theo lịch</b></div>
+    </div>
+  </div>
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Bài 2.6 · Mở bài" class="lesson">
+  <div class="slide">
+    <div class="mid">
+      <div class="eyebrow">Bài 2.6</div>
+      <h2 class="ltitle">Tính năng nổi bật: connector, plugin, việc theo lịch và bot cá nhân</h2>
+      <p class="after">Sau bài này, bạn <b>phân biệt được connector, plugin, Skill</b> và biết AI làm việc khi bạn không ngồi chat bằng cách nào.</p>
+      <div class="keys">
+        <div class="rise"><i>01</i>Connector: nối Claude với app bạn dùng</div>
+        <div class="rise"><i>02</i>Plugin và Skill khác connector ở đâu</div>
+        <div class="rise"><i>03</i>Việc theo lịch và bot cá nhân chạy nền</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Một việc, ba tên gọi">
+  <div class="slide">
+    <div class="lr wide">
+      <div class="lt">
+        <div class="eyebrow">Học theo khái niệm</div>
+        <h2 class="stitle">Một việc, <span class="grad">ba tên gọi</span></h2>
+        <p class="body">Bạn học khái niệm một lần, rồi tra tên theo công cụ của người đang dùng.</p>
+      </div>
+      <div class="rt"><img class="svg" src="media/m02/b6-hero-desktop.svg" alt="Ba việc của khoá và tên gọi trên Claude, ChatGPT, Gemini"></div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Connector">
+  <div class="slide">
+    <div class="eyebrow">Ảnh chụp thật · Cài đặt, Trình kết nối</div>
+    <h2 class="stitle">Connector: <span class="grad">nối Claude với app bạn dùng</span></h2>
+    <div class="annlay">
+      <div class="annimg"><img class="shot" style="width:100%" src="media/m02/M02-B2-S03_them.jpg" alt="Trang Trình kết nối trong Cài đặt Claude: Google Drive, Gmail, Google Calendar, Microsoft 365"><p class="cap">Khung hình từ video ngày 08/11/2026, gói cao hơn Pro, tên gói đã che.</p></div>
+      <div>
+        <ol class="anote">
+          <li><b>Nút Thêm:</b> thêm connector mới.</li>
+        </ol>
+        <div class="act">Connector cho Claude đọc dữ liệu và làm việc trong app đã nối, <b>theo quyền của chính bạn</b>. Có ở mọi gói, kể cả Free (Free tối đa 1 custom connector).</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Connector tốn token">
+  <div class="slide">
+    <div class="eyebrow">Dùng connector cho đúng</div>
+    <h2 class="stitle">Connector tốn token, <span class="grad">chỉ bật cái cần</span></h2>
+    <div class="mid">
+      <div class="row c2">
+        <div class="card ok rise"><div class="k">Ví dụ</div><h3>Nối Google Drive, rồi hỏi</h3><p>"Tóm tắt 3 file báo cáo tuần trước."</p></div>
+        <div class="card stop rise"><div class="k">Giữ an toàn</div><h3>Chặn công cụ gửi khi chưa cần</h3><p>Ví dụ quyền gửi email trong Gmail. Module 04 nói kỹ.</p></div>
+      </div>
+      <div class="band light">Mỗi connector đang bật đều <b>tốn token</b> trong từng cuộc trò chuyện.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Plugin, Skill, connector">
+  <div class="slide">
+    <div class="eyebrow">Plugin và Skill khác connector ở đâu · kiểm 20/11/2026</div>
+    <h2 class="stitle">Ba thứ, <span class="grad">ba việc khác nhau</span></h2>
+    <div class="mid">
+      <table class="tb">
+        <tr><th>Thứ</th><th>Là gì</th><th>Gói có</th></tr>
+        <tr><td>Connector</td><td>Một kết nối tới một dịch vụ</td><td class="hi">Mọi gói, kể cả Free</td></tr>
+        <tr><td>Skill</td><td>Hướng dẫn dùng lại cho một việc, cần bật chạy code</td><td class="hi">Từ Free tới Enterprise</td></tr>
+        <tr><td>Plugin</td><td>Gói gồm Skill, connector, sub-agent cho một vai trò</td><td class="hi">Gói trả phí</td></tr>
+      </table>
+      <div class="band light">Trong app, mục này ghi <b>Tùy chỉnh (Customize)</b>, đang đổi tên thành <b>Plugins</b>. Module 06 dạy dựng.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Menu dấu cộng">
+  <div class="slide">
+    <div class="lr">
+      <div class="lt">
+        <div class="eyebrow">Ảnh chụp thật · menu dấu cộng</div>
+        <h2 class="stitle">Skill, connector, plugin <span class="grad">ngay trong ô nhập</span></h2>
+        <div class="card"><div class="k">Ví dụ plugin "marketing"</div><p>Gồm Skill viết bài, connector Drive và một sub-agent soát chữ.</p></div>
+      </div>
+      <div class="rt"><img class="shot" style="height:700px;max-height:700px" src="media/m02/M02-B2-S02.jpg" alt="Menu dấu cộng của Claude: Skills, Trình kết nối, Thêm plugin"><p class="cap">Menu nút dấu cộng ở ô nhập Claude, ảnh chụp ngày 11/11/2026, app tiếng Việt.</p></div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Việc theo lịch">
+  <div class="slide">
+    <div class="lr">
+      <div class="lt">
+        <div class="eyebrow">Việc theo lịch · AI làm khi bạn ngủ</div>
+        <h2 class="stitle">Mô tả việc một lần, <span class="grad">Claude tự chạy theo lịch</span></h2>
+        <p class="body">Chọn tần suất, bấm "Schedule". Xem lại ở mục <b>Tác vụ đã lên lịch</b> trên thanh bên.</p>
+        <p class="body">Việc chạy trên cloud, <b>máy tắt vẫn chạy</b>. Có ở mọi gói trả phí, gói Free không có.</p>
+      </div>
+      <div class="rt"><img class="shot" style="height:600px" src="media/m02/M02-B2-S04b_menu.jpg" alt="Nút Tác vụ mới và menu Tạo với Claude, Thiết lập thủ công"><p class="cap">Trang Tác vụ đã lên lịch: nút Tác vụ mới (1) và menu của nút (2). Ảnh chụp ngày 11/11/2026.</p></div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Việc nào hợp chạy theo lịch">
+  <div class="slide">
+    <div class="eyebrow">Việc nào của bạn hợp chạy theo lịch?</div>
+    <h2 class="stitle">Việc lặp đúng giờ <span class="grad">hợp chạy theo lịch</span></h2>
+    <div class="mid">
+      <div class="row c2">
+        <div class="card rise"><div class="k">Mỗi sáng</div><h3>Bản tin sáng</h3><p>Gom tin ngành của hôm qua thành một trang.</p></div>
+        <div class="card rise"><div class="k">Mỗi thứ Hai</div><h3>Báo cáo tuần</h3><p>Gom số liệu tuần trước, viết bản tóm tắt.</p></div>
+      </div>
+      <div class="todo-box">Chỗ để anh Vincent kể 1 ví dụ việc theo lịch anh đang chạy, không nêu dữ liệu riêng.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Bốn bot cá nhân">
+  <div class="slide">
+    <div class="eyebrow">Bot cá nhân chạy nền · kiểm 20/11/2026</div>
+    <h2 class="stitle">Mỗi hãng đang làm <span class="grad">một "đồng nghiệp AI" chạy 24/7</span></h2>
+    <div class="mid">
+      <table class="tb">
+        <tr><th>Bot</th><th>Làm gì</th><th>Ai dùng được</th></tr>
+        <tr><td>ChatGPT Dots</td><td>Máy tính và trình duyệt riêng, nối hơn 4.000 app</td><td class="hi">Pro, Plus chọn lọc, Business Premium, Enterprise</td></tr>
+        <tr><td>Grok Bot</td><td>Máy tính đám mây riêng, chạy nền và theo lịch</td><td class="hi">Từ gói Premium 30 USD</td></tr>
+        <tr><td>Claude Duet</td><td>Hỏi bạn trước khi gửi, thanh toán, ký, xoá</td><td class="hi">Pro, Max, Ultra ở Mỹ, có danh sách chờ</td></tr>
+        <tr><td>Gemini Tasks</td><td>Tới 15 việc chạy nền</td><td class="hi">AI Pro hoặc Ultra, theo quốc gia</td></tr>
+      </table>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Claude Duet">
+  <div class="slide">
+    <div class="eyebrow">Ảnh chụp trang hãng · kiểm 20/11/2026</div>
+    <h2 class="stitle">Claude Duet: <span class="grad">chờ bạn đồng ý ở bước quan trọng</span></h2>
+    <div class="annlay">
+      <div class="annimg"><div class="annbox" style="max-width:636px"><svg class="ann-svg" viewBox="0 0 600 584" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m02/pad/duet.png" x="0" y="0" width="600" height="584"/><path d="M0,0h600v584h-600zM136,140h128v28h-128zM14,356h556v130h-556zM26,546h488v28h-488z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="136" y="140" width="128" height="28" rx="3" fill="none" stroke="#EF004B" stroke-width="2.1"/><rect x="14" y="356" width="556" height="130" rx="3" fill="none" stroke="#EF004B" stroke-width="2.1"/><rect x="26" y="546" width="488" height="28" rx="3" fill="none" stroke="#EF004B" stroke-width="2.1"/><circle cx="124" cy="154" r="10" fill="#EF004B" stroke="#fff" stroke-width="1.6"/><text x="124" y="158" text-anchor="middle" font-size="12" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text><circle cx="14" cy="356" r="10" fill="#EF004B" stroke="#fff" stroke-width="1.6"/><text x="14" y="360" text-anchor="middle" font-size="12" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">2</text><circle cx="14" cy="560" r="10" fill="#EF004B" stroke="#fff" stroke-width="1.6"/><text x="14" y="564" text-anchor="middle" font-size="12" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">3</text></svg></div><p class="cap">Ảnh chụp trang Anthropic "Claude Duet", ngày 20/11/2026. Khung số do The AI Growth vẽ thêm.</p></div>
+      <div>
+        <ol class="anote red">
+          <li><b>Research preview:</b> bản thử nghiệm, chưa mở rộng.</li>
+          <li><b>Lời hãng:</b> làm việc cả khi bạn vắng mặt, và chờ bạn đồng ý khi việc quan trọng.</li>
+          <li><b>Pro, Max, Ultra ở Mỹ.</b> Người dùng nơi khác vào danh sách chờ.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Chờ bot hay dùng việc theo lịch">
+  <div class="slide">
+    <div class="mid center">
+      <div class="eyebrow">Bạn nên chờ bot cá nhân hay dùng việc theo lịch ngay?</div>
+      <p class="mega md">Bot 24/7 phần lớn <span class="red">chưa mở ở Việt Nam</span>.</p>
+      <div class="band" style="max-width:1400px;margin:0 auto">Bắt đầu bằng <b>việc theo lịch</b> của Claude. Gói trả phí dùng được ngay.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Tóm lại 2.6">
+  <div class="slide">
+    <div class="eyebrow">Tóm lại · Bài 2.6</div>
+    <div class="mid">
+      <ul class="recap">
+        <li class="rise"><span class="d">1</span>Connector nối app. Skill dạy cách làm. Plugin gói cả hai cho một vai trò.</li>
+        <li class="rise"><span class="d">2</span>Việc theo lịch chạy được ngay ở gói trả phí.</li>
+        <li class="rise"><span class="d">3</span>Bot cá nhân 24/7 phần lớn chưa mở ở Việt Nam.</li>
+      </ul>
+      <div class="next">Tiếp theo: <b>Module 03 · Giao việc cho AI</b></div>
+    </div>
+  </div>
+</section>
+<section data-foot="AI Agents Mastery · Module 02" data-label="Hết Module 02" class="cover">
+  <div class="cover-glow"></div>
+  <div class="slide">
+    <div class="mid">
+      <div class="eyebrow">Hết Module 02</div>
+      <h1 class="hero">Tiếp theo: Module 03</h1>
+      <p class="hero-sub">Giao việc cho AI: công thức 5 thành phần, ví dụ mẫu, context và mức nỗ lực.</p>
+    </div>
+  </div>
+</section>
+</deck-stage>
+<script type="application/json" id="deck-notes">["Chào bạn, đây là Module 02. Module 01 giúp bạn biết việc nào giao cho AI. Module này giúp bạn chọn công cụ: app nào, model nào, gói nào.\nSố liệu trong module này đổi rất nhanh. Mình ghi ngày cạnh mọi con số, phần lớn kiểm ngày 20/11/2026. Bạn xem lại khi học sau mốc này.", "Cùng một đề, chạy trên 4 app, bạn nhận 4 kết quả khác nhau. Không có app tốt nhất cho mọi việc.\nSau bài này bạn biết vì sao, và chọn được một app chính cho đội mình.", "Đây là nhận định của khoá, chưa phải xếp hạng. Mỗi hãng đầu tư vào một nhóm người dùng khác nhau, nên mạnh ở việc khác nhau.\nCuối bài, bạn sẽ thấy vì sao mình xếp như vậy: một phần do bảng xếp hạng, một phần do dữ liệu và kênh riêng của từng hãng.", "Vì sao mỗi bảng cho một thứ tự khác nhau? Vì mỗi bảng đo một thứ. Bảng gộp bài thi đo khả năng giải đề. Bảng bình chọn đo câu trả lời nào người dùng thích hơn.\nNên khi đọc bảng, bạn xem ba thứ: ngày, đo việc gì, và việc đó có giống việc của bạn không.", "Đây là bảng Artificial Analysis, chụp ngày 20/11/2026. Lấy điểm cao nhất của mỗi hãng: Claude 65, OpenAI 62, Google 61, Grok 35.\nBạn để ý Gemini 4 Neon: model này mới ra ngày 18/11 mà đã lên hạng 3. Thứ hạng đổi rất nhanh, nên luôn xem ngày.", "Đây là nhận định của mình, không phải con số của một bảng. Trên Artificial Analysis, Gemini kém OpenAI đúng 1 điểm. Trên Vals Index, Gemini lại đứng trên.\nHai hãng gần như ngang nhau. Vì vậy mình xếp Gemini thứ hai, và mình sẽ xem lại khi có model mới.", "Anthropic chọn một hướng rõ: việc dài nhiều bước, coding và việc của doanh nghiệp. Fable 5.2 ra ngày 09/11/2026, hãng nói model này đặt mốc mới ở coding, tài chính và khoa học.\nĐó là lời của hãng. Phần ước tính chi tiêu coding là của Menlo Ventures, một bên thứ ba.", "Ví dụ rõ nhất: một việc báo cáo nhiều bước, phải đọc nhiều file. Đây là chỗ Claude dẫn rõ nhất.\nỞ việc cần dữ liệu riêng của hãng khác, ví dụ tin nóng trên X, Claude chưa chắc dẫn.\n[Chỗ để anh Vincent nói 1–2 câu: vì sao anh chọn Claude làm app chính.]", "RSI viết tắt của recursive self-improvement, nghĩa là AI tự cải thiện: AI giúp làm ra phiên bản AI tốt hơn.\nTheo nhận định của mình, Google đã chạm mốc này từ tháng 8/2026. Bạn lưu ý đây là nhận định, Google chưa công bố. Sergey Brin chỉ nói nhà nghiên cứu và model đang cùng làm ra model kế tiếp.", "Đây là phần tự đánh giá trong model card của Gemini 4 Argon. Google tự chấm: chưa chạm ngưỡng tự động hoá nghiên cứu AI.\nVới bạn, điều quan trọng là: model mới ra nhanh hơn. Bốn model Gemini 4 ra trong 7 tuần, từ 30/09 đến 18/11/2026. Nên bạn xem lại lựa chọn của mình mỗi tháng.", "Bạn không cần theo từng tin. Mỗi tháng một lần, bạn mở bảng xếp hạng, xem có model mới không, rồi thử trên việc thật của mình. Bài 2.4 có cách thử.", "Bảng xếp hạng chỉ là một nửa câu chuyện. Nửa còn lại là dữ liệu. Google có Search, YouTube, Workspace. xAI có dữ liệu X theo thời gian thực.\nSố 1,2 tỷ của ChatGPT là bên thứ ba trích lời OpenAI. Cột thế mạnh là nhận định của khoá.", "Chọn app chính theo gì: bảng xếp hạng hay nơi dữ liệu của đội đang nằm? Mình khuyên xem cả hai, nhưng việc và dữ liệu của đội quyết định trước.\nĐội đang sống trong Gmail và Drive thì Gemini làm app phụ rất hợp, vì nó đọc thẳng dữ liệu đó.", "Bạn lấy 2 việc trong bảng 10 việc của Module 01. Ghi thêm nơi dữ liệu của đội đang nằm, vì đó là thứ quyết định app chính.", "", "Bài này nói về tiền. Bạn trả tiền cho AI theo hai cách, và mỗi cách hợp một kiểu dùng. Hiểu đúng thì bạn không trả hớ, cũng không nâng gói quá sớm.", "Phép tính minh hoạ: một phiên chat dài có 200.000 token đọc vào và 20.000 token viết ra. Tính theo giá API của Opus 5.5 thì khoảng 1,20 USD.\nGói Pro 20 USD cho bạn chat như vậy nhiều lần trong tháng. Vì thế người ngoài nói gói tháng đang được trợ giá. Ta sẽ xem họ đo thế nào.", "Token là đơn vị AI đếm chữ. Chữ bạn gửi vào và chữ AI viết ra đều tính token.\nGói tháng thì bạn trả cố định, dùng trong app, có trần theo 5 giờ và theo tuần. API thì trả theo token, dùng trong phần mềm, và không có trần nếu bạn không tự đặt.", "Đây là trang giá của Claude. Bốn gói cá nhân: Free, Pro, Max, Ultra. Các hãng khác cũng có mức tương tự: khoảng 20, 100 và 200 USD.\nCó cả gói rẻ hơn ở hãng khác: ChatGPT Go 8 USD, Google AI Plus 4,99 USD.", "Gói Max và Ultra có kèm một khoản API credit mỗi tháng, bằng đúng giá gói. Đây là chỗ hai cách trả tiền gặp nhau.\nNhưng với đa số người mới, phần API credit này chưa cần dùng tới.", "Đa số học viên khoá này làm việc trong app, nên gói tháng là đủ. API chỉ hợp khi có phần mềm gọi AI thay bạn, ví dụ chatbot trên website.\nNếu dùng API, việc đầu tiên là đặt trần chi phí. Không có trần thì một lỗi lặp có thể đốt rất nhiều tiền.", "So với thẻ buffet: bạn trả 20 USD, nhưng lượng bạn ăn nếu gọi món lẻ thì đáng nhiều hơn. Phần chênh đó gọi là trợ giá.\nBạn lưu ý: không hãng nào nói \"chúng tôi trợ giá\". Các con số sau đây đều do người ngoài tự đo.", "mypriors.com là công cụ của một người làm độc lập. Số liệu do cộng đồng tự đo rồi tính trung vị theo gói.\nTrên trang này: Claude Pro 82 lần, Claude Ultra 60 lần, ChatGPT Plus 15 lần. Hãng không xác nhận các số này.", "Vì sao ba nguồn lệch nhau gần 2 lần? Vì mỗi người đo một kiểu dùng khác nhau, dùng cache khác nhau, chọn model khác nhau.\nĐiều cả ba nguồn cùng chỉ ra: gói tháng cho bạn nhiều hơn số tiền bạn trả. Con số chính xác thì không ai biết, trừ hãng.", "Lý do thứ nhất có nguồn: giành người dùng. Lý do thứ hai là suy luận của mình: bạn càng đặt nhiều tài liệu, Skill, trí nhớ vào một tài khoản, càng khó đổi sang hãng khác.", "Hai ví dụ trong năm 2026. Anthropic công bố đổi cách tính hạn mức cho Agent SDK, rồi hoãn ngày 15/06. OpenAI báo cắt hạn mức gói Pro, rồi huỷ.\nHãng được quyền đổi luật. Đội bạn cần chạy được dù luật đổi.", "Mình khuyên chọn gói theo việc bạn thật sự làm, không theo hạn mức rộng nhất đang có. Nếu quy trình chỉ chạy được khi hạn mức còn rộng như hôm nay, quy trình đó dễ gãy.", "Nâng gói trước hay sửa thói quen trước? Mình khuyên sửa thói quen trước. Dấu hiệu 3 là chỗ nhiều người bỏ qua: chat quá dài, để model mạnh nhất cho mọi việc, để mức nỗ lực Tối đa.\nSửa xong mà vẫn hết lượt thường xuyên, và việc AI làm đáng tiền, lúc đó mới nâng.", "Bạn mở Cài đặt, chọn Mức sử dụng. Thanh nào gần đầy hơn thì thanh đó quyết định khi nào bạn phải dừng.\nVí dụ: hết lượt 3 lần trong 2 tuần vì một việc báo cáo chạy dài. Đó là dấu hiệu 1. Bạn xét tiếp dấu hiệu 2 và 3.", "Đa số đội nhỏ dừng ở gói 20 USD hoặc gói nhóm là đủ. Gói 100 đến 200 USD hợp khi có người chạy việc agent dài mỗi ngày.", "Bạn mở Cài đặt, Mức sử dụng để lấy số thật trước khi dán. Câu trả lời của Claude là gợi ý, quyết định nâng gói vẫn là của bạn.", "", "Mở bộ chọn model của Claude, bạn thấy 4 model. Model nào nhanh, model nào giỏi, và để sai thì mất gì? Sau bài này bạn biết mình đang để model nào và vì sao.", "Màn hình chat mới của Claude. Ô số 1 là tên model đang dùng và mức nỗ lực. Nhiều người dùng cả năm mà chưa từng bấm vào ô này.", "Mọi hãng đều chia model theo kiểu này, chỉ khác tên. Bạn không giao việc nhập liệu cho chuyên gia, cũng không giao kế hoạch quý cho nhân viên mới.", "Model mạnh nhất không làm hỏng việc dễ. Nhưng nó chậm hơn và tốn lượt hơn. Với gói 20 USD, để model mạnh nhất cả ngày là cách nhanh nhất để hết lượt giữa tuần.", "Đây là menu bạn thấy khi bấm vào tên model. Mỗi model có một câu mô tả tiếng Việt ngay trong app. Đọc câu này là biết model thuộc tầng nào.", "Đây là trang tổng quan model của Anthropic. Hãng khuyên: không chắc dùng model nào thì bắt đầu ở Opus 5.5 cho phần lớn việc.\nVí dụ trong bài nháp của mình: cùng một email trả lời khách, chạy trên Sonnet 5.5 và Opus 5.5. Bài 2.4 sẽ xem kết quả.\nCòn Claude Mythos 5.2: cùng model với Fable, chỉ mở cho tổ chức an ninh mạng và nghiên cứu y sinh đã qua xét duyệt. Người dùng app chọn Fable (trang Anthropic, đọc 21/11/2026).", "Gói Free có Sonnet và Haiku. Theo mình, Sonnet đủ cho phần lớn việc hằng ngày của người mới. Gói Pro thêm Opus. Fable ở gói Pro phải trả thêm bằng usage credits.", "Gemini cũng chia ba tầng. Hydrogen nhanh, ai cũng chọn được. Neon nằm giữa. Carbon mạnh nhất, ở gói Ultra. Argon chỉ có qua API.\nVí dụ: đội dùng Google Workspace soạn email nhanh bằng Hydrogen. Người dùng gói AI Pro gặp việc khó thì chọn Neon.\n[Chỗ để anh Vincent: video có cảnh ô chọn model trong app Gemini.]", "Trong ChatGPT, thanh chọn model và mức suy nghĩ nằm ngay dưới ô nhập. Hãng khuyên bắt đầu ở mức mặc định, chỉ tăng khi việc cần nghĩ kỹ. Bài 3.4 nói kỹ phần này.", "ChatGPT cũng chia tầng: Luna nhẹ nhất, rồi Terra, Sol, và Astra mạnh nhất. Trong ChatGPT Work và Codex, hãng khuyên bắt đầu ở Sol.", "Grok đứng sau ba hãng kia trên bảng xếp hạng. Nhưng Grok có dữ liệu X theo thời gian thực. Việc cần biết người ta đang nói gì trên X ngay lúc này thì Grok hợp nhất.\nTên các chế độ trong app Grok mình chưa kiểm được trên trang của hãng, nên mình không nêu.", "Bạn chạy cùng một prompt ở hai cuộc trò chuyện mới, mỗi cuộc một model. Dán cả hai kết quả vào cuộc thứ ba để Claude so.", "", "Bài trước bạn biết có những model nào. Bài này giúp bạn chọn cho đội mình. Mỗi người một hoàn cảnh, nên bộ chọn cũng khác nhau.", "Ba người này là ví dụ giả định. Mỗi người có dữ liệu, việc chính, ngân sách và nhu cầu khác nhau. Bốn câu hỏi ở slide sau giúp mỗi người tự ra bộ chọn của mình.", "Câu nào quyết định app chính? Theo mình là câu 1. AI làm tốt nhất khi đọc được dữ liệu của bạn. Câu 2 quyết model mặc định. Câu 3 quyết gói. Câu 4 quyết bạn có cần Claude Code hay không, bài 2.5 nói rõ.", "Đây là một đội giả định. Bốn câu trả lời ra một bộ chọn rõ ràng. Nối Drive vào Claude bằng connector, bài 2.6 nói kỹ.", "Ở agency SEO của mình, đội không dùng một model cho mọi việc. Việc soát hàng loạt dùng model nhanh. Việc cần đúng nhất, như viết bài dài tiếng Việt, dùng model mạnh.\nCâu \"Opus 4.6 viết bài dài tiếng Việt tốt nhất\" là kinh nghiệm mình ghi ngày 24/10/2026. Opus 4.6 nằm trong mục Mô hình khác.", "Việc cần đúng nhất dùng model nào? Model mạnh, vì sai thì tốn kém hơn tiền lượt dùng.\n[Chỗ để anh Vincent điền bảng 5–8 loại việc và model anh dùng cho từng việc.]", "Rule of thumb là luật ngón tay cái: luật đơn giản, đúng trong đa số trường hợp. Năm luật này đủ cho 9 trên 10 việc của bạn. Hai slide sau cho bạn thấy luật 4 và luật 5 trong app.", "Mức nỗ lực là model nghĩ lâu hay nhanh trước khi trả lời. Tăng mức nỗ lực rẻ hơn đổi sang model mạnh hơn. Bài 3.4 nói kỹ cách chỉnh.", "Đây là hai lần chạy cùng một prompt viết email xin lỗi khách, ngày 11/11/2026. Bạn giữ mọi thứ giống nhau, chỉ đổi model, để so được.\nKhi nào nên đổi model mặc định? Khi bạn thử trên việc thật và thấy model khác tốt hơn rõ, hoặc khi hãng ra model mới. Mỗi tháng xem lại một lần.", "Đừng đổi model chỉ vì đọc tin. Đổi khi bạn thấy khác biệt trên chính việc của mình. Mỗi tháng một lần, bạn mở menu này xem có model mới không.", "Bạn trả lời 4 câu thật của đội. Đọc bảng Claude trả về, rồi chạy thử luật 5 trước khi chốt.", "", "Ngoài app chat, còn có các công cụ cho agent làm việc trên thư mục và chạy lâu. Từ khi Claude chat gộp Cowork, người mới càng ít cần các công cụ này. Bài này giúp bạn biết khi nào mới cần.", "Chat trả lời, viết, phân tích file bạn gửi. Giao việc trong app làm nhiều bước, dùng connector. Claude Code gõ lệnh, sửa file trong thư mục và chạy trên máy của bạn.\nCodex của OpenAI và Antigravity của Google cùng loại với Claude Code.", "Harness thêm gì cho model? Thêm tay chân: công cụ để làm, quyền để biết giới hạn, bộ nhớ để nhớ việc, và luật để làm đúng cách.\nCùng model Opus 5.5, chạy trong chat khác với chạy trong Claude Code, vì phần khung khác nhau.", "Cùng một bộ não. Trong chat, Claude chỉ thấy file bạn gửi. Trong Claude Code, Claude được mở cả thư mục và tự làm tới cuối. Đó là khác biệt do harness tạo ra.", "Quyền là phần harness bạn tự chỉnh được ngay trong app. Thủ công thì Claude xin phép nhiều hơn, bạn thấy rõ Claude đang làm gì.", "Bạn nhìn hai thanh: chạy Claude Code cả buổi chiều thì lượt tuần còn lại cho chat ít hơn. Không có thanh riêng cho từng nơi dùng.", "Bạn mở Claude Code bằng tab Code trong app Claude trên máy tính. Ô số 1 là hai nút icon ở đầu thanh bên, chỉ thấy khi thanh bên đang mở.", "Claude chat đã gộp Cowork làm được rất nhiều việc nhiều bước. Claude Code chỉ cần khi việc nằm trên cả thư mục: hàng trăm file, cần viết script, hoặc chạy rất lâu.", "Grok Bot của xAI chạy trên máy tính đám mây riêng, nên bạn tắt máy nó vẫn làm. xAI viết \"Grok Bot\" tách rời, mình viết đúng như vậy.\nVí dụ: Grok Bot chạy mỗi sáng gom tin ngành trên X.", "Antigravity của Google có gói cá nhân 0 USD, nên bạn thử được mà không tốn tiền. Grok Bot cần gói Premium 30 USD. Cả hai đều chạy việc theo lịch.", "Đội bạn đã có việc nào cần thư mục và chạy lâu chưa? Nếu chưa, bạn chưa cần các công cụ này.\nVí dụ: một shop gốm online viết bài, trả lời khách, làm báo cáo tuần. Mọi việc đó làm được trong Claude chat. Shop này chưa cần Claude Code.", "Bảng \"khi nào dùng công cụ nào\" ở bài 1.2 vẫn đúng. Lộ trình này thêm thứ tự: bạn lên bước sau khi bước trước không làm được việc của bạn. Khoá này dạy bước 1 tới 4.", "", "Bên Claude gọi là connector và plugin, bên Grok gọi là Bot. Cùng một nhu cầu: AI làm việc với app của bạn, và làm cả khi bạn không ngồi chat.", "Ví dụ: Claude gọi là Project, ChatGPT cũng gọi Project, Gemini gọi Notebook. Cùng một việc: phòng làm việc theo vai trò. Bạn nhớ việc, còn tên thì tra bảng.", "Connector, trong app tiếng Việt gọi là Trình kết nối, là cầu nối giữa Claude và app bạn dùng: Drive, Gmail, Calendar.\nBạn thêm bằng nút dấu cộng trong ô nhập, hoặc gõ dấu gạch chéo. Claude thấy được dữ liệu nào? Đúng những gì tài khoản của bạn thấy được trong app đó.", "Bật nhiều connector cùng lúc làm Claude tốn token hơn và dễ chọn sai công cụ. Bạn chỉ bật cái cần cho việc đang làm. Công cụ có thể gửi ra ngoài thì chặn khi chưa cần.", "Connector nối app. Skill dạy cách làm một việc. Plugin gói cả hai, thêm sub-agent, cho một vai trò.\nKhi nào cần plugin thay vì một Skill? Khi một vai trò cần nhiều Skill và connector đi cùng nhau, ví dụ cả một vai marketing.", "Bấm nút dấu cộng ở góc trái ô nhập, bạn thấy Skills, Trình kết nối và Thêm plugin. Sub-agent là một agent phụ, nhận một phần việc từ agent chính.", "Việc theo lịch là cách để AI làm việc khi bạn không ngồi chat. Bạn mô tả việc một lần, chọn giờ chạy. Module 11 dạy sâu phần này.", "Việc hợp chạy theo lịch là việc lặp, đúng giờ, và kết quả chỉ cần bạn đọc. Việc có gửi ra ngoài thì để Claude dừng ở bản nháp.\n[Chỗ để anh Vincent kể 1 ví dụ việc theo lịch anh đang chạy.]", "Bốn bot này nhận việc qua tin nhắn và chạy cả ngày. Bạn để ý cột cuối: phần lớn còn giới hạn theo gói hoặc theo nước.\nVí dụ: nhắn bot \"theo dõi giá 3 đối thủ, báo khi có khuyến mãi\".", "Claude Duet hỏi bạn trước khi gửi, thanh toán, ký hay xoá. Đây đúng là luật người duyệt ở Module 01, nay nằm sẵn trong sản phẩm. Nhưng hiện chỉ mở cho gói Pro, Max, Ultra ở Mỹ.", "Người dùng ở Việt Nam phần lớn chưa dùng ngay được các bot cá nhân. Việc theo lịch của Claude cho bạn phần lớn lợi ích đó, và dùng được ngay hôm nay.", "", ""]</script>
+<script>
+// @ds-adherence-ignore -- omelette starter scaffold (raw elements/hex/px by design)
+/* BEGIN USAGE */
+/**
+ * <deck-stage> — reusable web component for HTML decks.
+ *
+ * Handles:
+ *  (a) speaker notes — reads <script type="application/json" id="speaker-notes">
+ *      and posts {slideIndexChanged: N} to the parent window on nav.
+ *  (b) keyboard navigation — ←/→, PgUp/PgDn, Space, Home/End, number keys.
+ *      On touch devices, tapping the left/right half of the stage goes
+ *      prev/next — taps on links, buttons and other interactive slide
+ *      content are left alone.
+ *  (c) press R to reset to slide 0 (with a tasteful keyboard hint).
+ *  (d) bottom-center overlay showing slide count + hints, fades out on idle.
+ *  (e) auto-scaling — inner canvas is a fixed design size (default 1920×1080)
+ *      scaled with `transform: scale()` to fit the viewport, letterboxed.
+ *      Set the `noscale` attribute to render at authored size (1:1) — the
+ *      PPTX exporter sets this so its DOM capture sees unscaled geometry.
+ *  (f) print — `@media print` lays every slide out as its own page at the
+ *      design size, so the browser's Print → Save as PDF produces a clean
+ *      one-page-per-slide PDF with no extra setup.
+ *  (g) thumbnail rail — resizable left-hand column of per-slide thumbnails
+ *      (static clones). Click to navigate; ↑/↓ with a thumbnail focused to
+ *      step between slides; drag to reorder; right-click for
+ *      Skip / Move up / Move down / Delete (opens a Cancel/Delete confirm
+ *      dialog). Drag the rail's right edge to resize; width persists to
+ *      localStorage. Skipped slides carry `data-deck-skip`, are dimmed in
+ *      the rail, omitted from prev/next navigation, and hidden at print.
+ *      The rail is suppressed in presenting mode, in the host's Preview
+ *      mode (ViewerMode='none'), on `noscale`, on narrow viewports
+ *      (≤640px), and via the `no-rail` attribute. Rail mutations dispatch
+ *      a `deckchange`
+ *      CustomEvent on the element: detail = {action, from, to, slide}.
+ *
+ * Slides are HIDDEN, not unmounted. Non-active slides stay in the DOM with
+ * `visibility: hidden` + `opacity: 0`, so their state (videos, iframes,
+ * form inputs, React trees) is preserved across navigation.
+ *
+ * Lifecycle event — the component dispatches a `slidechange` CustomEvent on
+ * itself whenever the active slide changes (including the initial mount).
+ * The event bubbles and composes out of shadow DOM, so you can listen on
+ * the <deck-stage> element or on document:
+ *
+ *   document.querySelector('deck-stage').addEventListener('slidechange', (e) => {
+ *     e.detail.index         // new 0-based index
+ *     e.detail.previousIndex // previous index, or -1 on init
+ *     e.detail.total         // total slide count
+ *     e.detail.slide         // the new active slide element
+ *     e.detail.previousSlide // the prior slide element, or null on init
+ *     e.detail.reason        // 'init' | 'keyboard' | 'click' | 'tap' | 'api'
+ *   });
+ *
+ * Persistence: none at the deck level. The host app keeps the current slide
+ * in its own URL (?slide=) and re-delivers it via location.hash on load, so a
+ * bare load with no hash always starts at slide 1.
+ *
+ * Usage:
+ *   <style>deck-stage:not(:defined){visibility:hidden}</style>
+ *   <deck-stage width="1920" height="1080">
+ *     <section data-label="Title">...</section>
+ *     <section data-label="Agenda">...</section>
+ *   </deck-stage>
+ *   <script src="deck-stage.js"><\/script>
+ *
+ * The :not(:defined) rule prevents a flash of the first slide at its
+ * authored styles before this script runs and attaches the shadow root.
+ *
+ * Slides are the direct element children of <deck-stage>. Each slide is
+ * automatically tagged with:
+ *   - data-screen-label="NN Label"   (1-indexed, for comment flow)
+ *   - data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text"
+ *
+ * Speaker notes stay in sync because the component posts {slideIndexChanged: N}
+ * to the parent — just include the #speaker-notes script tag if asked for notes.
+ *
+ * Authoring guidance:
+ *   - Write slide bodies as static HTML inside <deck-stage>, with sizing via
+ *     CSS custom properties in a <style> block rather than JS constants.
+ *     Static slide markup is what lets the user click a heading in edit mode
+ *     and retype it directly; a slide rendered through <script type="text/babel">,
+ *     React, or a loop over a JS array has to round-trip every tweak through a
+ *     chat message instead. Reach for script-generated slides only when the
+ *     content genuinely needs interactive behaviour static HTML can't express.
+ *   - Do NOT set position/inset/width/height on the slide <section> elements —
+ *     the component absolutely positions every slotted child for you.
+ *   - Entrance animations: make the visible end-state the base style and
+ *     animate *from* hidden, so print and reduced-motion show content.
+ *     Gate the animation on [data-deck-active] and the motion query, e.g.
+ *     `@media (prefers-reduced-motion:no-preference){ [data-deck-active] .x{animation:fade-in .5s both} }`.
+ *     Avoid infinite decorative loops on slide content.
+ */
+/* END USAGE */
+
+(() => {
+  const DESIGN_W_DEFAULT = 1920;
+  const DESIGN_H_DEFAULT = 1080;
+  const OVERLAY_HIDE_MS = 1800;
+  const VALIDATE_ATTR = 'no_overflowing_text,no_overlapping_text,slide_sized_text';
+  const FINE_POINTER_MQ = matchMedia('(hover: hover) and (pointer: fine)');
+  const NARROW_MQ = matchMedia('(max-width: 640px)');
+  // Slide-authored controls that should keep a tap instead of it navigating.
+  const INTERACTIVE_SEL = 'a[href], button, input, select, textarea, summary, label, video[controls], audio[controls], [role="button"], [onclick], [tabindex]:not([tabindex^="-"]), [contenteditable]:not([contenteditable="false" i])';
+
+  const pad2 = (n) => String(n).padStart(2, '0');
+
+  // Label precedence: data-label → data-screen-label (number stripped) → first heading → "Slide".
+  const getSlideLabel = (el) => {
+    const explicit = el.getAttribute('data-label');
+    if (explicit) return explicit;
+
+    const existing = el.getAttribute('data-screen-label');
+    if (existing) return existing.replace(/^\s*\d+\s*/, '').trim() || existing;
+
+    const h = el.querySelector('h1, h2, h3, [data-title]');
+    const t = h && (h.textContent || '').trim().slice(0, 40);
+    if (t) return t;
+
+    return 'Slide';
+  };
+
+  const stylesheet = `
+    :host {
+      position: fixed;
+      inset: 0;
+      display: block;
+      background: #000;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      overflow: hidden;
+      -webkit-tap-highlight-color: transparent;
+    }
+    /* connectedCallback holds this until document.fonts.ready (capped 2s) so
+     * the first visible paint has the deck's real typography + final rail
+     * layout. opacity (not visibility) so the active slide can't un-hide
+     * itself via the ::slotted([data-deck-active]) visibility:visible rule.
+     * Only the stage/rail hide — the black :host background stays, so the
+     * iframe doesn't flash the page's default white. */
+    :host([data-fonts-pending]) .stage,
+    :host([data-fonts-pending]) .rail { opacity: 0; pointer-events: none; }
+
+    .stage {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .canvas {
+      position: relative;
+      transform-origin: center center;
+      flex-shrink: 0;
+      background: #fff;
+      will-change: transform;
+    }
+
+    /* Slides live in light DOM (via <slot>) so authored CSS still applies.
+       We absolutely position each slotted child to stack them. */
+    ::slotted(*) {
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      box-sizing: border-box !important;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+      visibility: hidden;
+    }
+    ::slotted([data-deck-active]) {
+      opacity: 1;
+      pointer-events: auto;
+      visibility: visible;
+    }
+
+    .overlay {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      transform: translate(-50%, 6px) scale(0.92);
+      filter: blur(6px);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px;
+      background: #000;
+      color: #fff;
+      border-radius: 999px;
+      font-size: 12px;
+      font-feature-settings: "tnum" 1;
+      letter-spacing: 0.01em;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 260ms ease, transform 260ms cubic-bezier(.2,.8,.2,1), filter 260ms ease;
+      transform-origin: center bottom;
+      z-index: 2147483000;
+      user-select: none;
+    }
+    .overlay[data-visible] {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate(-50%, 0) scale(1);
+      filter: blur(0);
+    }
+
+    .btn {
+      appearance: none;
+      -webkit-appearance: none;
+      background: transparent;
+      border: 0;
+      margin: 0;
+      padding: 0;
+      color: inherit;
+      font: inherit;
+      cursor: default;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 28px;
+      min-width: 28px;
+      border-radius: 999px;
+      color: rgba(255,255,255,0.72);
+      transition: background 140ms ease, color 140ms ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
+    .btn:active { background: rgba(255,255,255,0.18); }
+    .btn:focus { outline: none; }
+    .btn:focus-visible { outline: none; }
+    .btn::-moz-focus-inner { border: 0; }
+    .btn svg { width: 14px; height: 14px; display: block; }
+    .btn.reset {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      padding: 0 10px 0 12px;
+      gap: 6px;
+      color: rgba(255,255,255,0.72);
+    }
+    .btn.reset .kbd {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 16px;
+      height: 16px;
+      padding: 0 4px;
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 10px;
+      line-height: 1;
+      color: rgba(255,255,255,0.88);
+      background: rgba(255,255,255,0.12);
+      border-radius: 4px;
+    }
+
+    .count {
+      font-variant-numeric: tabular-nums;
+      color: #fff;
+      font-weight: 500;
+      padding: 0 8px;
+      min-width: 42px;
+      text-align: center;
+      font-size: 12px;
+    }
+    .count .sep { color: rgba(255,255,255,0.45); margin: 0 3px; font-weight: 400; }
+    .count .total { color: rgba(255,255,255,0.55); }
+
+    .divider {
+      width: 1px;
+      height: 14px;
+      background: rgba(255,255,255,0.18);
+      margin: 0 2px;
+    }
+
+    /* ── Thumbnail rail ──────────────────────────────────────────────────
+       Fixed column on the left; each thumbnail is a static deep-clone of
+       the light-DOM slide scaled into a 16:9 (or design-aspect) frame. The
+       stage re-fits around it (see _fit); hidden during present / noscale
+       / print so capture geometry and fullscreen output are unchanged. */
+    .rail {
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: var(--deck-rail-w, 188px);
+      background: #141414;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 12px 10px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 2147482500;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,0.18) transparent;
+    }
+    .rail::-webkit-scrollbar { width: 8px; }
+    .rail::-webkit-scrollbar-track { background: transparent; margin: 2px; }
+    .rail::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.18);
+      border-radius: 4px;
+      border: 2px solid transparent;
+      background-clip: content-box;
+    }
+    .rail::-webkit-scrollbar-thumb:hover {
+      background: rgba(255,255,255,0.28);
+      border: 2px solid transparent;
+      background-clip: content-box;
+    }
+    :host([no-rail]) .rail,
+    :host([noscale]) .rail { display: none; }
+    .rail[data-presenting] { display: none; }
+    @media (max-width: 640px) {
+      .rail, .rail-resize { display: none; }
+    }
+    /* User-driven show/hide (the TweaksPanel toggle) slides instead of
+       popping. Transitions are gated on :host([data-rail-anim]) — set only
+       for the 200ms around the toggle — so window-resize and rail-width
+       drag (which also call _fit) don't lag behind the cursor. */
+    .rail[data-user-hidden] { transform: translateX(-100%); }
+    :host([data-rail-anim]) .rail { transition: transform 200ms cubic-bezier(.3,.7,.4,1); }
+    :host([data-rail-anim]) .stage { transition: left 200ms cubic-bezier(.3,.7,.4,1); }
+    :host([data-rail-anim]) .canvas { transition: transform 200ms cubic-bezier(.3,.7,.4,1); }
+    /* transition shorthand replaces rather than merges — repeat the base
+       .overlay opacity/transform/filter transitions so visibility changes
+       during the 200ms toggle window still fade instead of popping. */
+    :host([data-rail-anim]) .overlay {
+      transition: margin-left 200ms cubic-bezier(.3,.7,.4,1),
+                  opacity 260ms ease,
+                  transform 260ms cubic-bezier(.2,.8,.2,1),
+                  filter 260ms ease;
+    }
+
+    .thumb {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .thumb .num {
+      width: 16px;
+      flex-shrink: 0;
+      font-size: 11px;
+      font-weight: 500;
+      text-align: right;
+      color: rgba(255,255,255,0.55);
+      padding-top: 2px;
+      font-variant-numeric: tabular-nums;
+    }
+    .thumb .frame {
+      position: relative;
+      flex: 1;
+      min-width: 0;
+      aspect-ratio: var(--deck-aspect);
+      background: #fff;
+      border-radius: 4px;
+      outline: 2px solid transparent;
+      outline-offset: 0;
+      overflow: hidden;
+      transition: outline-color 120ms ease;
+    }
+    .thumb:hover .frame { outline-color: rgba(255,255,255,0.25); }
+    .thumb { outline: none; }
+    .thumb:focus-visible .frame { outline-color: rgba(255,255,255,0.5); }
+    .thumb[data-current] .num { color: #fff; }
+    .thumb[data-current] .frame { outline-color: #D97757; }
+    .thumb[data-dragging] { opacity: 0.35; }
+    .thumb::before {
+      content: '';
+      position: absolute;
+      left: 24px;
+      right: 0;
+      height: 3px;
+      border-radius: 2px;
+      background: #D97757;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .thumb[data-drop="before"]::before { top: -8px; opacity: 1; }
+    .thumb[data-drop="after"]::before { bottom: -8px; opacity: 1; }
+    .thumb[data-skip] .frame { opacity: 0.35; }
+    .thumb[data-skip] .frame::after {
+      content: 'Skipped';
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.45);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+
+    .ctxmenu {
+      position: fixed;
+      min-width: 150px;
+      padding: 4px;
+      background: #242424;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 7px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+      z-index: 2147483100;
+      display: none;
+      font-size: 12px;
+    }
+    .ctxmenu[data-open] { display: block; }
+    .ctxmenu button {
+      display: block;
+      width: 100%;
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: #e8e8e8;
+      font: inherit;
+      text-align: left;
+      padding: 6px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .ctxmenu button:hover:not(:disabled) { background: rgba(255,255,255,0.08); }
+    .ctxmenu button:disabled { opacity: 0.35; cursor: default; }
+    .ctxmenu hr {
+      border: 0;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin: 4px 2px;
+    }
+
+    .rail-resize {
+      position: fixed;
+      left: calc(var(--deck-rail-w, 188px) - 3px);
+      top: 0;
+      bottom: 0;
+      width: 6px;
+      cursor: col-resize;
+      z-index: 2147482600;
+      touch-action: none;
+    }
+    .rail-resize:hover,
+    .rail-resize[data-dragging] { background: rgba(255,255,255,0.12); }
+    :host([no-rail]) .rail-resize,
+    :host([noscale]) .rail-resize,
+    .rail[data-presenting] + .rail-resize,
+    .rail[data-user-hidden] + .rail-resize { display: none; }
+
+    /* Delete-confirm popup — matches the SPA's ConfirmDialog layout
+       (title + message body, depressed footer with Cancel / Delete). */
+    .confirm-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 2147483200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .confirm-backdrop[data-open] { display: flex; }
+    .confirm {
+      width: 320px;
+      max-width: calc(100vw - 32px);
+      background: #2a2a2a;
+      color: #e8e8e8;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.5);
+      overflow: hidden;
+      font-family: inherit;
+      animation: deck-confirm-in 0.18s ease;
+    }
+    @keyframes deck-confirm-in {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .confirm .body { padding: 20px 20px 16px; }
+    .confirm .title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .confirm .msg { font-size: 13px; line-height: 1.5; color: rgba(255,255,255,0.65); }
+    .confirm .footer {
+      padding: 14px 20px;
+      background: #1f1f1f;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+    .confirm button {
+      appearance: none;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .confirm .cancel {
+      background: transparent;
+      border: 0;
+      color: rgba(255,255,255,0.8);
+    }
+    .confirm .cancel:hover { background: rgba(255,255,255,0.08); }
+    .confirm .danger {
+      background: #c96442;
+      border: 1px solid rgba(0,0,0,0.15);
+      color: #fff;
+      box-shadow: 0 1px 3px rgba(166,50,68,0.3), 0 2px 6px rgba(166,50,68,0.18);
+    }
+    .confirm .danger:hover { background: #b5563a; }
+
+    /* ── Print: one page per slide, no chrome ────────────────────────────
+       The screen layout stacks every slide at inset:0 inside a scaled
+       canvas; for print we want them in document flow at the authored
+       design size so the browser paginates one slide per sheet. The
+       @page size is set from the width/height attributes via the inline
+       <style id="deck-stage-print-page"> that connectedCallback injects
+       into <head> (the @page at-rule has no effect inside shadow DOM). */
+    @media print {
+      :host {
+        position: static;
+        inset: auto;
+        background: none;
+        overflow: visible;
+        color: inherit;
+      }
+      .stage { position: static; display: block; }
+      .canvas {
+        transform: none !important;
+        width: auto !important;
+        height: auto !important;
+        background: none;
+        will-change: auto;
+      }
+      ::slotted(*) {
+        position: relative !important;
+        inset: auto !important;
+        width: var(--deck-design-w) !important;
+        height: var(--deck-design-h) !important;
+        box-sizing: border-box !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto;
+        break-after: page;
+        page-break-after: always;
+        break-inside: avoid;
+        overflow: hidden;
+      }
+      /* :last-child alone isn't enough once data-deck-skip hides the
+         trailing slide(s) — the last *visible* slide still carries
+         break-after:page and prints a blank sheet. _markLastVisible()
+         maintains data-deck-last-visible on the last non-skipped slide. */
+      ::slotted(*:last-child),
+      ::slotted([data-deck-last-visible]) {
+        break-after: auto;
+        page-break-after: auto;
+      }
+      ::slotted([data-deck-skip]) { display: none !important; }
+      .overlay, .rail, .rail-resize, .ctxmenu, .confirm-backdrop { display: none !important; }
+    }
+  `;
+
+  class DeckStage extends HTMLElement {
+    static get observedAttributes() { return ['width', 'height', 'noscale', 'no-rail']; }
+
+    constructor() {
+      super();
+      this._root = this.attachShadow({ mode: 'open' });
+      this._index = 0;
+      this._slides = [];
+      this._notes = [];
+      this._hideTimer = null;
+      this._mouseIdleTimer = null;
+      this._menuIndex = -1;
+
+      this._onKey = this._onKey.bind(this);
+      this._onResize = this._onResize.bind(this);
+      this._onSlotChange = this._onSlotChange.bind(this);
+      this._onMouseMove = this._onMouseMove.bind(this);
+      this._onTap = this._onTap.bind(this);
+      this._onMessage = this._onMessage.bind(this);
+      // Capture-phase close so a click anywhere dismisses the menu, but
+      // ignore clicks that land inside the menu itself — otherwise the
+      // capture handler runs before the menu's own (bubble) handler and
+      // clears _menuIndex out from under it.
+      this._onDocClick = (e) => {
+        if (this._menu && e.composedPath && e.composedPath().includes(this._menu)) return;
+        this._closeMenu();
+      };
+    }
+
+    get designWidth() {
+      return parseInt(this.getAttribute('width'), 10) || DESIGN_W_DEFAULT;
+    }
+    get designHeight() {
+      return parseInt(this.getAttribute('height'), 10) || DESIGN_H_DEFAULT;
+    }
+
+    connectedCallback() {
+      // Presenter-view popup loads deckUrl?_snthumb=...#N for its prev/cur/
+      // next thumbnails — the rail has no business rendering inside those
+      // (wrong scale, and it offsets the stage so the thumb shows a gutter).
+      if (/[?&]_snthumb=/.test(location.search)) this.setAttribute('no-rail', '');
+      this._render();
+      this._loadNotes();
+      this._syncPrintPageRule();
+      window.addEventListener('keydown', this._onKey);
+      window.addEventListener('resize', this._onResize);
+      window.addEventListener('mousemove', this._onMouseMove, { passive: true });
+      window.addEventListener('message', this._onMessage);
+      window.addEventListener('click', this._onDocClick, true);
+      this.addEventListener('click', this._onTap);
+      // Print lays every slide out as its own page, so [data-deck-active]-
+      // gated entrance styles need the attribute on every slide (not just
+      // the current one) or their content prints at the hidden base style.
+      // The transient freeze style lands BEFORE the attributes so any
+      // attribute-keyed transition fires at 0s (changing transition-
+      // duration after a transition has started doesn't affect it).
+      this._onBeforePrint = () => {
+        if (this._freezeStyle) this._freezeStyle.remove();
+        this._freezeStyle = document.createElement('style');
+        this._freezeStyle.textContent = '*,*::before,*::after{transition-duration:0s !important}';
+        document.head.appendChild(this._freezeStyle);
+        this._slides.forEach((s) => s.setAttribute('data-deck-active', ''));
+      };
+      this._onAfterPrint = () => {
+        this._applyIndex({ showOverlay: false, broadcast: false });
+        if (this._freezeStyle) { this._freezeStyle.remove(); this._freezeStyle = null; }
+      };
+      window.addEventListener('beforeprint', this._onBeforePrint);
+      window.addEventListener('afterprint', this._onAfterPrint);
+      // Initial collection + layout happens via slotchange, which fires on mount.
+      this._enableRail();
+      // Hold the stage hidden until webfonts are ready so the first visible
+      // paint has the deck's real typography — the :not(:defined) guard in
+      // the page HTML only covers custom-element upgrade, not font load.
+      // Capped so a 404'd font URL can't blank the deck indefinitely.
+      this.setAttribute('data-fonts-pending', '');
+      const reveal = () => this.removeAttribute('data-fonts-pending');
+      // rAF first: fonts.ready is a pre-resolved promise until layout has
+      // resolved the slotted text's font-family and pushed a FontFace into
+      // 'loading'. Reading it here in connectedCallback (parse-time) would
+      // settle the race in a microtask before any font fetch starts.
+      requestAnimationFrame(() => {
+        Promise.race([
+          document.fonts ? document.fonts.ready : Promise.resolve(),
+          new Promise((r) => setTimeout(r, 2000)),
+        ]).then(reveal, reveal);
+      });
+    }
+
+    _enableRail() {
+      // Idempotent — older host builds still post __omelette_rail_enabled.
+      // no-rail guard keeps the observers/stylesheet walk off the cheap path
+      // for presenter-popup thumbnail iframes (up to 9 per view).
+      if (this._railEnabled || this.hasAttribute('no-rail')) return;
+      this._railEnabled = true;
+      // Per-viewer preference — restored alongside rail width. Default on;
+      // only a stored '0' (from the TweaksPanel toggle) hides it.
+      this._railVisible = true;
+      try {
+        if (localStorage.getItem('deck-stage.railVisible') === '0') this._railVisible = false;
+      } catch (e) {}
+      // Live thumbnail updates: watch the light-DOM slides for content
+      // edits and re-clone just the affected thumb(s), debounced. Ignore
+      // the data-deck-* / data-screen-label / data-om-validate attributes
+      // this component itself writes so nav and skip don't trigger
+      // spurious refreshes.
+      const OWN_ATTRS = /^data-(deck-|screen-label$|om-validate$)/;
+      this._liveDirty = new Set();
+      this._liveObserver = new MutationObserver((records) => {
+        for (const r of records) {
+          if (r.type === 'attributes' && OWN_ATTRS.test(r.attributeName || '')) continue;
+          let n = r.target;
+          while (n && n.parentElement !== this) n = n.parentElement;
+          if (n && this._slideSet && this._slideSet.has(n)) this._liveDirty.add(n);
+        }
+        if (this._liveDirty.size && !this._liveTimer) {
+          this._liveTimer = setTimeout(() => {
+            this._liveTimer = null;
+            this._liveDirty.forEach((s) => this._refreshThumb(s));
+            this._liveDirty.clear();
+          }, 200);
+        }
+      });
+      this._liveObserver.observe(this, {
+        subtree: true, childList: true, characterData: true, attributes: true,
+      });
+      // Lazy thumbnail materialization — clone the slide only when its
+      // frame scrolls into (or near) the rail viewport. rootMargin gives
+      // ~4 thumbs of pre-load so fast scrolling doesn't flash blanks.
+      this._railObserver = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting && e.target.__deckThumb) {
+            this._materialize(e.target.__deckThumb);
+          }
+        });
+      }, { root: this._rail, rootMargin: '400px 0px' });
+      // Tweaks typically change CSS vars / attrs OUTSIDE <deck-stage>
+      // (on <html>, <body>, a wrapper div, or a <style> tag), which
+      // _liveObserver can't see. Re-snapshot author CSS (constructable
+      // sheet is shared by reference, so one replaceSync updates every
+      // thumb shadow root) and re-sync each thumb host's attrs + custom
+      // properties. In-slide DOM mutations are _liveObserver's job.
+      // Debounced so slider drags don't thrash.
+      this._onTweakChange = () => {
+        clearTimeout(this._tweakTimer);
+        this._tweakTimer = setTimeout(() => {
+          this._snapshotAuthorCss();
+          // One getComputedStyle for the whole batch — each
+          // getPropertyValue read below reuses the same computed style
+          // as long as nothing invalidates layout between thumbs.
+          const cs = getComputedStyle(this);
+          (this._thumbs || []).forEach((t) => {
+            if (t.host) this._syncThumbHostAttrs(t.host, cs);
+          });
+        }, 120);
+      };
+      window.addEventListener('tweakchange', this._onTweakChange);
+      this._snapshotAuthorCss();
+      // Build the rail now that it's enabled — slotchange already fired,
+      // so _renderRail's early-return skipped the initial build.
+      this._syncRailHidden();
+      this._renderRail();
+      this._fit();
+    }
+
+    /** Snapshot document stylesheets into a constructable sheet that each
+     *  thumbnail's nested shadow root adopts — so author CSS styles the
+     *  cloned slide content without touching this component's chrome.
+     *  Cross-origin sheets throw on .cssRules — skip them. Re-callable:
+     *  the existing constructable sheet is reused via replaceSync so every
+     *  already-adopted shadow root picks up the fresh CSS without re-adopt. */
+    _snapshotAuthorCss() {
+      // :root in an adopted sheet inside a shadow root matches nothing
+      // (only the document root qualifies), so author rules like
+      // `:root[data-voice="modern"] .serif` never reach the clones.
+      // Rewrite :root → :host and mirror <html>'s data-*/class/lang onto
+      // each thumb host (see _syncThumbHostAttrs) so the same selectors
+      // match inside the thumbnail's shadow tree.
+      const authorCss = Array.from(document.styleSheets).map((sh) => {
+        try {
+          return Array.from(sh.cssRules).map((r) => r.cssText).join('\n');
+        } catch (e) { return ''; }
+      }).join('\n')
+        // The shadow host is featureless outside the functional :host(...)
+        // form, so any compound on :root — [attr], .class, #id, :pseudo —
+        // must become :host(<compound>) not :host<compound>. Same for the
+        // html type selector (Tailwind class-strategy dark mode emits
+        // html.dark; Pico uses html[data-theme]), which has nothing to
+        // match inside the thumb's shadow tree.
+        .replace(/:root((?:\[[^\]]*\]|[.#][-\w]+|:[-\w]+(?:\([^)]*\))?)+)/g, ':host($1)')
+        .replace(/:root\b/g, ':host')
+        .replace(/(^|[\s,>~+(}])html((?:\[[^\]]*\]|[.#][-\w]+|:[-\w]+(?:\([^)]*\))?)+)(?![-\w])/g, '$1:host($2)')
+        .replace(/(^|[\s,>~+(}])html(?![-\w])/g, '$1:host');
+      // Every custom property the author references. _syncThumbHostAttrs
+      // mirrors each one's *computed* value at <deck-stage> onto the
+      // thumb host so the live value wins over the :host default above
+      // regardless of which ancestor the tweak wrote to (<html>, <body>,
+      // a wrapper div, or the deck-stage element itself all inherit
+      // down to getComputedStyle(this)).
+      this._authorVars = new Set(authorCss.match(/--[\w-]+/g) || []);
+      try {
+        if (!this._adoptedSheet) this._adoptedSheet = new CSSStyleSheet();
+        this._adoptedSheet.replaceSync(authorCss);
+      } catch (e) {
+        this._adoptedSheet = null;
+        this._authorCss = authorCss;
+      }
+    }
+
+    _syncThumbHostAttrs(host, cs) {
+      const de = document.documentElement;
+      // setAttribute overwrites but can't delete — an attr removed from
+      // <html> (toggleAttribute off, classList emptied) would linger on
+      // the host and :host([data-*]) / :host(.foo) rules would keep
+      // matching. Remove stale mirrored attrs first; iterate backward
+      // because removeAttribute mutates the live NamedNodeMap.
+      for (let i = host.attributes.length - 1; i >= 0; i--) {
+        const n = host.attributes[i].name;
+        if ((n.startsWith('data-') || n === 'class' || n === 'lang')
+            && !de.hasAttribute(n)) {
+          host.removeAttribute(n);
+        }
+      }
+      for (const a of de.attributes) {
+        if (a.name.startsWith('data-') || a.name === 'class' || a.name === 'lang') {
+          host.setAttribute(a.name, a.value);
+        }
+      }
+      // The :root→:host rewrite in _snapshotAuthorCss pins each custom
+      // property to its stylesheet default on the thumb host, shadowing
+      // the live value that would otherwise inherit. Tweaks can write the
+      // live value on any ancestor — <html>, <body>, a wrapper div, the
+      // deck-stage element — so read it as the *computed* value at
+      // <deck-stage> (which sees the whole inheritance chain) rather than
+      // trying to guess which element the author wrote to. Inline on the
+      // host beats the :host{} rule. remove-stale covers vars dropped
+      // from the stylesheet between snapshots.
+      const vars = this._authorVars || new Set();
+      for (let i = host.style.length - 1; i >= 0; i--) {
+        const p = host.style[i];
+        if (p.startsWith('--') && !vars.has(p)) host.style.removeProperty(p);
+      }
+      const live = cs || getComputedStyle(this);
+      vars.forEach((p) => {
+        const v = live.getPropertyValue(p);
+        if (v) host.style.setProperty(p, v.trim());
+        else host.style.removeProperty(p);
+      });
+    }
+
+    disconnectedCallback() {
+      window.removeEventListener('keydown', this._onKey);
+      window.removeEventListener('resize', this._onResize);
+      window.removeEventListener('mousemove', this._onMouseMove);
+      window.removeEventListener('message', this._onMessage);
+      window.removeEventListener('click', this._onDocClick, true);
+      window.removeEventListener('beforeprint', this._onBeforePrint);
+      window.removeEventListener('afterprint', this._onAfterPrint);
+      if (this._freezeStyle) { this._freezeStyle.remove(); this._freezeStyle = null; }
+      this.removeEventListener('click', this._onTap);
+      if (this._hideTimer) clearTimeout(this._hideTimer);
+      if (this._mouseIdleTimer) clearTimeout(this._mouseIdleTimer);
+      if (this._liveTimer) clearTimeout(this._liveTimer);
+      if (this._tweakTimer) clearTimeout(this._tweakTimer);
+      if (this._railAnimTimer) clearTimeout(this._railAnimTimer);
+      if (this._scaleRaf) cancelAnimationFrame(this._scaleRaf);
+      if (this._liveObserver) this._liveObserver.disconnect();
+      if (this._railObserver) this._railObserver.disconnect();
+      if (this._onTweakChange) window.removeEventListener('tweakchange', this._onTweakChange);
+    }
+
+    attributeChangedCallback() {
+      if (this._canvas) {
+        this._canvas.style.width = this.designWidth + 'px';
+        this._canvas.style.height = this.designHeight + 'px';
+        this._canvas.style.setProperty('--deck-design-w', this.designWidth + 'px');
+        this._canvas.style.setProperty('--deck-design-h', this.designHeight + 'px');
+        if (this._rail) {
+          this._rail.style.setProperty('--deck-aspect', this.designWidth + '/' + this.designHeight);
+        }
+        this._fit();
+        this._scaleThumbs();
+        this._syncPrintPageRule();
+      }
+    }
+
+    _render() {
+      const style = document.createElement('style');
+      style.textContent = stylesheet;
+
+      const stage = document.createElement('div');
+      stage.className = 'stage';
+
+      const canvas = document.createElement('div');
+      canvas.className = 'canvas';
+      canvas.style.width = this.designWidth + 'px';
+      canvas.style.height = this.designHeight + 'px';
+      canvas.style.setProperty('--deck-design-w', this.designWidth + 'px');
+      canvas.style.setProperty('--deck-design-h', this.designHeight + 'px');
+
+      const slot = document.createElement('slot');
+      slot.addEventListener('slotchange', this._onSlotChange);
+      canvas.appendChild(slot);
+      stage.appendChild(canvas);
+
+      // Overlay: compact, solid black, with clickable controls.
+      const overlay = document.createElement('div');
+      overlay.className = 'overlay export-hidden';
+      overlay.setAttribute('role', 'toolbar');
+      overlay.setAttribute('aria-label', 'Deck controls');
+      overlay.setAttribute('data-omelette-chrome', '');
+      overlay.innerHTML = `
+        <button class="btn prev" type="button" aria-label="Previous slide" title="Previous (←)">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg>
+        </button>
+        <span class="count" aria-live="polite"><span class="current">1</span><span class="sep">/</span><span class="total">1</span></span>
+        <button class="btn next" type="button" aria-label="Next slide" title="Next (→)">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg>
+        </button>
+        <span class="divider"></span>
+        <button class="btn reset" type="button" aria-label="Reset to first slide" title="Reset (R)">Reset<span class="kbd">R</span></button>
+      `;
+
+      overlay.querySelector('.prev').addEventListener('click', () => this._advance(-1, 'click'));
+      overlay.querySelector('.next').addEventListener('click', () => this._advance(1, 'click'));
+      overlay.querySelector('.reset').addEventListener('click', () => this._go(0, 'click'));
+
+      // Thumbnail rail + context menu. Thumbnails are populated in
+      // _renderRail() after _collectSlides().
+      const rail = document.createElement('div');
+      rail.className = 'rail export-hidden';
+      rail.setAttribute('data-omelette-chrome', '');
+      rail.style.setProperty('--deck-aspect', this.designWidth + '/' + this.designHeight);
+      // Edge auto-scroll while dragging a thumb near the rail's top/bottom
+      // so off-screen drop targets are reachable. Native dragover fires
+      // continuously while the pointer is stationary, so a per-event nudge
+      // (ramped by edge proximity) is enough — no rAF loop needed.
+      rail.addEventListener('dragover', (e) => {
+        if (this._dragFrom == null) return;
+        const r = rail.getBoundingClientRect();
+        const EDGE = 40;
+        const dt = e.clientY - r.top;
+        const db = r.bottom - e.clientY;
+        if (dt < EDGE) rail.scrollTop -= Math.ceil((EDGE - dt) / 3);
+        else if (db < EDGE) rail.scrollTop += Math.ceil((EDGE - db) / 3);
+      });
+
+      const menu = document.createElement('div');
+      menu.className = 'ctxmenu export-hidden';
+      menu.setAttribute('data-omelette-chrome', '');
+      menu.innerHTML = `
+        <button type="button" data-act="skip">Skip slide</button>
+        <button type="button" data-act="up">Move up</button>
+        <button type="button" data-act="down">Move down</button>
+        <hr>
+        <button type="button" data-act="delete">Delete slide</button>
+      `;
+      menu.addEventListener('click', (e) => {
+        const act = e.target && e.target.getAttribute && e.target.getAttribute('data-act');
+        if (!act) return;
+        const i = this._menuIndex;
+        this._closeMenu();
+        if (act === 'skip') this._toggleSkip(i);
+        else if (act === 'up') this._moveSlide(i, i - 1);
+        else if (act === 'down') this._moveSlide(i, i + 1);
+        else if (act === 'delete') this._openConfirm(i);
+      });
+      menu.addEventListener('contextmenu', (e) => e.preventDefault());
+
+      // Rail resize handle — drag to set --deck-rail-w, persisted to
+      // localStorage so the width survives reloads.
+      const resize = document.createElement('div');
+      resize.className = 'rail-resize export-hidden';
+      resize.setAttribute('data-omelette-chrome', '');
+      resize.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        resize.setPointerCapture(e.pointerId);
+        resize.setAttribute('data-dragging', '');
+        const move = (ev) => this._setRailWidth(ev.clientX);
+        const up = () => {
+          resize.removeEventListener('pointermove', move);
+          resize.removeEventListener('pointerup', up);
+          resize.removeEventListener('pointercancel', up);
+          resize.removeAttribute('data-dragging');
+          try { localStorage.setItem('deck-stage.railWidth', String(this._railPx)); } catch (err) {}
+        };
+        resize.addEventListener('pointermove', move);
+        resize.addEventListener('pointerup', up);
+        resize.addEventListener('pointercancel', up);
+      });
+
+      // Delete-confirm dialog — mirrors the SPA's ConfirmDialog layout.
+      const confirm = document.createElement('div');
+      confirm.className = 'confirm-backdrop export-hidden';
+      confirm.setAttribute('data-omelette-chrome', '');
+      confirm.innerHTML = `
+        <div class="confirm" role="dialog" aria-modal="true">
+          <div class="body">
+            <div class="title">Delete slide?</div>
+            <div class="msg">This slide will be removed from the deck.</div>
+          </div>
+          <div class="footer">
+            <button type="button" class="cancel">Cancel</button>
+            <button type="button" class="danger">Delete</button>
+          </div>
+        </div>
+      `;
+      confirm.addEventListener('click', (e) => {
+        if (e.target === confirm) this._closeConfirm();
+      });
+      confirm.querySelector('.cancel').addEventListener('click', () => this._closeConfirm());
+      confirm.querySelector('.danger').addEventListener('click', () => {
+        const i = this._confirmIndex;
+        this._closeConfirm();
+        this._deleteSlide(i);
+      });
+
+      this._root.append(style, rail, resize, stage, overlay, menu, confirm);
+      this._canvas = canvas;
+      this._stage = stage;
+      this._slot = slot;
+      this._overlay = overlay;
+      this._rail = rail;
+      this._resize = resize;
+      this._menu = menu;
+      this._confirm = confirm;
+      this._countEl = overlay.querySelector('.current');
+      this._totalEl = overlay.querySelector('.total');
+
+      // Restore persisted rail width.
+      let rw = 188;
+      try {
+        const s = localStorage.getItem('deck-stage.railWidth');
+        if (s) rw = parseInt(s, 10) || rw;
+      } catch (err) {}
+      this._setRailWidth(rw);
+      this._syncRailHidden();
+    }
+
+    _setRailWidth(px) {
+      const w = Math.max(120, Math.min(360, Math.round(px)));
+      this._railPx = w;
+      this.style.setProperty('--deck-rail-w', w + 'px');
+      this._fit();
+      // _scaleThumbs forces a sync layout (frame.offsetWidth) then writes
+      // N transforms. During a resize drag this runs per-pointermove;
+      // coalesce to one per frame.
+      if (!this._scaleRaf) {
+        this._scaleRaf = requestAnimationFrame(() => {
+          this._scaleRaf = null;
+          this._scaleThumbs();
+        });
+      }
+    }
+
+    /** @page must live in the document stylesheet — it's a no-op inside
+     *  shadow DOM. Inject/update a single <head> style tag so the print
+     *  sheet matches the design size and Save-as-PDF yields one slide per
+     *  page with no margins. */
+    _syncPrintPageRule() {
+      const id = 'deck-stage-print-page';
+      let tag = document.getElementById(id);
+      if (!tag) {
+        tag = document.createElement('style');
+        tag.id = id;
+        document.head.appendChild(tag);
+      }
+      tag.textContent =
+        '@page { size: ' + this.designWidth + 'px ' + this.designHeight + 'px; margin: 0; } ' +
+        '@media print { html, body { margin: 0 !important; padding: 0 !important; background: none !important; overflow: visible !important; height: auto !important; } ' +
+        '* { -webkit-print-color-adjust: exact; print-color-adjust: exact; } ' +
+        // Jump authored animations/transitions to their end state so print
+        // never captures mid-entrance — pairs with the beforeprint handler
+        // in connectedCallback that sets data-deck-active on every slide.
+        '*, *::before, *::after { animation-delay: -99s !important; animation-duration: .001s !important; ' +
+        'animation-iteration-count: 1 !important; animation-fill-mode: both !important; ' +
+        'animation-play-state: running !important; transition-duration: 0s !important; } }';
+    }
+
+    _onSlotChange() {
+      // Rail mutations (delete/move) already reconcile synchronously and
+      // emit slidechange with reason 'api'; skip the async slotchange that
+      // would otherwise re-broadcast with reason 'init'.
+      if (this._squelchSlotChange) { this._squelchSlotChange = false; return; }
+      this._collectSlides();
+      this._restoreIndex();
+      this._applyIndex({ showOverlay: false, broadcast: true, reason: 'init' });
+      this._fit();
+    }
+
+    _collectSlides() {
+      const assigned = this._slot.assignedElements({ flatten: true });
+      this._slides = assigned.filter((el) => {
+        // Skip template/style/script nodes even if someone slots them.
+        const tag = el.tagName;
+        return tag !== 'TEMPLATE' && tag !== 'SCRIPT' && tag !== 'STYLE';
+      });
+      this._slideSet = new Set(this._slides);
+
+      this._slides.forEach((slide, i) => {
+        const n = i + 1;
+        slide.setAttribute('data-screen-label', `${pad2(n)} ${getSlideLabel(slide)}`);
+
+        // Validation attribute for comment flow / auto-checks.
+        if (!slide.hasAttribute('data-om-validate')) {
+          slide.setAttribute('data-om-validate', VALIDATE_ATTR);
+        }
+
+        slide.setAttribute('data-deck-slide', String(i));
+      });
+
+      if (this._totalEl) this._totalEl.textContent = String(this._slides.length || 1);
+      if (this._index >= this._slides.length) this._index = Math.max(0, this._slides.length - 1);
+      this._markLastVisible();
+      this._renderRail();
+    }
+
+    /** Tag the last non-skipped slide so print CSS can drop its
+     *  break-after (see the @media print comment above — :last-child
+     *  alone matches a hidden skipped slide). */
+    _markLastVisible() {
+      let last = null;
+      this._slides.forEach((s) => {
+        s.removeAttribute('data-deck-last-visible');
+        if (!s.hasAttribute('data-deck-skip')) last = s;
+      });
+      if (last) last.setAttribute('data-deck-last-visible', '');
+    }
+
+    _loadNotes() {
+      const tag = document.getElementById('speaker-notes');
+      if (!tag) { this._notes = []; return; }
+      try {
+        const parsed = JSON.parse(tag.textContent || '[]');
+        if (Array.isArray(parsed)) this._notes = parsed;
+      } catch (e) {
+        console.warn('[deck-stage] Failed to parse #speaker-notes JSON:', e);
+        this._notes = [];
+      }
+    }
+
+    _restoreIndex() {
+      // The host's ?slide= param is delivered as a #<int> hash (1-indexed) on
+      // the iframe src. No hash → slide 1; the deck itself keeps no position
+      // state across loads.
+      const h = (location.hash || '').match(/^#(\d+)$/);
+      if (h) {
+        const n = parseInt(h[1], 10) - 1;
+        if (n >= 0 && n < this._slides.length) this._index = n;
+      }
+    }
+
+    _applyIndex({ showOverlay = true, broadcast = true, reason = 'init' } = {}) {
+      if (!this._slides.length) return;
+      const prev = this._prevIndex == null ? -1 : this._prevIndex;
+      const curr = this._index;
+      // Keep the iframe's own hash in sync so an in-iframe location.reload()
+      // (reload banner path in viewer-handle.ts) lands on the current slide,
+      // not the stale deep-link hash from initial load.
+      try { history.replaceState(null, '', '#' + (curr + 1)); } catch (e) {}
+      this._slides.forEach((s, i) => {
+        if (i === curr) s.setAttribute('data-deck-active', '');
+        else s.removeAttribute('data-deck-active');
+      });
+      if (this._countEl) this._countEl.textContent = String(curr + 1);
+      // Follow-scroll on every navigation (init deep-link, keyboard, click,
+      // tap, external goTo) — the only time we *don't* want the rail to
+      // track current is after a rail-internal mutation, where _renderRail
+      // has already restored the user's scroll position and yanking back to
+      // current would undo it.
+      this._syncRail(reason !== 'mutation');
+
+      if (broadcast) {
+        // (1) Legacy: host-window postMessage for speaker-notes renderers.
+        try { window.postMessage({ slideIndexChanged: curr, deckTotal: this._slides.length, deckSkipped: this._skippedIndices() }, '*'); } catch (e) {}
+
+        // (2) In-page CustomEvent on the <deck-stage> element itself.
+        //     Bubbles and composes out of shadow DOM so slide code can listen:
+        //       document.querySelector('deck-stage').addEventListener('slidechange', e => {
+        //         e.detail.index, e.detail.previousIndex, e.detail.total, e.detail.slide, e.detail.reason
+        //       });
+        const detail = {
+          index: curr,
+          previousIndex: prev,
+          total: this._slides.length,
+          slide: this._slides[curr] || null,
+          previousSlide: prev >= 0 ? (this._slides[prev] || null) : null,
+          reason: reason, // 'init' | 'keyboard' | 'click' | 'tap' | 'api'
+        };
+        this.dispatchEvent(new CustomEvent('slidechange', {
+          detail,
+          bubbles: true,
+          composed: true,
+        }));
+      }
+
+      this._prevIndex = curr;
+      if (showOverlay) this._flashOverlay();
+    }
+
+    _flashOverlay() {
+      // Host posts __omelette_presenting while in fullscreen/tab presentation
+      // mode — suppress the nav footer entirely (both hover and slide-change
+      // flash) so the audience sees clean slides.
+      if (!this._overlay || this._presenting) return;
+      this._overlay.setAttribute('data-visible', '');
+      if (this._hideTimer) clearTimeout(this._hideTimer);
+      this._hideTimer = setTimeout(() => {
+        this._overlay.removeAttribute('data-visible');
+      }, OVERLAY_HIDE_MS);
+    }
+
+    _railWidth() {
+      // State-based, no offsetWidth: the first _fit() can run before the
+      // rail has had layout on some load paths, and a 0 there paints the
+      // slide full-width for one frame before the post-slotchange _fit()
+      // corrects it.
+      if (!this._railEnabled || !this._railVisible || this.hasAttribute('no-rail')
+          || this.hasAttribute('noscale') || this._presenting || this._previewMode
+          || NARROW_MQ.matches) return 0;
+      return this._railPx || 0;
+    }
+
+    _fit() {
+      if (!this._canvas) return;
+      const stage = this._canvas.parentElement;
+      // PPTX export sets noscale so the DOM capture sees authored-size
+      // geometry — the scaled canvas is in shadow DOM, so the exporter's
+      // resetTransformSelector can't reach .canvas.style.transform directly.
+      if (this.hasAttribute('noscale')) {
+        this._canvas.style.transform = 'none';
+        if (stage) stage.style.left = '0';
+        if (this._overlay) this._overlay.style.marginLeft = '0';
+        return;
+      }
+      const rw = this._railWidth();
+      if (stage) stage.style.left = rw + 'px';
+      // Overlay is centred on the viewport via left:50% + translate(-50%);
+      // marginLeft shifts the centre by rw/2 so it lands in the middle of
+      // the [rw, innerWidth] stage region.
+      if (this._overlay) this._overlay.style.marginLeft = (rw / 2) + 'px';
+      const vw = window.innerWidth - rw;
+      const vh = window.innerHeight;
+      const s = Math.min(vw / this.designWidth, vh / this.designHeight);
+      this._canvas.style.transform = `scale(${s})`;
+    }
+
+    _onResize() {
+      this._fit();
+      // Crossing the narrow-viewport breakpoint reveals the rail — rerun the
+      // thumbnail scale the same way _setRailWidth does.
+      if (!this._scaleRaf) {
+        this._scaleRaf = requestAnimationFrame(() => {
+          this._scaleRaf = null;
+          this._scaleThumbs();
+        });
+      }
+    }
+
+    _onMouseMove() {
+      // Keep overlay visible while mouse moves; hide after idle.
+      this._flashOverlay();
+    }
+
+    _onMessage(e) {
+      const d = e.data;
+      if (d && typeof d.__omelette_presenting === 'boolean') {
+        this._presenting = d.__omelette_presenting;
+        if (this._presenting && this._overlay) {
+          this._overlay.removeAttribute('data-visible');
+          if (this._hideTimer) clearTimeout(this._hideTimer);
+        }
+        this._syncRailHidden();
+        this._closeMenu();
+        this._closeConfirm();
+        this._fit();
+        this._scaleThumbs();
+      }
+      // Host's Preview segment (ViewerMode='none'): the rail's drag-reorder /
+      // right-click skip-delete affordances are editing chrome, so hide it
+      // while the user is just looking at the deck. Same hard-hide path as
+      // presenting; independent of the user's _railVisible preference so
+      // returning to Edit restores whatever they had.
+      if (d && typeof d.__omelette_preview_mode === 'boolean') {
+        if (d.__omelette_preview_mode === this._previewMode) return;
+        this._previewMode = d.__omelette_preview_mode;
+        this._syncRailHidden();
+        this._closeMenu();
+        this._closeConfirm();
+        this._fit();
+        this._scaleThumbs();
+      }
+      // Per-viewer show/hide, driven by the TweaksPanel's auto-injected
+      // "Thumbnail rail" toggle (or any author script). Independent of
+      // whether the Tweaks panel itself is open — closing the panel
+      // doesn't change rail visibility. Persists alongside rail width.
+      if (d && d.type === '__deck_rail_visible' && typeof d.on === 'boolean') {
+        if (d.on === this._railVisible) return;
+        this._railVisible = d.on;
+        try { localStorage.setItem('deck-stage.railVisible', d.on ? '1' : '0'); } catch (e) {}
+        // Arm the transition, commit it, then flip state — otherwise the
+        // browser coalesces both writes and nothing animates on show.
+        this.setAttribute('data-rail-anim', '');
+        void (this._rail && this._rail.offsetHeight);
+        this._syncRailHidden();
+        this._fit();
+        this._scaleThumbs();
+        clearTimeout(this._railAnimTimer);
+        this._railAnimTimer = setTimeout(() => this.removeAttribute('data-rail-anim'), 220);
+      }
+      if (d && d.type === '__omelette_rail_enabled') this._enableRail();
+    }
+
+    _syncRailHidden() {
+      if (!this._rail) return;
+      // data-presenting is the hard hide (display:none) for flag-off,
+      // presentation mode, and the host's Preview segment — instant, no
+      // transition. data-user-hidden is the soft hide (translateX(-100%))
+      // for the viewer's rail toggle, so show/hide slides under
+      // :host([data-rail-anim]).
+      const hard = !this._railEnabled || this._presenting || this._previewMode;
+      if (hard) this._rail.setAttribute('data-presenting', '');
+      else this._rail.removeAttribute('data-presenting');
+      if (!this._railVisible) this._rail.setAttribute('data-user-hidden', '');
+      else this._rail.removeAttribute('data-user-hidden');
+      // translateX hide leaves thumbs (tabIndex=0) in the tab order —
+      // inert keeps them unfocusable while the rail is off-screen.
+      this._rail.inert = hard || !this._railVisible;
+    }
+
+    _onTap(e) {
+      // Touch-only — keyboard + the overlay toolbar cover nav on desktop.
+      if (FINE_POINTER_MQ.matches) return;
+      // Only taps that land on the stage (slide content or letterbox); the
+      // overlay / rail / menus are siblings with their own click handlers.
+      const path = e.composedPath();
+      if (!this._stage || !path.includes(this._stage)) return;
+      // Let interactive slide content keep the tap. composedPath (not
+      // e.target.closest) so we see through open shadow roots — a <button>
+      // inside a slide-authored custom element retargets e.target to the
+      // host but still appears in the composed path.
+      if (e.defaultPrevented) return;
+      for (const n of path) {
+        if (n === this._stage) break;
+        if (n.matches && n.matches(INTERACTIVE_SEL)) return;
+      }
+      e.preventDefault();
+      const rw = this._railWidth();
+      const mid = rw + (window.innerWidth - rw) / 2;
+      this._advance(e.clientX < mid ? -1 : 1, 'tap');
+    }
+
+    _onKey(e) {
+      // Ignore when the user is typing.
+      const t = e.target;
+      if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+      // Confirm dialog swallows nav keys while open; Escape cancels. Enter
+      // is left to the focused button's native activation so Tab→Cancel
+      // →Enter activates Cancel, not the window-level confirm path.
+      if (this._confirm && this._confirm.hasAttribute('data-open')) {
+        if (e.key === 'Escape') { this._closeConfirm(); e.preventDefault(); }
+        return;
+      }
+      if (e.key === 'Escape' && this._menu && this._menu.hasAttribute('data-open')) {
+        this._closeMenu();
+        e.preventDefault();
+        return;
+      }
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+
+      const key = e.key;
+      let handled = true;
+
+      if (key === 'ArrowRight' || key === 'PageDown' || key === ' ' || key === 'Spacebar') {
+        this._advance(1, 'keyboard');
+      } else if (key === 'ArrowLeft' || key === 'PageUp') {
+        this._advance(-1, 'keyboard');
+      } else if (key === 'Home') {
+        this._go(0, 'keyboard');
+      } else if (key === 'End') {
+        this._go(this._slides.length - 1, 'keyboard');
+      } else if (key === 'r' || key === 'R') {
+        this._go(0, 'keyboard');
+      } else if (/^[0-9]$/.test(key)) {
+        // 1..9 jump to that slide; 0 jumps to 10.
+        const n = key === '0' ? 9 : parseInt(key, 10) - 1;
+        if (n < this._slides.length) this._go(n, 'keyboard');
+      } else {
+        handled = false;
+      }
+
+      if (handled) {
+        e.preventDefault();
+        this._flashOverlay();
+      }
+    }
+
+    _go(i, reason = 'api') {
+      if (!this._slides.length) return;
+      const clamped = Math.max(0, Math.min(this._slides.length - 1, i));
+      if (clamped === this._index) {
+        this._flashOverlay();
+        return;
+      }
+      this._index = clamped;
+      this._applyIndex({ showOverlay: true, broadcast: true, reason });
+    }
+
+    /** Step forward/back skipping any slide marked data-deck-skip. Falls
+     *  back to _go's clamp-at-ends behaviour (flash overlay) when there's
+     *  nothing further in that direction. */
+    _advance(dir, reason) {
+      if (!this._slides.length) return;
+      let i = this._index + dir;
+      while (i >= 0 && i < this._slides.length && this._slides[i].hasAttribute('data-deck-skip')) {
+        i += dir;
+      }
+      if (i < 0 || i >= this._slides.length) { this._flashOverlay(); return; }
+      this._go(i, reason);
+    }
+
+    // ── Thumbnail rail ────────────────────────────────────────────────────
+    //
+    // Thumbs are keyed by slide element and reused across _renderRail()
+    // calls, so a reorder/delete is an O(changed) DOM shuffle instead of an
+    // O(N) teardown-and-re-clone. Each thumb starts as a lightweight shell
+    // (num + empty frame); the clone is materialized lazily by an
+    // IntersectionObserver when the frame scrolls into (or near) view, so
+    // only visible-ish slides pay the clone + image-decode cost.
+
+    _renderRail() {
+      if (!this._rail || !this._railEnabled) { this._thumbs = []; return; }
+      // FLIP: record each *materialized* thumb's top before the reconcile.
+      // Off-screen (non-materialized) thumbs don't need the animation and
+      // skipping their getBoundingClientRect saves a forced layout per
+      // off-screen thumb on large decks.
+      const prevTops = new Map();
+      (this._thumbs || []).forEach(({ thumb, slide, host }) => {
+        if (host) prevTops.set(slide, thumb.getBoundingClientRect().top);
+      });
+      const st = this._rail.scrollTop;
+
+      // Reconcile: reuse thumbs that already exist for a slide, create
+      // shells for new slides, drop thumbs for removed slides.
+      const bySlide = new Map();
+      (this._thumbs || []).forEach((t) => bySlide.set(t.slide, t));
+      const next = [];
+      this._slides.forEach((slide) => {
+        let t = bySlide.get(slide);
+        if (t) bySlide.delete(slide);
+        else t = this._makeThumb(slide);
+        next.push(t);
+      });
+      // Orphans — slides removed since last render.
+      bySlide.forEach((t) => {
+        if (this._railObserver) this._railObserver.unobserve(t.frame);
+        t.thumb.remove();
+      });
+      // Put thumbs into document order to match _slides. insertBefore on
+      // an already-correctly-placed node is a no-op, so this is cheap
+      // when nothing moved.
+      next.forEach((t, i) => {
+        const want = t.thumb;
+        const at = this._rail.children[i];
+        if (at !== want) this._rail.insertBefore(want, at || null);
+        t.i = i;
+        t.num.textContent = String(i + 1);
+        if (t.slide.hasAttribute('data-deck-skip')) t.thumb.setAttribute('data-skip', '');
+        else t.thumb.removeAttribute('data-skip');
+      });
+      this._thumbs = next;
+
+      this._rail.scrollTop = st;
+      if (prevTops.size) {
+        const moved = [];
+        this._thumbs.forEach(({ thumb, slide }) => {
+          const old = prevTops.get(slide);
+          if (old == null) return;
+          const dy = old - thumb.getBoundingClientRect().top;
+          if (Math.abs(dy) < 1) return;
+          thumb.style.transition = 'none';
+          thumb.style.transform = `translateY(${dy}px)`;
+          moved.push(thumb);
+        });
+        if (moved.length) {
+          // Commit the inverted positions before flipping the transition
+          // on — otherwise the browser coalesces both style writes and
+          // nothing animates.
+          void this._rail.offsetHeight;
+          moved.forEach((t) => {
+            t.style.transition = 'transform 180ms cubic-bezier(.2,.7,.3,1)';
+            t.style.transform = '';
+          });
+          setTimeout(() => moved.forEach((t) => { t.style.transition = ''; }), 220);
+        }
+      }
+      requestAnimationFrame(() => this._scaleThumbs());
+      this._syncRail(false);
+    }
+
+    /** Create a lightweight thumb shell for one slide. The clone is
+     *  materialized later by the IntersectionObserver. Event handlers
+     *  look up the thumb's *current* index (via _thumbs.indexOf) so the
+     *  same element can be reused across reorders. */
+    _makeThumb(slide) {
+      const thumb = document.createElement('div');
+      thumb.className = 'thumb';
+      thumb.tabIndex = 0;
+      const num = document.createElement('div');
+      num.className = 'num';
+      const frame = document.createElement('div');
+      frame.className = 'frame';
+      thumb.append(num, frame);
+
+      const entry = { thumb, num, frame, slide, clone: null, host: null, i: -1 };
+      // entry.i is refreshed on every _renderRail reconcile pass, so
+      // handlers read the thumb's current position without an O(N) scan.
+      const idx = () => entry.i;
+
+      thumb.addEventListener('click', () => this._go(idx(), 'click'));
+      // ↑/↓ step through the rail when a thumb has focus. _go clamps at the
+      // ends and _applyIndex→_syncRail scrolls the new current thumb into
+      // view; we move focus to it (preventScroll — _syncRail already
+      // scrolled) so a held key walks the whole list. stopPropagation keeps
+      // this out of the window-level _onKey nav handler.
+      thumb.addEventListener('keydown', (e) => {
+        if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown') return;
+        if (e.metaKey || e.ctrlKey || e.altKey) return;
+        e.preventDefault();
+        e.stopPropagation();
+        this._go(idx() + (e.key === 'ArrowDown' ? 1 : -1), 'keyboard');
+        const cur = this._thumbs && this._thumbs[this._index];
+        if (cur) cur.thumb.focus({ preventScroll: true });
+      });
+      thumb.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        this._openMenu(idx(), e.clientX, e.clientY);
+      });
+      thumb.draggable = true;
+      thumb.addEventListener('dragstart', (e) => {
+        this._dragFrom = idx();
+        thumb.setAttribute('data-dragging', '');
+        e.dataTransfer.effectAllowed = 'move';
+        try { e.dataTransfer.setData('text/plain', String(this._dragFrom)); } catch (err) {}
+      });
+      thumb.addEventListener('dragend', () => {
+        thumb.removeAttribute('data-dragging');
+        this._clearDrop();
+        this._dragFrom = null;
+      });
+      thumb.addEventListener('dragover', (e) => {
+        if (this._dragFrom == null) return;
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        const r = thumb.getBoundingClientRect();
+        this._setDrop(idx(), e.clientY < r.top + r.height / 2 ? 'before' : 'after');
+      });
+      thumb.addEventListener('drop', (e) => {
+        if (this._dragFrom == null) return;
+        e.preventDefault();
+        const i = idx();
+        const r = thumb.getBoundingClientRect();
+        let to = e.clientY >= r.top + r.height / 2 ? i + 1 : i;
+        if (this._dragFrom < to) to--;
+        const from = this._dragFrom;
+        this._clearDrop();
+        this._dragFrom = null;
+        if (to !== from) this._moveSlide(from, to);
+      });
+
+      if (this._railObserver) this._railObserver.observe(frame);
+      frame.__deckThumb = entry;
+      return entry;
+    }
+
+    /** Lazily build the clone for a thumb that has scrolled into view. */
+    _materialize(entry) {
+      if (entry.host) return;
+      const dw = this.designWidth, dh = this.designHeight;
+      let clone = entry.slide.cloneNode(true);
+      clone.removeAttribute('id');
+      clone.removeAttribute('data-deck-active');
+      clone.querySelectorAll('[id]').forEach((el) => el.removeAttribute('id'));
+      // Neuter heavy media; replace <video> with its poster so the box
+      // keeps a visual. <iframe>/<audio> become empty placeholders.
+      clone.querySelectorAll('iframe, audio, object, embed').forEach((el) => {
+        el.removeAttribute('src');
+        el.removeAttribute('srcdoc');
+        el.removeAttribute('data');
+        el.innerHTML = '';
+      });
+      clone.querySelectorAll('video').forEach((el) => {
+        if (!el.poster) { el.removeAttribute('src'); el.innerHTML = ''; return; }
+        const img = document.createElement('img');
+        img.src = el.poster;
+        img.alt = '';
+        img.style.cssText = el.style.cssText + ';object-fit:cover;width:100%;height:100%;';
+        img.className = el.className;
+        el.replaceWith(img);
+      });
+      // Images: defer decode and let the browser pick the smallest
+      // srcset candidate for the ~140px thumb. Same-URL clones reuse the
+      // slide's decoded bitmap (URL-keyed cache), so the remaining cost
+      // is paint/composite — lazy+async keeps that off the main thread.
+      clone.querySelectorAll('img').forEach((el) => {
+        el.loading = 'lazy';
+        el.decoding = 'async';
+        if (el.srcset) el.sizes = (this._railPx || 188) + 'px';
+      });
+      // Custom elements inside the slide would have their
+      // connectedCallback fire when the clone is appended. Replace them
+      // with inert boxes so a component-heavy deck doesn't run N copies
+      // of each component's mount logic in the rail. Children are
+      // preserved so layout-wrapper elements (<my-column><h2>…</h2>)
+      // still show their authored content; the querySelectorAll NodeList
+      // is static, so nested custom elements in the moved subtree are
+      // still visited on later iterations.
+      const neuter = (el) => {
+        const box = document.createElement('div');
+        box.style.cssText = (el.getAttribute('style') || '') +
+          ';background:rgba(0,0,0,0.06);border:1px dashed rgba(0,0,0,0.15);';
+        box.className = el.className;
+        // Preserve theming/i18n hooks so [data-*] / :lang() / [dir]
+        // descendant selectors still match the neutered root.
+        for (const a of el.attributes) {
+          const n = a.name;
+          if (n.startsWith('data-') || n.startsWith('aria-') ||
+              n === 'lang' || n === 'dir' || n === 'role' || n === 'title') {
+            box.setAttribute(n, a.value);
+          }
+        }
+        while (el.firstChild) box.appendChild(el.firstChild);
+        return box;
+      };
+      // querySelectorAll('*') returns descendants only — a custom-element
+      // slide root (<my-slide>…</my-slide>) would slip through and upgrade
+      // on append. Swap the root first.
+      if (clone.tagName.includes('-')) clone = neuter(clone);
+      clone.querySelectorAll('*').forEach((el) => {
+        if (el.tagName.includes('-')) el.replaceWith(neuter(el));
+      });
+      clone.style.cssText += ';position:absolute;top:0;left:0;transform-origin:0 0;' +
+        'pointer-events:none;width:' + dw + 'px;height:' + dh + 'px;' +
+        'box-sizing:border-box;overflow:hidden;visibility:visible;opacity:1;';
+      const host = document.createElement('div');
+      host.style.cssText = 'position:absolute;inset:0;';
+      this._syncThumbHostAttrs(host);
+      const sr = host.attachShadow({ mode: 'open' });
+      if (this._adoptedSheet) sr.adoptedStyleSheets = [this._adoptedSheet];
+      else {
+        const st = document.createElement('style');
+        st.textContent = this._authorCss || '';
+        sr.appendChild(st);
+      }
+      sr.appendChild(clone);
+      entry.frame.appendChild(host);
+      entry.host = host;
+      entry.clone = clone;
+      if (this._thumbScale) clone.style.transform = 'scale(' + this._thumbScale + ')';
+      // Once materialized the IO callback is a no-op early-return —
+      // unobserve so scroll doesn't keep firing it.
+      if (this._railObserver) this._railObserver.unobserve(entry.frame);
+    }
+
+    /** Re-clone a single thumb (live-update path). No-op if the thumb
+     *  hasn't been materialized yet — it'll pick up current content when
+     *  it scrolls into view. */
+    _refreshThumb(slide) {
+      const entry = (this._thumbs || []).find((t) => t.slide === slide);
+      if (!entry || !entry.host) return;
+      entry.host.remove();
+      entry.host = entry.clone = null;
+      this._materialize(entry);
+    }
+
+    _scaleThumbs() {
+      if (!this._thumbs || !this._thumbs.length) return;
+      // Every frame is the same width; if it reads 0 the rail is
+      // display:none (noscale / no-rail / presenting / print) — leave the
+      // clones as-is and re-run when the rail is revealed.
+      const fw = this._thumbs[0].frame.offsetWidth;
+      if (!fw) return;
+      this._thumbScale = fw / this.designWidth;
+      this._thumbs.forEach(({ clone }) => {
+        if (clone) clone.style.transform = 'scale(' + this._thumbScale + ')';
+      });
+    }
+
+    _setDrop(i, where) {
+      // dragover fires at pointer-event rate; touch only the previous
+      // and new target rather than sweeping all N thumbs.
+      const t = this._thumbs && this._thumbs[i];
+      if (this._dropOn && this._dropOn !== t) {
+        this._dropOn.thumb.removeAttribute('data-drop');
+      }
+      if (t) t.thumb.setAttribute('data-drop', where);
+      this._dropOn = t || null;
+    }
+
+    _clearDrop() {
+      if (this._dropOn) this._dropOn.thumb.removeAttribute('data-drop');
+      this._dropOn = null;
+    }
+
+    _syncRail(follow) {
+      if (!this._thumbs) return;
+      this._thumbs.forEach(({ thumb }, i) => {
+        if (i === this._index) {
+          thumb.setAttribute('data-current', '');
+          if (follow && typeof thumb.scrollIntoView === 'function') {
+            thumb.scrollIntoView({ block: 'nearest' });
+          }
+        } else {
+          thumb.removeAttribute('data-current');
+        }
+      });
+    }
+
+    _openMenu(i, x, y) {
+      if (!this._menu) return;
+      this._menuIndex = i;
+      const slide = this._slides[i];
+      const skip = slide && slide.hasAttribute('data-deck-skip');
+      this._menu.querySelector('[data-act="skip"]').textContent = skip ? 'Unskip slide' : 'Skip slide';
+      this._menu.querySelector('[data-act="up"]').disabled = i <= 0;
+      this._menu.querySelector('[data-act="down"]').disabled = i >= this._slides.length - 1;
+      this._menu.querySelector('[data-act="delete"]').disabled = this._slides.length <= 1;
+      // Place, then clamp to viewport after it's measurable.
+      this._menu.style.left = x + 'px';
+      this._menu.style.top = y + 'px';
+      this._menu.setAttribute('data-open', '');
+      const r = this._menu.getBoundingClientRect();
+      const nx = Math.min(x, window.innerWidth - r.width - 4);
+      const ny = Math.min(y, window.innerHeight - r.height - 4);
+      this._menu.style.left = Math.max(4, nx) + 'px';
+      this._menu.style.top = Math.max(4, ny) + 'px';
+    }
+
+    _closeMenu() {
+      if (this._menu) this._menu.removeAttribute('data-open');
+      this._menuIndex = -1;
+    }
+
+    _openConfirm(i) {
+      if (!this._confirm) return;
+      this._confirmIndex = i;
+      this._confirm.querySelector('.title').textContent = 'Delete slide ' + (i + 1) + '?';
+      this._confirm.setAttribute('data-open', '');
+      const btn = this._confirm.querySelector('.danger');
+      if (btn && btn.focus) btn.focus();
+    }
+
+    _closeConfirm() {
+      if (this._confirm) this._confirm.removeAttribute('data-open');
+      this._confirmIndex = -1;
+    }
+
+    _emitDeckChange(detail) {
+      this.dispatchEvent(new CustomEvent('deckchange', {
+        detail, bubbles: true, composed: true,
+      }));
+    }
+
+    _deleteSlide(i) {
+      const slide = this._slides[i];
+      if (!slide || this._slides.length <= 1) return;
+      const wasCurrent = i === this._index;
+      if (i < this._index || (wasCurrent && i === this._slides.length - 1)) this._index--;
+      this._squelchSlotChange = true;
+      slide.remove();
+      this._emitDeckChange({ action: 'delete', from: i, slide });
+      this._collectSlides();
+      this._applyIndex({ showOverlay: true, broadcast: true, reason: 'mutation' });
+    }
+
+    _toggleSkip(i) {
+      const slide = this._slides[i];
+      if (!slide) return;
+      const on = !slide.hasAttribute('data-deck-skip');
+      if (on) slide.setAttribute('data-deck-skip', '');
+      else slide.removeAttribute('data-deck-skip');
+      if (this._thumbs && this._thumbs[i]) {
+        if (on) this._thumbs[i].thumb.setAttribute('data-skip', '');
+        else this._thumbs[i].thumb.removeAttribute('data-skip');
+      }
+      this._markLastVisible();
+      this._emitDeckChange({ action: on ? 'skip' : 'unskip', from: i, slide });
+      // Re-broadcast so the presenter popup's prev/next thumbnails re-pick
+      // the nearest non-skipped slide without waiting for a nav event.
+      try { window.postMessage({ slideIndexChanged: this._index, deckTotal: this._slides.length, deckSkipped: this._skippedIndices() }, '*'); } catch (e) {}
+    }
+
+    _skippedIndices() {
+      const out = [];
+      for (let i = 0; i < this._slides.length; i++) {
+        if (this._slides[i].hasAttribute('data-deck-skip')) out.push(i);
+      }
+      return out;
+    }
+
+    _moveSlide(i, j) {
+      if (j < 0 || j >= this._slides.length || j === i) return;
+      const slide = this._slides[i];
+      const ref = j < i ? this._slides[j] : this._slides[j].nextSibling;
+      // Track the active slide across the reorder so the same content
+      // stays on screen.
+      const cur = this._index;
+      if (cur === i) this._index = j;
+      else if (i < cur && j >= cur) this._index = cur - 1;
+      else if (i > cur && j <= cur) this._index = cur + 1;
+      this._squelchSlotChange = true;
+      this.insertBefore(slide, ref);
+      this._emitDeckChange({ action: 'move', from: i, to: j, slide });
+      this._collectSlides();
+      this._applyIndex({ showOverlay: false, broadcast: true, reason: 'mutation' });
+    }
+
+    // Public API ------------------------------------------------------------
+
+    /** Current slide index (0-based). */
+    get index() { return this._index; }
+    /** Total slide count. */
+    get length() { return this._slides.length; }
+    /** Programmatically navigate. */
+    goTo(i) { this._go(i, 'api'); }
+    next() { this._advance(1, 'api'); }
+    prev() { this._advance(-1, 'api'); }
+    reset() { this._go(0, 'api'); }
+  }
+
+  if (!customElements.get('deck-stage')) {
+    customElements.define('deck-stage', DeckStage);
+  }
+})();
+
+</script>
+<div class="deck-ctrl"><button id="btnNotes" title="Phím N">Ghi chú · N</button><button id="btnRail" title="Phím T">Slides · T</button><button id="btnEdit" title="Phím E">Sửa · E</button><button id="btnPresent">Toàn màn hình</button></div>
+<div class="notes-panel" id="notesPanel"><h4 id="notesHd">Ghi chú diễn giả</h4><div id="notesBody"></div></div>
+<script>
+(function(){
+  var stage = document.querySelector('deck-stage');
+  var secs = [].slice.call(stage.querySelectorAll(':scope > section'));
+  secs.forEach(function(sec){
+    var img = document.createElement('img');
+    img.className = 'brandmark'; img.alt = 'The AI Growth';
+    img.src = sec.classList.contains('cover') ? 'media/chung/logo-tag-trang.png' : 'media/chung/logo-tag.webp';
+    sec.appendChild(img);
+  });
+  [].forEach.call(document.querySelectorAll('.prompt'), function(p){
+    var t0 = p.getAttribute('data-copy') || p.innerText.replace(/^\s*Prompt[^\n]*\n/, '').trim();
+    var b = document.createElement('button'); b.className = 'copybtn'; b.textContent = 'Chép';
+    b.addEventListener('click', function(e){
+      e.stopPropagation();
+      var t = t0;
+      var done = function(){ b.textContent = 'Đã chép'; setTimeout(function(){ b.textContent = 'Chép'; }, 1400); };
+      if (navigator.clipboard) navigator.clipboard.writeText(t).then(done, done); else done();
+    });
+    p.appendChild(b);
+  });
+  var NOTES = JSON.parse(document.getElementById('deck-notes').textContent);
+  var panel = document.getElementById('notesPanel'), body = document.getElementById('notesBody'), hd = document.getElementById('notesHd');
+  var cur = 0, notesOn = false;
+  function esc(s){ return s.replace(/[&<>]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]; }); }
+  function renderNotes(){
+    var n = NOTES[cur] || '';
+    hd.textContent = 'Ghi chú diễn giả · slide ' + (cur+1) + '/' + secs.length;
+    body.innerHTML = n ? n.split(/\n+/).map(function(x){ return '<p>' + esc(x) + '</p>'; }).join('') : '<p>(slide này không có ghi chú)</p>';
+  }
+  function setNotes(on){ notesOn = on; panel.classList.toggle('show', on); document.getElementById('btnNotes').classList.toggle('on', on); renderNotes(); }
+  window.addEventListener('message', function(e){ if (e.data && typeof e.data.slideIndexChanged === 'number'){ cur = e.data.slideIndexChanged; if (notesOn) renderNotes(); } });
+  document.getElementById('btnNotes').addEventListener('click', function(){ setNotes(!notesOn); });
+  var railOn = true;
+  try{ railOn = localStorage.getItem('deck-stage.railVisible') !== '0'; }catch(e){}
+  function setRail(on){ railOn = on; window.postMessage({type:'__deck_rail_visible', on:on}, '*'); document.getElementById('btnRail').classList.toggle('on', on); }
+  document.getElementById('btnRail').classList.toggle('on', railOn);
+  document.getElementById('btnRail').addEventListener('click', function(){ setRail(!railOn); });
+  var editing = false;
+  function setEditing(on){ editing = on; document.getElementById('btnEdit').classList.toggle('on', on);
+    secs.forEach(function(s){ if(on) s.setAttribute('contenteditable','true'); else s.removeAttribute('contenteditable'); }); }
+  document.getElementById('btnEdit').addEventListener('click', function(){ setEditing(!editing); });
+  window.addEventListener('keydown', function(e){ if (editing && e.key !== 'Escape') e.stopPropagation(); }, true);
+  window.addEventListener('keydown', function(e){
+    if (/input|textarea/i.test(e.target.tagName||'')) return;
+    if (editing){ if (e.key === 'Escape') setEditing(false); return; }
+    if (e.key === 'n' || e.key === 'N') setNotes(!notesOn);
+    else if (e.key === 't' || e.key === 'T') setRail(!railOn);
+    else if (e.key === 'e' || e.key === 'E') setEditing(true);
+  });
+  document.getElementById('btnPresent').addEventListener('click', function(){
+    var el = document.documentElement;
+    if (!document.fullscreenElement) (el.requestFullscreen||el.webkitRequestFullscreen).call(el); else document.exitFullscreen();
+  });
+})();
+</script>
+</body>
+</html>

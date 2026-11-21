@@ -1,0 +1,2878 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Module 08 · Nhân viên AI báo cáo và phân tích · AI Agents Mastery · The AI Growth</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Bricolage+Grotesque:wght@700;800&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* AI Agents Mastery · slide bài học · canvas 1920×1080 · skin TAG (xanh #0693E3 → tím #9900EF) */
+  :root{
+    --bg:#FFFFFF; --bg-2:#F8FAFC; --bg-3:#F1F5F9;
+    --ink:#030815; --muted:#475569; --faint:#94A3B8;
+    --blue:#0693E3; --purple:#9900EF; --red:#E11D48; --green:#059669; --amber:#D97706;
+    --brand-grad:linear-gradient(90deg,#0693E3 0%,#9900EF 100%);
+    --grad-v:linear-gradient(150deg,#0693E3 0%,#9900EF 100%);
+    --line:#E2E8F0; --line-2:#CBD5E1; --card:#F8FAFC;
+    --t-hero:112px; --t-title:58px; --t-sub:32px; --t-body:28px; --t-small:24px; --t-tiny:20px;
+    --pad-x:110px; --pad-y:60px;
+    --font:"Be Vietnam Pro",system-ui,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+    --disp:"Bricolage Grotesque","Be Vietnam Pro",sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#0b0f1a;}
+  deck-stage:not(:defined){visibility:hidden;}
+  h1,h2,h3,p,ol,ul{margin:0;}
+  section{background:#fff;color:#334155;font-family:var(--font);overflow:hidden;}
+  b{color:var(--ink);}
+  .slide{position:relative;height:100%;width:100%;padding:var(--pad-y) var(--pad-x) 100px;display:flex;flex-direction:column;}
+  .brandmark{position:absolute;top:42px;right:var(--pad-x);height:54px;width:auto;pointer-events:none;z-index:4;}
+  .slide::after{content:"theaigrowth.io";position:absolute;left:var(--pad-x);bottom:34px;font-size:var(--t-tiny);letter-spacing:.03em;color:var(--faint);font-weight:600;}
+  section::after{content:attr(data-foot);position:absolute;right:var(--pad-x);bottom:34px;font-size:var(--t-tiny);letter-spacing:.03em;color:var(--faint);font-weight:500;}
+  aside.notes{display:none!important;}
+
+  /* ===== chữ ===== */
+  .eyebrow{font-family:var(--mono);font-size:var(--t-small);letter-spacing:.16em;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:20px;padding-right:300px;}
+  .eyebrow.warn{color:var(--red);}
+  .stitle{font-family:var(--disp);font-size:var(--t-title);font-weight:800;line-height:1.08;letter-spacing:-.02em;text-wrap:balance;color:var(--ink);padding-right:200px;}
+  .sub{font-size:var(--t-sub);font-weight:500;color:var(--muted);line-height:1.4;margin-top:18px;}
+  .grad{background:var(--brand-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;}
+  .body{font-size:var(--t-body);color:var(--muted);line-height:1.5;}
+  .src-note{font-size:var(--t-tiny);color:var(--faint);font-weight:500;line-height:1.45;margin-top:14px;}
+  .src-note b{color:var(--muted);}
+  .mega{font-family:var(--disp);font-size:84px;font-weight:800;line-height:1.1;letter-spacing:-.025em;text-wrap:balance;color:var(--ink);}
+  .mega.md{font-size:68px;}
+  .red{color:var(--red);} .green{color:var(--green);} .blue{color:var(--blue);} .purple{color:var(--purple);}
+
+  /* ===== bố cục ===== */
+  .mid{flex:1;display:flex;flex-direction:column;justify-content:center;gap:34px;min-height:0;}
+  .center{align-items:center;text-align:center;}
+  .lr{flex:1;min-height:0;display:grid;grid-template-columns:620px 1fr;gap:64px;align-items:center;}
+  .lr.wide{grid-template-columns:520px 1fr;}
+  .lr.half{grid-template-columns:1fr 1fr;}
+  .lr .lt{display:flex;flex-direction:column;justify-content:center;gap:22px;min-width:0;}
+  .lr .lt .stitle{padding-right:0;}
+  .rt{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;min-width:0;min-height:0;}
+  .row{display:grid;gap:26px;align-items:stretch;}
+  .c2{grid-template-columns:repeat(2,1fr);} .c3{grid-template-columns:repeat(3,1fr);} .c4{grid-template-columns:repeat(4,1fr);} .c5{grid-template-columns:repeat(5,1fr);}
+
+  /* ===== ảnh ===== */
+  img.shot{border:1px solid var(--line);border-radius:14px;box-shadow:0 14px 36px rgba(3,8,21,.12);max-width:100%;max-height:720px;height:auto;width:auto;background:#fff;display:block;}
+  img.shot.tall{max-height:800px;}
+  img.shot.full{max-height:760px;}
+  img.svg{max-width:100%;max-height:760px;width:100%;height:auto;display:block;}
+  .cap{font-size:var(--t-tiny);color:var(--muted);font-weight:500;text-align:center;line-height:1.4;max-width:1100px;}
+  .cap b{color:var(--ink);}
+  .ann-svg{width:100%;height:auto;max-height:640px;display:block;border-radius:14px;border:1px solid var(--line);box-shadow:0 14px 36px rgba(3,8,21,.12);background:#fff;}
+
+  /* ảnh + ghi chú đánh số (số trùng số in trên ảnh) */
+  .annlay{flex:1;min-height:0;display:grid;grid-template-columns:1fr 600px;gap:52px;align-items:center;}
+  .annlay.narrow{grid-template-columns:1fr 700px;}
+  .annlay.big{grid-template-columns:1fr 500px;}
+  .annlay.big .ann-svg,.annlay.big img.shot{max-height:690px;}
+  .matrix{display:grid;grid-template-columns:150px 1fr 1fr;grid-template-rows:auto 1fr 1fr;gap:18px;flex:1;min-height:0;}
+  .matrix .card{justify-content:center;}
+  .matrix .card p{font-size:30px;}
+  .matrix .ax{font-family:var(--mono);font-size:var(--t-tiny);font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;text-align:center;}
+  .annimg{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;min-width:0;min-height:0;}
+  .annlay img.shot{max-height:640px;}
+  .anote{list-style:none;padding:0;display:flex;flex-direction:column;gap:24px;counter-reset:n;}
+  .anote li{position:relative;padding-left:62px;font-size:26px;line-height:1.45;color:var(--muted);counter-increment:n;}
+  .anote li::before{content:counter(n);position:absolute;left:0;top:-2px;width:44px;height:44px;border-radius:50%;background:#5B4FE0;color:#fff;font-weight:800;font-size:23px;display:flex;align-items:center;justify-content:center;}
+  .anote.red li::before{background:var(--red);}
+  .anote li b{color:var(--ink);}
+  .act{margin-top:26px;background:var(--bg-2);border-left:6px solid var(--purple);border-radius:12px;padding:20px 24px;font-size:25px;line-height:1.45;color:var(--ink);font-weight:500;}
+
+  /* ảnh rộng full ngang, ghi chú đánh số xếp hàng bên dưới */
+  .shotwide{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;}
+  .shotwide img.shot,.shotwide .ann-svg{max-width:1700px;max-height:600px;width:auto;}
+  .anote.row{display:grid;grid-template-columns:repeat(var(--k,3),1fr);gap:30px;width:100%;}
+  /* nhiều ảnh cắt vùng: cột trái xếp chồng, cột phải ảnh + ghi chú */
+  .duo{flex:1;min-height:0;display:grid;grid-template-columns:1.35fr 1fr;gap:44px;align-items:center;}
+  .stack{display:flex;flex-direction:column;gap:22px;align-items:flex-start;min-width:0;}
+  .stack img.shot{max-height:300px;}
+  .stack .cap{text-align:left;}
+
+  /* ===== thẻ ===== */
+  .card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:34px 34px;display:flex;flex-direction:column;gap:12px;}
+  .card .n{font-family:var(--disp);font-size:50px;font-weight:800;line-height:1;color:var(--blue);}
+  .card .ic{font-size:46px;line-height:1;}
+  .card .k{font-family:var(--mono);font-size:var(--t-tiny);letter-spacing:.12em;text-transform:uppercase;color:var(--purple);font-weight:700;}
+  .card h3{font-size:34px;font-weight:700;line-height:1.2;color:var(--ink);}
+  .card p{font-size:27px;color:var(--muted);line-height:1.45;}
+  .card.on{background:var(--grad-v);border-color:transparent;box-shadow:0 14px 32px rgba(153,0,239,.25);}
+  .card.on .n,.card.on h3,.card.on b,.card.on .k{color:#fff;}
+  .card.on p{color:rgba(255,255,255,.92);}
+  .card.stop{background:#FFF1F2;border-color:#FECDD3;}
+  .card.stop .n,.card.stop .k{color:var(--red);}
+  .card.ok{background:#ECFDF5;border-color:#A7F3D0;}
+  .card.ok .n,.card.ok .k{color:var(--green);}
+  .card.todo{background:#FFFBEB;border:3px dashed #F59E0B;}
+  .card.todo .k{color:var(--amber);}
+
+  /* hai cột so sánh */
+  .vs{display:grid;grid-template-columns:1fr 90px 1fr;align-items:stretch;gap:0;}
+  .vs .mid-x{display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-size:44px;font-weight:800;color:var(--faint);}
+
+  /* dải nhấn */
+  .band{background:var(--grad-v);border-radius:20px;padding:28px 44px;color:#fff;font-size:31px;font-weight:700;text-align:center;box-shadow:0 16px 36px rgba(153,0,239,.24);line-height:1.38;}
+  .band b{color:#fff;}
+  .band.light{background:var(--bg-2);color:var(--ink);border:1px solid var(--line);box-shadow:none;font-weight:600;}
+  .band.light b{color:var(--purple);}
+  .band.warn{background:#FFF1F2;color:#9F1239;border:1px solid #FECDD3;box-shadow:none;}
+  .band.warn b{color:#9F1239;}
+  .chips{display:flex;flex-wrap:wrap;gap:16px;}
+  .chip{background:var(--bg-2);border:1px solid var(--line);border-radius:999px;padding:12px 26px;font-size:25px;font-weight:600;color:var(--ink);}
+  .chip.r{background:#FFF1F2;border-color:#FECDD3;color:#9F1239;}
+
+  /* ===== luồng bước + hai làn (AI / người) ===== */
+  .lanes{display:grid;grid-template-columns:170px repeat(var(--n,8),1fr);grid-template-rows:auto auto;gap:14px 12px;align-items:stretch;}
+  .lanes .lh{font-family:var(--mono);font-size:var(--t-tiny);letter-spacing:.1em;text-transform:uppercase;font-weight:700;display:flex;align-items:center;}
+  .lanes .lh.ai{color:var(--blue);} .lanes .lh.ng{color:var(--red);}
+  .lanes .st{border-radius:16px;padding:22px 16px;min-height:190px;font-size:25px;line-height:1.3;font-weight:600;color:var(--ink);background:var(--bg-2);border:1px solid var(--line);display:flex;flex-direction:column;gap:8px;}
+  .lanes .st .sn{font-family:var(--disp);font-size:30px;font-weight:800;color:var(--blue);line-height:1;}
+  .lanes .st.h{background:#FFF1F2;border-color:#FDA4AF;}
+  .lanes .st.h .sn{color:var(--red);}
+  .lanes .gap{border:2px dashed var(--line);border-radius:16px;background:transparent;}
+  .lanes .gap.ai{border-color:rgba(6,147,227,.18);}
+  .legend{display:flex;gap:34px;font-size:var(--t-tiny);color:var(--muted);font-weight:600;}
+  .legend i{display:inline-block;width:22px;height:22px;border-radius:6px;vertical-align:-4px;margin-right:10px;}
+
+  .flow{display:flex;align-items:center;gap:20px;justify-content:center;}
+  .flow .fs{flex:1;max-width:380px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:34px 22px;text-align:center;font-size:31px;font-weight:700;color:var(--ink);}
+  .flow .fs small{display:block;font-size:var(--t-tiny);color:var(--muted);font-weight:500;margin-top:10px;line-height:1.35;}
+  .flow .fs.hot{background:var(--grad-v);color:#fff;border-color:transparent;box-shadow:0 14px 32px rgba(153,0,239,.28);}
+  .flow .fs.hot small{color:rgba(255,255,255,.9);}
+  .flow .fa{font-size:44px;color:var(--faint);}
+
+  /* ===== bậc thang 4 cấp ===== */
+  .ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;align-items:end;}
+  .ladder .lv{border-radius:20px 20px 14px 14px;padding:28px 26px;background:var(--bg-2);border:1px solid var(--line);display:flex;flex-direction:column;gap:12px;}
+  .ladder .lv:nth-child(1){min-height:300px;} .ladder .lv:nth-child(2){min-height:390px;} .ladder .lv:nth-child(3){min-height:480px;} .ladder .lv:nth-child(4){min-height:570px;}
+  .ladder .lv .k{font-family:var(--mono);font-size:var(--t-tiny);letter-spacing:.12em;text-transform:uppercase;color:var(--purple);font-weight:700;}
+  .ladder .lv h3{font-size:34px;color:var(--ink);font-weight:800;line-height:1.15;}
+  .ladder .lv p{font-size:23px;color:var(--muted);line-height:1.42;}
+  .ladder .lv .tool{margin-top:auto;font-size:var(--t-tiny);font-weight:700;color:var(--blue);}
+  .ladder .lv.on{background:var(--grad-v);border-color:transparent;}
+  .ladder .lv.on h3,.ladder .lv.on p,.ladder .lv.on .k,.ladder .lv.on .tool{color:#fff;}
+
+  /* ===== bảng 3 cột ===== */
+  table.tb{width:100%;border-collapse:separate;border-spacing:0 12px;}
+  table.tb th{font-family:var(--mono);font-size:var(--t-tiny);letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--purple);text-align:left;padding:0 26px 2px;}
+  table.tb td{background:var(--card);padding:22px 26px;font-size:26px;color:var(--muted);line-height:1.4;font-weight:500;vertical-align:middle;}
+  table.tb td:first-child{border-radius:16px 0 0 16px;color:var(--ink);font-weight:700;}
+  table.tb td:last-child{border-radius:0 16px 16px 0;}
+  table.tb td.hi{color:var(--blue);font-weight:700;}
+  table.tb tr.on td{background:#F3E8FF;}
+
+  /* ===== prompt chép được ===== */
+  .prompt{position:relative;background:#0B1020;border-radius:20px;padding:40px 46px 40px;color:#E2E8F0;font-family:var(--font);font-size:27px;line-height:1.55;white-space:pre-wrap;box-shadow:0 18px 40px rgba(3,8,21,.25);}
+  .prompt .ph{color:#FBBF24;font-weight:700;}
+  .prompt .lbl{position:absolute;top:-18px;left:36px;background:var(--brand-grad);color:#fff;font-family:var(--mono);font-size:var(--t-tiny);font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 18px;border-radius:999px;}
+  .copybtn{position:absolute;top:-18px;right:28px;background:#334155;color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:10px;padding:8px 18px;font-size:20px;font-weight:600;cursor:pointer;font-family:var(--font);}
+
+  /* ===== tóm lại ===== */
+  .recap{list-style:none;padding:0;display:flex;flex-direction:column;gap:22px;}
+  .recap li{display:flex;gap:26px;align-items:center;font-size:36px;line-height:1.4;color:var(--ink);font-weight:600;background:var(--bg-2);border:1px solid var(--line);border-radius:20px;padding:30px 36px;}
+  .recap li .d{flex:none;width:60px;height:60px;border-radius:16px;background:var(--grad-v);color:#fff;font-family:var(--disp);font-weight:800;font-size:32px;display:flex;align-items:center;justify-content:center;}
+  .next{display:flex;align-items:center;gap:20px;font-size:30px;color:var(--muted);font-weight:600;padding-top:10px;}
+  .next b{color:var(--purple);}
+
+  /* ===== bìa module (nền gradient) ===== */
+  section.cover{background:var(--grad-v);}
+  section.cover .slide,section.cover b{color:#fff;}
+  section.cover .slide::after,section.cover::after{color:rgba(255,255,255,.75);}
+  section.cover .eyebrow{color:rgba(255,255,255,.9);}
+  .cover-glow{position:absolute;width:1000px;height:1000px;border-radius:50%;right:-260px;top:-320px;background:radial-gradient(circle,rgba(255,255,255,.22),transparent 64%);pointer-events:none;}
+  .hero{font-family:var(--disp);font-size:var(--t-hero);font-weight:800;letter-spacing:-.03em;line-height:1.02;color:#fff;text-wrap:balance;max-width:1500px;}
+  .hero-sub{font-size:38px;font-weight:500;color:rgba(255,255,255,.92);margin-top:28px;max-width:1450px;line-height:1.35;}
+  .toc{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 40px;margin-top:54px;max-width:1600px;}
+  .toc div{font-size:26px;color:#fff;font-weight:600;line-height:1.35;display:flex;gap:16px;}
+  .toc div span{font-family:var(--mono);opacity:.75;flex:none;}
+
+  /* ===== mở bài học (nền sáng có dải màu) ===== */
+  section.lesson .slide{background:linear-gradient(180deg,#F5F3FF 0%,#FFFFFF 62%);}
+  section.lesson .slide::before{content:"";position:absolute;left:0;top:0;bottom:0;width:18px;background:var(--grad-v);}
+  .lnum{font-family:var(--disp);font-size:150px;font-weight:800;line-height:.9;letter-spacing:-.04em;}
+  .ltitle{font-family:var(--disp);font-size:66px;font-weight:800;line-height:1.1;letter-spacing:-.02em;color:var(--ink);text-wrap:balance;max-width:1600px;}
+  .after{font-size:31px;color:var(--muted);line-height:1.45;font-weight:500;max-width:1500px;}
+  .after b{color:var(--purple);}
+  .keys{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .keys div{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px 28px;font-size:25px;line-height:1.4;color:var(--ink);font-weight:600;box-shadow:0 8px 22px rgba(3,8,21,.05);}
+  .keys div i{display:block;font-style:normal;font-family:var(--mono);font-size:var(--t-tiny);color:var(--blue);font-weight:700;margin-bottom:8px;letter-spacing:.1em;}
+
+  /* ===== chờ Vincent ===== */
+  .todo-box{background:#FFFBEB;border:3px dashed #F59E0B;border-radius:18px;padding:22px 28px;font-size:24px;line-height:1.45;color:#92400E;font-weight:600;}
+  .todo-box b{color:#92400E;}
+
+  /* ===== hiệu ứng vào slide ===== */
+  section[data-deck-active] .rise{animation:rise .55s cubic-bezier(.2,0,0,1) both;}
+  section[data-deck-active] .rise:nth-child(2){animation-delay:.08s;} section[data-deck-active] .rise:nth-child(3){animation-delay:.16s;} section[data-deck-active] .rise:nth-child(4){animation-delay:.24s;}
+  @keyframes rise{from{opacity:0;transform:translateY(18px);}}
+  @media print{section .rise{animation:none!important;}}
+
+  /* ===== thanh điều khiển + ghi chú diễn giả ===== */
+  .deck-ctrl{position:fixed;left:18px;bottom:16px;z-index:50;display:flex;gap:8px;font-family:var(--font);}
+  .deck-ctrl button{background:rgba(15,23,42,.82);color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:8px 14px;font-size:14px;font-weight:600;cursor:pointer;}
+  .deck-ctrl button.on{background:#7C3AED;}
+  .notes-panel{position:fixed;right:18px;bottom:60px;z-index:50;width:min(560px,44vw);max-height:46vh;overflow:auto;background:rgba(15,23,42,.94);color:#E2E8F0;border-radius:14px;padding:18px 22px;font:15px/1.6 var(--font);display:none;box-shadow:0 12px 30px rgba(0,0,0,.4);}
+  .notes-panel.show{display:block;}
+  .notes-panel h4{margin:0 0 8px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#A78BFA;}
+  .notes-panel p{margin:0 0 8px;}
+  deck-stage section[contenteditable="true"]{outline:3px dashed rgba(6,147,227,.55);outline-offset:-3px;cursor:text;}
+
+  /* ===== riêng m08 ===== */
+  /* bảng kiểu Excel: xem file thật của dữ liệu mẫu */
+  .xlwrap{background:#fff;border:1px solid var(--line-2);border-radius:12px;box-shadow:0 14px 36px rgba(3,8,21,.12);overflow:hidden;}
+  .xlbar{background:#F1F5F9;border-bottom:1px solid var(--line-2);padding:10px 18px;font-size:19px;font-weight:600;color:var(--muted);display:flex;gap:18px;align-items:center;}
+  .xlbar .tab{background:#fff;border:1px solid var(--line-2);border-bottom:none;border-radius:8px 8px 0 0;padding:4px 14px;color:var(--ink);}
+  .xlbar .tab.off{background:transparent;color:var(--faint);}
+  table.xl{border-collapse:collapse;font-size:24px;color:#1E293B;width:100%;}
+  table.xl th{background:#F8FAFC;color:var(--faint);font-weight:600;font-size:19px;padding:4px 10px;border:1px solid #E2E8F0;}
+  table.xl td{border:1px solid #E2E8F0;padding:7px 12px;white-space:nowrap;}
+  table.xl td.rn{background:#F8FAFC;color:var(--faint);font-size:17px;text-align:center;width:44px;}
+  table.xl td.num{text-align:right;font-variant-numeric:tabular-nums;}
+  table.xl tr.hd td{font-weight:700;background:#EEF2FF;}
+  table.xl td.mg{background:#FEF3C7;font-weight:700;vertical-align:top;}
+  table.xl tr.stot td{background:#FFE4E6;color:#9F1239;font-weight:700;}
+  table.xl tr.tot td{background:#FECDD3;color:#881337;font-weight:800;}
+  table.xl tr.note td{color:#64748B;font-style:italic;}
+  table.xl.sm{font-size:22px;}
+  table.xl.sm td{padding:6px 10px;}
+  /* hai con số đặt cạnh nhau */
+  .pair{display:grid;grid-template-columns:1fr 120px 1fr;align-items:center;gap:0;}
+  .pair .pv{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:40px 30px;text-align:center;}
+  .pair .pv .big{font-family:var(--disp);font-size:96px;font-weight:800;line-height:1;letter-spacing:-.02em;}
+  .pair .pv p{font-size:26px;color:var(--muted);margin-top:16px;line-height:1.4;}
+  .pair .pv.bad{background:#FFF1F2;border-color:#FECDD3;} .pair .pv.bad .big{color:var(--red);}
+  .pair .pv.good{background:#ECFDF5;border-color:#A7F3D0;} .pair .pv.good .big{color:var(--green);}
+  .pair .ar{text-align:center;font-size:56px;color:var(--faint);font-weight:800;}
+  /* tháp ngược */
+  .pyr{display:flex;flex-direction:column;align-items:center;gap:12px;}
+  .pyr div{border-radius:14px;padding:20px 24px;text-align:center;font-size:27px;font-weight:700;color:#fff;}
+  .pyr div small{display:block;font-size:20px;font-weight:500;opacity:.9;margin-top:4px;}
+  .pyr .p1{width:100%;background:#7C3AED;} .pyr .p2{width:82%;background:#6D5BF0;} .pyr .p3{width:64%;background:#4F7FEA;} .pyr .p4{width:46%;background:#94A3B8;}
+  /* báo cáo giả lập hai kiểu */
+  .rep{background:#fff;border:1px solid var(--line-2);border-radius:14px;padding:32px 34px;box-shadow:0 10px 26px rgba(3,8,21,.08);font-size:25px;line-height:1.5;color:#334155;height:100%;}
+  .rep h4{margin:0 0 14px;font-size:28px;color:var(--ink);}
+  .rep .hl{background:#F3E8FF;border-left:5px solid var(--purple);padding:14px 18px;border-radius:8px;color:var(--ink);font-weight:700;margin-bottom:14px;}
+  .rep .dim{color:#94A3B8;}
+  /* bước làm cùng mình */
+  .stepbox{display:grid;grid-template-columns:76px 1fr;gap:22px;align-items:start;}
+  .stepbox .sn{width:76px;height:76px;border-radius:20px;background:var(--grad-v);color:#fff;font-family:var(--disp);font-size:40px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+  .stepbox h3{font-size:32px;color:var(--ink);font-weight:700;line-height:1.25;margin-bottom:12px;}
+  .stepbox p{font-size:26px;color:var(--muted);line-height:1.45;}
+  .kiem{background:#ECFDF5;border:1px solid #A7F3D0;border-radius:14px;padding:16px 22px;font-size:24px;color:#065F46;font-weight:600;line-height:1.45;}
+  .kiem b{color:#065F46;}
+  .prompt.sm{font-size:24px;padding:34px 40px 30px;}
+  .stepbox .prompt{margin-top:30px;}
+
+</style>
+</head>
+<body>
+<deck-stage width="1920" height="1080">
+<section data-foot="AI Agents Mastery · Module 08" data-label="Bìa Module 08" class="cover">
+  <div class="cover-glow"></div>
+  <div class="slide">
+    <div class="mid">
+      <div class="eyebrow">AI Agents Mastery · Module 08</div>
+      <h1 class="hero">Nhân viên AI báo cáo và phân tích</h1>
+      <p class="hero-sub">AI đọc số, viết kết luận trước và dựng dashboard tự cập nhật, để bạn đọc nhanh rồi ra quyết định.</p>
+      <div class="toc">
+        <div><span>8.1</span>Báo cáo quảng cáo tự viết kết luận</div>
+        <div><span>8.2</span>AI đọc sai file Excel mà bạn không biết?</div>
+        <div><span>8.3</span>Báo cáo kiểu sếp muốn đọc</div>
+        <div><span>8.4</span>Demo: dashboard tự cập nhật bằng Claude Data</div>
+        <div><span>8.5</span>File hàng chục nghìn dòng: phân tích không đọc sót</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Ví dụ chạy suốt module">
+  <div class="slide">
+    <div class="eyebrow">Ví dụ chạy suốt module</div>
+    <h2 class="stitle">Spa An Nhiên (tên giả định) và <span class="grad">3 file dữ liệu mẫu</span></h2>
+    <div class="mid">
+      <div class="row c3">
+        <div class="card rise"><div class="k">Bài 8.1 · 8.3</div><h3>File quảng cáo tháng 10/2026</h3><p>CSV, 93 dòng. Mỗi dòng là một ngày của một chiến dịch: chi phí, lượt hiển thị, kết quả, lịch đặt.</p></div>
+        <div class="card rise"><div class="k">Bài 8.2</div><h3>File doanh thu tháng 9 và 10</h3><p>Excel, 2 sheet. Có ô gộp, dòng tổng phụ và dòng ghi chú như file nhập tay thật.</p></div>
+        <div class="card rise"><div class="k">Bài 8.4 · 8.5</div><h3>File lịch hẹn 22 tháng</h3><p>CSV, 18.251 dòng, từ 01/2025 tới 10/2026. Mỗi dòng một lịch hẹn.</p></div>
+      </div>
+      <div class="band light">File mẫu có trong bài. Bạn làm theo trên file mẫu trước, rồi đổi sang file của mình.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Bài 8.1 · Mở bài" class="lesson">
+  <div class="slide">
+    <div class="mid">
+      <div class="eyebrow">Bài 8.1</div>
+      <h2 class="ltitle">Báo cáo quảng cáo tự viết kết luận: AI đọc số, bạn chỉ cần duyệt</h2>
+      <p class="after">Sau bài này, từ file xuất của trình quản lý quảng cáo, bạn có <b>báo cáo tháng có kết luận, số chính và việc tiếp theo</b>, rồi bạn duyệt.</p>
+      <div class="keys">
+        <div class="rise"><i>01</i>Claude tính bằng code, không cộng nhẩm</div>
+        <div class="rise"><i>02</i>Bạn duyệt ba thứ trước khi gửi</div>
+        <div class="rise"><i>03</i>Ba đường lấy số, rẻ nhất trước</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Luồng báo cáo">
+  <div class="slide">
+    <div class="eyebrow">Cả bài trong một hình</div>
+    <h2 class="stitle">Claude đọc file, tính bằng code, viết báo cáo. <span class="grad">Bạn duyệt trước khi gửi</span></h2>
+    <div class="mid">
+      <div class="flow">
+        <div class="fs rise">File CSV<small>xuất từ trình quản lý quảng cáo</small></div><div class="fa">→</div>
+        <div class="fs rise">Claude chạy code<small>tính tổng, so nửa đầu và nửa sau tháng</small></div><div class="fa">→</div>
+        <div class="fs rise">Báo cáo một trang<small>kết luận ở dòng đầu</small></div><div class="fa">→</div>
+        <div class="fs hot rise">Bạn duyệt<small>số, nhận định, việc tiếp theo</small></div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="File quảng cáo thật">
+  <div class="slide">
+    <div class="eyebrow">Bước đầu: tải file xuất</div>
+    <h2 class="stitle">File xuất quảng cáo: <span class="grad">mỗi dòng một ngày, một chiến dịch</span></h2>
+    <div class="mid">
+      <div class="xlwrap">
+        <div class="xlbar"><span class="tab">spa_quang-cao_thang-10-2026.csv</span><span>93 dòng · 8 cột</span></div>
+        <table class="xl sm">
+          <tr><th></th><th>ngay</th><th>chien_dich</th><th>muc_tieu</th><th>chi_phi_vnd</th><th>hien_thi</th><th>luot_nhap</th><th>ket_qua</th><th>dat_lich_thanh_cong</th></tr>
+          <tr><td class="rn">2</td><td>2026-10-01</td><td>Liệu trình trị mụn - tin nhắn</td><td>Tin nhắn</td><td class="num">210000</td><td class="num">11127</td><td class="num">271</td><td class="num">69</td><td class="num">33</td></tr>
+          <tr><td class="rn">3</td><td>2026-10-01</td><td>Gói chăm sóc da 3 buổi - form</td><td>Form</td><td class="num">237000</td><td class="num">15966</td><td class="num">320</td><td class="num">33</td><td class="num">13</td></tr>
+          <tr><td class="rn">4</td><td>2026-10-01</td><td>Gói giờ vàng - lượt xem</td><td>Lượt xem</td><td class="num">143000</td><td class="num">9046</td><td class="num">198</td><td class="num">0</td><td class="num">0</td></tr>
+          <tr><td class="rn">5</td><td>2026-10-02</td><td>Liệu trình trị mụn - tin nhắn</td><td>Tin nhắn</td><td class="num">292000</td><td class="num">14891</td><td class="num">297</td><td class="num">57</td><td class="num">26</td></tr>
+          <tr><td class="rn">6</td><td>2026-10-02</td><td>Gói chăm sóc da 3 buổi - form</td><td>Form</td><td class="num">295000</td><td class="num">13359</td><td class="num">315</td><td class="num">34</td><td class="num">12</td></tr>
+          <tr><td class="rn">7</td><td>2026-10-02</td><td>Gói giờ vàng - lượt xem</td><td>Lượt xem</td><td class="num">115000</td><td class="num">5898</td><td class="num">145</td><td class="num">0</td><td class="num">0</td></tr>
+        </table>
+      </div>
+      <div class="band light">Tải file <b>theo ngày</b>, không tải file tổng tháng: có số theo ngày thì Claude mới so được nửa đầu và nửa sau tháng.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Claude phân tích file bằng code">
+  <div class="slide">
+    <div class="eyebrow">Trang hỗ trợ Anthropic</div>
+    <h2 class="stitle">Claude phân tích file CSV <span class="grad">bằng code</span></h2>
+    <div class="annlay">
+      <div class="annimg"><svg class="ann-svg" viewBox="0 0 826 509" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m08/pad/taofile.png" x="0" y="0" width="826" height="509"/><path d="M0,0h826v509h-826zM17,14h801v72h-801zM34,100h524v32h-524zM52,468h316v30h-316z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="17" y="14" width="801" height="72" rx="4" fill="none" stroke="#EF004B" stroke-width="2.9"/><rect x="34" y="100" width="524" height="32" rx="4" fill="none" stroke="#EF004B" stroke-width="2.9"/><rect x="52" y="468" width="316" height="30" rx="4" fill="none" stroke="#EF004B" stroke-width="2.9"/><circle cx="17" cy="15" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.2"/><text x="17" y="21" text-anchor="middle" font-size="17" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text><circle cx="17" cy="116" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.2"/><text x="17" y="122" text-anchor="middle" font-size="17" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">2</text><circle cx="35" cy="483" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.2"/><text x="35" y="489" text-anchor="middle" font-size="17" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">3</text></svg><p class="cap">Ảnh chụp trang trợ giúp Anthropic "Create and edit files with Claude", ngày 20/11/2026. Khung số do The AI Growth vẽ thêm.</p></div>
+      <div>
+        <ol class="anote red">
+          <li><b>Tải CSV, TSV và file khác lên</b> để Claude phân tích và vẽ biểu đồ.</li>
+          <li><b>File tối đa 30MB</b> cho cả tải lên và tải về.</li>
+          <li><b>Claude viết code Python</b> để phân tích dữ liệu.</li>
+        </ol>
+        <div class="act">Tính bằng code thì cộng đủ từng dòng. Model tự cộng nhẩm thì dễ sót hoặc sai số.</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Bật chạy mã">
+  <div class="slide">
+    <div class="lr">
+      <div class="lt">
+        <div class="eyebrow">Ảnh chụp thật · Cài đặt</div>
+        <h2 class="stitle">Muốn Claude tính bằng code: <span class="grad">bật Chạy mã trên đám mây</span></h2>
+        <p class="body">Vào <b>Cài đặt → Khả năng</b>. Bật công tắc <b>Chạy mã trên đám mây</b> (số 2 trong ảnh).</p>
+        <p class="body">Tắt công tắc này thì Claude không tạo file và không chạy code để tính.</p>
+      </div>
+      <div class="rt"><img class="shot" src="media/m08/M06-B2-S01.jpg" alt="Cài đặt Khả năng của Claude, công tắc Chạy mã trên đám mây"><p class="cap">Ảnh chụp app Claude: Cài đặt → Khả năng (1), công tắc Chạy mã trên đám mây (2).</p></div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Ví dụ chi phí mỗi lịch">
+  <div class="slide">
+    <div class="eyebrow">Từ bảng số đến kết luận · ví dụ ở spa</div>
+    <h2 class="stitle">Chi phí mỗi lịch đặt của chiến dịch gói da <span class="grad">tăng từ giữa tháng</span></h2>
+    <div class="mid">
+      <div class="pair">
+        <div class="pv good rise"><div class="big">22.679đ</div><p>Mỗi lịch đặt, 1–15/10<br>3.742.000đ cho 165 lịch</p></div>
+        <div class="ar">→</div>
+        <div class="pv bad rise"><div class="big">33.750đ</div><p>Mỗi lịch đặt, 16–31/10<br>6.480.000đ cho 192 lịch</p></div>
+      </div>
+      <div class="band">Chi phí tăng 73%, lịch đặt chỉ tăng 16%. Mỗi lịch đắt hơn khoảng 49%.</div>
+      <p class="src-note">Dữ liệu mẫu giả định của Spa An Nhiên. Số tính bằng code từ file quảng cáo 93 dòng.</p>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Số kiểm theo chiến dịch">
+  <div class="slide">
+    <div class="eyebrow">Số kiểm · để bạn đối chiếu với câu trả lời của Claude</div>
+    <h2 class="stitle">Tổng tháng 10 của <span class="grad">3 chiến dịch</span></h2>
+    <div class="mid">
+      <table class="tb">
+        <tr><th>Chiến dịch</th><th>Chi phí tháng 10</th><th>Lịch đặt thành công</th></tr>
+        <tr><td>Liệu trình trị mụn · tin nhắn</td><td>8.177.000đ</td><td class="hi">834 lịch · 9.274đ → 10.383đ mỗi lịch</td></tr>
+        <tr class="on"><td>Gói chăm sóc da 3 buổi · form</td><td>10.222.000đ</td><td class="hi">357 lịch · 22.679đ → 33.750đ mỗi lịch</td></tr>
+        <tr><td>Gói giờ vàng · lượt xem</td><td>3.750.000đ</td><td class="red">0 lịch (chiến dịch chạy lượt xem)</td></tr>
+      </table>
+      <p class="src-note">Dữ liệu mẫu giả định. Mũi tên: nửa đầu tháng → nửa sau tháng.</p>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Bạn duyệt ba thứ">
+  <div class="slide">
+    <div class="eyebrow">Bạn duyệt ba thứ</div>
+    <h2 class="stitle">Trước khi gửi, <span class="grad">bạn kiểm 3 thứ</span></h2>
+    <div class="mid">
+      <table class="tb">
+        <tr><th>Thứ cần duyệt</th><th>Cách kiểm</th><th>Ví dụ ở spa</th></tr>
+        <tr><td>Số khớp file</td><td>Tự kiểm 1–2 con số tổng</td><td>Tổng chi phí 22.149.000đ</td></tr>
+        <tr><td>Nhận định có số đi kèm</td><td>Mỗi câu nhận xét phải có ít nhất một số</td><td>"Gói da kém" → kèm 22.679đ lên 33.750đ</td></tr>
+        <tr><td>Việc tiếp theo hợp tình hình thật</td><td>Đối chiếu chuyện nằm ngoài file</td><td>Spa nghỉ sửa phòng 12–14/10: AI không biết</td></tr>
+      </table>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Hỏi lại câu gì">
+  <div class="slide">
+    <div class="mid center">
+      <div class="eyebrow">Claude nói "chiến dịch A kém". Bạn hỏi lại câu gì?</div>
+      <p class="mega md">"Kém so với cái gì, và <span class="grad">số nào</span> cho thấy điều đó?"</p>
+      <p class="sub">Nhận định không có số đi kèm thì chưa dùng được để ra quyết định.</p>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Lấy số từ đâu">
+  <div class="slide">
+    <div class="eyebrow">Lấy số từ đâu</div>
+    <h2 class="stitle">Ba đường đưa số vào Claude, <span class="grad">rẻ và nhanh nhất trước</span></h2>
+    <div class="mid">
+      <div class="row c3">
+        <div class="card on rise"><div class="n">1</div><h3>Tải file xuất</h3><p>Nhanh nhất, ai cũng làm được, có từ gói Free.</p></div>
+        <div class="card rise"><div class="n">2</div><h3>Connector</h3><p>Nếu nền tảng có connector cho Claude. Module 06 dạy cách nối.</p></div>
+        <div class="card rise"><div class="n">3</div><h3>Claude in Chrome</h3><p>Claude đọc trang báo cáo ngay trên trình duyệt. Cần gói trả phí.</p></div>
+      </div>
+      <div class="band light">Báo cáo chạy mỗi sáng thứ Hai theo lịch: <b>Module 11</b>.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Làm cùng mình 8.1 · bước 1–2">
+  <div class="slide">
+    <div class="eyebrow">Làm cùng mình · bước 1 và 2</div>
+    <div class="lr" style="grid-template-columns:1fr 760px">
+      <div class="lt">
+        <div class="stepbox"><div class="sn">1</div><div><h3>Tải file quảng cáo tháng 10, dán lời giao việc</h3>
+          <div class="prompt sm"><span class="lbl">Prompt</span>File này là số quảng cáo tháng 10/2026 của spa. Dùng code để tính, không tính nhẩm.
+Cho mình tổng chi phí, tổng kết quả, tổng lịch đặt thành công và chi phí mỗi lịch đặt của từng chiến dịch. So nửa đầu tháng (1–15/10) với nửa sau (16–31/10).
+Chưa viết báo cáo.</div></div></div>
+      </div>
+      <div class="rt">
+        <div class="stepbox"><div class="sn">2</div><div><h3>Mở dòng code đã chạy để xem Claude tính gì</h3></div></div>
+        <img class="shot" src="media/m08/M01-B1-S05.jpg" alt="Khối code Claude đã chạy: phần Yêu cầu và phần Phản hồi">
+        <p class="cap">Ảnh chụp app Claude ở một ví dụ khác: bấm dòng xám (1) để mở khối code, xem phần Yêu cầu và kết quả (2).</p>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Làm cùng mình 8.1 · bước 3–4">
+  <div class="slide">
+    <div class="eyebrow">Làm cùng mình · bước 3 và 4</div>
+    <div class="mid">
+      <div class="row c2">
+        <div class="stepbox"><div class="sn">3</div><div><h3>Nhờ viết báo cáo một trang</h3>
+          <div class="prompt sm"><span class="lbl">Prompt</span>Viết báo cáo một trang trong một file. Dòng đầu là kết luận. Sau đó 3–5 số chính có so sánh, vì sao, việc tiếp theo (ai, làm gì, khi nào), và việc cần chủ spa quyết.</div></div></div>
+        <div class="stepbox"><div class="sn">4</div><div><h3>Hỏi Claude chỗ chưa chắc</h3>
+          <div class="prompt sm"><span class="lbl">Prompt</span>Số nào trong báo cáo em chưa chắc, và cần mình xác nhận thông tin gì ngoài file?</div></div></div>
+      </div>
+      <div class="todo-box">Ảnh chụp app cho bước 3 và 4 (file báo cáo mở ở khung bên cạnh): chờ lượt chụp app.<br>Chỗ để anh Vincent kể 1 câu kinh nghiệm về báo cáo tự viết kết luận (có thể trích video ajyLF-4HylU mốc 7:47, không hiện số kênh).</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Tóm lại 8.1">
+  <div class="slide">
+    <div class="eyebrow">Tóm lại · Bài 8.1</div>
+    <div class="mid">
+      <ul class="recap">
+        <li class="rise"><span class="d">1</span>Claude đọc file và tính bằng code, không cộng nhẩm.</li>
+        <li class="rise"><span class="d">2</span>Bạn duyệt số, nhận định và việc tiếp theo.</li>
+        <li class="rise"><span class="d">3</span>Tải file xuất là đường rẻ và nhanh nhất để bắt đầu.</li>
+      </ul>
+      <div class="next">Bài tiếp theo: <b>8.2 · Đọc file Excel không bị sai</b></div>
+    </div>
+  </div>
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Bài 8.2 · Mở bài" class="lesson">
+  <div class="slide">
+    <div class="mid">
+      <div class="eyebrow">Bài 8.2</div>
+      <h2 class="ltitle">AI đọc sai file Excel mà bạn không biết? Cách hỏi để có số đúng</h2>
+      <p class="after">Sau bài này, bạn biết <b>4 kiểu file làm AI đọc sai</b>, bắt AI tả file trước khi tính, và tự đối chiếu một con số.</p>
+      <div class="keys">
+        <div class="rise"><i>01</i>Bốn kiểu file dễ đọc sai</div>
+        <div class="rise"><i>02</i>Tả file trước, tính sau</div>
+        <div class="rise"><i>03</i>Đối chiếu một con số bằng tay</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Cùng file hai con số">
+  <div class="slide">
+    <div class="eyebrow warn">Cùng một file doanh thu tháng 9 và 10</div>
+    <h2 class="stitle">Cùng file, <span class="grad">hai con số</span></h2>
+    <div class="mid">
+      <div class="pair">
+        <div class="pv bad rise"><div class="big">1.534.650</div><p>Cộng cả cột "Thành tiền"<br>gồm cả dòng tổng phụ</p></div>
+        <div class="ar">≠</div>
+        <div class="pv good rise"><div class="big">511.550</div><p>Chỉ cộng dòng dịch vụ<br>số đúng</p></div>
+      </div>
+      <p class="src-note">Đơn vị nghìn đồng. Dữ liệu mẫu giả định; số tính bằng code từ file Excel mẫu.</p>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="File Excel thật">
+  <div class="slide">
+    <div class="eyebrow">Mở file ra xem · sheet Tháng 10</div>
+    <div class="lr" style="grid-template-columns:1fr 520px;gap:48px">
+      <div class="xlwrap">
+        <div class="xlbar"><span class="tab off">Tháng 9</span><span class="tab">Tháng 10</span><span>spa_doanh-thu_thang-9-10-2026.xlsx</span></div>
+        <table class="xl sm">
+          <tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr>
+          <tr class="hd"><td class="rn">3</td><td>Nhóm dịch vụ</td><td>Dịch vụ</td><td>Số lượt</td><td>Đơn giá</td><td>Thành tiền</td></tr>
+          <tr><td class="rn">4</td><td class="mg" rowspan="3">Chăm sóc da</td><td>Chăm sóc da cơ bản</td><td class="num">33</td><td class="num">250</td><td class="num">8.250</td></tr>
+          <tr><td class="rn">5</td><td>Trị mụn chuẩn y khoa</td><td class="num">61</td><td class="num">450</td><td class="num">27.450</td></tr>
+          <tr><td class="rn">6</td><td>Cấy dưỡng chất</td><td class="num">82</td><td class="num">600</td><td class="num">49.200</td></tr>
+          <tr class="stot"><td class="rn">7</td><td></td><td>Cộng chăm sóc da</td><td class="num">176</td><td></td><td class="num">84.900</td></tr>
+          <tr><td class="rn">8</td><td class="mg" rowspan="2">Thư giãn</td><td>Massage body 60 phút</td><td class="num">33</td><td class="num">350</td><td class="num">11.550</td></tr>
+          <tr><td class="rn">9</td><td>Gội đầu dưỡng sinh</td><td class="num">131</td><td class="num">120</td><td class="num">15.720</td></tr>
+          <tr class="stot"><td class="rn">10</td><td></td><td>Cộng thư giãn</td><td class="num">164</td><td></td><td class="num">27.270</td></tr>
+          <tr><td class="rn">11</td><td class="mg" rowspan="2">Gói liệu trình</td><td>Gói da 3 buổi</td><td class="num">127</td><td class="num">690</td><td class="num">87.630</td></tr>
+          <tr><td class="rn">12</td><td>Gói da 5 buổi</td><td class="num">113</td><td class="num">1.050</td><td class="num">118.650</td></tr>
+          <tr class="stot"><td class="rn">13</td><td></td><td>Cộng gói liệu trình</td><td class="num">240</td><td></td><td class="num">206.280</td></tr>
+          <tr class="tot"><td class="rn">14</td><td></td><td>TỔNG CỘNG</td><td></td><td></td><td class="num">318.450</td></tr>
+          <tr class="note"><td class="rn">16</td><td colspan="5">Ghi chú: tháng 10 có 3 ngày nghỉ sửa phòng (12-14/10).</td></tr>
+        </table>
+      </div>
+      <div class="lt">
+        <div class="card" style="background:#FEF3C7;border-color:#FCD34D"><h3>Ô gộp (vàng)</h3><p>Tên nhóm chỉ nằm ở dòng đầu của nhóm. Các dòng dưới để trống ô A.</p></div>
+        <div class="card stop"><h3>Dòng tổng phụ (đỏ)</h3><p>"Cộng …" và "TỔNG CỘNG" nằm chung cột với số dịch vụ.</p></div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Bốn kiểu file đọc sai">
+  <div class="slide">
+    <div class="eyebrow">Bốn kiểu file làm AI đọc sai</div>
+    <h2 class="stitle">Người nhìn hiểu ngay, <span class="grad">code đọc từng dòng nên dễ cộng trùng</span></h2>
+    <div class="mid">
+      <div class="row c4">
+        <div class="card rise"><div class="n">1</div><h3>Ô gộp</h3><p>Tên nhóm chỉ nằm ở dòng đầu, các dòng sau trống.</p></div>
+        <div class="card stop rise"><div class="n">2</div><h3>Dòng tổng phụ giữa bảng</h3><p>Dòng "Cộng …" bị cộng thêm lần nữa.</p></div>
+        <div class="card rise"><div class="n">3</div><h3>Nhiều sheet</h3><p>Mỗi sheet một kỳ. AI có thể chỉ đọc sheet đầu.</p></div>
+        <div class="card rise"><div class="n">4</div><h3>Ghi chú, dòng trống cuối bảng</h3><p>Bị coi như một dòng dữ liệu.</p></div>
+      </div>
+      <div class="band light">Giống đọc hoá đơn có dòng "cộng tạm", rồi <b>cộng thêm lần nữa</b> ở cuối.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Tả file trước khi tính">
+  <div class="slide">
+    <div class="eyebrow">Bắt AI tả file trước khi tính</div>
+    <h2 class="stitle">Lời hỏi có 3 phần</h2>
+    <div class="mid">
+      <div class="row c3">
+        <div class="card rise"><div class="n">1</div><h3>Tả file trước</h3><p>Tên sheet, số dòng, tên cột, ô nào gộp, dòng nào là tổng hoặc ghi chú.</p></div>
+        <div class="card rise"><div class="n">2</div><h3>Tính bằng code, ghi cách tính</h3><p>Lấy dòng nào, bỏ dòng nào, công thức gì.</p></div>
+        <div class="card on rise"><div class="n">3</div><h3>Chưa chắc thì nói</h3><p>Cho phép Claude trả lời "mình không chắc", không đoán.</p></div>
+      </div>
+      <div class="annimg" style="max-width:1100px;margin:0 auto"><svg class="ann-svg" viewBox="0 0 800 147" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m08/giam-bia-noi-khong-biet.png" x="0" y="0" width="800" height="147"/><path d="M0,0h800v147h-800zM30,32h760v50h-760z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="30" y="32" width="760" height="50" rx="4" fill="none" stroke="#EF004B" stroke-width="2.8"/><circle cx="30" cy="32" r="13" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="30" y="38" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text></svg><p class="cap">Ảnh chụp tài liệu Anthropic "Reduce hallucinations", ngày 20/11/2026: cho phép Claude nói "tôi không biết" để giảm trả lời bịa.</p></div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Đối chiếu một con số">
+  <div class="slide">
+    <div class="eyebrow">Đối chiếu một con số bằng tay</div>
+    <h2 class="stitle">Chọn một tổng, tính bằng <span class="grad">SUM trong Excel</span>, so với Claude</h2>
+    <div class="mid">
+      <table class="tb">
+        <tr><th>Con số</th><th>Claude tính (chỉ dòng dịch vụ)</th><th>Bạn tính bằng SUM</th></tr>
+        <tr><td>Doanh thu tháng 9</td><td class="hi">193.100</td><td>=SUM(E4:E6,E8:E9,E11:E12) → 193.100</td></tr>
+        <tr><td>Doanh thu tháng 10</td><td class="hi">318.450</td><td>=SUM(E4:E6,E8:E9,E11:E12) → 318.450</td></tr>
+      </table>
+      <div class="row c2">
+        <div class="card ok"><h3>Khớp</h3><p>Bạn tin phần còn lại hơn.</p></div>
+        <div class="card stop"><h3>Lệch</h3><p>Nhờ Claude giải thích cách tính từng bước, lấy những dòng nào.</p></div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Làm cùng mình 8.2">
+  <div class="slide">
+    <div class="eyebrow">Làm cùng mình · 3 bước trên file Excel mẫu</div>
+    <div class="mid">
+      <div class="row c3" style="align-items:start">
+        <div class="stepbox"><div class="sn">1</div><div><h3>Tả file, chưa tính</h3>
+          <div class="prompt sm"><span class="lbl">Prompt</span>Trước khi tính gì, tả file này cho mình: có mấy sheet, mỗi sheet bao nhiêu dòng, tên các cột, ô nào bị gộp, dòng nào là dòng tổng hoặc ghi chú. Chưa tính.</div></div></div>
+        <div class="stepbox"><div class="sn">2</div><div><h3>Đọc lời tả của Claude</h3>
+          <p>Claude phải kể đủ: 2 sheet, ô gộp ở cột A, các dòng "Cộng …", dòng "TỔNG CỘNG" và dòng ghi chú.</p></div></div>
+        <div class="stepbox"><div class="sn">3</div><div><h3>Tính chỉ từ dòng dịch vụ</h3>
+          <div class="prompt sm"><span class="lbl">Prompt</span>Tính tổng thành tiền của từng tháng bằng code, chỉ từ các dòng dịch vụ, không lấy dòng "Cộng" và dòng "TỔNG CỘNG". So với số ở dòng TỔNG CỘNG của từng sheet và ghi chênh lệch.</div></div></div>
+      </div>
+      <div class="kiem">Số kiểm: tháng 9 là <b>193.100</b>, tháng 10 là <b>318.450</b> (nghìn đồng), chênh lệch <b>0</b>.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Tóm lại 8.2">
+  <div class="slide">
+    <div class="eyebrow">Tóm lại · Bài 8.2</div>
+    <div class="mid">
+      <ul class="recap">
+        <li class="rise"><span class="d">1</span>Ô gộp, dòng tổng phụ, nhiều sheet, ghi chú cuối bảng làm AI đọc sai.</li>
+        <li class="rise"><span class="d">2</span>Bắt AI tả file trước, tính bằng code, nói khi chưa chắc.</li>
+        <li class="rise"><span class="d">3</span>Tự đối chiếu ít nhất một con số.</li>
+      </ul>
+      <div class="next">Bài tiếp theo: <b>8.3 · Báo cáo kiểu sếp muốn đọc</b></div>
+    </div>
+  </div>
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Bài 8.3 · Mở bài" class="lesson">
+  <div class="slide">
+    <div class="mid">
+      <div class="eyebrow">Bài 8.3</div>
+      <h2 class="ltitle">Báo cáo kiểu sếp muốn đọc: kết luận trước, số sau, việc tiếp theo</h2>
+      <p class="after">Sau bài này, bạn có <b>khung báo cáo một trang</b> và lưu nó thành Skill, để mọi báo cáo của đội theo cùng một mẫu.</p>
+      <div class="keys">
+        <div class="rise"><i>01</i>Vì sao kết luận phải ở dòng đầu</div>
+        <div class="rise"><i>02</i>Khung một trang 5 phần</div>
+        <div class="rise"><i>03</i>Lưu khung thành Skill cho cả đội</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Hai cách viết">
+  <div class="slide">
+    <div class="eyebrow">Cùng số liệu, hai cách viết</div>
+    <h2 class="stitle">Bản bên phải <span class="grad">đọc 3 dòng là biết cần quyết gì</span></h2>
+    <div class="mid">
+      <div class="row c2">
+        <div class="rep"><h4>Báo cáo quảng cáo tháng 10</h4>
+          <p>1. Chiến dịch trị mụn: chi phí 8.177.000đ, 458.963 hiển thị, 8.539 lượt nhấp, 2.061 kết quả, 834 lịch đặt.</p>
+          <p>2. Chiến dịch gói da: chi phí 10.222.000đ, 575.319 hiển thị, 10.634 lượt nhấp, 928 kết quả, 357 lịch đặt.</p>
+          <p>3. Chiến dịch giờ vàng: chi phí 3.750.000đ, 214.116 hiển thị, 3.985 lượt nhấp…</p>
+          <p class="dim">… (kết luận nằm ở cuối trang)</p></div>
+        <div class="rep"><h4>Báo cáo quảng cáo tháng 10</h4>
+          <div class="hl">Gói da tốn thêm 49% cho mỗi lịch đặt từ giữa tháng. Đề xuất đổi mẫu quảng cáo trước 25/11.</div>
+          <p><b>Số chính:</b> 22.679đ → 33.750đ mỗi lịch đặt gói da (1–15/10 so với 16–31/10).</p>
+          <p><b>Cần anh chị quyết:</b> giữ hay dừng chiến dịch giờ vàng (3.750.000đ, chưa ra lịch đặt).</p></div>
+      </div>
+      <p class="src-note">Ví dụ minh hoạ trên dữ liệu mẫu giả định của Spa An Nhiên.</p>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Tháp ngược">
+  <div class="slide">
+    <div class="lr half">
+      <div class="lt">
+        <div class="eyebrow">Vì sao sếp đọc 3 dòng đầu rồi dừng</div>
+        <h2 class="stitle">Ý quan trọng nhất ở đầu, <span class="grad">chi tiết ở cuối</span></h2>
+        <p class="body">Người quản lý đọc nhiều báo cáo mỗi ngày. Họ cần biết ngay: có vấn đề gì, nghiêm trọng tới đâu, cần họ làm gì.</p>
+        <p class="body">Giống bản tin thời sự: đọc tin chính trước, chi tiết sau.</p>
+      </div>
+      <div class="rt">
+        <div class="pyr" style="width:100%">
+          <div class="p1">Kết luận<small>1–2 câu</small></div>
+          <div class="p2">Số chính<small>3–5 số có so sánh</small></div>
+          <div class="p3">Vì sao<small>giải thích ngắn</small></div>
+          <div class="p4">Chi tiết<small>bảng đầy đủ, phụ lục</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Khung một trang">
+  <div class="slide">
+    <div class="eyebrow">Khung một trang · 5 phần theo thứ tự</div>
+    <div class="mid">
+      <table class="tb">
+        <tr><th>Phần</th><th>Viết gì</th><th>Ví dụ ở spa</th></tr>
+        <tr class="on"><td>1 · Kết luận</td><td>1–2 câu</td><td>Gói da tốn thêm 49% cho mỗi lịch đặt từ giữa tháng. Đề xuất đổi mẫu quảng cáo trước 25/11.</td></tr>
+        <tr><td>2 · Số chính</td><td>3–5 số, có so sánh kỳ trước</td><td>Mỗi lịch gói da 22.679đ → 33.750đ. Tổng chi phí 22.149.000đ.</td></tr>
+        <tr><td>3 · Vì sao</td><td>Nguyên nhân có số đi kèm</td><td>Chi phí gói da nửa sau tăng 73%, lịch đặt chỉ tăng 16%.</td></tr>
+        <tr><td>4 · Việc tiếp theo</td><td>Ai, làm gì, khi nào</td><td>Người phụ trách quảng cáo đổi 2 mẫu quảng cáo gói da trước 25/11.</td></tr>
+        <tr><td>5 · Việc cần sếp quyết</td><td>Câu hỏi có lựa chọn</td><td>Giữ hay dừng chiến dịch giờ vàng: 3.750.000đ, chưa ra lịch đặt.</td></tr>
+      </table>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Khung thành Skill">
+  <div class="slide">
+    <div class="eyebrow">Biến khung thành Skill báo cáo</div>
+    <h2 class="stitle">Lưu khung một lần, <span class="grad">cả đội ra cùng một mẫu</span></h2>
+    <div class="mid">
+      <div class="flow">
+        <div class="fs rise">Khung 5 phần<small>bài này</small></div><div class="fa">→</div>
+        <div class="fs rise">Lưu thành Skill<small>cách làm ở bài 6.2</small></div><div class="fa">→</div>
+        <div class="fs rise">Nhờ viết báo cáo<small>Claude tự mở Skill</small></div><div class="fa">→</div>
+        <div class="fs hot rise">Cả đội cùng mẫu<small>dùng chung một Skill</small></div>
+      </div>
+      <div class="todo-box">Ảnh chụp app: báo cáo tháng 10 của spa viết theo khung 5 phần, mở ở khung bên cạnh. Chờ lượt chụp app.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Thử ngay 8.3">
+  <div class="slide">
+    <div class="eyebrow">Thử ngay · khoảng 5 phút</div>
+    <h2 class="stitle">Viết lại một báo cáo cũ <span class="grad">theo khung 5 phần</span></h2>
+    <div class="mid">
+      <div class="prompt"><span class="lbl">Prompt</span>Dưới đây là một báo cáo cũ của mình:
+<span class="ph">[dán báo cáo]</span>
+Viết lại theo khung 5 phần, trong một file: 1. Kết luận (1–2 câu). 2. Số chính (3–5 số, có so sánh kỳ trước). 3. Vì sao. 4. Việc tiếp theo (ai, làm gì, khi nào). 5. Việc cần sếp quyết.
+Sau đó liệt kê những số trong báo cáo chưa có nguồn.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Tóm lại 8.3">
+  <div class="slide">
+    <div class="eyebrow">Tóm lại · Bài 8.3</div>
+    <div class="mid">
+      <ul class="recap">
+        <li class="rise"><span class="d">1</span>Người quản lý đọc để quyết, nên kết luận nằm ở dòng đầu.</li>
+        <li class="rise"><span class="d">2</span>Khung 5 phần: kết luận, số chính, vì sao, việc tiếp theo, việc cần quyết.</li>
+        <li class="rise"><span class="d">3</span>Lưu khung thành Skill để cả đội dùng một mẫu.</li>
+      </ul>
+      <div class="next">Bài tiếp theo: <b>8.4 · Dashboard tự cập nhật</b></div>
+    </div>
+  </div>
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Bài 8.4 · Mở bài" class="lesson">
+  <div class="slide">
+    <div class="mid">
+      <div class="eyebrow">Bài 8.4 · Demo</div>
+      <h2 class="ltitle">Dashboard tự cập nhật bằng Claude Data, cả đội nhìn cùng một số</h2>
+      <p class="after">Sau bài này, bạn <b>nối một nguồn dữ liệu, dựng dashboard đầu tiên</b>, xem câu truy vấn sau mỗi biểu đồ và chia sẻ cho đúng người.</p>
+      <div class="keys">
+        <div class="rise"><i>01</i>Claude Data là gì, có ở gói nào</div>
+        <div class="rise"><i>02</i>Nối nguồn dữ liệu trước</div>
+        <div class="rise"><i>03</i>Làm mới số và chia sẻ an toàn</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Một nguồn số">
+  <div class="slide">
+    <div class="eyebrow">Cả bài trong một hình</div>
+    <h2 class="stitle">Một nguồn số, một dashboard, <span class="grad">cả đội nhìn cùng một số</span></h2>
+    <div class="mid center">
+      <img class="svg" style="max-width:1080px;margin-top:30px" src="media/m08/M08-B4-A0.svg" alt="Nguồn dữ liệu nối vào Claude Data, ra dashboard doanh thu, chủ spa, quản lý và marketing cùng xem">
+      <p class="src-note">Minh hoạ trên dữ liệu mẫu giả định. Claude Data có đọc Google Sheets qua connector Drive không: đang kiểm, xem slide "Nối nguồn dữ liệu".</p>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Claude Data là gì">
+  <div class="slide">
+    <div class="eyebrow">Trang hỗ trợ Anthropic</div>
+    <h2 class="stitle">Claude Data: <span class="grad">hỏi bằng câu thường, Claude viết truy vấn</span></h2>
+    <div class="annlay big">
+      <div class="annimg"><svg class="ann-svg" viewBox="0 0 824 625" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m08/pad/data.png" x="0" y="0" width="824" height="625"/><path d="M0,0h824v625h-824zM18,15h798v74h-798zM34,134h782v26h-782zM20,173h794v132h-794zM18,355h798v52h-798zM18,565h798v54h-798z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="18" y="15" width="798" height="74" rx="4" fill="none" stroke="#EF004B" stroke-width="2.9"/><rect x="34" y="134" width="782" height="26" rx="4" fill="none" stroke="#EF004B" stroke-width="2.9"/><rect x="20" y="173" width="794" height="132" rx="4" fill="none" stroke="#EF004B" stroke-width="2.9"/><rect x="18" y="355" width="798" height="52" rx="4" fill="none" stroke="#EF004B" stroke-width="2.9"/><rect x="18" y="565" width="798" height="54" rx="4" fill="none" stroke="#EF004B" stroke-width="2.9"/><circle cx="18" cy="15" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="18" y="21" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text><circle cx="18" cy="147" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="18" y="153" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">2</text><circle cx="20" cy="173" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="20" y="179" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">3</text><circle cx="18" cy="355" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="18" y="361" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">4</text><circle cx="18" cy="565" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="18" y="571" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">5</text></svg><p class="cap">Ảnh chụp trang trợ giúp Anthropic "Get started with Claude Data", ngày 20/11/2026. Khung số do The AI Growth vẽ thêm.</p></div>
+      <div>
+        <ol class="anote red">
+          <li><b>Ra dashboard</b>, bài kể chuyện bằng số, video ngắn về số, bản tóm tắt.</li>
+          <li><b>Trước gọi là Claude Dashboards.</b> Dashboard đã làm vẫn chạy.</li>
+          <li><b>Có ở gói Pro, Max, Ultra, Team, Enterprise.</b> Hai tính năng beta.</li>
+          <li><b>Mỗi biểu đồ cho xem câu truy vấn</b> và giờ cập nhật gần nhất.</li>
+          <li><b>Dashboard hợp câu hỏi nhanh.</b> Phân tích sâu thì chuyển sang công cụ khác.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Nối nguồn dữ liệu">
+  <div class="slide">
+    <div class="lr" style="grid-template-columns:700px 1fr">
+      <div class="lt">
+        <div class="eyebrow">Nối nguồn dữ liệu</div>
+        <h2 class="stitle">Nối nguồn <span class="grad">trước khi dựng</span></h2>
+        <div class="card"><h3>Kho dữ liệu</h3><p>BigQuery, Snowflake, Databricks và vài loại khác.</p></div>
+        <div class="card"><h3>App đã nối với Claude</h3><p>Ví dụ CRM Salesforce.</p></div>
+        <div class="card stop"><h3>Claude Sheets không làm nguồn được</h3><p>Trang hỗ trợ ghi rõ dashboard không dùng sheet làm nguồn.</p></div>
+      </div>
+      <div class="rt"><img class="shot" src="media/m08/M06-B4-S02.jpg" alt="Trang Trình kết nối trong Cài đặt của Claude"><p class="cap">Ảnh chụp app Claude: Cài đặt → Trình kết nối, nơi nối nguồn dữ liệu (chụp ngày 08/11/2026).</p></div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Làm mới và chia sẻ">
+  <div class="slide">
+    <div class="eyebrow">Làm mới và chia sẻ</div>
+    <h2 class="stitle">Số làm mới khi có người mở. <span class="grad">Kiểm kỹ trước khi chia sẻ</span></h2>
+    <div class="annlay big">
+      <div class="annimg"><svg class="ann-svg" viewBox="0 0 826 614" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m08/pad/chiase.png" x="0" y="0" width="826" height="614"/><path d="M0,0h826v614h-826zM17,18h801v110h-801zM17,212h801v50h-801zM23,476h789v116h-789z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="17" y="18" width="801" height="110" rx="4" fill="none" stroke="#EF004B" stroke-width="2.9"/><rect x="17" y="212" width="801" height="50" rx="4" fill="none" stroke="#EF004B" stroke-width="2.9"/><rect x="23" y="476" width="789" height="116" rx="4" fill="none" stroke="#EF004B" stroke-width="2.9"/><circle cx="17" cy="18" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.2"/><text x="17" y="24" text-anchor="middle" font-size="17" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text><circle cx="17" cy="212" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.2"/><text x="17" y="218" text-anchor="middle" font-size="17" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">2</text><circle cx="23" cy="476" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.2"/><text x="23" y="482" text-anchor="middle" font-size="17" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">3</text></svg><p class="cap">Ảnh chụp trang trợ giúp Anthropic "Get started with Claude Data", ngày 20/11/2026. Khung số do The AI Growth vẽ thêm.</p></div>
+      <div>
+        <ol class="anote red">
+          <li><b>Làm mới khi có người mở</b> và số đã tới hạn. Không chạy theo lịch.</li>
+          <li><b>Mới làm thì chỉ bạn thấy.</b> Bấm Share để mời người.</li>
+          <li><b>Chia sẻ kết quả sống (beta):</b> người được chia sẻ thấy số theo quyền của bạn, kể cả khi họ không có quyền vào nguồn.</li>
+        </ol>
+        <div class="act">Dashboard có số nhạy cảm (doanh thu, lương): kiểm từng biểu đồ trước khi chia sẻ kiểu kết quả sống.</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Làm cùng mình 8.4">
+  <div class="slide">
+    <div class="eyebrow">Làm cùng mình · 5 bước</div>
+    <div class="mid">
+      <div class="row c5">
+        <div class="card rise"><div class="n">1</div><h3>Kiểm nguồn</h3><p>Cài đặt → Trình kết nối: nguồn đã nối.</p></div>
+        <div class="card rise"><div class="n">2</div><h3>Mở Data</h3><p>Tab Artifacts → Data, gõ câu hỏi về doanh thu theo tháng.</p></div>
+        <div class="card rise"><div class="n">3</div><h3>Xem bản đầu</h3><p>Claude dựng dashboard có biểu đồ doanh thu.</p></div>
+        <div class="card rise"><div class="n">4</div><h3>Bấm một số</h3><p>Xem câu truy vấn và giờ cập nhật.</p></div>
+        <div class="card stop rise"><div class="n">5</div><h3>Mở Share</h3><p>Chọn mời đúng người. Dừng ở đây, chưa gửi.</p></div>
+      </div>
+      <div class="prompt sm"><span class="lbl">Prompt bước 2</span>Dựng dashboard từ file Google Sheets "AAM thử · lịch hẹn spa" trên Drive: doanh thu theo tháng của các lịch có trạng thái "Hoàn thành" (doanh thu là cột don_gia_nghin), và số lịch theo nguồn khách.</div>
+      <div class="kiem">Số kiểm: doanh thu tháng 10/2026 là <b>352.270</b> nghìn đồng.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Tóm lại 8.4">
+  <div class="slide">
+    <div class="eyebrow">Tóm lại · Bài 8.4</div>
+    <div class="mid">
+      <ul class="recap">
+        <li class="rise"><span class="d">1</span>Claude Data, trước là Claude Dashboards, dựng dashboard từ câu hỏi thường, có từ gói Pro.</li>
+        <li class="rise"><span class="d">2</span>Cần nối nguồn trước. Mỗi biểu đồ cho xem cách tính.</li>
+        <li class="rise"><span class="d">3</span>Kiểm kỹ trước khi chia sẻ kết quả sống.</li>
+      </ul>
+      <div class="next">Bài tiếp theo: <b>8.5 · Phân tích file hàng chục nghìn dòng</b></div>
+    </div>
+  </div>
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Bài 8.5 · Mở bài" class="lesson">
+  <div class="slide">
+    <div class="mid">
+      <div class="eyebrow">Bài 8.5</div>
+      <h2 class="ltitle">File dữ liệu hàng chục nghìn dòng: cách để AI phân tích mà không đọc sót</h2>
+      <p class="after">Sau bài này, bạn <b>phân tích một file 18.000 dòng</b> bằng cách đếm trước, chia theo kỳ, tính từng phần và đối chiếu tổng.</p>
+      <div class="keys">
+        <div class="rise"><i>01</i>Vì sao dán vào chat thì đọc sót</div>
+        <div class="rise"><i>02</i>Đếm, chia, tính, đối chiếu</div>
+        <div class="rise"><i>03</i>Khi nào dùng Claude Sheets</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Hai đường">
+  <div class="slide">
+    <div class="eyebrow">Hai đường đưa file lớn vào Claude</div>
+    <h2 class="stitle">Dán vào chat thì đọc một phần. <span class="grad">Tải file cho chạy code thì đếm được từng dòng</span></h2>
+    <div class="mid">
+      <div class="vs">
+        <div class="card stop rise"><div class="k">Dán vào chat</div><h3>Chữ nằm trong vùng nhớ làm việc của model</h3><p>Vùng nhớ có hạn. Theo mình, dán quá nhiều dòng thì AI dễ tóm hoặc sót phần giữa.</p></div>
+        <div class="mid-x">vs</div>
+        <div class="card ok rise"><div class="k">Tải file, cho chạy code</div><h3>Code đọc từng dòng</h3><p>Không phụ thuộc vùng nhớ. File tối đa 30MB.</p></div>
+      </div>
+      <div class="band light">Giống <b>đọc lướt một cuốn sổ dày</b> so với dùng máy đếm tiền.</div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Vùng nhớ có hạn">
+  <div class="slide">
+    <div class="lr" style="grid-template-columns:640px 1fr">
+      <div class="lt">
+        <div class="eyebrow">Vì sao AI đọc sót file lớn</div>
+        <h2 class="stitle">Phần tràn ra ngoài vùng nhớ, <span class="grad">AI không thấy</span></h2>
+        <p class="body">Gói trả phí: model mới nhất nhận tới <b>1 triệu token</b> (trang trợ giúp Anthropic, kiểm 20/11/2026).</p>
+        <p class="body">Chat gần chạm giới hạn thì Claude tự tóm tắt phần cũ, nên chi tiết đầu có thể mất.</p>
+      </div>
+      <div class="rt"><img class="svg" style="max-height:780px" src="media/m08/M08-B5-A1.svg" alt="Vùng nhớ của model: phần AI thấy và phần tràn ra ngoài"></div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="File lịch hẹn thật">
+  <div class="slide">
+    <div class="eyebrow">File lịch hẹn mẫu · 18.251 dòng</div>
+    <h2 class="stitle">Mỗi dòng một lịch hẹn, <span class="grad">22 tháng liền</span></h2>
+    <div class="mid">
+      <div class="xlwrap">
+        <div class="xlbar"><span class="tab">spa_lich-hen_2025-01_2026-10.csv</span><span>18.251 dòng · 9 cột</span></div>
+        <table class="xl sm">
+          <tr><th></th><th>ma_lich</th><th>ngay</th><th>gio</th><th>dich_vu</th><th>don_gia_nghin</th><th>nhan_vien</th><th>nguon_khach</th><th>trang_thai</th><th>khach_moi</th></tr>
+          <tr><td class="rn">2</td><td>LH000001</td><td>2025-01-01</td><td>13:00</td><td>Massage body 60 phút</td><td class="num">350</td><td>NV03</td><td>Zalo</td><td>Hoàn thành</td><td>Không</td></tr>
+          <tr><td class="rn">3</td><td>LH000002</td><td>2025-01-01</td><td>12:30</td><td>Chăm sóc da cơ bản</td><td class="num">250</td><td>NV06</td><td>Google Maps</td><td>Hoàn thành</td><td>Không</td></tr>
+          <tr><td class="rn">4</td><td>LH000003</td><td>2025-01-01</td><td>10:30</td><td>Cấy dưỡng chất</td><td class="num">600</td><td>NV03</td><td>Facebook</td><td>Hoàn thành</td><td>Không</td></tr>
+          <tr><td class="rn">5</td><td>LH000004</td><td>2025-01-01</td><td>15:30</td><td>Trị mụn chuẩn y khoa</td><td class="num">450</td><td>NV03</td><td>Google Maps</td><td>Hoàn thành</td><td>Không</td></tr>
+          <tr><td class="rn">6</td><td>LH000005</td><td>2025-01-01</td><td>15:30</td><td>Gói da 3 buổi</td><td class="num">690</td><td>NV02</td><td>Facebook</td><td>Hoàn thành</td><td>Không</td></tr>
+          <tr><td class="rn">7</td><td>LH000006</td><td>2025-01-01</td><td>14:30</td><td>Trị mụn chuẩn y khoa</td><td class="num">450</td><td>NV04</td><td>Google Maps</td><td>Huỷ</td><td>Không</td></tr>
+          <tr class="note"><td class="rn">…</td><td colspan="9">… còn 18.245 dòng, tới LH018251 ngày 2026-10-31</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Đếm chia tính đối chiếu">
+  <div class="slide">
+    <div class="eyebrow">Đếm, chia, tính, đối chiếu</div>
+    <h2 class="stitle">Bốn bước, <span class="grad">mỗi bước có số để bạn kiểm</span></h2>
+    <div class="mid">
+      <table class="tb">
+        <tr><th>Bước</th><th>Claude làm</th><th>Bạn kiểm (file mẫu)</th></tr>
+        <tr><td>1 · Đếm</td><td>Đếm dòng, cột, giá trị lạ trước khi tính</td><td>18.251 dòng, 9 cột, 0 ô trống</td></tr>
+        <tr><td>2 · Chia</td><td>Chia theo tháng hoặc theo nhóm</td><td>22 tháng, 01/2025 tới 10/2026</td></tr>
+        <tr><td>3 · Tính</td><td>Tính từng phần</td><td>Tháng 10/2026: 352.270 nghìn đồng</td></tr>
+        <tr class="on"><td>4 · Đối chiếu</td><td>Cộng các phần, so với tổng cả file</td><td>7.922.760 = 7.922.760, chênh 0</td></tr>
+      </table>
+      <p class="src-note">Dữ liệu mẫu giả định. Chỉ tính lịch "Hoàn thành": 15.783 lịch. Số tính bằng code.</p>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Claude Sheets">
+  <div class="slide">
+    <div class="eyebrow">Khi nào dùng Claude Sheets</div>
+    <h2 class="stitle">Claude Sheets hợp bảng chia sẻ cho đội, <span class="grad">không thay phần tính bằng code</span></h2>
+    <div class="annlay">
+      <div class="annimg"><svg class="ann-svg" viewBox="0 0 820 319" role="img" aria-label="Ảnh chụp có khoanh vùng"><image href="media/m08/pad/sheets.png" x="0" y="0" width="820" height="319"/><path d="M0,0h820v319h-820zM34,53h560v30h-560zM18,139h796v50h-796zM18,225h796v52h-796z" fill="rgba(3,8,21,0.08)" fill-rule="evenodd"/><rect x="34" y="53" width="560" height="30" rx="4" fill="none" stroke="#EF004B" stroke-width="2.9"/><rect x="18" y="139" width="796" height="50" rx="4" fill="none" stroke="#EF004B" stroke-width="2.9"/><rect x="18" y="225" width="796" height="52" rx="4" fill="none" stroke="#EF004B" stroke-width="2.9"/><circle cx="18" cy="68" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="18" y="74" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">1</text><circle cx="18" cy="139" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="18" y="145" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">2</text><circle cx="18" cy="225" r="14" fill="#EF004B" stroke="#fff" stroke-width="2.1"/><text x="18" y="231" text-anchor="middle" font-size="16" font-weight="800" fill="#fff" font-family="Inter,system-ui,sans-serif">3</text></svg><p class="cap">Ảnh chụp trang trợ giúp Anthropic "Get started with Claude Sheets", ngày 20/11/2026. Khung số do The AI Growth vẽ thêm.</p></div>
+      <div>
+        <ol class="anote red">
+          <li><b>Một sheet chứa ít nhất 200.000 ô</b> có dữ liệu.</li>
+          <li><b>Chưa có bảng tổng hợp (pivot)</b> và vài tính năng khác.</li>
+          <li><b>Không lấy dữ liệu sống</b> từ app đã nối, và dashboard không dùng sheet làm nguồn.</li>
+        </ol>
+        <div class="act">File lịch hẹn: 18.251 dòng × 9 cột ≈ 164.000 ô, vừa một sheet.</div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Làm cùng mình 8.5">
+  <div class="slide">
+    <div class="eyebrow">Làm cùng mình · 4 bước trên file lịch hẹn mẫu</div>
+    <div class="mid">
+      <div class="row c2" style="align-items:start">
+        <div class="stepbox"><div class="sn">1</div><div><h3>Đếm trước, chưa phân tích</h3>
+          <div class="prompt sm"><span class="lbl">Prompt</span>Trước khi phân tích, dùng code đếm số dòng, liệt kê tên cột, đếm số lịch theo trạng thái, và báo giá trị lạ (ô trống, ngày sai định dạng). Chưa phân tích.</div>
+          <div class="kiem" style="margin-top:16px">Bước 2 · số kiểm: <b>18.251</b> dòng · "Hoàn thành" <b>15.783</b> · "Huỷ" 1.575 · "Không đến" 893.</div></div></div>
+        <div class="stepbox"><div class="sn">3</div><div><h3>Chia theo tháng, rồi đối chiếu</h3>
+          <div class="prompt sm"><span class="lbl">Prompt</span>Tính doanh thu từng tháng, chỉ lấy lịch "Hoàn thành". Doanh thu là cột don_gia_nghin. Đưa bảng theo tháng.
+Cộng doanh thu 22 tháng, so với tổng doanh thu lịch "Hoàn thành" của cả file. Lập bảng đối chiếu: tổng các tháng, tổng cả file, chênh lệch, số dòng đã dùng.</div>
+          <div class="kiem" style="margin-top:16px">Bước 4 · số kiểm: <b>7.922.760</b> nghìn đồng, chênh <b>0</b>, dùng <b>15.783</b> dòng.</div></div></div>
+      </div>
+    </div>
+  </div>
+  
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Tóm lại 8.5">
+  <div class="slide">
+    <div class="eyebrow">Tóm lại · Bài 8.5</div>
+    <div class="mid">
+      <ul class="recap">
+        <li class="rise"><span class="d">1</span>Dán file lớn vào chat thì AI đọc sót. Tải file và cho chạy code.</li>
+        <li class="rise"><span class="d">2</span>Đếm trước, chia theo kỳ, tính từng phần, đối chiếu tổng.</li>
+        <li class="rise"><span class="d">3</span>Claude Sheets hợp bảng chia sẻ cho đội, không thay phần tính bằng code.</li>
+      </ul>
+      <div class="next">Tiếp theo: <b>Module 09 · Đội cố vấn AI cho ban giám đốc</b></div>
+    </div>
+  </div>
+</section>
+<section data-foot="AI Agents Mastery · Module 08" data-label="Hết Module 08" class="cover">
+  <div class="cover-glow"></div>
+  <div class="slide">
+    <div class="mid">
+      <div class="eyebrow">Hết Module 08</div>
+      <h1 class="hero">Bạn mang về</h1>
+      <p class="hero-sub">Một mẫu báo cáo kết luận trước, số sau, việc tiếp theo. Một Skill báo cáo cho cả đội. Và cách để AI tính đúng trên file lớn.</p>
+    </div>
+  </div>
+</section>
+</deck-stage>
+<script type="application/json" id="deck-notes">["Module 08 là nhân viên AI làm báo cáo. Bạn mang về một mẫu báo cáo kết luận trước, số sau, việc tiếp theo, và một dashboard cho đội.\nCả module dùng một ví dụ chạy suốt: Spa An Nhiên ở Cần Thơ. Tên và số đều là giả định.", "Mình dùng dữ liệu mẫu để bạn đối chiếu được từng con số. Mỗi bài có \"số kiểm\": Claude trả lời đúng thì phải ra đúng số đó. Lệch là có chỗ đọc sai.", "Báo cáo quảng cáo thường là một bảng số dài, người đọc phải tự tìm ý. Bài này để Claude đọc số và viết kết luận, còn bạn duyệt.", "Bốn bước. Ba bước đầu Claude làm. Bước cuối luôn là bạn, vì báo cáo này sẽ tới tay sếp hoặc khách. Đây đúng là bước bắt buộc duyệt mình nói ở bài 1.3.", "Đây là 6 dòng đầu của file mẫu. File nào nên tải: file tổng theo tháng hay file theo ngày? Theo ngày. File tổng tháng chỉ có một con số cho mỗi chiến dịch, Claude không thấy được chỗ thay đổi giữa tháng.", "Tính năng này có từ gói Free. Điểm quan trọng: Claude viết code để tính, giống như mở Excel và gõ công thức, chứ không đọc rồi cộng nhẩm trong đầu. Code cộng đủ 93 dòng, không bỏ dòng nào.", "Trước khi làm bài này, kiểm công tắc này một lần. Đa số tài khoản đã bật sẵn. Nếu Claude trả lời số mà không có dòng \"đã chạy code\", hãy kiểm lại ở đây.", "Đây là loại kết luận bạn muốn Claude tìm ra. Nhìn tổng tháng thì không thấy. Chia tháng làm hai nửa thì thấy ngay: nửa sau tiêu nhiều hơn mà lịch đặt không tăng tương ứng.", "Khi làm theo bài, bạn đối chiếu bảng Claude trả về với bảng này. Tổng chi phí cả tháng là 22.149.000đ. Nếu Claude ra số khác, hỏi lại Claude đã lấy những dòng nào.", "Dòng cuối quan trọng nhất. AI chỉ biết những gì nằm trong file. Nếu tháng đó spa nghỉ 3 ngày để sửa phòng, AI có thể kết luận sai về nguyên nhân. Bạn là người biết chuyện ngoài file.", "Câu hỏi này buộc Claude đưa ra mốc so sánh: so với tháng trước, so với chiến dịch khác, hay so với mục tiêu. Và đưa ra con số. Nếu Claude không chỉ ra được số, nhận định đó bỏ.", "Bắt đầu bằng đường 1. Đừng dán ảnh chụp màn hình bảng số: theo mình, Claude phải đọc chữ trong ảnh nên dễ đọc nhầm số, và không có file để chạy code tính lại.", "Dòng \"Chưa viết báo cáo\" giúp bạn kiểm số trước. Số sai thì báo cáo đẹp mấy cũng sai.\nBước 2: bấm vào dòng xám có dấu mũi tên để mở khối code. Bạn không cần đọc hiểu code, chỉ cần thấy Claude đã tính bằng code. Số kiểm: chi phí mỗi lịch gói da 22.679đ và 33.750đ.", "Báo cáo mở ra ở khung bên cạnh, bạn sửa trực tiếp được. Bước 4 là thói quen mình khuyên luôn làm: Claude thường biết mình chưa chắc chỗ nào, nhưng chỉ nói khi bạn hỏi.\n[Chỗ để anh Vincent kể 1 câu kinh nghiệm về báo cáo tự viết kết luận.]", "", "AI trả lời số rất tự tin, kể cả khi đọc sai file. Bài này chỉ cho bạn chỗ hay sai và cách hỏi để có số đúng.", "Số bên trái gấp đúng 3 lần số bên phải. Vì sao? Vì cột \"Thành tiền\" có cả dòng dịch vụ, dòng cộng từng nhóm, và dòng tổng cộng. Cộng cả cột là đếm mỗi đồng ba lần. Slide sau mở file ra xem.", "Đây là sheet tháng 10 của file mẫu, đơn vị nghìn đồng. Người nhìn hiểu ngay đâu là dòng dịch vụ, đâu là dòng cộng. Code đọc từng dòng nên không \"hiểu\" như vậy, trừ khi bạn dặn.", "Có nên dọn file trước khi đưa AI không? Theo mình, file dùng một lần thì không cần, chỉ cần bắt AI tả file trước như slide sau. File dùng lại hằng tháng thì đáng dọn một lần: bỏ ô gộp, tách dòng tổng ra sheet riêng.", "Phần 3 không phải mình tự nghĩ ra. Chính tài liệu của Anthropic khuyên: cho phép Claude thừa nhận không chắc, để giảm trả lời bịa.\nBáo cáo tài chính thì sao? AI đọc, tính và chỉ chỗ lạ. Kế toán là người kết luận và ký, đúng như bài 1.3.", "Đơn vị nghìn đồng. Công thức SUM chỉ chọn các ô dịch vụ, bỏ qua dòng 7, 10, 13 là dòng cộng. Máy Excel tiếng Việt có thể dùng dấu chấm phẩy thay dấu phẩy trong công thức.\nĐối chiếu một số có đủ không? Với báo cáo nội bộ thì thường đủ để bắt lỗi đọc file. Số gửi ra ngoài thì kiểm thêm.", "Bước 2 là bước kiểm: nếu Claude kể thiếu dòng tổng phụ, đừng cho tính, hỏi lại. Bước 3 chênh lệch phải bằng 0. Ảnh chụp app cho 3 bước này sẽ thay khi có lượt chụp.", "", "Người quản lý đọc báo cáo để quyết, không để tìm ý. Khung một trang đặt kết luận ở dòng đầu.", "Bên trái là kiểu báo cáo hay gặp: liệt kê đủ số, nhưng sếp phải tự đọc hết rồi tự rút ra ý. Bên phải cùng số liệu, nhưng dòng đầu đã là kết luận và đề xuất.", "Báo cáo đặt ý chính ở cuối trang buộc người đọc đọc hết mới biết. Báo cáo tốt có cần dài không? Không. Phần trên cùng ngắn. Chi tiết vẫn có, nhưng nằm cuối cho ai cần.", "Đây là khung bạn mang về. Không có việc cần sếp quyết thì có bỏ phần cuối không? Theo mình, giữ dòng đó và ghi \"Tháng này không có việc cần anh chị quyết\". Sếp đọc tới đó là biết yên tâm.", "Skill là sổ tay quy trình Claude tự mở khi cần, Module 06 đã dựng. Mỗi phòng có cần khung riêng không? Khung 5 phần dùng chung được. Phòng nào có số riêng thì thêm phần \"số chính\" của phòng đó vào Skill.", "Lấy báo cáo tuần trước của bạn. Đọc bản mới, rồi hỏi: nếu sếp chỉ đọc dòng đầu, sếp có biết cần làm gì không?", "", "File báo cáo gửi qua lại thì mỗi người cầm một bản số. Dashboard nối thẳng nguồn dữ liệu, ai mở cũng thấy số mới. Lưu ý: Claude Dashboards nay đổi tên là Claude Data, dashboard đã làm vẫn chạy.", "Khác với bài 8.1: ở đó bạn tải file lên mỗi lần. Ở đây dashboard nối thẳng nguồn, nên mở ra là số mới.", "So sánh dễ hiểu: Claude Data như một nhân viên phân tích ngồi cạnh bạn, và ghi lại cách tính mỗi con số.\nDashboard của Claude thay được công cụ BI không? Chính trang của hãng ghi ở số 5: dashboard dành cho câu hỏi nhanh, câu hỏi sâu thì chuyển sang công cụ khác. Nên đây là công cụ bổ sung, không thay hẳn.", "Đội chưa có kho dữ liệu thì bắt đầu từ đâu? Bắt đầu bằng tải file và tính bằng code như bài 8.1 và 8.5. Khi số đã quen và cần cả đội xem chung, mới tính tới dashboard.\nDoanh nghiệp nhỏ hay để số trong Google Sheets. Claude Data có đọc Google Sheets qua connector Drive không: mình đang kiểm, sẽ cập nhật trong video demo.", "Số 3 là chỗ cần cẩn thận nhất. Ví dụ bạn có quyền xem doanh thu, lễ tân thì không. Bạn chia sẻ kết quả sống cho lễ tân thì lễ tân thấy doanh thu.\nSai một con số thì sao? Bấm vào con số để xem câu truy vấn sau nó, rồi nhờ Claude sửa câu truy vấn đó.", "Dữ liệu demo là file lịch hẹn mẫu của spa, đưa lên Google Sheets. Bước 5 mình dừng ở hộp Share, không mời ai, không bật chia sẻ kết quả sống. Ảnh chụp app cho 5 bước sẽ thay khi có lượt chụp.", "", "Dán hàng chục nghìn dòng vào chat thì AI chỉ đọc được một phần rồi trả lời như đã đọc hết. Bài này cho AI tính bằng code và đối chiếu tổng.", "Vùng nhớ làm việc, tiếng Anh là context window. Trên gói trả phí, model mới nhất nhận tới 1 triệu token, theo trang trợ giúp Anthropic kiểm 20/11/2026. Chat gần chạm giới hạn thì Claude tự tóm tắt phần cũ.\nFile quá 30MB thì sao? Chia file theo tháng hoặc theo năm, mỗi lần tải một phần, rồi đối chiếu tổng như slide sau.", "Vùng nhớ làm việc, tiếng Anh là context window, giống một cái khay có hạn. Dán 18.251 dòng vào chat thì phần tràn ra ngoài khay AI không thấy, nhưng vẫn trả lời như đã đọc hết. Đó là lý do bài này cho Claude tính bằng code trên file.", "Đây là 6 dòng đầu của file mẫu. Cả file 18.251 dòng. Dán hết vào chat là quá nhiều. Tải file lên và cho Claude chạy code thì Claude đếm được đủ.", "Tổng các phần lệch tổng file thì nghĩa là gì? Có dòng bị bỏ sót hoặc bị tính trùng. Bạn hỏi Claude: mỗi phần dùng bao nhiêu dòng, cộng lại có bằng số dòng cả file không.\nGhi lại bảng đối chiếu này trong báo cáo, để người khác kiểm lại được.", "Claude Sheets là bảng tính ngay trong Claude, bạn và đội sửa chung, công thức nằm trong ô. Đang là bản beta, có từ gói Pro.\nFile rất lớn hoặc cần tính phức tạp thì vẫn để Claude tính bằng code, rồi đưa kết quả vào sheet cho đội xem.", "Bước 2 là đọc câu trả lời của bước 1 và so với số kiểm. Bước 3 và 4 có thể gộp trong một lời hỏi như trên, hoặc tách làm hai lượt. Ảnh chụp app cho 4 bước sẽ thay khi có lượt chụp.", "", ""]</script>
+<script>
+// @ds-adherence-ignore -- omelette starter scaffold (raw elements/hex/px by design)
+/* BEGIN USAGE */
+/**
+ * <deck-stage> — reusable web component for HTML decks.
+ *
+ * Handles:
+ *  (a) speaker notes — reads <script type="application/json" id="speaker-notes">
+ *      and posts {slideIndexChanged: N} to the parent window on nav.
+ *  (b) keyboard navigation — ←/→, PgUp/PgDn, Space, Home/End, number keys.
+ *      On touch devices, tapping the left/right half of the stage goes
+ *      prev/next — taps on links, buttons and other interactive slide
+ *      content are left alone.
+ *  (c) press R to reset to slide 0 (with a tasteful keyboard hint).
+ *  (d) bottom-center overlay showing slide count + hints, fades out on idle.
+ *  (e) auto-scaling — inner canvas is a fixed design size (default 1920×1080)
+ *      scaled with `transform: scale()` to fit the viewport, letterboxed.
+ *      Set the `noscale` attribute to render at authored size (1:1) — the
+ *      PPTX exporter sets this so its DOM capture sees unscaled geometry.
+ *  (f) print — `@media print` lays every slide out as its own page at the
+ *      design size, so the browser's Print → Save as PDF produces a clean
+ *      one-page-per-slide PDF with no extra setup.
+ *  (g) thumbnail rail — resizable left-hand column of per-slide thumbnails
+ *      (static clones). Click to navigate; ↑/↓ with a thumbnail focused to
+ *      step between slides; drag to reorder; right-click for
+ *      Skip / Move up / Move down / Delete (opens a Cancel/Delete confirm
+ *      dialog). Drag the rail's right edge to resize; width persists to
+ *      localStorage. Skipped slides carry `data-deck-skip`, are dimmed in
+ *      the rail, omitted from prev/next navigation, and hidden at print.
+ *      The rail is suppressed in presenting mode, in the host's Preview
+ *      mode (ViewerMode='none'), on `noscale`, on narrow viewports
+ *      (≤640px), and via the `no-rail` attribute. Rail mutations dispatch
+ *      a `deckchange`
+ *      CustomEvent on the element: detail = {action, from, to, slide}.
+ *
+ * Slides are HIDDEN, not unmounted. Non-active slides stay in the DOM with
+ * `visibility: hidden` + `opacity: 0`, so their state (videos, iframes,
+ * form inputs, React trees) is preserved across navigation.
+ *
+ * Lifecycle event — the component dispatches a `slidechange` CustomEvent on
+ * itself whenever the active slide changes (including the initial mount).
+ * The event bubbles and composes out of shadow DOM, so you can listen on
+ * the <deck-stage> element or on document:
+ *
+ *   document.querySelector('deck-stage').addEventListener('slidechange', (e) => {
+ *     e.detail.index         // new 0-based index
+ *     e.detail.previousIndex // previous index, or -1 on init
+ *     e.detail.total         // total slide count
+ *     e.detail.slide         // the new active slide element
+ *     e.detail.previousSlide // the prior slide element, or null on init
+ *     e.detail.reason        // 'init' | 'keyboard' | 'click' | 'tap' | 'api'
+ *   });
+ *
+ * Persistence: none at the deck level. The host app keeps the current slide
+ * in its own URL (?slide=) and re-delivers it via location.hash on load, so a
+ * bare load with no hash always starts at slide 1.
+ *
+ * Usage:
+ *   <style>deck-stage:not(:defined){visibility:hidden}</style>
+ *   <deck-stage width="1920" height="1080">
+ *     <section data-label="Title">...</section>
+ *     <section data-label="Agenda">...</section>
+ *   </deck-stage>
+ *   <script src="deck-stage.js"><\/script>
+ *
+ * The :not(:defined) rule prevents a flash of the first slide at its
+ * authored styles before this script runs and attaches the shadow root.
+ *
+ * Slides are the direct element children of <deck-stage>. Each slide is
+ * automatically tagged with:
+ *   - data-screen-label="NN Label"   (1-indexed, for comment flow)
+ *   - data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text"
+ *
+ * Speaker notes stay in sync because the component posts {slideIndexChanged: N}
+ * to the parent — just include the #speaker-notes script tag if asked for notes.
+ *
+ * Authoring guidance:
+ *   - Write slide bodies as static HTML inside <deck-stage>, with sizing via
+ *     CSS custom properties in a <style> block rather than JS constants.
+ *     Static slide markup is what lets the user click a heading in edit mode
+ *     and retype it directly; a slide rendered through <script type="text/babel">,
+ *     React, or a loop over a JS array has to round-trip every tweak through a
+ *     chat message instead. Reach for script-generated slides only when the
+ *     content genuinely needs interactive behaviour static HTML can't express.
+ *   - Do NOT set position/inset/width/height on the slide <section> elements —
+ *     the component absolutely positions every slotted child for you.
+ *   - Entrance animations: make the visible end-state the base style and
+ *     animate *from* hidden, so print and reduced-motion show content.
+ *     Gate the animation on [data-deck-active] and the motion query, e.g.
+ *     `@media (prefers-reduced-motion:no-preference){ [data-deck-active] .x{animation:fade-in .5s both} }`.
+ *     Avoid infinite decorative loops on slide content.
+ */
+/* END USAGE */
+
+(() => {
+  const DESIGN_W_DEFAULT = 1920;
+  const DESIGN_H_DEFAULT = 1080;
+  const OVERLAY_HIDE_MS = 1800;
+  const VALIDATE_ATTR = 'no_overflowing_text,no_overlapping_text,slide_sized_text';
+  const FINE_POINTER_MQ = matchMedia('(hover: hover) and (pointer: fine)');
+  const NARROW_MQ = matchMedia('(max-width: 640px)');
+  // Slide-authored controls that should keep a tap instead of it navigating.
+  const INTERACTIVE_SEL = 'a[href], button, input, select, textarea, summary, label, video[controls], audio[controls], [role="button"], [onclick], [tabindex]:not([tabindex^="-"]), [contenteditable]:not([contenteditable="false" i])';
+
+  const pad2 = (n) => String(n).padStart(2, '0');
+
+  // Label precedence: data-label → data-screen-label (number stripped) → first heading → "Slide".
+  const getSlideLabel = (el) => {
+    const explicit = el.getAttribute('data-label');
+    if (explicit) return explicit;
+
+    const existing = el.getAttribute('data-screen-label');
+    if (existing) return existing.replace(/^\s*\d+\s*/, '').trim() || existing;
+
+    const h = el.querySelector('h1, h2, h3, [data-title]');
+    const t = h && (h.textContent || '').trim().slice(0, 40);
+    if (t) return t;
+
+    return 'Slide';
+  };
+
+  const stylesheet = `
+    :host {
+      position: fixed;
+      inset: 0;
+      display: block;
+      background: #000;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      overflow: hidden;
+      -webkit-tap-highlight-color: transparent;
+    }
+    /* connectedCallback holds this until document.fonts.ready (capped 2s) so
+     * the first visible paint has the deck's real typography + final rail
+     * layout. opacity (not visibility) so the active slide can't un-hide
+     * itself via the ::slotted([data-deck-active]) visibility:visible rule.
+     * Only the stage/rail hide — the black :host background stays, so the
+     * iframe doesn't flash the page's default white. */
+    :host([data-fonts-pending]) .stage,
+    :host([data-fonts-pending]) .rail { opacity: 0; pointer-events: none; }
+
+    .stage {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .canvas {
+      position: relative;
+      transform-origin: center center;
+      flex-shrink: 0;
+      background: #fff;
+      will-change: transform;
+    }
+
+    /* Slides live in light DOM (via <slot>) so authored CSS still applies.
+       We absolutely position each slotted child to stack them. */
+    ::slotted(*) {
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      box-sizing: border-box !important;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+      visibility: hidden;
+    }
+    ::slotted([data-deck-active]) {
+      opacity: 1;
+      pointer-events: auto;
+      visibility: visible;
+    }
+
+    .overlay {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      transform: translate(-50%, 6px) scale(0.92);
+      filter: blur(6px);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px;
+      background: #000;
+      color: #fff;
+      border-radius: 999px;
+      font-size: 12px;
+      font-feature-settings: "tnum" 1;
+      letter-spacing: 0.01em;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 260ms ease, transform 260ms cubic-bezier(.2,.8,.2,1), filter 260ms ease;
+      transform-origin: center bottom;
+      z-index: 2147483000;
+      user-select: none;
+    }
+    .overlay[data-visible] {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate(-50%, 0) scale(1);
+      filter: blur(0);
+    }
+
+    .btn {
+      appearance: none;
+      -webkit-appearance: none;
+      background: transparent;
+      border: 0;
+      margin: 0;
+      padding: 0;
+      color: inherit;
+      font: inherit;
+      cursor: default;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 28px;
+      min-width: 28px;
+      border-radius: 999px;
+      color: rgba(255,255,255,0.72);
+      transition: background 140ms ease, color 140ms ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
+    .btn:active { background: rgba(255,255,255,0.18); }
+    .btn:focus { outline: none; }
+    .btn:focus-visible { outline: none; }
+    .btn::-moz-focus-inner { border: 0; }
+    .btn svg { width: 14px; height: 14px; display: block; }
+    .btn.reset {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      padding: 0 10px 0 12px;
+      gap: 6px;
+      color: rgba(255,255,255,0.72);
+    }
+    .btn.reset .kbd {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 16px;
+      height: 16px;
+      padding: 0 4px;
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 10px;
+      line-height: 1;
+      color: rgba(255,255,255,0.88);
+      background: rgba(255,255,255,0.12);
+      border-radius: 4px;
+    }
+
+    .count {
+      font-variant-numeric: tabular-nums;
+      color: #fff;
+      font-weight: 500;
+      padding: 0 8px;
+      min-width: 42px;
+      text-align: center;
+      font-size: 12px;
+    }
+    .count .sep { color: rgba(255,255,255,0.45); margin: 0 3px; font-weight: 400; }
+    .count .total { color: rgba(255,255,255,0.55); }
+
+    .divider {
+      width: 1px;
+      height: 14px;
+      background: rgba(255,255,255,0.18);
+      margin: 0 2px;
+    }
+
+    /* ── Thumbnail rail ──────────────────────────────────────────────────
+       Fixed column on the left; each thumbnail is a static deep-clone of
+       the light-DOM slide scaled into a 16:9 (or design-aspect) frame. The
+       stage re-fits around it (see _fit); hidden during present / noscale
+       / print so capture geometry and fullscreen output are unchanged. */
+    .rail {
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: var(--deck-rail-w, 188px);
+      background: #141414;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 12px 10px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 2147482500;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,0.18) transparent;
+    }
+    .rail::-webkit-scrollbar { width: 8px; }
+    .rail::-webkit-scrollbar-track { background: transparent; margin: 2px; }
+    .rail::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.18);
+      border-radius: 4px;
+      border: 2px solid transparent;
+      background-clip: content-box;
+    }
+    .rail::-webkit-scrollbar-thumb:hover {
+      background: rgba(255,255,255,0.28);
+      border: 2px solid transparent;
+      background-clip: content-box;
+    }
+    :host([no-rail]) .rail,
+    :host([noscale]) .rail { display: none; }
+    .rail[data-presenting] { display: none; }
+    @media (max-width: 640px) {
+      .rail, .rail-resize { display: none; }
+    }
+    /* User-driven show/hide (the TweaksPanel toggle) slides instead of
+       popping. Transitions are gated on :host([data-rail-anim]) — set only
+       for the 200ms around the toggle — so window-resize and rail-width
+       drag (which also call _fit) don't lag behind the cursor. */
+    .rail[data-user-hidden] { transform: translateX(-100%); }
+    :host([data-rail-anim]) .rail { transition: transform 200ms cubic-bezier(.3,.7,.4,1); }
+    :host([data-rail-anim]) .stage { transition: left 200ms cubic-bezier(.3,.7,.4,1); }
+    :host([data-rail-anim]) .canvas { transition: transform 200ms cubic-bezier(.3,.7,.4,1); }
+    /* transition shorthand replaces rather than merges — repeat the base
+       .overlay opacity/transform/filter transitions so visibility changes
+       during the 200ms toggle window still fade instead of popping. */
+    :host([data-rail-anim]) .overlay {
+      transition: margin-left 200ms cubic-bezier(.3,.7,.4,1),
+                  opacity 260ms ease,
+                  transform 260ms cubic-bezier(.2,.8,.2,1),
+                  filter 260ms ease;
+    }
+
+    .thumb {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .thumb .num {
+      width: 16px;
+      flex-shrink: 0;
+      font-size: 11px;
+      font-weight: 500;
+      text-align: right;
+      color: rgba(255,255,255,0.55);
+      padding-top: 2px;
+      font-variant-numeric: tabular-nums;
+    }
+    .thumb .frame {
+      position: relative;
+      flex: 1;
+      min-width: 0;
+      aspect-ratio: var(--deck-aspect);
+      background: #fff;
+      border-radius: 4px;
+      outline: 2px solid transparent;
+      outline-offset: 0;
+      overflow: hidden;
+      transition: outline-color 120ms ease;
+    }
+    .thumb:hover .frame { outline-color: rgba(255,255,255,0.25); }
+    .thumb { outline: none; }
+    .thumb:focus-visible .frame { outline-color: rgba(255,255,255,0.5); }
+    .thumb[data-current] .num { color: #fff; }
+    .thumb[data-current] .frame { outline-color: #D97757; }
+    .thumb[data-dragging] { opacity: 0.35; }
+    .thumb::before {
+      content: '';
+      position: absolute;
+      left: 24px;
+      right: 0;
+      height: 3px;
+      border-radius: 2px;
+      background: #D97757;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .thumb[data-drop="before"]::before { top: -8px; opacity: 1; }
+    .thumb[data-drop="after"]::before { bottom: -8px; opacity: 1; }
+    .thumb[data-skip] .frame { opacity: 0.35; }
+    .thumb[data-skip] .frame::after {
+      content: 'Skipped';
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.45);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+
+    .ctxmenu {
+      position: fixed;
+      min-width: 150px;
+      padding: 4px;
+      background: #242424;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 7px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+      z-index: 2147483100;
+      display: none;
+      font-size: 12px;
+    }
+    .ctxmenu[data-open] { display: block; }
+    .ctxmenu button {
+      display: block;
+      width: 100%;
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: #e8e8e8;
+      font: inherit;
+      text-align: left;
+      padding: 6px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .ctxmenu button:hover:not(:disabled) { background: rgba(255,255,255,0.08); }
+    .ctxmenu button:disabled { opacity: 0.35; cursor: default; }
+    .ctxmenu hr {
+      border: 0;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin: 4px 2px;
+    }
+
+    .rail-resize {
+      position: fixed;
+      left: calc(var(--deck-rail-w, 188px) - 3px);
+      top: 0;
+      bottom: 0;
+      width: 6px;
+      cursor: col-resize;
+      z-index: 2147482600;
+      touch-action: none;
+    }
+    .rail-resize:hover,
+    .rail-resize[data-dragging] { background: rgba(255,255,255,0.12); }
+    :host([no-rail]) .rail-resize,
+    :host([noscale]) .rail-resize,
+    .rail[data-presenting] + .rail-resize,
+    .rail[data-user-hidden] + .rail-resize { display: none; }
+
+    /* Delete-confirm popup — matches the SPA's ConfirmDialog layout
+       (title + message body, depressed footer with Cancel / Delete). */
+    .confirm-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 2147483200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .confirm-backdrop[data-open] { display: flex; }
+    .confirm {
+      width: 320px;
+      max-width: calc(100vw - 32px);
+      background: #2a2a2a;
+      color: #e8e8e8;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.5);
+      overflow: hidden;
+      font-family: inherit;
+      animation: deck-confirm-in 0.18s ease;
+    }
+    @keyframes deck-confirm-in {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .confirm .body { padding: 20px 20px 16px; }
+    .confirm .title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .confirm .msg { font-size: 13px; line-height: 1.5; color: rgba(255,255,255,0.65); }
+    .confirm .footer {
+      padding: 14px 20px;
+      background: #1f1f1f;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+    .confirm button {
+      appearance: none;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .confirm .cancel {
+      background: transparent;
+      border: 0;
+      color: rgba(255,255,255,0.8);
+    }
+    .confirm .cancel:hover { background: rgba(255,255,255,0.08); }
+    .confirm .danger {
+      background: #c96442;
+      border: 1px solid rgba(0,0,0,0.15);
+      color: #fff;
+      box-shadow: 0 1px 3px rgba(166,50,68,0.3), 0 2px 6px rgba(166,50,68,0.18);
+    }
+    .confirm .danger:hover { background: #b5563a; }
+
+    /* ── Print: one page per slide, no chrome ────────────────────────────
+       The screen layout stacks every slide at inset:0 inside a scaled
+       canvas; for print we want them in document flow at the authored
+       design size so the browser paginates one slide per sheet. The
+       @page size is set from the width/height attributes via the inline
+       <style id="deck-stage-print-page"> that connectedCallback injects
+       into <head> (the @page at-rule has no effect inside shadow DOM). */
+    @media print {
+      :host {
+        position: static;
+        inset: auto;
+        background: none;
+        overflow: visible;
+        color: inherit;
+      }
+      .stage { position: static; display: block; }
+      .canvas {
+        transform: none !important;
+        width: auto !important;
+        height: auto !important;
+        background: none;
+        will-change: auto;
+      }
+      ::slotted(*) {
+        position: relative !important;
+        inset: auto !important;
+        width: var(--deck-design-w) !important;
+        height: var(--deck-design-h) !important;
+        box-sizing: border-box !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto;
+        break-after: page;
+        page-break-after: always;
+        break-inside: avoid;
+        overflow: hidden;
+      }
+      /* :last-child alone isn't enough once data-deck-skip hides the
+         trailing slide(s) — the last *visible* slide still carries
+         break-after:page and prints a blank sheet. _markLastVisible()
+         maintains data-deck-last-visible on the last non-skipped slide. */
+      ::slotted(*:last-child),
+      ::slotted([data-deck-last-visible]) {
+        break-after: auto;
+        page-break-after: auto;
+      }
+      ::slotted([data-deck-skip]) { display: none !important; }
+      .overlay, .rail, .rail-resize, .ctxmenu, .confirm-backdrop { display: none !important; }
+    }
+  `;
+
+  class DeckStage extends HTMLElement {
+    static get observedAttributes() { return ['width', 'height', 'noscale', 'no-rail']; }
+
+    constructor() {
+      super();
+      this._root = this.attachShadow({ mode: 'open' });
+      this._index = 0;
+      this._slides = [];
+      this._notes = [];
+      this._hideTimer = null;
+      this._mouseIdleTimer = null;
+      this._menuIndex = -1;
+
+      this._onKey = this._onKey.bind(this);
+      this._onResize = this._onResize.bind(this);
+      this._onSlotChange = this._onSlotChange.bind(this);
+      this._onMouseMove = this._onMouseMove.bind(this);
+      this._onTap = this._onTap.bind(this);
+      this._onMessage = this._onMessage.bind(this);
+      // Capture-phase close so a click anywhere dismisses the menu, but
+      // ignore clicks that land inside the menu itself — otherwise the
+      // capture handler runs before the menu's own (bubble) handler and
+      // clears _menuIndex out from under it.
+      this._onDocClick = (e) => {
+        if (this._menu && e.composedPath && e.composedPath().includes(this._menu)) return;
+        this._closeMenu();
+      };
+    }
+
+    get designWidth() {
+      return parseInt(this.getAttribute('width'), 10) || DESIGN_W_DEFAULT;
+    }
+    get designHeight() {
+      return parseInt(this.getAttribute('height'), 10) || DESIGN_H_DEFAULT;
+    }
+
+    connectedCallback() {
+      // Presenter-view popup loads deckUrl?_snthumb=...#N for its prev/cur/
+      // next thumbnails — the rail has no business rendering inside those
+      // (wrong scale, and it offsets the stage so the thumb shows a gutter).
+      if (/[?&]_snthumb=/.test(location.search)) this.setAttribute('no-rail', '');
+      this._render();
+      this._loadNotes();
+      this._syncPrintPageRule();
+      window.addEventListener('keydown', this._onKey);
+      window.addEventListener('resize', this._onResize);
+      window.addEventListener('mousemove', this._onMouseMove, { passive: true });
+      window.addEventListener('message', this._onMessage);
+      window.addEventListener('click', this._onDocClick, true);
+      this.addEventListener('click', this._onTap);
+      // Print lays every slide out as its own page, so [data-deck-active]-
+      // gated entrance styles need the attribute on every slide (not just
+      // the current one) or their content prints at the hidden base style.
+      // The transient freeze style lands BEFORE the attributes so any
+      // attribute-keyed transition fires at 0s (changing transition-
+      // duration after a transition has started doesn't affect it).
+      this._onBeforePrint = () => {
+        if (this._freezeStyle) this._freezeStyle.remove();
+        this._freezeStyle = document.createElement('style');
+        this._freezeStyle.textContent = '*,*::before,*::after{transition-duration:0s !important}';
+        document.head.appendChild(this._freezeStyle);
+        this._slides.forEach((s) => s.setAttribute('data-deck-active', ''));
+      };
+      this._onAfterPrint = () => {
+        this._applyIndex({ showOverlay: false, broadcast: false });
+        if (this._freezeStyle) { this._freezeStyle.remove(); this._freezeStyle = null; }
+      };
+      window.addEventListener('beforeprint', this._onBeforePrint);
+      window.addEventListener('afterprint', this._onAfterPrint);
+      // Initial collection + layout happens via slotchange, which fires on mount.
+      this._enableRail();
+      // Hold the stage hidden until webfonts are ready so the first visible
+      // paint has the deck's real typography — the :not(:defined) guard in
+      // the page HTML only covers custom-element upgrade, not font load.
+      // Capped so a 404'd font URL can't blank the deck indefinitely.
+      this.setAttribute('data-fonts-pending', '');
+      const reveal = () => this.removeAttribute('data-fonts-pending');
+      // rAF first: fonts.ready is a pre-resolved promise until layout has
+      // resolved the slotted text's font-family and pushed a FontFace into
+      // 'loading'. Reading it here in connectedCallback (parse-time) would
+      // settle the race in a microtask before any font fetch starts.
+      requestAnimationFrame(() => {
+        Promise.race([
+          document.fonts ? document.fonts.ready : Promise.resolve(),
+          new Promise((r) => setTimeout(r, 2000)),
+        ]).then(reveal, reveal);
+      });
+    }
+
+    _enableRail() {
+      // Idempotent — older host builds still post __omelette_rail_enabled.
+      // no-rail guard keeps the observers/stylesheet walk off the cheap path
+      // for presenter-popup thumbnail iframes (up to 9 per view).
+      if (this._railEnabled || this.hasAttribute('no-rail')) return;
+      this._railEnabled = true;
+      // Per-viewer preference — restored alongside rail width. Default on;
+      // only a stored '0' (from the TweaksPanel toggle) hides it.
+      this._railVisible = true;
+      try {
+        if (localStorage.getItem('deck-stage.railVisible') === '0') this._railVisible = false;
+      } catch (e) {}
+      // Live thumbnail updates: watch the light-DOM slides for content
+      // edits and re-clone just the affected thumb(s), debounced. Ignore
+      // the data-deck-* / data-screen-label / data-om-validate attributes
+      // this component itself writes so nav and skip don't trigger
+      // spurious refreshes.
+      const OWN_ATTRS = /^data-(deck-|screen-label$|om-validate$)/;
+      this._liveDirty = new Set();
+      this._liveObserver = new MutationObserver((records) => {
+        for (const r of records) {
+          if (r.type === 'attributes' && OWN_ATTRS.test(r.attributeName || '')) continue;
+          let n = r.target;
+          while (n && n.parentElement !== this) n = n.parentElement;
+          if (n && this._slideSet && this._slideSet.has(n)) this._liveDirty.add(n);
+        }
+        if (this._liveDirty.size && !this._liveTimer) {
+          this._liveTimer = setTimeout(() => {
+            this._liveTimer = null;
+            this._liveDirty.forEach((s) => this._refreshThumb(s));
+            this._liveDirty.clear();
+          }, 200);
+        }
+      });
+      this._liveObserver.observe(this, {
+        subtree: true, childList: true, characterData: true, attributes: true,
+      });
+      // Lazy thumbnail materialization — clone the slide only when its
+      // frame scrolls into (or near) the rail viewport. rootMargin gives
+      // ~4 thumbs of pre-load so fast scrolling doesn't flash blanks.
+      this._railObserver = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting && e.target.__deckThumb) {
+            this._materialize(e.target.__deckThumb);
+          }
+        });
+      }, { root: this._rail, rootMargin: '400px 0px' });
+      // Tweaks typically change CSS vars / attrs OUTSIDE <deck-stage>
+      // (on <html>, <body>, a wrapper div, or a <style> tag), which
+      // _liveObserver can't see. Re-snapshot author CSS (constructable
+      // sheet is shared by reference, so one replaceSync updates every
+      // thumb shadow root) and re-sync each thumb host's attrs + custom
+      // properties. In-slide DOM mutations are _liveObserver's job.
+      // Debounced so slider drags don't thrash.
+      this._onTweakChange = () => {
+        clearTimeout(this._tweakTimer);
+        this._tweakTimer = setTimeout(() => {
+          this._snapshotAuthorCss();
+          // One getComputedStyle for the whole batch — each
+          // getPropertyValue read below reuses the same computed style
+          // as long as nothing invalidates layout between thumbs.
+          const cs = getComputedStyle(this);
+          (this._thumbs || []).forEach((t) => {
+            if (t.host) this._syncThumbHostAttrs(t.host, cs);
+          });
+        }, 120);
+      };
+      window.addEventListener('tweakchange', this._onTweakChange);
+      this._snapshotAuthorCss();
+      // Build the rail now that it's enabled — slotchange already fired,
+      // so _renderRail's early-return skipped the initial build.
+      this._syncRailHidden();
+      this._renderRail();
+      this._fit();
+    }
+
+    /** Snapshot document stylesheets into a constructable sheet that each
+     *  thumbnail's nested shadow root adopts — so author CSS styles the
+     *  cloned slide content without touching this component's chrome.
+     *  Cross-origin sheets throw on .cssRules — skip them. Re-callable:
+     *  the existing constructable sheet is reused via replaceSync so every
+     *  already-adopted shadow root picks up the fresh CSS without re-adopt. */
+    _snapshotAuthorCss() {
+      // :root in an adopted sheet inside a shadow root matches nothing
+      // (only the document root qualifies), so author rules like
+      // `:root[data-voice="modern"] .serif` never reach the clones.
+      // Rewrite :root → :host and mirror <html>'s data-*/class/lang onto
+      // each thumb host (see _syncThumbHostAttrs) so the same selectors
+      // match inside the thumbnail's shadow tree.
+      const authorCss = Array.from(document.styleSheets).map((sh) => {
+        try {
+          return Array.from(sh.cssRules).map((r) => r.cssText).join('\n');
+        } catch (e) { return ''; }
+      }).join('\n')
+        // The shadow host is featureless outside the functional :host(...)
+        // form, so any compound on :root — [attr], .class, #id, :pseudo —
+        // must become :host(<compound>) not :host<compound>. Same for the
+        // html type selector (Tailwind class-strategy dark mode emits
+        // html.dark; Pico uses html[data-theme]), which has nothing to
+        // match inside the thumb's shadow tree.
+        .replace(/:root((?:\[[^\]]*\]|[.#][-\w]+|:[-\w]+(?:\([^)]*\))?)+)/g, ':host($1)')
+        .replace(/:root\b/g, ':host')
+        .replace(/(^|[\s,>~+(}])html((?:\[[^\]]*\]|[.#][-\w]+|:[-\w]+(?:\([^)]*\))?)+)(?![-\w])/g, '$1:host($2)')
+        .replace(/(^|[\s,>~+(}])html(?![-\w])/g, '$1:host');
+      // Every custom property the author references. _syncThumbHostAttrs
+      // mirrors each one's *computed* value at <deck-stage> onto the
+      // thumb host so the live value wins over the :host default above
+      // regardless of which ancestor the tweak wrote to (<html>, <body>,
+      // a wrapper div, or the deck-stage element itself all inherit
+      // down to getComputedStyle(this)).
+      this._authorVars = new Set(authorCss.match(/--[\w-]+/g) || []);
+      try {
+        if (!this._adoptedSheet) this._adoptedSheet = new CSSStyleSheet();
+        this._adoptedSheet.replaceSync(authorCss);
+      } catch (e) {
+        this._adoptedSheet = null;
+        this._authorCss = authorCss;
+      }
+    }
+
+    _syncThumbHostAttrs(host, cs) {
+      const de = document.documentElement;
+      // setAttribute overwrites but can't delete — an attr removed from
+      // <html> (toggleAttribute off, classList emptied) would linger on
+      // the host and :host([data-*]) / :host(.foo) rules would keep
+      // matching. Remove stale mirrored attrs first; iterate backward
+      // because removeAttribute mutates the live NamedNodeMap.
+      for (let i = host.attributes.length - 1; i >= 0; i--) {
+        const n = host.attributes[i].name;
+        if ((n.startsWith('data-') || n === 'class' || n === 'lang')
+            && !de.hasAttribute(n)) {
+          host.removeAttribute(n);
+        }
+      }
+      for (const a of de.attributes) {
+        if (a.name.startsWith('data-') || a.name === 'class' || a.name === 'lang') {
+          host.setAttribute(a.name, a.value);
+        }
+      }
+      // The :root→:host rewrite in _snapshotAuthorCss pins each custom
+      // property to its stylesheet default on the thumb host, shadowing
+      // the live value that would otherwise inherit. Tweaks can write the
+      // live value on any ancestor — <html>, <body>, a wrapper div, the
+      // deck-stage element — so read it as the *computed* value at
+      // <deck-stage> (which sees the whole inheritance chain) rather than
+      // trying to guess which element the author wrote to. Inline on the
+      // host beats the :host{} rule. remove-stale covers vars dropped
+      // from the stylesheet between snapshots.
+      const vars = this._authorVars || new Set();
+      for (let i = host.style.length - 1; i >= 0; i--) {
+        const p = host.style[i];
+        if (p.startsWith('--') && !vars.has(p)) host.style.removeProperty(p);
+      }
+      const live = cs || getComputedStyle(this);
+      vars.forEach((p) => {
+        const v = live.getPropertyValue(p);
+        if (v) host.style.setProperty(p, v.trim());
+        else host.style.removeProperty(p);
+      });
+    }
+
+    disconnectedCallback() {
+      window.removeEventListener('keydown', this._onKey);
+      window.removeEventListener('resize', this._onResize);
+      window.removeEventListener('mousemove', this._onMouseMove);
+      window.removeEventListener('message', this._onMessage);
+      window.removeEventListener('click', this._onDocClick, true);
+      window.removeEventListener('beforeprint', this._onBeforePrint);
+      window.removeEventListener('afterprint', this._onAfterPrint);
+      if (this._freezeStyle) { this._freezeStyle.remove(); this._freezeStyle = null; }
+      this.removeEventListener('click', this._onTap);
+      if (this._hideTimer) clearTimeout(this._hideTimer);
+      if (this._mouseIdleTimer) clearTimeout(this._mouseIdleTimer);
+      if (this._liveTimer) clearTimeout(this._liveTimer);
+      if (this._tweakTimer) clearTimeout(this._tweakTimer);
+      if (this._railAnimTimer) clearTimeout(this._railAnimTimer);
+      if (this._scaleRaf) cancelAnimationFrame(this._scaleRaf);
+      if (this._liveObserver) this._liveObserver.disconnect();
+      if (this._railObserver) this._railObserver.disconnect();
+      if (this._onTweakChange) window.removeEventListener('tweakchange', this._onTweakChange);
+    }
+
+    attributeChangedCallback() {
+      if (this._canvas) {
+        this._canvas.style.width = this.designWidth + 'px';
+        this._canvas.style.height = this.designHeight + 'px';
+        this._canvas.style.setProperty('--deck-design-w', this.designWidth + 'px');
+        this._canvas.style.setProperty('--deck-design-h', this.designHeight + 'px');
+        if (this._rail) {
+          this._rail.style.setProperty('--deck-aspect', this.designWidth + '/' + this.designHeight);
+        }
+        this._fit();
+        this._scaleThumbs();
+        this._syncPrintPageRule();
+      }
+    }
+
+    _render() {
+      const style = document.createElement('style');
+      style.textContent = stylesheet;
+
+      const stage = document.createElement('div');
+      stage.className = 'stage';
+
+      const canvas = document.createElement('div');
+      canvas.className = 'canvas';
+      canvas.style.width = this.designWidth + 'px';
+      canvas.style.height = this.designHeight + 'px';
+      canvas.style.setProperty('--deck-design-w', this.designWidth + 'px');
+      canvas.style.setProperty('--deck-design-h', this.designHeight + 'px');
+
+      const slot = document.createElement('slot');
+      slot.addEventListener('slotchange', this._onSlotChange);
+      canvas.appendChild(slot);
+      stage.appendChild(canvas);
+
+      // Overlay: compact, solid black, with clickable controls.
+      const overlay = document.createElement('div');
+      overlay.className = 'overlay export-hidden';
+      overlay.setAttribute('role', 'toolbar');
+      overlay.setAttribute('aria-label', 'Deck controls');
+      overlay.setAttribute('data-omelette-chrome', '');
+      overlay.innerHTML = `
+        <button class="btn prev" type="button" aria-label="Previous slide" title="Previous (←)">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg>
+        </button>
+        <span class="count" aria-live="polite"><span class="current">1</span><span class="sep">/</span><span class="total">1</span></span>
+        <button class="btn next" type="button" aria-label="Next slide" title="Next (→)">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg>
+        </button>
+        <span class="divider"></span>
+        <button class="btn reset" type="button" aria-label="Reset to first slide" title="Reset (R)">Reset<span class="kbd">R</span></button>
+      `;
+
+      overlay.querySelector('.prev').addEventListener('click', () => this._advance(-1, 'click'));
+      overlay.querySelector('.next').addEventListener('click', () => this._advance(1, 'click'));
+      overlay.querySelector('.reset').addEventListener('click', () => this._go(0, 'click'));
+
+      // Thumbnail rail + context menu. Thumbnails are populated in
+      // _renderRail() after _collectSlides().
+      const rail = document.createElement('div');
+      rail.className = 'rail export-hidden';
+      rail.setAttribute('data-omelette-chrome', '');
+      rail.style.setProperty('--deck-aspect', this.designWidth + '/' + this.designHeight);
+      // Edge auto-scroll while dragging a thumb near the rail's top/bottom
+      // so off-screen drop targets are reachable. Native dragover fires
+      // continuously while the pointer is stationary, so a per-event nudge
+      // (ramped by edge proximity) is enough — no rAF loop needed.
+      rail.addEventListener('dragover', (e) => {
+        if (this._dragFrom == null) return;
+        const r = rail.getBoundingClientRect();
+        const EDGE = 40;
+        const dt = e.clientY - r.top;
+        const db = r.bottom - e.clientY;
+        if (dt < EDGE) rail.scrollTop -= Math.ceil((EDGE - dt) / 3);
+        else if (db < EDGE) rail.scrollTop += Math.ceil((EDGE - db) / 3);
+      });
+
+      const menu = document.createElement('div');
+      menu.className = 'ctxmenu export-hidden';
+      menu.setAttribute('data-omelette-chrome', '');
+      menu.innerHTML = `
+        <button type="button" data-act="skip">Skip slide</button>
+        <button type="button" data-act="up">Move up</button>
+        <button type="button" data-act="down">Move down</button>
+        <hr>
+        <button type="button" data-act="delete">Delete slide</button>
+      `;
+      menu.addEventListener('click', (e) => {
+        const act = e.target && e.target.getAttribute && e.target.getAttribute('data-act');
+        if (!act) return;
+        const i = this._menuIndex;
+        this._closeMenu();
+        if (act === 'skip') this._toggleSkip(i);
+        else if (act === 'up') this._moveSlide(i, i - 1);
+        else if (act === 'down') this._moveSlide(i, i + 1);
+        else if (act === 'delete') this._openConfirm(i);
+      });
+      menu.addEventListener('contextmenu', (e) => e.preventDefault());
+
+      // Rail resize handle — drag to set --deck-rail-w, persisted to
+      // localStorage so the width survives reloads.
+      const resize = document.createElement('div');
+      resize.className = 'rail-resize export-hidden';
+      resize.setAttribute('data-omelette-chrome', '');
+      resize.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        resize.setPointerCapture(e.pointerId);
+        resize.setAttribute('data-dragging', '');
+        const move = (ev) => this._setRailWidth(ev.clientX);
+        const up = () => {
+          resize.removeEventListener('pointermove', move);
+          resize.removeEventListener('pointerup', up);
+          resize.removeEventListener('pointercancel', up);
+          resize.removeAttribute('data-dragging');
+          try { localStorage.setItem('deck-stage.railWidth', String(this._railPx)); } catch (err) {}
+        };
+        resize.addEventListener('pointermove', move);
+        resize.addEventListener('pointerup', up);
+        resize.addEventListener('pointercancel', up);
+      });
+
+      // Delete-confirm dialog — mirrors the SPA's ConfirmDialog layout.
+      const confirm = document.createElement('div');
+      confirm.className = 'confirm-backdrop export-hidden';
+      confirm.setAttribute('data-omelette-chrome', '');
+      confirm.innerHTML = `
+        <div class="confirm" role="dialog" aria-modal="true">
+          <div class="body">
+            <div class="title">Delete slide?</div>
+            <div class="msg">This slide will be removed from the deck.</div>
+          </div>
+          <div class="footer">
+            <button type="button" class="cancel">Cancel</button>
+            <button type="button" class="danger">Delete</button>
+          </div>
+        </div>
+      `;
+      confirm.addEventListener('click', (e) => {
+        if (e.target === confirm) this._closeConfirm();
+      });
+      confirm.querySelector('.cancel').addEventListener('click', () => this._closeConfirm());
+      confirm.querySelector('.danger').addEventListener('click', () => {
+        const i = this._confirmIndex;
+        this._closeConfirm();
+        this._deleteSlide(i);
+      });
+
+      this._root.append(style, rail, resize, stage, overlay, menu, confirm);
+      this._canvas = canvas;
+      this._stage = stage;
+      this._slot = slot;
+      this._overlay = overlay;
+      this._rail = rail;
+      this._resize = resize;
+      this._menu = menu;
+      this._confirm = confirm;
+      this._countEl = overlay.querySelector('.current');
+      this._totalEl = overlay.querySelector('.total');
+
+      // Restore persisted rail width.
+      let rw = 188;
+      try {
+        const s = localStorage.getItem('deck-stage.railWidth');
+        if (s) rw = parseInt(s, 10) || rw;
+      } catch (err) {}
+      this._setRailWidth(rw);
+      this._syncRailHidden();
+    }
+
+    _setRailWidth(px) {
+      const w = Math.max(120, Math.min(360, Math.round(px)));
+      this._railPx = w;
+      this.style.setProperty('--deck-rail-w', w + 'px');
+      this._fit();
+      // _scaleThumbs forces a sync layout (frame.offsetWidth) then writes
+      // N transforms. During a resize drag this runs per-pointermove;
+      // coalesce to one per frame.
+      if (!this._scaleRaf) {
+        this._scaleRaf = requestAnimationFrame(() => {
+          this._scaleRaf = null;
+          this._scaleThumbs();
+        });
+      }
+    }
+
+    /** @page must live in the document stylesheet — it's a no-op inside
+     *  shadow DOM. Inject/update a single <head> style tag so the print
+     *  sheet matches the design size and Save-as-PDF yields one slide per
+     *  page with no margins. */
+    _syncPrintPageRule() {
+      const id = 'deck-stage-print-page';
+      let tag = document.getElementById(id);
+      if (!tag) {
+        tag = document.createElement('style');
+        tag.id = id;
+        document.head.appendChild(tag);
+      }
+      tag.textContent =
+        '@page { size: ' + this.designWidth + 'px ' + this.designHeight + 'px; margin: 0; } ' +
+        '@media print { html, body { margin: 0 !important; padding: 0 !important; background: none !important; overflow: visible !important; height: auto !important; } ' +
+        '* { -webkit-print-color-adjust: exact; print-color-adjust: exact; } ' +
+        // Jump authored animations/transitions to their end state so print
+        // never captures mid-entrance — pairs with the beforeprint handler
+        // in connectedCallback that sets data-deck-active on every slide.
+        '*, *::before, *::after { animation-delay: -99s !important; animation-duration: .001s !important; ' +
+        'animation-iteration-count: 1 !important; animation-fill-mode: both !important; ' +
+        'animation-play-state: running !important; transition-duration: 0s !important; } }';
+    }
+
+    _onSlotChange() {
+      // Rail mutations (delete/move) already reconcile synchronously and
+      // emit slidechange with reason 'api'; skip the async slotchange that
+      // would otherwise re-broadcast with reason 'init'.
+      if (this._squelchSlotChange) { this._squelchSlotChange = false; return; }
+      this._collectSlides();
+      this._restoreIndex();
+      this._applyIndex({ showOverlay: false, broadcast: true, reason: 'init' });
+      this._fit();
+    }
+
+    _collectSlides() {
+      const assigned = this._slot.assignedElements({ flatten: true });
+      this._slides = assigned.filter((el) => {
+        // Skip template/style/script nodes even if someone slots them.
+        const tag = el.tagName;
+        return tag !== 'TEMPLATE' && tag !== 'SCRIPT' && tag !== 'STYLE';
+      });
+      this._slideSet = new Set(this._slides);
+
+      this._slides.forEach((slide, i) => {
+        const n = i + 1;
+        slide.setAttribute('data-screen-label', `${pad2(n)} ${getSlideLabel(slide)}`);
+
+        // Validation attribute for comment flow / auto-checks.
+        if (!slide.hasAttribute('data-om-validate')) {
+          slide.setAttribute('data-om-validate', VALIDATE_ATTR);
+        }
+
+        slide.setAttribute('data-deck-slide', String(i));
+      });
+
+      if (this._totalEl) this._totalEl.textContent = String(this._slides.length || 1);
+      if (this._index >= this._slides.length) this._index = Math.max(0, this._slides.length - 1);
+      this._markLastVisible();
+      this._renderRail();
+    }
+
+    /** Tag the last non-skipped slide so print CSS can drop its
+     *  break-after (see the @media print comment above — :last-child
+     *  alone matches a hidden skipped slide). */
+    _markLastVisible() {
+      let last = null;
+      this._slides.forEach((s) => {
+        s.removeAttribute('data-deck-last-visible');
+        if (!s.hasAttribute('data-deck-skip')) last = s;
+      });
+      if (last) last.setAttribute('data-deck-last-visible', '');
+    }
+
+    _loadNotes() {
+      const tag = document.getElementById('speaker-notes');
+      if (!tag) { this._notes = []; return; }
+      try {
+        const parsed = JSON.parse(tag.textContent || '[]');
+        if (Array.isArray(parsed)) this._notes = parsed;
+      } catch (e) {
+        console.warn('[deck-stage] Failed to parse #speaker-notes JSON:', e);
+        this._notes = [];
+      }
+    }
+
+    _restoreIndex() {
+      // The host's ?slide= param is delivered as a #<int> hash (1-indexed) on
+      // the iframe src. No hash → slide 1; the deck itself keeps no position
+      // state across loads.
+      const h = (location.hash || '').match(/^#(\d+)$/);
+      if (h) {
+        const n = parseInt(h[1], 10) - 1;
+        if (n >= 0 && n < this._slides.length) this._index = n;
+      }
+    }
+
+    _applyIndex({ showOverlay = true, broadcast = true, reason = 'init' } = {}) {
+      if (!this._slides.length) return;
+      const prev = this._prevIndex == null ? -1 : this._prevIndex;
+      const curr = this._index;
+      // Keep the iframe's own hash in sync so an in-iframe location.reload()
+      // (reload banner path in viewer-handle.ts) lands on the current slide,
+      // not the stale deep-link hash from initial load.
+      try { history.replaceState(null, '', '#' + (curr + 1)); } catch (e) {}
+      this._slides.forEach((s, i) => {
+        if (i === curr) s.setAttribute('data-deck-active', '');
+        else s.removeAttribute('data-deck-active');
+      });
+      if (this._countEl) this._countEl.textContent = String(curr + 1);
+      // Follow-scroll on every navigation (init deep-link, keyboard, click,
+      // tap, external goTo) — the only time we *don't* want the rail to
+      // track current is after a rail-internal mutation, where _renderRail
+      // has already restored the user's scroll position and yanking back to
+      // current would undo it.
+      this._syncRail(reason !== 'mutation');
+
+      if (broadcast) {
+        // (1) Legacy: host-window postMessage for speaker-notes renderers.
+        try { window.postMessage({ slideIndexChanged: curr, deckTotal: this._slides.length, deckSkipped: this._skippedIndices() }, '*'); } catch (e) {}
+
+        // (2) In-page CustomEvent on the <deck-stage> element itself.
+        //     Bubbles and composes out of shadow DOM so slide code can listen:
+        //       document.querySelector('deck-stage').addEventListener('slidechange', e => {
+        //         e.detail.index, e.detail.previousIndex, e.detail.total, e.detail.slide, e.detail.reason
+        //       });
+        const detail = {
+          index: curr,
+          previousIndex: prev,
+          total: this._slides.length,
+          slide: this._slides[curr] || null,
+          previousSlide: prev >= 0 ? (this._slides[prev] || null) : null,
+          reason: reason, // 'init' | 'keyboard' | 'click' | 'tap' | 'api'
+        };
+        this.dispatchEvent(new CustomEvent('slidechange', {
+          detail,
+          bubbles: true,
+          composed: true,
+        }));
+      }
+
+      this._prevIndex = curr;
+      if (showOverlay) this._flashOverlay();
+    }
+
+    _flashOverlay() {
+      // Host posts __omelette_presenting while in fullscreen/tab presentation
+      // mode — suppress the nav footer entirely (both hover and slide-change
+      // flash) so the audience sees clean slides.
+      if (!this._overlay || this._presenting) return;
+      this._overlay.setAttribute('data-visible', '');
+      if (this._hideTimer) clearTimeout(this._hideTimer);
+      this._hideTimer = setTimeout(() => {
+        this._overlay.removeAttribute('data-visible');
+      }, OVERLAY_HIDE_MS);
+    }
+
+    _railWidth() {
+      // State-based, no offsetWidth: the first _fit() can run before the
+      // rail has had layout on some load paths, and a 0 there paints the
+      // slide full-width for one frame before the post-slotchange _fit()
+      // corrects it.
+      if (!this._railEnabled || !this._railVisible || this.hasAttribute('no-rail')
+          || this.hasAttribute('noscale') || this._presenting || this._previewMode
+          || NARROW_MQ.matches) return 0;
+      return this._railPx || 0;
+    }
+
+    _fit() {
+      if (!this._canvas) return;
+      const stage = this._canvas.parentElement;
+      // PPTX export sets noscale so the DOM capture sees authored-size
+      // geometry — the scaled canvas is in shadow DOM, so the exporter's
+      // resetTransformSelector can't reach .canvas.style.transform directly.
+      if (this.hasAttribute('noscale')) {
+        this._canvas.style.transform = 'none';
+        if (stage) stage.style.left = '0';
+        if (this._overlay) this._overlay.style.marginLeft = '0';
+        return;
+      }
+      const rw = this._railWidth();
+      if (stage) stage.style.left = rw + 'px';
+      // Overlay is centred on the viewport via left:50% + translate(-50%);
+      // marginLeft shifts the centre by rw/2 so it lands in the middle of
+      // the [rw, innerWidth] stage region.
+      if (this._overlay) this._overlay.style.marginLeft = (rw / 2) + 'px';
+      const vw = window.innerWidth - rw;
+      const vh = window.innerHeight;
+      const s = Math.min(vw / this.designWidth, vh / this.designHeight);
+      this._canvas.style.transform = `scale(${s})`;
+    }
+
+    _onResize() {
+      this._fit();
+      // Crossing the narrow-viewport breakpoint reveals the rail — rerun the
+      // thumbnail scale the same way _setRailWidth does.
+      if (!this._scaleRaf) {
+        this._scaleRaf = requestAnimationFrame(() => {
+          this._scaleRaf = null;
+          this._scaleThumbs();
+        });
+      }
+    }
+
+    _onMouseMove() {
+      // Keep overlay visible while mouse moves; hide after idle.
+      this._flashOverlay();
+    }
+
+    _onMessage(e) {
+      const d = e.data;
+      if (d && typeof d.__omelette_presenting === 'boolean') {
+        this._presenting = d.__omelette_presenting;
+        if (this._presenting && this._overlay) {
+          this._overlay.removeAttribute('data-visible');
+          if (this._hideTimer) clearTimeout(this._hideTimer);
+        }
+        this._syncRailHidden();
+        this._closeMenu();
+        this._closeConfirm();
+        this._fit();
+        this._scaleThumbs();
+      }
+      // Host's Preview segment (ViewerMode='none'): the rail's drag-reorder /
+      // right-click skip-delete affordances are editing chrome, so hide it
+      // while the user is just looking at the deck. Same hard-hide path as
+      // presenting; independent of the user's _railVisible preference so
+      // returning to Edit restores whatever they had.
+      if (d && typeof d.__omelette_preview_mode === 'boolean') {
+        if (d.__omelette_preview_mode === this._previewMode) return;
+        this._previewMode = d.__omelette_preview_mode;
+        this._syncRailHidden();
+        this._closeMenu();
+        this._closeConfirm();
+        this._fit();
+        this._scaleThumbs();
+      }
+      // Per-viewer show/hide, driven by the TweaksPanel's auto-injected
+      // "Thumbnail rail" toggle (or any author script). Independent of
+      // whether the Tweaks panel itself is open — closing the panel
+      // doesn't change rail visibility. Persists alongside rail width.
+      if (d && d.type === '__deck_rail_visible' && typeof d.on === 'boolean') {
+        if (d.on === this._railVisible) return;
+        this._railVisible = d.on;
+        try { localStorage.setItem('deck-stage.railVisible', d.on ? '1' : '0'); } catch (e) {}
+        // Arm the transition, commit it, then flip state — otherwise the
+        // browser coalesces both writes and nothing animates on show.
+        this.setAttribute('data-rail-anim', '');
+        void (this._rail && this._rail.offsetHeight);
+        this._syncRailHidden();
+        this._fit();
+        this._scaleThumbs();
+        clearTimeout(this._railAnimTimer);
+        this._railAnimTimer = setTimeout(() => this.removeAttribute('data-rail-anim'), 220);
+      }
+      if (d && d.type === '__omelette_rail_enabled') this._enableRail();
+    }
+
+    _syncRailHidden() {
+      if (!this._rail) return;
+      // data-presenting is the hard hide (display:none) for flag-off,
+      // presentation mode, and the host's Preview segment — instant, no
+      // transition. data-user-hidden is the soft hide (translateX(-100%))
+      // for the viewer's rail toggle, so show/hide slides under
+      // :host([data-rail-anim]).
+      const hard = !this._railEnabled || this._presenting || this._previewMode;
+      if (hard) this._rail.setAttribute('data-presenting', '');
+      else this._rail.removeAttribute('data-presenting');
+      if (!this._railVisible) this._rail.setAttribute('data-user-hidden', '');
+      else this._rail.removeAttribute('data-user-hidden');
+      // translateX hide leaves thumbs (tabIndex=0) in the tab order —
+      // inert keeps them unfocusable while the rail is off-screen.
+      this._rail.inert = hard || !this._railVisible;
+    }
+
+    _onTap(e) {
+      // Touch-only — keyboard + the overlay toolbar cover nav on desktop.
+      if (FINE_POINTER_MQ.matches) return;
+      // Only taps that land on the stage (slide content or letterbox); the
+      // overlay / rail / menus are siblings with their own click handlers.
+      const path = e.composedPath();
+      if (!this._stage || !path.includes(this._stage)) return;
+      // Let interactive slide content keep the tap. composedPath (not
+      // e.target.closest) so we see through open shadow roots — a <button>
+      // inside a slide-authored custom element retargets e.target to the
+      // host but still appears in the composed path.
+      if (e.defaultPrevented) return;
+      for (const n of path) {
+        if (n === this._stage) break;
+        if (n.matches && n.matches(INTERACTIVE_SEL)) return;
+      }
+      e.preventDefault();
+      const rw = this._railWidth();
+      const mid = rw + (window.innerWidth - rw) / 2;
+      this._advance(e.clientX < mid ? -1 : 1, 'tap');
+    }
+
+    _onKey(e) {
+      // Ignore when the user is typing.
+      const t = e.target;
+      if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+      // Confirm dialog swallows nav keys while open; Escape cancels. Enter
+      // is left to the focused button's native activation so Tab→Cancel
+      // →Enter activates Cancel, not the window-level confirm path.
+      if (this._confirm && this._confirm.hasAttribute('data-open')) {
+        if (e.key === 'Escape') { this._closeConfirm(); e.preventDefault(); }
+        return;
+      }
+      if (e.key === 'Escape' && this._menu && this._menu.hasAttribute('data-open')) {
+        this._closeMenu();
+        e.preventDefault();
+        return;
+      }
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+
+      const key = e.key;
+      let handled = true;
+
+      if (key === 'ArrowRight' || key === 'PageDown' || key === ' ' || key === 'Spacebar') {
+        this._advance(1, 'keyboard');
+      } else if (key === 'ArrowLeft' || key === 'PageUp') {
+        this._advance(-1, 'keyboard');
+      } else if (key === 'Home') {
+        this._go(0, 'keyboard');
+      } else if (key === 'End') {
+        this._go(this._slides.length - 1, 'keyboard');
+      } else if (key === 'r' || key === 'R') {
+        this._go(0, 'keyboard');
+      } else if (/^[0-9]$/.test(key)) {
+        // 1..9 jump to that slide; 0 jumps to 10.
+        const n = key === '0' ? 9 : parseInt(key, 10) - 1;
+        if (n < this._slides.length) this._go(n, 'keyboard');
+      } else {
+        handled = false;
+      }
+
+      if (handled) {
+        e.preventDefault();
+        this._flashOverlay();
+      }
+    }
+
+    _go(i, reason = 'api') {
+      if (!this._slides.length) return;
+      const clamped = Math.max(0, Math.min(this._slides.length - 1, i));
+      if (clamped === this._index) {
+        this._flashOverlay();
+        return;
+      }
+      this._index = clamped;
+      this._applyIndex({ showOverlay: true, broadcast: true, reason });
+    }
+
+    /** Step forward/back skipping any slide marked data-deck-skip. Falls
+     *  back to _go's clamp-at-ends behaviour (flash overlay) when there's
+     *  nothing further in that direction. */
+    _advance(dir, reason) {
+      if (!this._slides.length) return;
+      let i = this._index + dir;
+      while (i >= 0 && i < this._slides.length && this._slides[i].hasAttribute('data-deck-skip')) {
+        i += dir;
+      }
+      if (i < 0 || i >= this._slides.length) { this._flashOverlay(); return; }
+      this._go(i, reason);
+    }
+
+    // ── Thumbnail rail ────────────────────────────────────────────────────
+    //
+    // Thumbs are keyed by slide element and reused across _renderRail()
+    // calls, so a reorder/delete is an O(changed) DOM shuffle instead of an
+    // O(N) teardown-and-re-clone. Each thumb starts as a lightweight shell
+    // (num + empty frame); the clone is materialized lazily by an
+    // IntersectionObserver when the frame scrolls into (or near) view, so
+    // only visible-ish slides pay the clone + image-decode cost.
+
+    _renderRail() {
+      if (!this._rail || !this._railEnabled) { this._thumbs = []; return; }
+      // FLIP: record each *materialized* thumb's top before the reconcile.
+      // Off-screen (non-materialized) thumbs don't need the animation and
+      // skipping their getBoundingClientRect saves a forced layout per
+      // off-screen thumb on large decks.
+      const prevTops = new Map();
+      (this._thumbs || []).forEach(({ thumb, slide, host }) => {
+        if (host) prevTops.set(slide, thumb.getBoundingClientRect().top);
+      });
+      const st = this._rail.scrollTop;
+
+      // Reconcile: reuse thumbs that already exist for a slide, create
+      // shells for new slides, drop thumbs for removed slides.
+      const bySlide = new Map();
+      (this._thumbs || []).forEach((t) => bySlide.set(t.slide, t));
+      const next = [];
+      this._slides.forEach((slide) => {
+        let t = bySlide.get(slide);
+        if (t) bySlide.delete(slide);
+        else t = this._makeThumb(slide);
+        next.push(t);
+      });
+      // Orphans — slides removed since last render.
+      bySlide.forEach((t) => {
+        if (this._railObserver) this._railObserver.unobserve(t.frame);
+        t.thumb.remove();
+      });
+      // Put thumbs into document order to match _slides. insertBefore on
+      // an already-correctly-placed node is a no-op, so this is cheap
+      // when nothing moved.
+      next.forEach((t, i) => {
+        const want = t.thumb;
+        const at = this._rail.children[i];
+        if (at !== want) this._rail.insertBefore(want, at || null);
+        t.i = i;
+        t.num.textContent = String(i + 1);
+        if (t.slide.hasAttribute('data-deck-skip')) t.thumb.setAttribute('data-skip', '');
+        else t.thumb.removeAttribute('data-skip');
+      });
+      this._thumbs = next;
+
+      this._rail.scrollTop = st;
+      if (prevTops.size) {
+        const moved = [];
+        this._thumbs.forEach(({ thumb, slide }) => {
+          const old = prevTops.get(slide);
+          if (old == null) return;
+          const dy = old - thumb.getBoundingClientRect().top;
+          if (Math.abs(dy) < 1) return;
+          thumb.style.transition = 'none';
+          thumb.style.transform = `translateY(${dy}px)`;
+          moved.push(thumb);
+        });
+        if (moved.length) {
+          // Commit the inverted positions before flipping the transition
+          // on — otherwise the browser coalesces both style writes and
+          // nothing animates.
+          void this._rail.offsetHeight;
+          moved.forEach((t) => {
+            t.style.transition = 'transform 180ms cubic-bezier(.2,.7,.3,1)';
+            t.style.transform = '';
+          });
+          setTimeout(() => moved.forEach((t) => { t.style.transition = ''; }), 220);
+        }
+      }
+      requestAnimationFrame(() => this._scaleThumbs());
+      this._syncRail(false);
+    }
+
+    /** Create a lightweight thumb shell for one slide. The clone is
+     *  materialized later by the IntersectionObserver. Event handlers
+     *  look up the thumb's *current* index (via _thumbs.indexOf) so the
+     *  same element can be reused across reorders. */
+    _makeThumb(slide) {
+      const thumb = document.createElement('div');
+      thumb.className = 'thumb';
+      thumb.tabIndex = 0;
+      const num = document.createElement('div');
+      num.className = 'num';
+      const frame = document.createElement('div');
+      frame.className = 'frame';
+      thumb.append(num, frame);
+
+      const entry = { thumb, num, frame, slide, clone: null, host: null, i: -1 };
+      // entry.i is refreshed on every _renderRail reconcile pass, so
+      // handlers read the thumb's current position without an O(N) scan.
+      const idx = () => entry.i;
+
+      thumb.addEventListener('click', () => this._go(idx(), 'click'));
+      // ↑/↓ step through the rail when a thumb has focus. _go clamps at the
+      // ends and _applyIndex→_syncRail scrolls the new current thumb into
+      // view; we move focus to it (preventScroll — _syncRail already
+      // scrolled) so a held key walks the whole list. stopPropagation keeps
+      // this out of the window-level _onKey nav handler.
+      thumb.addEventListener('keydown', (e) => {
+        if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown') return;
+        if (e.metaKey || e.ctrlKey || e.altKey) return;
+        e.preventDefault();
+        e.stopPropagation();
+        this._go(idx() + (e.key === 'ArrowDown' ? 1 : -1), 'keyboard');
+        const cur = this._thumbs && this._thumbs[this._index];
+        if (cur) cur.thumb.focus({ preventScroll: true });
+      });
+      thumb.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        this._openMenu(idx(), e.clientX, e.clientY);
+      });
+      thumb.draggable = true;
+      thumb.addEventListener('dragstart', (e) => {
+        this._dragFrom = idx();
+        thumb.setAttribute('data-dragging', '');
+        e.dataTransfer.effectAllowed = 'move';
+        try { e.dataTransfer.setData('text/plain', String(this._dragFrom)); } catch (err) {}
+      });
+      thumb.addEventListener('dragend', () => {
+        thumb.removeAttribute('data-dragging');
+        this._clearDrop();
+        this._dragFrom = null;
+      });
+      thumb.addEventListener('dragover', (e) => {
+        if (this._dragFrom == null) return;
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        const r = thumb.getBoundingClientRect();
+        this._setDrop(idx(), e.clientY < r.top + r.height / 2 ? 'before' : 'after');
+      });
+      thumb.addEventListener('drop', (e) => {
+        if (this._dragFrom == null) return;
+        e.preventDefault();
+        const i = idx();
+        const r = thumb.getBoundingClientRect();
+        let to = e.clientY >= r.top + r.height / 2 ? i + 1 : i;
+        if (this._dragFrom < to) to--;
+        const from = this._dragFrom;
+        this._clearDrop();
+        this._dragFrom = null;
+        if (to !== from) this._moveSlide(from, to);
+      });
+
+      if (this._railObserver) this._railObserver.observe(frame);
+      frame.__deckThumb = entry;
+      return entry;
+    }
+
+    /** Lazily build the clone for a thumb that has scrolled into view. */
+    _materialize(entry) {
+      if (entry.host) return;
+      const dw = this.designWidth, dh = this.designHeight;
+      let clone = entry.slide.cloneNode(true);
+      clone.removeAttribute('id');
+      clone.removeAttribute('data-deck-active');
+      clone.querySelectorAll('[id]').forEach((el) => el.removeAttribute('id'));
+      // Neuter heavy media; replace <video> with its poster so the box
+      // keeps a visual. <iframe>/<audio> become empty placeholders.
+      clone.querySelectorAll('iframe, audio, object, embed').forEach((el) => {
+        el.removeAttribute('src');
+        el.removeAttribute('srcdoc');
+        el.removeAttribute('data');
+        el.innerHTML = '';
+      });
+      clone.querySelectorAll('video').forEach((el) => {
+        if (!el.poster) { el.removeAttribute('src'); el.innerHTML = ''; return; }
+        const img = document.createElement('img');
+        img.src = el.poster;
+        img.alt = '';
+        img.style.cssText = el.style.cssText + ';object-fit:cover;width:100%;height:100%;';
+        img.className = el.className;
+        el.replaceWith(img);
+      });
+      // Images: defer decode and let the browser pick the smallest
+      // srcset candidate for the ~140px thumb. Same-URL clones reuse the
+      // slide's decoded bitmap (URL-keyed cache), so the remaining cost
+      // is paint/composite — lazy+async keeps that off the main thread.
+      clone.querySelectorAll('img').forEach((el) => {
+        el.loading = 'lazy';
+        el.decoding = 'async';
+        if (el.srcset) el.sizes = (this._railPx || 188) + 'px';
+      });
+      // Custom elements inside the slide would have their
+      // connectedCallback fire when the clone is appended. Replace them
+      // with inert boxes so a component-heavy deck doesn't run N copies
+      // of each component's mount logic in the rail. Children are
+      // preserved so layout-wrapper elements (<my-column><h2>…</h2>)
+      // still show their authored content; the querySelectorAll NodeList
+      // is static, so nested custom elements in the moved subtree are
+      // still visited on later iterations.
+      const neuter = (el) => {
+        const box = document.createElement('div');
+        box.style.cssText = (el.getAttribute('style') || '') +
+          ';background:rgba(0,0,0,0.06);border:1px dashed rgba(0,0,0,0.15);';
+        box.className = el.className;
+        // Preserve theming/i18n hooks so [data-*] / :lang() / [dir]
+        // descendant selectors still match the neutered root.
+        for (const a of el.attributes) {
+          const n = a.name;
+          if (n.startsWith('data-') || n.startsWith('aria-') ||
+              n === 'lang' || n === 'dir' || n === 'role' || n === 'title') {
+            box.setAttribute(n, a.value);
+          }
+        }
+        while (el.firstChild) box.appendChild(el.firstChild);
+        return box;
+      };
+      // querySelectorAll('*') returns descendants only — a custom-element
+      // slide root (<my-slide>…</my-slide>) would slip through and upgrade
+      // on append. Swap the root first.
+      if (clone.tagName.includes('-')) clone = neuter(clone);
+      clone.querySelectorAll('*').forEach((el) => {
+        if (el.tagName.includes('-')) el.replaceWith(neuter(el));
+      });
+      clone.style.cssText += ';position:absolute;top:0;left:0;transform-origin:0 0;' +
+        'pointer-events:none;width:' + dw + 'px;height:' + dh + 'px;' +
+        'box-sizing:border-box;overflow:hidden;visibility:visible;opacity:1;';
+      const host = document.createElement('div');
+      host.style.cssText = 'position:absolute;inset:0;';
+      this._syncThumbHostAttrs(host);
+      const sr = host.attachShadow({ mode: 'open' });
+      if (this._adoptedSheet) sr.adoptedStyleSheets = [this._adoptedSheet];
+      else {
+        const st = document.createElement('style');
+        st.textContent = this._authorCss || '';
+        sr.appendChild(st);
+      }
+      sr.appendChild(clone);
+      entry.frame.appendChild(host);
+      entry.host = host;
+      entry.clone = clone;
+      if (this._thumbScale) clone.style.transform = 'scale(' + this._thumbScale + ')';
+      // Once materialized the IO callback is a no-op early-return —
+      // unobserve so scroll doesn't keep firing it.
+      if (this._railObserver) this._railObserver.unobserve(entry.frame);
+    }
+
+    /** Re-clone a single thumb (live-update path). No-op if the thumb
+     *  hasn't been materialized yet — it'll pick up current content when
+     *  it scrolls into view. */
+    _refreshThumb(slide) {
+      const entry = (this._thumbs || []).find((t) => t.slide === slide);
+      if (!entry || !entry.host) return;
+      entry.host.remove();
+      entry.host = entry.clone = null;
+      this._materialize(entry);
+    }
+
+    _scaleThumbs() {
+      if (!this._thumbs || !this._thumbs.length) return;
+      // Every frame is the same width; if it reads 0 the rail is
+      // display:none (noscale / no-rail / presenting / print) — leave the
+      // clones as-is and re-run when the rail is revealed.
+      const fw = this._thumbs[0].frame.offsetWidth;
+      if (!fw) return;
+      this._thumbScale = fw / this.designWidth;
+      this._thumbs.forEach(({ clone }) => {
+        if (clone) clone.style.transform = 'scale(' + this._thumbScale + ')';
+      });
+    }
+
+    _setDrop(i, where) {
+      // dragover fires at pointer-event rate; touch only the previous
+      // and new target rather than sweeping all N thumbs.
+      const t = this._thumbs && this._thumbs[i];
+      if (this._dropOn && this._dropOn !== t) {
+        this._dropOn.thumb.removeAttribute('data-drop');
+      }
+      if (t) t.thumb.setAttribute('data-drop', where);
+      this._dropOn = t || null;
+    }
+
+    _clearDrop() {
+      if (this._dropOn) this._dropOn.thumb.removeAttribute('data-drop');
+      this._dropOn = null;
+    }
+
+    _syncRail(follow) {
+      if (!this._thumbs) return;
+      this._thumbs.forEach(({ thumb }, i) => {
+        if (i === this._index) {
+          thumb.setAttribute('data-current', '');
+          if (follow && typeof thumb.scrollIntoView === 'function') {
+            thumb.scrollIntoView({ block: 'nearest' });
+          }
+        } else {
+          thumb.removeAttribute('data-current');
+        }
+      });
+    }
+
+    _openMenu(i, x, y) {
+      if (!this._menu) return;
+      this._menuIndex = i;
+      const slide = this._slides[i];
+      const skip = slide && slide.hasAttribute('data-deck-skip');
+      this._menu.querySelector('[data-act="skip"]').textContent = skip ? 'Unskip slide' : 'Skip slide';
+      this._menu.querySelector('[data-act="up"]').disabled = i <= 0;
+      this._menu.querySelector('[data-act="down"]').disabled = i >= this._slides.length - 1;
+      this._menu.querySelector('[data-act="delete"]').disabled = this._slides.length <= 1;
+      // Place, then clamp to viewport after it's measurable.
+      this._menu.style.left = x + 'px';
+      this._menu.style.top = y + 'px';
+      this._menu.setAttribute('data-open', '');
+      const r = this._menu.getBoundingClientRect();
+      const nx = Math.min(x, window.innerWidth - r.width - 4);
+      const ny = Math.min(y, window.innerHeight - r.height - 4);
+      this._menu.style.left = Math.max(4, nx) + 'px';
+      this._menu.style.top = Math.max(4, ny) + 'px';
+    }
+
+    _closeMenu() {
+      if (this._menu) this._menu.removeAttribute('data-open');
+      this._menuIndex = -1;
+    }
+
+    _openConfirm(i) {
+      if (!this._confirm) return;
+      this._confirmIndex = i;
+      this._confirm.querySelector('.title').textContent = 'Delete slide ' + (i + 1) + '?';
+      this._confirm.setAttribute('data-open', '');
+      const btn = this._confirm.querySelector('.danger');
+      if (btn && btn.focus) btn.focus();
+    }
+
+    _closeConfirm() {
+      if (this._confirm) this._confirm.removeAttribute('data-open');
+      this._confirmIndex = -1;
+    }
+
+    _emitDeckChange(detail) {
+      this.dispatchEvent(new CustomEvent('deckchange', {
+        detail, bubbles: true, composed: true,
+      }));
+    }
+
+    _deleteSlide(i) {
+      const slide = this._slides[i];
+      if (!slide || this._slides.length <= 1) return;
+      const wasCurrent = i === this._index;
+      if (i < this._index || (wasCurrent && i === this._slides.length - 1)) this._index--;
+      this._squelchSlotChange = true;
+      slide.remove();
+      this._emitDeckChange({ action: 'delete', from: i, slide });
+      this._collectSlides();
+      this._applyIndex({ showOverlay: true, broadcast: true, reason: 'mutation' });
+    }
+
+    _toggleSkip(i) {
+      const slide = this._slides[i];
+      if (!slide) return;
+      const on = !slide.hasAttribute('data-deck-skip');
+      if (on) slide.setAttribute('data-deck-skip', '');
+      else slide.removeAttribute('data-deck-skip');
+      if (this._thumbs && this._thumbs[i]) {
+        if (on) this._thumbs[i].thumb.setAttribute('data-skip', '');
+        else this._thumbs[i].thumb.removeAttribute('data-skip');
+      }
+      this._markLastVisible();
+      this._emitDeckChange({ action: on ? 'skip' : 'unskip', from: i, slide });
+      // Re-broadcast so the presenter popup's prev/next thumbnails re-pick
+      // the nearest non-skipped slide without waiting for a nav event.
+      try { window.postMessage({ slideIndexChanged: this._index, deckTotal: this._slides.length, deckSkipped: this._skippedIndices() }, '*'); } catch (e) {}
+    }
+
+    _skippedIndices() {
+      const out = [];
+      for (let i = 0; i < this._slides.length; i++) {
+        if (this._slides[i].hasAttribute('data-deck-skip')) out.push(i);
+      }
+      return out;
+    }
+
+    _moveSlide(i, j) {
+      if (j < 0 || j >= this._slides.length || j === i) return;
+      const slide = this._slides[i];
+      const ref = j < i ? this._slides[j] : this._slides[j].nextSibling;
+      // Track the active slide across the reorder so the same content
+      // stays on screen.
+      const cur = this._index;
+      if (cur === i) this._index = j;
+      else if (i < cur && j >= cur) this._index = cur - 1;
+      else if (i > cur && j <= cur) this._index = cur + 1;
+      this._squelchSlotChange = true;
+      this.insertBefore(slide, ref);
+      this._emitDeckChange({ action: 'move', from: i, to: j, slide });
+      this._collectSlides();
+      this._applyIndex({ showOverlay: false, broadcast: true, reason: 'mutation' });
+    }
+
+    // Public API ------------------------------------------------------------
+
+    /** Current slide index (0-based). */
+    get index() { return this._index; }
+    /** Total slide count. */
+    get length() { return this._slides.length; }
+    /** Programmatically navigate. */
+    goTo(i) { this._go(i, 'api'); }
+    next() { this._advance(1, 'api'); }
+    prev() { this._advance(-1, 'api'); }
+    reset() { this._go(0, 'api'); }
+  }
+
+  if (!customElements.get('deck-stage')) {
+    customElements.define('deck-stage', DeckStage);
+  }
+})();
+
+</script>
+<div class="deck-ctrl"><button id="btnNotes" title="Phím N">Ghi chú · N</button><button id="btnRail" title="Phím T">Slides · T</button><button id="btnEdit" title="Phím E">Sửa · E</button><button id="btnPresent">Toàn màn hình</button></div>
+<div class="notes-panel" id="notesPanel"><h4 id="notesHd">Ghi chú diễn giả</h4><div id="notesBody"></div></div>
+<script>
+(function(){
+  var stage = document.querySelector('deck-stage');
+  var secs = [].slice.call(stage.querySelectorAll(':scope > section'));
+  secs.forEach(function(sec){
+    var img = document.createElement('img');
+    img.className = 'brandmark'; img.alt = 'The AI Growth';
+    img.src = sec.classList.contains('cover') ? 'media/chung/logo-tag-trang.png' : 'media/chung/logo-tag.webp';
+    sec.appendChild(img);
+  });
+  [].forEach.call(document.querySelectorAll('.prompt'), function(p){
+    var t0 = p.getAttribute('data-copy') || p.innerText.replace(/^\s*Prompt[^\n]*\n/, '').trim();
+    var b = document.createElement('button'); b.className = 'copybtn'; b.textContent = 'Chép';
+    b.addEventListener('click', function(e){
+      e.stopPropagation();
+      var t = t0;
+      var done = function(){ b.textContent = 'Đã chép'; setTimeout(function(){ b.textContent = 'Chép'; }, 1400); };
+      if (navigator.clipboard) navigator.clipboard.writeText(t).then(done, done); else done();
+    });
+    p.appendChild(b);
+  });
+  var NOTES = JSON.parse(document.getElementById('deck-notes').textContent);
+  var panel = document.getElementById('notesPanel'), body = document.getElementById('notesBody'), hd = document.getElementById('notesHd');
+  var cur = 0, notesOn = false;
+  function esc(s){ return s.replace(/[&<>]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]; }); }
+  function renderNotes(){
+    var n = NOTES[cur] || '';
+    hd.textContent = 'Ghi chú diễn giả · slide ' + (cur+1) + '/' + secs.length;
+    body.innerHTML = n ? n.split(/\n+/).map(function(x){ return '<p>' + esc(x) + '</p>'; }).join('') : '<p>(slide này không có ghi chú)</p>';
+  }
+  function setNotes(on){ notesOn = on; panel.classList.toggle('show', on); document.getElementById('btnNotes').classList.toggle('on', on); renderNotes(); }
+  window.addEventListener('message', function(e){ if (e.data && typeof e.data.slideIndexChanged === 'number'){ cur = e.data.slideIndexChanged; if (notesOn) renderNotes(); } });
+  document.getElementById('btnNotes').addEventListener('click', function(){ setNotes(!notesOn); });
+  var railOn = true;
+  try{ railOn = localStorage.getItem('deck-stage.railVisible') !== '0'; }catch(e){}
+  function setRail(on){ railOn = on; window.postMessage({type:'__deck_rail_visible', on:on}, '*'); document.getElementById('btnRail').classList.toggle('on', on); }
+  document.getElementById('btnRail').classList.toggle('on', railOn);
+  document.getElementById('btnRail').addEventListener('click', function(){ setRail(!railOn); });
+  var editing = false;
+  function setEditing(on){ editing = on; document.getElementById('btnEdit').classList.toggle('on', on);
+    secs.forEach(function(s){ if(on) s.setAttribute('contenteditable','true'); else s.removeAttribute('contenteditable'); }); }
+  document.getElementById('btnEdit').addEventListener('click', function(){ setEditing(!editing); });
+  window.addEventListener('keydown', function(e){ if (editing && e.key !== 'Escape') e.stopPropagation(); }, true);
+  window.addEventListener('keydown', function(e){
+    if (/input|textarea/i.test(e.target.tagName||'')) return;
+    if (editing){ if (e.key === 'Escape') setEditing(false); return; }
+    if (e.key === 'n' || e.key === 'N') setNotes(!notesOn);
+    else if (e.key === 't' || e.key === 'T') setRail(!railOn);
+    else if (e.key === 'e' || e.key === 'E') setEditing(true);
+  });
+  document.getElementById('btnPresent').addEventListener('click', function(){
+    var el = document.documentElement;
+    if (!document.fullscreenElement) (el.requestFullscreen||el.webkitRequestFullscreen).call(el); else document.exitFullscreen();
+  });
+})();
+</script>
+</body>
+</html>
