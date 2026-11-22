@@ -208,6 +208,8 @@
   /* ===== chờ Vincent ===== */
   .todo-box{background:#FFFBEB;border:3px dashed #F59E0B;border-radius:18px;padding:22px 28px;font-size:24px;line-height:1.45;color:#92400E;font-weight:600;}
   .todo-box b{color:#92400E;}
+  .todo-box.nhap{color:#3B2A06;font-weight:500;}
+  .todo-box .nl{display:block;font-size:17px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#B45309;margin-bottom:6px;}
 
   /* ===== hiệu ứng vào slide ===== */
   section[data-deck-active] .rise{animation:rise .55s cubic-bezier(.2,0,0,1) both;}
@@ -719,12 +721,14 @@ Trình bày thành bảng 3 cột: Việc · Màu · Lý do. Với việc màu v
     <div class="eyebrow">Thử ngay · khoảng 10 phút</div>
     <h2 class="stitle">Nhờ Claude điền mẫu <span class="grad">thành quy định một trang</span></h2>
     <div class="mid">
-      <div class="prompt"><span class="lbl">Prompt</span>Mình cần viết quy định dùng AI một trang cho công ty, theo mẫu 6 mục: 1. Ai áp dụng · 2. Công cụ và gói · 3. Dữ liệu ba màu · 4. Việc phải có người duyệt · 5. Cài đặt bắt buộc và chế độ quyền · 6. Khi lỡ tay, người phụ trách, ngày xem lại.
-Thông tin của đội mình:
+      <div class="prompt"><span class="lbl">Prompt</span>## Việc cần làm
+Mình cần viết quy định dùng AI một trang cho công ty, theo mẫu 6 mục: 1. Ai áp dụng · 2. Công cụ và gói · 3. Dữ liệu ba màu · 4. Việc phải có người duyệt · 5. Cài đặt bắt buộc và chế độ quyền · 6. Khi lỡ tay, người phụ trách, ngày xem lại.
+## Thông tin của đội mình
 - Số người: <span class="ph">[số người]</span>
 - Gói đang dùng: <span class="ph">[ví dụ: 2 tài khoản Claude Pro]</span>
 - Bảng ba màu dữ liệu: <span class="ph">[dán bảng ở bài 5.1]</span>
 - Bảng 4 nhãn của quy trình: <span class="ph">[dán bảng ở bài 4.2]</span>
+## Giới hạn và điểm dừng
 Trước khi viết, hỏi lại mình tối đa 5 câu. Sau đó điền mẫu thành đúng một trang, mỗi mục 2–4 dòng.</div>
     </div>
   </div>
